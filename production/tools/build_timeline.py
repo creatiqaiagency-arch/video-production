@@ -32,7 +32,7 @@ for b in spec.BLOCKS:
                 if k >= len(ph): warn.append(f'{b["name"]}: {a} phrase index out of range ({len(ph)})'); k = len(ph) - 1
                 return st + ph[k][0] + off
             return st + off
-        m = re.match(r'^(s\d+)(\$)?$', base)
+        m = re.match(r'^(s\d+[a-z]?)(\$)?$', base)
         if m: s0, s1 = shot_t[m.group(1)]; return (s1 if m.group(2) else s0) + off
         raise ValueError(a)
     prev = b0

@@ -14,7 +14,7 @@ const OUTFIT = {
   driver:{ cap: '#3a3f4a', capShade: '#22262e' },
 };
 // proportions in head diameters
-const PR = { thigh: 1.42, shin: 1.42, torso: 1.95, neck: .28, upper: 1.08, fore: 1.02, foot: .42, limbW: .19, torsoW: .28 };
+const PR = { thigh: 1.42, shin: 1.42, torso: 1.95, neck: .13, upper: 1.08, fore: 1.02, foot: .42, limbW: .19, torsoW: .28 };
 
 // ---- pose library (angles in degrees; limbs measured from straight down, + = forward; torso/head from up, + = lean forward) ----
 const POSES = {
@@ -116,7 +116,7 @@ function face(hx, hy, r, fc, o) {
   const mx = hx + dx * 1.05, my = hy + r * .38 + dy;
   const talk = o.talk || 0;
   let m = o.mouth || ({ neutral: 'flat', happy: 'smile', smug: 'smirk', shocked: 'o', scared: 'wobble', angry: 'flat', sad: 'frown', determined: 'flat', closed: 'flat', worried: 'wobble' })[e];
-  if (talk > .12) m = 'talk';
+  if (talk > .08 && m !== 'shout') m = 'talk';
   if (m === 'flat') out.push(line(mx - r * .1, my, mx + r * .1, my, F, sw));
   if (m === 'smile') out.push(path(`M${mx - r * .2} ${my - r * .05} Q${mx} ${my + r * .16} ${mx + r * .2} ${my - r * .05}`, 'none', { stroke: F, 'stroke-width': sw * 1.1, 'stroke-linecap': 'round' }));
   if (m === 'grin') out.push(path(`M${mx - r * .24} ${my - r * .06} Q${mx} ${my + r * .3} ${mx + r * .24} ${my - r * .06} Z`, F));
@@ -124,8 +124,8 @@ function face(hx, hy, r, fc, o) {
   if (m === 'frown') out.push(path(`M${mx - r * .14} ${my + r * .06} Q${mx} ${my - r * .07} ${mx + r * .14} ${my + r * .06}`, 'none', { stroke: F, 'stroke-width': sw, 'stroke-linecap': 'round' }));
   if (m === 'o') out.push(ell(mx, my + r * .02, r * .07, r * .09, F));
   if (m === 'wobble') out.push(path(`M${mx - r * .15} ${my} q${r * .05} ${-r * .05} ${r * .1} 0 t${r * .1} 0 t${r * .1} 0`, 'none', { stroke: F, 'stroke-width': sw * .9, 'stroke-linecap': 'round' }));
-  if (m === 'talk') { const a = clamp(talk); out.push(ell(mx, my + r * .02, r * (.08 + a * .05), r * (.025 + a * .1), F)); }
-  if (m === 'shout') out.push(ell(mx, my + r * .04, r * .12, r * .15, F));
+  if (m === 'talk') { const a = clamp(talk); out.push(a < .35 ? ell(mx, my, r * .12, r * .04, F) : ell(mx, my + r * .03, r * (.1 + a * .06), r * (.05 + a * .15), F)); }
+  if (m === 'shout') { const a = .6 + clamp(talk) * .6; out.push(path(`M${mx - r * .2 * a} ${my - r * .05} L${mx + r * .2 * a} ${my - r * .05} Q${mx + r * .16 * a} ${my + r * .3 * a} ${mx} ${my + r * .32 * a} Q${mx - r * .16 * a} ${my + r * .3 * a} ${mx - r * .2 * a} ${my - r * .05} Z`, F)); }
   if (o.sweat) out.push(path(`M${hx - fc * r * .7} ${hy - r * .35} q${r * .08} ${r * .14} 0 ${r * .2} q${-r * .08} ${-r * .06} 0 ${-r * .2}Z`, '#bfe6ff'));
   return out.join('');
 }
@@ -149,7 +149,8 @@ function fig(o) {
   const hip = [o.x, o.y - hipH + (pz.bob || 0) * s - (pz.lift || 0) * s];
   const tu = dirUp(pz.tor);
   const neck = [hip[0] + tu[0] * L('torso') * (1 + breathe), hip[1] + tu[1] * L('torso') * (1 + breathe)];
-  const hu = dirUp(pz.tor + pz.head);
+  const sway = o.still ? 0 : Math.sin(((o.t || 0) + (o.seed || 0) * 1.7) * 1.4) * 2.5;
+  const hu = dirUp(pz.tor + pz.head + sway);
   const headR = s * .5 * (o.child ? .82 : 1);
   const head = [neck[0] + hu[0] * (L('neck') + headR), neck[1] + hu[1] * (L('neck') + headR)];
   const sh = [neck[0] - tu[0] * s * .14, neck[1] - tu[1] * s * .14];
@@ -158,7 +159,8 @@ function fig(o) {
     const d2 = dirDown(a[0] + bendSign * a[1], side), e = [j[0] + d2[0] * len2, j[1] + d2[1] * len2];
     return [root, j, e];
   };
-  const shB = fc === 0 ? [sh[0] - s * .3, sh[1] + s * .05] : sh, shF = fc === 0 ? [sh[0] + s * .3, sh[1] + s * .05] : sh;
+  const nX = -tu[1], nY = tu[0];
+  const shB = fc === 0 ? [sh[0] - s * .34, sh[1] + s * .06] : [sh[0] + nX * fs * s * .13, sh[1] + nY * fs * s * .13], shF = fc === 0 ? [sh[0] + s * .34, sh[1] + s * .06] : [sh[0] - nX * fs * s * .13, sh[1] - nY * fs * s * .13];
   const armB = limb(shB, 0, pz.ab, -1, L('upper'), L('fore'), 1), armF = limb(shF, 0, pz.af, 1, L('upper'), L('fore'), 1);
   const legB = limb(hip, 0, pz.lb, -1, L('thigh'), L('shin'), -1), legF = limb(hip, 0, pz.lf, 1, L('thigh'), L('shin'), -1);
   const lw = s * PR.limbW * (o.child ? .9 : 1);
@@ -169,18 +171,20 @@ function fig(o) {
   const shadeC = C.shade || C.body, clothC = C.cloth || C.body;
   // back limbs
   parts.push(stroke(armB, C.body, lw), hand(armB, C.body));
-  if (k.cloth && !k.vest) parts.push(stroke(k.short ? armB.slice(0, 2) : armB.slice(0, 2).concat([[lerp(armB[1][0], armB[2][0], .85), lerp(armB[1][1], armB[2][1], .85)]]), shadeC, lw * 1.45));
+  const sleeve = a => k.short ? a.slice(0, 2) : a.slice(0, 2).concat([[lerp(a[1][0], a[2][0], .85), lerp(a[1][1], a[2][1], .85)]]);
+  if (k.cloth && !k.vest) parts.push(stroke(sleeve(armB), mix(shadeC, '#000000', .25), lw * 1.75), stroke(sleeve(armB), shadeC, lw * 1.45));
   parts.push(stroke(legB, C.body, lw), foot(legB, C.body));
   // hood / ponytail behind head
-  if (k.hood) parts.push(ell(neck[0] - fs * s * (fc === 0 ? 0 : .2), neck[1] + s * .02, s * (fc === 0 ? .42 : .3), s * .2, shadeC, { transform: `rotate(${f1(pz.tor * fs)} ${f1(neck[0])} ${f1(neck[1])})` }));
+  if (k.hood) parts.push(ell(head[0] - fs * s * (fc === 0 ? 0 : .2), head[1] + s * .34, s * (fc === 0 ? .56 : .46), s * .3, shadeC, { transform: `rotate(${f1(pz.tor * fs)} ${f1(neck[0])} ${f1(neck[1])})` }));
   if (k.pony) { const sw = Math.sin(((o.t || 0) + (o.seed || 0)) * 3) * 6 - (pz.tor || 0) * .3; parts.push(ell(head[0] - fs * s * .55, head[1] + s * .05, s * .2, s * .34, C.body, { transform: `rotate(${f1(-fs * (25 + sw))} ${f1(head[0] - fs * s * .45)} ${f1(head[1] - s * .1)})` }), circ(head[0] - fs * s * .45, head[1] - s * .12, s * .09, clothC)); }
   if (k.bun) parts.push(circ(head[0] - fs * s * .3, head[1] - s * .42, s * .22, C.body));
   // torso
   parts.push(stroke([hip, neck], C.body, s * PR.torsoW));
   parts.push(stroke([[hip[0], hip[1]], [neck[0], neck[1]]], C.body, s * PR.torsoW));
+  if (!k.cloth) { const top = [lerp(hip[0], neck[0], .95), lerp(hip[1], neck[1], .95)]; parts.push(poly([[top[0] + nX * s * .3, top[1] + nY * s * .3], [top[0] - nX * s * .3, top[1] - nY * s * .3], [hip[0] - nX * s * .16, hip[1] - nY * s * .16], [hip[0] + nX * s * .16, hip[1] + nY * s * .16]], C.body, { stroke: C.body, 'stroke-width': f1(s * .12), 'stroke-linejoin': 'round' })); }
   if (k.cloth) {
     const top = [lerp(hip[0], neck[0], .96), lerp(hip[1], neck[1], .96)], bot = [lerp(hip[0], neck[0], -.06), lerp(hip[1], neck[1], -.06)];
-    const nx = -tu[1], ny = tu[0], wS = s * (k.vest ? .3 : (o.child ? .3 : .36)), wHp = s * (k.vest ? .26 : .27);
+    const nx = -tu[1], ny = tu[0], wS = s * (k.vest ? .36 : (o.child ? .32 : .46)), wHp = s * (k.vest ? .3 : .3);
     parts.push(poly([[top[0] + nx * wS, top[1] + ny * wS], [top[0] - nx * wS, top[1] - ny * wS], [bot[0] - nx * wHp, bot[1] - ny * wHp], [bot[0] + nx * wHp, bot[1] + ny * wHp]], clothC, { stroke: clothC, 'stroke-width': f1(s * .14), 'stroke-linejoin': 'round' }));
     if (!ghost && !k.vest) parts.push(line(bot[0] + nx * wHp * .9, bot[1] + ny * wHp * .9, bot[0] - nx * wHp * .9, bot[1] - ny * wHp * .9, shadeC, s * .07));
     if (k.vest && !ghost) { for (const q of [.3, .55]) { const a = [lerp(hip[0], neck[0], q), lerp(hip[1], neck[1], q)]; parts.push(line(a[0] - s * .24, a[1], a[0] + s * .24, a[1], '#e6edf2', s * .07, { 'stroke-linecap': 'butt' })); } }
@@ -197,18 +201,18 @@ function fig(o) {
   if (o.expr !== 'none' && fc !== -2) parts.push(face(head[0], head[1], headR, fc === 0 ? 0 : fs, { ...o, blink, ghost }));
   // front arm (drawn last so gestures read)
   parts.push(stroke(armF, C.body, lw), hand(armF, C.body));
-  if (k.cloth && !k.vest) parts.push(stroke(k.short ? armF.slice(0, 2) : armF.slice(0, 2).concat([[lerp(armF[1][0], armF[2][0], .85), lerp(armF[1][1], armF[2][1], .85)]]), clothC, lw * 1.45));
+  if (k.cloth && !k.vest) parts.push(stroke(sleeve(armF), shadeC, lw * 1.8), stroke(sleeve(armF), clothC, lw * 1.45));
   if (o.extra) parts.push(o.extra({ hip, neck, head, headR, armF, armB, legF, legB, s, fs }));
   // filter: ghost glow, or rim (+ optional depth blur)
   let filt = null;
   const rim = o.rim === undefined ? { dx: -fs * s * .06, dy: -s * .03, c: '#f0b27a' } : o.rim;
-  if (ghost) filt = fGlow(Math.max(2, s * .08), '#2f7bff', .9);
+  if (ghost) filt = fGhost(Math.max(2, s * .07));
   else if (rim && o.blur) filt = fRimBlur(rim.dx, rim.dy, rim.c, o.blur);
   else if (rim) filt = fRim(rim.dx, rim.dy, rim.c);
   else if (o.blur) filt = fBlur(o.blur);
   const op = ghost ? (o.op ?? .6) : (o.op ?? 1);
   if (o.joints) o.joints({ hip, neck, head, headR, armF, armB, legF, legB });
-  return `<g${filt ? ` filter="${filt}"` : ''}${op !== 1 ? ` opacity="${op}"` : ''}>${parts.join('')}</g>`;
+  return `<g${ghost ? ' class="gh"' : ''}${filt ? ` filter="${filt}"` : ''}${op !== 1 ? ` opacity="${op}"` : ''}>${parts.join('')}</g>`;
 }
 // ground shadow under a figure
 const shadowAt = (x, y, s, op = .35) => ell(x, y + s * .04, s * .9, s * .14, '#000', { opacity: op });

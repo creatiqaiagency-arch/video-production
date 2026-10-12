@@ -9,7 +9,7 @@ function shotTimes(id) { const s = TL.shots.find(x => x.id === id); return [s.f0
 // climax clock: real-world seconds left before the truck reaches the crossing (keeps running in the present)
 function clockVal(gt) {
   const k = id => shotTimes(id)[0];
-  return kf(gt, [[k('s076'), 5.0], [k('s079'), 4.6], [k('s083'), 3.7], [k('s088'), 2.9], [k('s091'), 2.4], [k('s093'), 2.0], [k('s096'), 1.0], [k('s098'), 0.4], [k('s099'), 0.0]], ease.lin);
+  return kf(gt, [[k('s076'), 5.0], [k('s079'), 4.6], [k('s083'), 3.7], [k('s088'), 2.9], [k('s089'), 2.7], [k('s090'), 2.25], [k('s091'), 2.15], [k('s093'), 2.0], [k('s096'), 1.0], [k('s098'), 0.4], [k('s099'), 0.0]], ease.lin);
 }
 function shotAt(t) {
   const f = Math.round(t * 24); const S = TL.shots;
@@ -26,8 +26,9 @@ function renderFrame(t) {
   const fn = SHOTS[sh.fn];
   try { body = fn ? fn(lt, d, t, sh) : placeholder(sh, lt); }
   catch (e) { body = placeholder(sh, lt) + text(960, 700, String(e.message).replace(/[<>&]/g, ''), { 'font-size': 26, fill: '#f88', 'text-anchor': 'middle' }); console.error(sh.fn, e.stack); }
-  const fin = vignette(.5) + letterbox() + fadeBlack(1 - clamp(t / 0.6));
-  root.innerHTML = `<defs>${[...DEFS.values()].join('')}</defs>${body}${fin}`;
+  const push = 1 + .035 * ease.sine(clamp(lt / d));  // every shot gets a little camera life
+  const fin = vignette(.5) + letterbox() + fadeBlack(1 - clamp(t / 0.12));
+  root.innerHTML = `<defs>${[...DEFS.values()].join('')}</defs><g transform="translate(960 540) scale(${push.toFixed(4)}) translate(-960 -540)">${body}</g>${fin}`;
   return sh.id;
 }
 function renderShotAt(id, lt) { const sh = TL.shots.find(s => s.id === id); const t = sh.f0 / 24 + Math.min(+lt, (sh.f1 - sh.f0) / 24 - 1 / 24); renderFrame(t); return t; }

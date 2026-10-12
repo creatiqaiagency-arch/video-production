@@ -3,7 +3,9 @@ const CREAM = '#ffe9c2';
 
 // whole-frame blue future grade wrapper + frame border and "+5 s" tag
 function futureWrap(inner, amt = 1, o = {}) {
+  def('ghstyle', '<style>.go *{visibility:hidden}.go .gh,.go .gh *{visibility:visible}</style>');
   let s = `<g filter="${fFuture(amt)}">${inner}</g>`;
+  if (amt > .3) s += `<g class="go">${inner}</g>`;  // ghosts lifted out of the grade so they are always the brightest thing
   if (amt > .05) {
     s += rect(0, 0, W, H, rgrad([[0, '#2f7bff', 0], [.7, '#2f7bff', .08 * amt], [1, '#1a4bb0', .35 * amt]]), { style: SCREEN });
     // scanline shimmer
@@ -50,7 +52,7 @@ function streaks(x, y, len, w, dir, c = '#fff', a = .5, n = 5, seed = 1) {
 }
 function dashedPath(pts, c = '#8fd3ff', w = 5, p = 1, o = {}) {
   const n = Math.max(2, Math.floor(pts.length * p));
-  return pline(pts.slice(0, n), c, w, { 'stroke-dasharray': `${w * 3} ${w * 2.4}`, opacity: o.op ?? .9, filter: fGlow(4, '#2f7bff', .8) });
+  return pline(pts.slice(0, n), c, w, { 'stroke-dasharray': `${w * 3} ${w * 2.4}`, opacity: o.op ?? .9, filter: fGlow(4, '#2f7bff', .8), class: 'gh' });
 }
 function parabola(x0, y0, x1, y1, hgt, n = 40) { const pts = []; for (let i = 0; i <= n; i++) { const u = i / n; pts.push([lerp(x0, x1, u), lerp(y0, y1, u) - 4 * hgt * u * (1 - u)]); } return pts; }
 const pOn = (pts, u) => { const i = clamp(u) * (pts.length - 1), a = Math.floor(i), b = Math.min(pts.length - 1, a + 1); return [lerp(pts[a][0], pts[b][0], i - a), lerp(pts[a][1], pts[b][1], i - a)]; };
@@ -67,10 +69,22 @@ function titleCard(p, l1, l2, sub) {
 function caption(p, str, y = 540, size = 64) { const a = clamp(p * 4) * clamp((1 - p) * 4); return text(960, y, str, { 'font-size': size, 'font-weight': 800, fill: CREAM, 'text-anchor': 'middle', 'letter-spacing': 14, opacity: a.toFixed(3), filter: fGlow(12, '#ff9a3c', .8) }); }
 function label(x, y, str, a = 1, size = 34) { return g(text(x, y, str, { 'font-size': size, 'font-weight': 700, fill: CREAM, 'letter-spacing': 2, filter: fGlow(6, '#ff9a3c', .6) }), { opacity: a }); }
 function clockIcon(x, y, r, p = 0, c = CREAM) { return circ(x, y, r, 'none', { stroke: c, 'stroke-width': r * .14 }) + line(x, y, x, y - r * .62, c, r * .12) + line(x, y, x + Math.sin(p * 2 * Math.PI) * r * .5, y - Math.cos(p * 2 * Math.PI) * r * .5, c, r * .1); }
-// countdown HUD, value in seconds
-function countdown(v, a = 1, x = 1660, y = 150, warn = false) {
-  const c = warn || v < 2 ? '#ff8a7a' : '#d8f0ff';
-  return g(rect(x - 60, y - 52, 260, 92, '#06142e', { rx: 16, opacity: .75 }) + clockIcon(x - 8, y - 6, 26, (5 - v) / 5, c) + text(x + 112, y + 12, `${Math.max(0, v).toFixed(1)} s`, { 'font-size': 46, 'font-weight': 800, fill: c, 'text-anchor': 'middle', filter: fGlow(8, '#2f7bff', .9) }), { opacity: a });
+// countdown HUD (reference style: cream stopwatch + orange glow; turns red-orange under 1 s)
+function stopwatch(x, y, r, p, c) {
+  return circ(x, y, r, 'none', { stroke: c, 'stroke-width': r * .13 }) + rect(x - r * .18, y - r * 1.32, r * .36, r * .22, c, { rx: r * .06 }) + line(x, y - r * 1.1, x, y - r * .98, c, r * .14)
+    + line(x, y, x + Math.sin(p * 2 * Math.PI) * r * .72, y - Math.cos(p * 2 * Math.PI) * r * .72, c, r * .11) + circ(x, y, r * .1, c);
+}
+function countdown(v, a = 1, x = 1700, y = 150, big = 1) {
+  const c = v < 1 ? '#ff8a6a' : CREAM;
+  const p = ((5 - v) % 1);
+  return g(stopwatch(x - 70 * big, y - 12 * big, 24 * big, p, c) + text(x - 30 * big, y + 4 * big, `${Math.max(0, v).toFixed(1)} s`, { 'font-size': 46 * big, 'font-weight': 900, fill: c, filter: fGlow(10 * big, '#ff9a3c', .9) }), { opacity: a });
+}
+// additive flash pulse centred on tc (seconds), half-width w
+function flashPulse(lt, tc, w = .09, peak = .75, c = '#d8f0ff') { const k = 1 - Math.abs(lt - tc) / w; return k > 0 ? rect(0, 0, W, H, c, { opacity: (k * peak).toFixed(3), style: SCREEN }) : ''; }
+// oncoming headlights from screen-right during the climax present, strength grows as the clock runs down
+function headlightWash(gt, s = 1) {
+  const v = typeof clockVal === 'function' ? clockVal(gt) : 5; const k = clamp((5.2 - v) / 5) * s;
+  return rect(0, 0, W, H, lgrad([[0, '#d8e8ff', 0], [.55, '#d8e8ff', .05 * k], [1, '#eef4ff', .55 * k]], 0, 0, 1, 0), { style: SCREEN }) + glow(W + 40, 620, 520 * (.6 + k), '#fff6dc', .5 * k);
 }
 
 // ---------- finishing ----------

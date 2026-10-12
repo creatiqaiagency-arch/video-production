@@ -95,17 +95,17 @@ function glass(x, y, s = 1, o = {}) {
   q += path(`M${x - 17 * s + 1.5 * s} ${y - 62 * s * fillH} L${x - 14 * s + 1 * s} ${y - 2 * s} L${x + 14 * s - 1 * s} ${y - 2 * s} L${x + 17 * s - 1.5 * s} ${y - 62 * s * fillH} Z`, o.ghost ? '#4fa8ff' : '#86b7d4', { opacity: a });
   q += path(`M${x - 18 * s} ${y - 62 * s} L${x - 14 * s} ${y} L${x + 14 * s} ${y} L${x + 18 * s} ${y - 62 * s}`, 'none', { stroke: o.ghost ? '#dff4ff' : '#eef7fb', 'stroke-width': 2.5 * s, opacity: .9 });
   q += line(x - 9 * s, y - 52 * s, x - 7 * s, y - 12 * s, '#fff', 3 * s, { opacity: .6 });
-  return g(q, o.ghost ? { filter: fGlow(4, '#2f7bff', .8) } : {});
+  return g(q, o.ghost ? { filter: fGhost(4), class: 'gh' } : {});
 }
-function coin(x, y, r, spin = 0, ghost = false) { const rx = Math.max(1.5, r * Math.abs(Math.cos(spin))); return ghost ? ell(x, y, rx, r, '#9ad6ff', { opacity: .7, filter: fGlow(3, '#2f7bff', .9) }) : ell(x, y, rx, r, '#e9b949') + ell(x - rx * .15, y - r * .15, rx * .6, r * .6, '#f6d77c', { opacity: .7 }); }
+function coin(x, y, r, spin = 0, ghost = false) { const rx = Math.max(1.5, r * Math.abs(Math.cos(spin))); return ghost ? ell(x, y, rx, r, '#9ad6ff', { opacity: .8, filter: fGhost(3), class: 'gh' }) : ell(x, y, rx, r, '#e9b949') + ell(x - rx * .15, y - r * .15, rx * .6, r * .6, '#f6d77c', { opacity: .7 }); }
 function football(x, y, r, rot = 0, o = {}) {
   const c1 = o.ghost ? '#c9ecff' : '#f1ece3', c2 = o.ghost ? '#4f9be8' : '#15121a';
   let s = circ(x, y, r, c1);
   for (let i = 0; i < 5; i++) { const a = (rot + i * 72) * R; s += poly([0, 1, 2, 3, 4].map(k => [x + Math.cos(a) * r * .62 + Math.cos(k * 72 * R + a) * r * .2, y + Math.sin(a) * r * .62 + Math.sin(k * 72 * R + a) * r * .2]), c2); }
   s += poly([0, 1, 2, 3, 4].map(k => [x + Math.cos(k * 72 * R + rot * R) * r * .24, y + Math.sin(k * 72 * R + rot * R) * r * .24]), c2);
-  return g(s, o.ghost ? { opacity: .8, filter: fGlow(4, '#2f7bff', .9) } : { filter: fRim(-r * .08, -r * .06, o.rimC || '#f0b27a') });
+  return g(s, o.ghost ? { opacity: .85, filter: fGhost(4), class: 'gh' } : { filter: fRim(-r * .08, -r * .06, o.rimC || '#f0b27a') });
 }
-function pingball(x, y, r, ghost = false) { return ghost ? circ(x, y, r, '#bfe6ff', { opacity: .75, filter: fGlow(4, '#2f7bff', .9) }) : glow(x, y, r * 3, '#fff', .25) + circ(x, y, r, '#fbf6ee'); }
+function pingball(x, y, r, ghost = false) { return ghost ? circ(x, y, r, '#bfe6ff', { opacity: .8, filter: fGhost(4), class: 'gh' }) : glow(x, y, r * 3, '#fff', .25) + circ(x, y, r, '#fbf6ee'); }
 
 // ---------- vehicles ----------
 // side-view delivery truck facing LEFT; (x,y) = front-bottom of the bumper at road level, s = scale (1 = ~640px long)
@@ -125,19 +125,20 @@ function truckSide(x, y, s = 1, o = {}) {
   q += rect(...P(8, -95), 22 * s, 20 * s, gh ? '#fff' : '#fff6d8', { rx: 4 * s });
   if (!gh && o.lights !== false) q += glow(...P(14, -85), 90 * s, '#fff2c4', .9);
   for (const wx of [110, 470, 570]) { const c = P(wx, -30); q += circ(c[0], c[1], 44 * s, dark) + circ(c[0], c[1], 18 * s, gh ? '#e6f6ff' : '#6f6874'); }
-  return g(q, gh ? { opacity: o.op ?? .6, filter: fGlow(6, '#2f7bff', .9) } : { filter: fRim(10 * s, -6 * s, o.rimC || '#ffb46a') });
+  return g(q, gh ? { opacity: o.op ?? .6, filter: fGhost(6), class: 'gh' } : { filter: fRim(10 * s, -6 * s, o.rimC || '#ffb46a') });
 }
 // front view of the truck centred at (x, yGround) with scale s (1 = 520px wide)
 function truckFront(x, y, s = 1, o = {}) {
   const P = (px, py) => [x + px * s, y + py * s];
   let q = '';
-  q += glowE(x, y - 40 * s, 900 * s, 260 * s, '#fff2c4', .35);
+  q += ell(x, y, 300 * s, 22 * s, '#000', { opacity: .5 }) + glowE(x, y - 40 * s, 900 * s, 260 * s, '#fff2c4', .35);
+  for (const sx of [-1, 1]) q += rect(...P(sx * 262 - (sx > 0 ? 0 : 26), -330), 26 * s, 70 * s, '#1b151d', { rx: 6 * s }) + line(...P(sx * 230, -300), ...P(sx * 262, -300), '#1b151d', 6 * s);
   q += rect(...P(-260, -560), 520 * s, 300 * s, '#cfc9c0', { rx: 10 * s });
   q += path(`M${P(-230, -40).join(' ')} L${P(-220, -300).join(' ')} Q${P(-210, -330).join(' ')} ${P(-180, -330).join(' ')} L${P(180, -330).join(' ')} Q${P(210, -330).join(' ')} ${P(220, -300).join(' ')} L${P(230, -40).join(' ')} Z`, '#b5323a');
   q += rect(...P(-180, -310), 360 * s, 120 * s, '#2c3850', { rx: 8 * s });
   q += rect(...P(-150, -160), 300 * s, 80 * s, '#1b151d', { rx: 6 * s });
   for (let i = 0; i < 6; i++) q += rect(...P(-140, -150 + i * 12), 280 * s, 5 * s, '#3b3240');
-  for (const sx of [-1, 1]) { q += circ(...P(sx * 175, -110), 32 * s, '#fffbe8') + glow(...P(sx * 175, -110), 260 * s, '#fff2c4', .85) + glow(...P(sx * 175, -110), 90 * s, '#ffffff', .9); }
+  for (const sx of [-1, 1]) { q += circ(...P(sx * 175, -110), 32 * s, '#fffbe8') + glow(...P(sx * 175, -110), 260 * s, '#fff2c4', .85) + glow(...P(sx * 175, -110), 90 * s, '#ffffff', .9) + glowE(...P(sx * 175, -110), 900 * s, 10 * s + 4, '#dfeaff', .7); }
   q += rect(...P(-240, -60), 480 * s, 34 * s, '#1b151d', { rx: 8 * s });
   for (const sx of [-1, 1]) q += rect(...P(sx * 200 - 30, -40), 60 * s, 46 * s, '#0e0a10', { rx: 8 * s });
   return q;
@@ -170,10 +171,11 @@ function envIntersection(cam, t, o = {}) {
   mid += rect(-1400, IX.farCurb, 4400, IX.nearCurb - IX.farCurb, lgrad([[0, '#1f1a2c'], [1, '#2b2438']]));
   for (let x = -1400; x < 3000; x += 220) mid += rect(x, 730, 110, 7, '#8c8496', { opacity: .55 });
   // crosswalk (perspective stripes across the road)
-  for (let i = 0; i < 6; i++) { const yy = IX.farCurb + 12 + i * 40; mid += poly([[IX.cross0 + 20 - i * 6, yy], [IX.cross1 - 20 + i * 6, yy], [IX.cross1 - 14 + i * 7, yy + 24], [IX.cross0 + 14 - i * 7, yy + 24]], '#c8c0cf', { opacity: .55 }); }
+  for (let i = 0; i < 6; i++) { const yy = IX.farCurb + 12 + i * 40; mid += poly([[IX.cross0 + 20 - i * 6, yy], [IX.cross1 - 20 + i * 6, yy], [IX.cross1 - 14 + i * 7, yy + 24], [IX.cross0 + 14 - i * 7, yy + 24]], '#8e86a0', { opacity: .55 }); }
   // wet reflections
   for (const lx of [-700, 120, 900, 1700, 2500]) mid += rect(lx + 40, 640, 34, 200, lgrad([[0, '#ffc477', .35], [1, '#ffc477', 0]]), { style: SCREEN });
-  for (let i = 0; i < 9; i++) mid += rect(-900 + i * 400 + 150, 650, 60, 150, lgrad([[0, '#f0a85a', .14], [1, '#f0a85a', 0]]), { style: SCREEN });
+  for (let i = 0; i < 9; i++) mid += rect(-900 + i * 400 + 150, 650, 60, 150, lgrad([[0, '#f0a85a', .1], [1, '#f0a85a', 0]]), { style: SCREEN });
+  for (const px of [-300, 560, 1340, 2100]) mid += glowE(px, 975, 330, 60, '#ffb35a', .32) + glowE(px, 760, 260, 50, '#ffb35a', .16);
   // barrier (far-left, where the truck finally crashes)
   const bx = IX.barrierX;
   mid += rect(bx - 220, 575, 440, 26, '#c9c2b8') + rect(bx - 220, 575, 440, 8, '#e6dfd5');
@@ -182,19 +184,21 @@ function envIntersection(cam, t, o = {}) {
   // near sidewalk
   mid += rect(-1400, IX.nearCurb, 4400, 14, '#5c4f68') + rect(-1400, IX.nearCurb + 14, 4400, 300, lgrad([[0, '#2e2639'], [1, '#1a1524']]));
   for (let x = -1400; x < 3000; x += 160) mid += rect(x, IX.nearCurb + 14, 3, 300, '#241d2e');
+  mid += rect(1985, 600, 10, 240, '#120c16') + circ(1990, 590, 34, '#e8dccf') + circ(1990, 590, 28, '#f6efe6') + text(1990, 598, o.clock || '8:17', { 'font-size': 20, 'font-weight': 800, fill: '#2a1a22', 'text-anchor': 'middle' });
   return { bg: layer(cam, far, { p: .35, blur: o.bgBlur ?? 2 }) + layer(cam, mid, { p: 1, blur: o.midBlur || 0 }), fg: '' };
 }
 
 // ROAD-LEVEL FRONT VIEW (one-point perspective, vanishing point at (960, 470))
 function envRoadFront(cam, t, o = {}) {
   const vx = 960, vy = 480;
-  let far = sky('night') + stars(50, 8) + skyline(vy + 10, 21, '#1a1630', 30, -800, 3600, 260);
+  let far = sky('night') + stars(50, 8) + moon(1180, 150, 22) + clouds(240, 6, 9, '#5b4a7a', .35, 1600, 200) + skyline(vy + 10, 21, '#1a1630', 30, -800, 3600, 260) + glowE(960, vy, 900, 60, '#ff9a5c', .12);
   let mid = rect(-1200, vy - 2, 4400, 1300, lgrad([[0, '#2a2236'], [1, '#3a3046']]));
   // road
   mid += poly([[vx - 30, vy], [vx + 30, vy], [2600, 1400], [-700, 1400]], lgrad([[0, '#1b1728'], [1, '#2d2640']]));
   for (let i = 0; i < 10; i++) { const a = Math.pow(i / 10, 2), b = Math.pow((i + .45) / 10, 2); mid += poly([[vx - 2 - a * 40, vy + a * 920], [vx + 2 + a * 40, vy + a * 920], [vx + 2 + b * 40, vy + b * 920], [vx - 2 - b * 40, vy + b * 920]], '#9a92a6', { opacity: .6 }); }
   // crosswalk near camera
-  if (o.crosswalk !== false) for (let i = 0; i < 9; i++) { const y0 = 900 + 0, xs = -300 + i * 300; mid += poly([[xs, 920], [xs + 160, 920], [xs + 190, 1080], [xs - 20, 1080]], '#c8c0cf', { opacity: .5 }); }
+  if (o.crosswalk !== false) { const hw = y => 30 + 1.78 * (y - vy); const y1 = 890, y2 = 1010; for (let i = 0; i < 9; i++) { const u0 = -1 + (i * 2 + .25) / 9, u1 = -1 + (i * 2 + 1.05) / 9; mid += poly([[vx + u0 * hw(y1), y1], [vx + u1 * hw(y1), y1], [vx + u1 * hw(y2), y2], [vx + u0 * hw(y2), y2]], '#a49cb0', { opacity: .55 }); } }
+  for (const [lx, ly, r] of [[560, 700, 260], [1380, 700, 260], [300, 860, 420], [1640, 860, 420]]) mid += glowE(lx, ly, r, r * .22, '#ffb35a', .3);
   // building blocks receding both sides
   for (const side of [-1, 1]) {
     for (let k = 0; k < 7; k++) {
@@ -222,14 +226,17 @@ function envKitchen(cam, t, o = {}) {
   let back = rect(-600, -400, 3200, 1100, lgrad([[0, '#5d4250'], [1, '#7a5658']]));
   // window
   back += rect(560, 120, 620, 420, '#3a2730') + rect(580, 140, 580, 380, lgrad(SKY.morning));
-  back += sun(1020, 420, 34, '#fff8e6', '#ffd39a') + ell(760, 250, 120, 8, '#fff1dd', { opacity: .5 }) + ell(1060, 300, 90, 6, '#fff1dd', { opacity: .45 });
+  back += sun(1080, 230, 30, '#fffbea', '#ffe7b0') + ell(760, 250, 120, 8, '#fff1dd', { opacity: .5 }) + ell(1060, 300, 90, 6, '#fff1dd', { opacity: .45 });
   back += tree(700, 520, 160, '#6a6f80', 4) + rect(580, 330, 580, 4, '#3a2730') + rect(868, 140, 4, 380, '#3a2730');
   back += rect(540, 520, 660, 22, '#8a6662');
   // cabinets
   back += rect(-300, 80, 760, 200, '#6b4a4e') + rect(1290, 80, 900, 200, '#6b4a4e');
   for (const x of [-280, -40, 200, 1310, 1550, 1790]) back += rect(x, 96, 220, 168, '#7b585a', { rx: 4 }) + rect(x + 190, 170, 8, 30, '#c9a58a', { rx: 3 });
   back += rect(-300, 520, 760, 260, '#5c3f45') + rect(1290, 520, 900, 260, '#5c3f45') + rect(-300, 505, 760, 22, '#a8806e') + rect(1290, 505, 900, 22, '#a8806e');
-  back += rect(1720, 260, 260, 520, '#857a80', { rx: 10 }); // fridge
+  back += rect(1720, 260, 260, 520, '#857a80', { rx: 10 }) + rect(1740, 300, 14, 90, '#5d5358', { rx: 4 }) + rect(1800, 420, 30, 24, '#e0c25a', { rx: 4 }) + rect(1860, 470, 26, 26, '#6b8fd6', { rx: 4 });
+  back += circ(1420, 380, 46, '#e8dccf') + circ(1420, 380, 40, '#f6efe6') + line(1420, 380, 1420, 352, '#3a2a30', 4) + line(1420, 380, 1440, 390, '#3a2a30', 4);
+  back += path('M220 505 q0 -50 40 -50 h40 q40 0 40 50 Z', '#c9a58a') + rect(300, 470, 30, 8, '#c9a58a');
+  back += line(960, -400, 960, 60, '#2a1a22', 4) + path('M900 60 h120 l-20 40 h-80 Z', '#3a2a30') + glow(960, 110, 140, '#ffe2b0', .35);
   // floor
   let floor = rect(-600, 780, 3200, 600, '#3e2c33');
   for (let i = 0; i < 14; i++) floor += line(-600 + i * 260, 780, -900 + i * 330, 1400, '#33242a', 3);
@@ -248,11 +255,15 @@ function kitchenTable(cam, o = {}) { // drawn in the subject plane, top at y=680
 // LIVING ROOM (afternoon) — shelf on the right wall.
 function envLiving(cam, t, o = {}) {
   let back = rect(-600, -400, 3200, 1260, lgrad([[0, '#3f2e45'], [1, '#5a3f50']]));
-  back += rect(160, 150, 420, 380, '#2a1e2c') + rect(176, 166, 388, 348, lgrad(SKY.afternoon)) + rect(368, 166, 6, 348, '#2a1e2c');
+  back += rect(160, 150, 420, 380, '#2a1e2c') + rect(176, 166, 388, 348, lgrad(SKY.dusk)) + sun(470, 470, 22) + rect(368, 166, 6, 348, '#2a1e2c');
+  back += rect(1000, 200, 150, 110, '#2a1e2c') + rect(1010, 210, 130, 90, '#7a5a6e') + rect(1180, 230, 110, 140, '#2a1e2c') + rect(1190, 240, 90, 120, '#5a7a8e');
+  back += rect(860, 560, 300, 180, '#141018', { rx: 8 }) + rect(872, 572, 276, 156, '#1e2a3a') + rect(990, 740, 40, 60, '#141018') + rect(900, 800, 220, 12, '#141018');
+  back += line(1500, -400, 1500, 80, '#1b1420', 4) + ell(1500, 90, 70, 22, '#2a1e2c') + glow(1500, 110, 200, '#ffd39a', .3);
+  back += rect(1820, 260, 160, 580, '#2a1e2c', { rx: 6 }) + circ(1840, 560, 8, '#c9a58a');
   back += skyline(514, 5, '#6a5a78', 8, 176, 400, 120, '#ffd39a');
   back += rect(-200, 640, 640, 200, '#4c3a52', { rx: 30 }) + rect(-220, 590, 120, 250, '#43334a', { rx: 30 }); // sofa
   back += rect(760, 360, 8, 420, '#1b1420') + ell(764, 350, 50, 30, '#e7c08a') + glow(764, 360, 160, '#ffd39a', .45);
-  let floor = rect(-600, 830, 3200, 600, '#2d2130') + rect(-600, 830, 3200, 8, '#4a3a4e');
+  let floor = rect(-600, 830, 3200, 600, '#2d2130') + rect(-600, 830, 3200, 8, '#4a3a4e') + ell(820, 900, 620, 70, '#5a3a4a') + ell(820, 900, 560, 56, '#6a4658') + glowE(764, 840, 320, 60, '#f0b27a', .3);
   let light = poly([[180, 170], [560, 170], [900, 1000], [260, 1000]], lgrad([[0, '#ffd39a', .2], [1, '#ffd39a', 0]]), { style: SCREEN }) + motes(t, 22, 9, [200, 160, 900, 800]);
   return { bg: layer(cam, back + floor, { p: .85, blur: o.bgBlur ?? 2.5 }), light: layer(cam, light, { p: .9 }) };
 }
@@ -300,22 +311,40 @@ function envArcade(cam, t, o = {}) {
 
 // CAFE STREET (dusk, striped awning — the reference location). Table row at y=700.
 function envCafe(cam, t, o = {}) {
-  const sk = o.night ? 'night' : 'dusk';
-  let far = sky(sk) + (o.night ? stars(50, 2) : sun(1500, 480, 40)) + clouds(200, 9, 7, o.night ? '#5b4a7a' : '#f0a982', .5);
-  if (!o.night) far += rays(1500, 480, 22, 1400, '#ffd6a0', .07, t * 2);
+  const tod = o.tod || (o.night ? 'night' : 'dusk');
+  const sk = { day: 'afternoon', dusk: 'dusk', blue: 'night', night: 'night' }[tod];
+  let far = sky(sk) + (tod === 'night' || tod === 'blue' ? stars(50, 2) : sun(1500, tod === 'day' ? 120 : 330, 40)) + clouds(120, 9, 7, tod === 'night' || tod === 'blue' ? '#5b4a7a' : '#f0a982', .5);
+  if (tod === 'dusk') far += rays(1500, 330, 22, 1400, '#ffd6a0', .07, t * 2);
+  if (tod === 'blue') far += glowE(1500, 520, 900, 120, '#ff8a5c', .25);
   far += skyline(560, 4, '#3a2a48', 26, -1200, 4400, 260);
   let mid = '';
-  mid += rect(-800, 80, 3600, 520, '#47303e');
-  for (let i = 0; i < 14; i++) mid += windowLit(-700 + i * 260, 120, 70, 90, rnd(i * 3 + 1) < .6, '#e8a860');
+  const lit = tod !== 'day';
+  mid += rect(-800, 200, 3600, 400, '#47303e') + rect(-800, 186, 3600, 16, '#2c1c26');
+  for (let i = 0; i < 14; i++) mid += windowLit(-700 + i * 260, 230, 70, 80, lit && rnd(i * 3 + 1) < .6, '#e8a860');
   mid += rect(300, 330, 1320, 330, '#2c1c26');
-  for (let i = 0; i < 4; i++) mid += windowLit(330 + i * 325, 360, 300, 260, 1, '#f2b06a', '#2a1a22');
-  mid += glow(960, 500, 700, '#ffb46a', .22);
+  for (let i = 0; i < 4; i++) { mid += windowLit(330 + i * 325, 360, 300, 260, 1, lit ? '#f2b06a' : '#c9a58a', '#2a1a22'); for (let k = 0; k < 2; k++) { const px = 380 + i * 325 + k * 140 + rnd(i * 5 + k) * 60; mid += circ(px, 520, 26, '#3a2430', { opacity: .7 }) + rect(px - 30, 545, 60, 75, '#3a2430', { opacity: .7, rx: 20 }); } mid += line(480 + i * 325, 362, 480 + i * 325, 410, '#2a1a22', 3) + path(`M${455 + i * 325} 410 h50 l-8 18 h-34 Z`, '#2a1a22') + glow(480 + i * 325, 425, 70, '#ffd27a', lit ? .55 : .25); }
+  mid += glow(960, 500, 700, '#ffb46a', lit ? .22 : .08);
+  mid += rect(1660, 520, 130, 150, '#1e1418', { rx: 6 }) + text(1725, 575, 'CAFE', { 'font-size': 26, 'font-weight': 800, fill: '#e8d9cf', 'text-anchor': 'middle' }) + text(1725, 610, 'open', { 'font-size': 20, fill: '#e8d9cf', 'text-anchor': 'middle' }) + rect(1700, 670, 10, 20, '#1e1418') + rect(1740, 670, 10, 20, '#1e1418');
+  for (const px of [240, 1650]) mid += rect(px - 40, 600, 80, 70, '#5a3a33', { rx: 6 }) + circ(px - 20, 590, 34, '#2f5a40') + circ(px + 20, 585, 38, '#3a6a4c') + circ(px, 560, 30, '#3f7a54');
   mid += awning(260, 270, 1400, 70, 16);
   for (let i = 0; i < 18; i++) { const x = 270 + i * 78; mid += line(x, 262, x + 78, 262, '#120c16', 2) + circ(x + 39, 270 + Math.sin(i) * 3, 5, '#ffe1a0') + glow(x + 39, 270, 26, '#ffd27a', .5); }
   mid += rect(-800, 660, 3600, 560, lgrad([[0, '#3a2a36'], [1, '#22161f']]));
   for (let i = 0; i < 20; i++) mid += line(-800 + i * 200, 660, -1000 + i * 240, 1300, '#2c1f2a', 3);
-  mid += tree(-260, 660, 260, '#1a1018', 6) + tree(2180, 660, 240, '#1a1018', 9) + lamp(-500, 662, 360, t, !!o.night || true);
-  return { bg: layer(cam, far, { p: .35, blur: (o.bgBlur ?? 3) + 1 }) + layer(cam, mid, { p: .8, blur: o.bgBlur ?? 3 }), fg: '' };
+  mid += tree(-260, 660, 260, '#1a1018', 6) + tree(2180, 660, 240, '#1a1018', 9) + lamp(-500, 662, 360, t, tod !== 'day');
+  const grade = tod === 'blue' ? rect(-2000, -1000, 6000, 3000, '#1a1440', { opacity: .28, style: 'mix-blend-mode:multiply' }) : tod === 'day' ? rect(-2000, -1000, 6000, 3000, '#fff3e0', { opacity: .08, style: SCREEN }) : '';
+  return { bg: layer(cam, far, { p: .35, blur: (o.bgBlur ?? 3) + 1 }) + layer(cam, mid + grade, { p: .8, blur: o.bgBlur ?? 3 }), fg: '' };
+}
+// CAFE REVERSE ANGLE: from inside the cafe looking out through the big window at the street
+function envCafeReverse(cam, t, o = {}) {
+  const tod = o.tod || 'dusk';
+  let far = sky(tod === 'day' ? 'afternoon' : tod === 'blue' ? 'night' : 'dusk') + (tod === 'dusk' ? sun(400, 360, 36) : '') + clouds(150, 8, 3, '#f0a982', .45);
+  far += building(-300, 640, 420, 420, '#3d2c40', { seed: 3, litP: tod === 'day' ? .1 : .5, glowWin: tod !== 'day' }) + building(180, 640, 360, 300, '#46303e', { seed: 5, litP: tod === 'day' ? .1 : .5 }) + building(1300, 640, 520, 380, '#3a2a3e', { seed: 8, litP: tod === 'day' ? .1 : .5, glowWin: tod !== 'day' }) + tree(900, 640, 220, '#1a1018', 4) + lamp(1150, 660, 330, t, tod !== 'day');
+  far += rect(-800, 640, 3600, 600, lgrad([[0, '#3a2a36'], [1, '#22161f']]));
+  let room = path('M-800 -400 H2800 V1500 H-800 Z M-60 120 V780 H1980 V120 Z', '#24161e', { 'fill-rule': 'evenodd' });
+  for (const x of [600, 1300]) room += rect(x - 12, 120, 24, 660, '#24161e');
+  room += rect(-60, 760, 2040, 30, '#3a2630') + glow(960, 60, 400, '#ffd27a', .3);
+  const grade = tod === 'blue' ? rect(-2000, -1000, 6000, 3000, '#1a1440', { opacity: .28, style: 'mix-blend-mode:multiply' }) : '';
+  return { bg: layer(cam, far, { p: .5, blur: o.bgBlur ?? 5 }) + layer(cam, room + grade, { p: 1.2, blur: o.frameBlur ?? 2 }) };
 }
 
 // CITY AERIAL (for the "three days earlier" lift)
@@ -323,6 +352,7 @@ function envAerial(cam, t, o = {}) {
   let s = sky(o.sky || 'night', -2000, -1600, 6000, 2400) + stars(120, 5, -1500, -1500, 5000, 1300);
   for (let row = 0; row < 7; row++) { s += skyline(620 + row * 110, 30 + row * 7, mix('#1a1530', '#3d2c4c', row / 7), 40, -1600, 5200, 300 - row * 25, '#f0b060'); s += glowE(960, 640 + row * 110, 2200, 60, '#ff9a5c', .06); }
   for (let i = 0; i < 160; i++) s += circ(-1500 + rnd(i * 3) * 5000, 700 + rnd(i * 7) * 700, 2 + rnd(i) * 3, rnd(i * 11) < .7 ? '#ffc477' : '#fff2c4', { opacity: .5 + rnd(i * 5) * .5 });
+  s += glowE(960, 620, 2600, 180, '#ff8a5c', .22);
   s += rect(-2000, 1260, 6000, 1000, '#120e1e');
   return layer(cam, s, { p: 1, blur: o.blur || 0 });
 }

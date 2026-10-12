@@ -98,6 +98,17 @@ function fRimBlur(dx, dy, color, sd) {
   <feGaussianBlur in="m" stdDeviation="${sd}"/></filter>`);
   return url(id);
 }
+// ghost look: ice-white edge + blue bloom; ghosts are lifted out of the future grade (class "gh")
+function fGhost(sd) {
+  sd = Math.round(sd);
+  const id = 'gho' + sd;
+  def(id, `<filter id="${id}" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+  <feMorphology in="SourceAlpha" operator="dilate" radius="${Math.max(1.5, sd * .3).toFixed(1)}" result="d"/>
+  <feFlood flood-color="#e6f6ff"/><feComposite in2="d" operator="in" result="edge"/>
+  <feGaussianBlur in="SourceAlpha" stdDeviation="${sd * 1.6}" result="b"/><feFlood flood-color="#2f7bff" flood-opacity=".95"/><feComposite in2="b" operator="in" result="gl"/>
+  <feMerge><feMergeNode in="gl"/><feMergeNode in="gl"/><feMergeNode in="edge"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`);
+  return url(id);
+}
 function fGlow(sd, color, strength = 1) {
   const id = 'gw' + hashStr([sd, color, strength].join());
   def(id, `<filter id="${id}" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
@@ -106,18 +117,13 @@ function fGlow(sd, color, strength = 1) {
   <feMerge><feMergeNode in="gl"/><feMergeNode in="gl"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`);
   return url(id);
 }
-// future-vision grade: desaturate + push to cold blue (applied to a whole world group)
+// future-vision grade: desaturate + push to deep navy (ghosts are re-drawn on top, ungraded — see futureWrap)
 function fFuture(amount = 1, blur = 0) {
   const a = Math.round(amount * 20) / 20;
   const id = 'fut' + String(a).replace('.', '_') + '_' + blur;
-  // luminance -> blue ramp
-  const m = (r, gg, b) => [r * (1 - a) + a * 0.10, gg * (1 - a) + a * 0.25, b * (1 - a) + a * 0.55];
   const L = [0.299, 0.587, 0.114];
-  const rows = [[1, 0, 0], [0, 1, 0], [0, 0, 1]].map((e, i) => {
-    const tgt = [0.10, 0.28, 0.62][i];
-    return [0, 1, 2].map(j => e[j] * (1 - a) + a * L[j] * tgt * 1.9);
-  });
-  const off = [0.01, 0.04, 0.10].map(v => v * a);
+  const rows = [0, 1, 2].map(i => { const tgt = [0.07, 0.17, 0.42][i]; return [0, 1, 2].map(j => (i === j ? 1 : 0) * (1 - a) + a * L[j] * tgt * 1.45); });
+  const off = [0.008, 0.022, 0.06].map(v => v * a);
   const mat = rows.map((r, i) => `${r.map(v => v.toFixed(3)).join(' ')} 0 ${off[i].toFixed(3)}`).join(' ') + ' 0 0 0 1 0';
   def(id, `<filter id="${id}" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="${mat}"/>${blur ? `<feGaussianBlur stdDeviation="${blur}"/>` : ''}</filter>`);
   return url(id);
