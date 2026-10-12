@@ -29,11 +29,11 @@ function arena(c, o = {}) {
   const won = T >= shotStart('S095') + 1.2;
   const e = ENV.arena({ t: T, cheer: o.cheer || 0, warm: o.warm || 0, crowdBlur: o.crowdBlur, spot: o.spot, redSpill: o.redSpill, roundTxt: o.round || (won ? 'WINNER' : fin ? 'FINAL' : T >= shotStart('S073') + 1.5 ? 'ROUND 2' : 'ROUND 1'), clock: o.clock || (fin ? fmtClock(finalSecs(T)) : '1:00'), clockCol: won ? PAL.green : PAL.red });
   // Noah in the crowd (yellow cap), always the same seat: row 3, x=1280
-  const noah = o.noahCrowd === false ? '' : A(c, { who: 'noah', x: 1280, y: 545, h: 120, f: -1, pose: o.noahPose || P.crossArms(), expr: o.noahExpr || 'unimpressed', light: LT.floodR }) + (o.noahBeam ? shaft([[1180, 175], [1300, 175], [1340, 560], [1220, 560]], '#e6ecff', .25) : '');
+  const noah = o.noahCrowd === false ? '' : A(c, { who: 'noah', x: 1280, y: 545, h: 120, f: -1, pose: o.noahPose || P.crossArms(), expr: o.noahExpr || 'unimpressed', light: o.warm ? LT.goldR : LT.floodR, camZ: o.camZ || 1 }) + (o.noahBeam ? shaft([[1180, 175], [1300, 175], [1340, 560], [1220, 560]], '#e6ecff', .25) : '');
   return { e, back: e.back + noah };
 }
 function arenaTable(c) { return courseTable(380, 1540, 700) + PR.barrier(1040, 700, 70, 60, { glint: true }) + PR.barrier(1300, 700, 70, 60); }
-const WARM = { tint: '#ffb070', op: .22 };
+const WARM = { tint: '#ffb070', op: .15 };
 
 // ---------- B21 robot project with Noah ----------
 addBeat({ id: 'B21', lines: ['L039', { id: 'L040', gap: .3 }], pre: .3, post: .3, music: { name: 'curious_open', vol: .3, at: 0, fade: 2 }, shots: [
@@ -62,7 +62,7 @@ addBeat({ id: 'B22', lines: ['L041'], pre: .2, post: .3, shots: [
     } },
 ] });
 // ---------- B23 the plant: backup sensor ----------
-addBeat({ id: 'B23', minShot: 1.0, lines: ['L042', { id: 'L043', gap: -.25 }], pre: .3, post: .4, shots: [
+addBeat({ id: 'B23', minShot: 1.0, lines: [{ id: 'L042', gap: -.3 }, 'L043'], pre: .3, post: .4, shots: [
   { id: 'S059', type: 'MS-2', desc: 'Noah, eager, holds up his sensor drawing and points at it: "the metal barriers could confuse this sensor. I added a backup on the left..." Eli works at his bench, half-listening.', w: 1, sfx: [[0, 'workshop_ambience', .5]],
     draw: c => { const r = workshop(c); return scene(c, { back: r.back, bb: 6, mid: A(c, { who: 'noah', x: 1200, y: 1060, h: 520, f: -1, pose: P.point(), expr: 'happy', light: LT.warmL, holdSvg: '' }) + PR.circuitDiagram(1010, 640, .45, { backup: true, metal: true, r: 4 }) + A(c, { who: 'eli', x: 600, y: 1060, h: 500, f: -1, pose: P.controller(c.T), expr: 'busy', lookY: 1, light: LT.warmL }), cam: CAM.drift(940, 600, 1.15, .03, 30)(c.p) }); } },
   { id: 'S060', type: 'INSERT', at: 3.2, desc: 'Insert of Noah\'s diagram: METAL barrier note, BACKUP sensor labelled LEFT; then the real robot\'s blue backup box on its left side lights up (labelled).', w: 1, sfx: [[.1, 'ui_pop', .5]],
@@ -72,9 +72,9 @@ addBeat({ id: 'B23', minShot: 1.0, lines: ['L042', { id: 'L043', gap: -.25 }], p
       return scene(c, { back: e.back, bb: 12, mid: PR.robot(1180, 980, { s: 3.0, ledBackup: true }) + glow(745, 722, 200, '#6fd0ff', .35), cam: CAM.push(900, 640, 1.0, 1.12)(seg(c.p, .55, 1)), overlay: label(760, 420, 'BACKUP SENSOR · LEFT SIDE', { size: 44, k: appear(c.t, c.d * .6), fill: '#9fdcff' }) + S.line(760, 440, 760, 600, '#9fdcff', 4, { opacity: appear(c.t, c.d * .6) }) });
     } },
   { id: 'S061', type: 'MS-rev', on: 'L043', off: -.05, desc: 'Reverse angle from Noah\'s side (shelves behind): Eli, seated at his bench with his back three-quarter to Noah, doesn\'t look up: "Already fixed it." Noah\'s sentence is cut off.', w: 1, sfx: [[.1, 'electric_switch', .3]],
-    draw: c => { const e = ENV.workshopRev({ t: c.T }); return scene(c, { back: e.back, bb: 8, mid: A(c, { who: 'eli', headAt: [1000, 520], h: 900, f: 1, turn: .95, pose: P.controller(c.T), expr: 'busy', lookY: 1, light: LT.coolL }) + PR.laptop(1380, 980, 1.2, codeScreen(1)) + glow(1300, 760, 380, '#8fb0ff', .35), fg: A(c, { who: 'noah', headAt: [260, 380], h: 1300, front: true, back: true, pose: P.stand(), light: LT.coolL }), fb: 16, cam: CAM.drift(1000, 560, 1, .03, 30)(c.p) }); } },
+    draw: c => { const e = ENV.workshopRev({ t: c.T }); return scene(c, { back: e.back, bb: 8, mid: S.rect(1080, 700, 380, 240, '#26232e', { rx: 12 }) + S.rect(1080, 700, 380, 6, '#8fb0ff', { opacity: .6 }) + glow(1270, 760, 380, '#8fb0ff', .35) + A(c, { who: 'eli', headAt: [1000, 520], h: 900, f: -1, front: true, back: true, pose: { ...P.stand(), fa: [14 + 3 * Math.sin(c.T * 14), 30], ba: [14 + 3 * Math.cos(c.T * 13), 30], lean: 6 }, light: LT.coolL }), fg: A(c, { who: 'noah', headAt: [260, 380], h: 1300, front: true, back: true, pose: P.stand(), light: LT.coolL }), fb: 16, cam: CAM.drift(1000, 560, 1, .03, 30)(c.p) }); } },
 ] });
-addBeat({ id: 'B24', lines: ['L044', { id: 'L045', gap: .1 }, { id: 'L046', gap: .6 }, { id: 'L047', gap: .5 }], pre: .2, post: 5.4, music: { name: 'stop', onLine: 'L046', off: -.2 }, shots: [
+addBeat({ id: 'B24', sfx: [['L046-0.2', 'workshop_ambience', .3]], lines: ['L044', { id: 'L045', gap: .1 }, { id: 'L046', gap: .6 }, { id: 'L047', gap: .5 }], pre: .2, post: 5.4, music: { name: 'stop', onLine: 'L046', off: -.2 }, shots: [
   { id: 'S062', type: 'OTS', desc: 'Over Eli\'s shoulder (Eli from behind, foreground): Noah tries again, "Oh. Well, what about the steering?"', w: 1,
     draw: c => { const r = workshop(c); return scene(c, { back: r.back, bb: 7, mid: A(c, { who: 'noah', headAt: [1180, 480], h: 820, f: -1, pose: P.hold(), expr: 'worried', lookX: .6, light: LT.warmL }), fg: A(c, { who: 'eli', headAt: [420, 640], h: 1300, front: true, back: true, pose: P.controller(c.T), light: LT.warmL }), fb: 18, cam: CAM.drift(960, 560, 1, .03, 30)(c.p) }); } },
   { id: 'S063', type: 'TOP', on: 'L045', desc: 'Top-down over Eli\'s bench: his hands type on the laptop; Noah\'s hand slides his diagram in — Eli pushes it aside without looking: "Fixed that too."', w: 1, sfx: [[0, 'keyboard_typing', .5], [.8, 'paper_flip', .5]],
@@ -82,7 +82,7 @@ addBeat({ id: 'B24', lines: ['L044', { id: 'L045', gap: .1 }, { id: 'L046', gap:
   { id: 'S064', type: 'CU', on: 'L046', off: -.4, desc: 'Noah close-up, hurt: "Dude, can I at least do something?" The music has dropped out.', w: 1,
     draw: c => { const r = workshop(c, { tod: .6 }); return scene(c, { back: r.back, bb: 12, mid: A(c, { who: 'noah', headAt: [1180, 450], h: 1150, f: -1, pose: P.stand(), expr: 'sad', light: LT.warmL }), cam: CAM.push(1100, 520, 1, 1.05)(c.p) }); } },
   { id: 'S065', type: 'OTS', on: 'L047', desc: 'Over Noah\'s shoulder: Eli, back turned, still typing: "I mean... I\'ll probably finish it faster."', w: 1,
-    draw: c => { const r = { back: ENV.workshopRev({ t: c.T }).back }; return scene(c, { back: r.back, bb: 8, mid: A(c, { who: 'eli', headAt: [820, 540], h: 880, f: -1, front: true, back: true, pose: P.controller(c.T), light: LT.warmL }) + PR.laptop(820, 1060, 1.3, codeScreen((c.t * .8) % 1)) + glow(820, 900, 300, '#8fb0ff', .3), fg: A(c, { who: 'noah', headAt: [1650, 420], h: 1300, front: true, back: true, pose: P.stand(), light: LT.warmL }), fb: 16, cam: CAM.drift(900, 560, 1, .03, 30)(c.p) }); } },
+    draw: c => { const r = { back: ENV.workshopRev({ t: c.T }).back }; return scene(c, { back: r.back, bb: 8, mid: S.rect(640, 760, 380, 240, '#26232e', { rx: 12 }) + glow(830, 820, 300, '#8fb0ff', .3) + A(c, { who: 'eli', headAt: [820, 540], h: 880, f: -1, front: true, back: true, pose: { ...P.stand(), fa: [14 + 3 * Math.sin(c.T * 14), 30], ba: [14 + 3 * Math.cos(c.T * 13), 30], lean: 6 }, light: LT.coolL }), fg: A(c, { who: 'noah', headAt: [260, 380], h: 1300, front: true, back: true, pose: P.stand(), light: LT.coolL }), fb: 16, cam: CAM.drift(900, 560, 1, .03, 30)(c.p) }); } },
   { id: 'S066', type: 'MCU-hold', hold: true, at: -5.2, desc: 'HOLD on Noah in silence (no music). He hesitates, then slowly lowers his small blue screwdriver onto his bench in the foreground — one isolated click — head dropping.', w: 1, sfx: [[0, 'workshop_ambience', .35], [3.0, 'tool_place', 2.2]],
     draw: c => {
       const r = workshop(c, { tod: .75, lamp: .5 });
@@ -124,7 +124,7 @@ addBeat({ id: 'B27', lines: ['L051'], pre: .5, post: .3, music: { name: 'tension
       return scene(c, { back: r.back, bb: 9, mid: A(c, { who: 'eli', x: 860, y: 1080, h: 640, f: 1, pose: P.controller(c.T), expr: 'busy', light: LT.floodL }) + S.rect(500, 860, 900, 300, '#24304a') + S.g({ transform: 'translate(1150,920)' }, card) + PR.stool(1350, 1100, 1, '#4a5a7a'), cam: CAM.drift(960, 620, 1.0, .03, 30)(c.p) });
     } },
   { id: 'S071b', type: 'TELE', w: .7, desc: 'Telephoto: Noah, arms crossed, sitting in the crowd under a pale beam — he came, but not as part of the team.',
-    draw: c => { const r = arena(c, { noahBeam: true, crowdBlur: 3, spot: [1280, 500] }); return scene(c, { back: r.back, bb: 0, cam: { x: 1280, y: 480, z: 3.0 + .2 * c.p } }); } },
+    draw: c => { const r = arena(c, { noahBeam: true, crowdBlur: 3, spot: [1280, 500], camZ: 3.1 }); return scene(c, { back: r.back, bb: 0, cam: { x: 1280, y: 480, z: 3.0 + .2 * c.p } }); } },
 ] });
 function topRun(c, route, k, o = {}) {
   const [x, y, a] = pathAt(route, k);
@@ -171,7 +171,7 @@ addBeat({ id: 'B31', lines: ['L059', { id: 'L060', gap: .4 }], pre: .2, post: .2
   { id: 'S081', type: 'ECU', desc: 'Extreme close-up on Eli\'s eyes: this isn\'t something he can learn his way out of.', w: .8, sfx: [[0, 'heartbeat_muffled', .6]],
     draw: c => { const r = arena(c); return scene(c, { back: r.back, bb: 16, mid: A(c, { who: 'eli', headAt: [760, 560], h: 2400, f: 1, front: true, pose: P.stand(), expr: 'worried', light: LT.floodL, hideMouth: true }), cam: { x: 900, y: 520, z: 1 + .05 * c.p } }); } },
   { id: 'S082', type: 'TELE', on: 'L060', desc: 'Eli looks up; a telephoto shot isolates Noah (yellow cap) in the crowd, picked out by a pale beam.', w: 1,
-    draw: c => { const r = arena(c, { noahExpr: 'worried', noahPose: P.stand(), noahBeam: true, crowdBlur: 3, spot: [1280, 500] }); return scene(c, { back: r.back, bb: 0, cam: { x: 1280, y: 480, z: lerp(2.6, 3.4, E.out(c.p)) }, overlay: finalTimer(c) }); } },
+    draw: c => { const r = arena(c, { noahExpr: 'worried', noahPose: P.stand(), noahBeam: true, crowdBlur: 3, spot: [1280, 500], camZ: 3.0 }); return scene(c, { back: r.back, bb: 0, cam: { x: 1280, y: 480, z: lerp(2.6, 3.4, E.out(c.p)) }, overlay: finalTimer(c) }); } },
 ] });
 addBeat({ id: 'B32', lines: ['L061', { id: 'L062', gap: .15 }, { id: 'L063', gap: .2 }, { id: 'L064', gap: .2 }], pre: .1, post: .3, minShot: 1.4, shots: [
   { id: 'S083', type: 'CU', desc: 'Eli shouts across the hall: "NOAH!"', w: 1,
@@ -186,7 +186,7 @@ addBeat({ id: 'B32', lines: ['L061', { id: 'L062', gap: .15 }, { id: 'L063', gap
     draw: c => { const r = arena(c); const fl = Math.floor(c.t * 12) % 2; return scene(c, { back: r.back, bb: 12, mid: S.rect(-600, 760, 3200, 400, '#24304a') + PR.barrier(1180, 790, 160, 140, { glint: true }) + PR.robot(900, 880, { s: 1.8, wheelRot: c.t * 900, ledMain: fl ? 'off' : 'on' }), cam: CAM.push(1000, 680, 1.1, 1.2)(c.p), overlay: finalTimer(c) }); } },
 ] });
 // ---------- B33 payoff of the plant (flashback; no narration — the picture carries it) ----------
-addBeat({ id: 'B33', lines: [], min: 3.8, music: { name: 'stop', at: 0 }, shots: [
+addBeat({ id: 'B33', lines: [], min: 3.8, music: { name: 'stop', at: 0 }, sfx: [[0, 'impressed_murmur', .15, { dur: 4.4 }], [1.6, 'heartbeat_muffled', .5], [1.6, 'clock_tick_loop', .3]], shots: [
   { id: 'S087', type: 'FLASH', tin: 'flash', desc: 'Sepia flashback that exactly matches S059: Noah holding up the diagram and pointing (BACKUP · LEFT, METAL); Eli not listening; the soft tool-click returns.', w: 1.4, sfx: [[.1, 'sparkle', .4], [1.4, 'tool_place', 2.2]],
     draw: c => { const r = workshop(c); return scene(c, { back: r.back, bb: 6, mid: A(c, { who: 'noah', x: 1200, y: 1060, h: 520, f: -1, pose: P.point(), expr: 'happy', light: LT.sepia }) + PR.circuitDiagram(1010, 640, .45, { backup: true, metal: true, r: 4 }) + A(c, { who: 'eli', x: 600, y: 1060, h: 500, f: -1, pose: P.controller(c.T), expr: 'busy', lookY: 1, light: LT.sepia }), cam: CAM.push(980, 600, 1.15, 1.3)(c.p), grade: { sat: .1, sepia: '#c8a878' }, vignette: .85, grain: .12 }); } },
   { id: 'S088', type: 'CU', desc: 'Back in the hall: Eli freezes — guilty realisation.', w: 1,
@@ -198,15 +198,16 @@ addBeat({ id: 'B34', lines: ['L066', { id: 'L067', gap: .15 }], pre: .1, post: .
   { id: 'S090', type: 'TELE', on: 'L067', desc: 'Telephoto push on Noah in the bleachers, pointing hard to his left: "Switch to the backup sensor! LEFT SIDE!"', w: 1,
     draw: c => { const r = arena(c, { noahCrowd: false, cheer: .3 }); return scene(c, { back: r.back, bb: 8, mid: A(c, { who: 'noah', x: 1000, y: 1150, h: 720, f: -1, pose: P.point(), expr: 'shout', light: LT.floodR }), cam: CAM.push(1000, 560, 1, 1.15, 'out')(c.p), overlay: finalTimer(c) }); } },
 ] });
-addBeat({ id: 'B35', lines: ['L068'], pre: .2, post: .4, minShot: 1.2, music: { name: 'stop', at: .15 }, shots: [
+addBeat({ id: 'B35', lines: ['L068'], pre: .2, post: .4, minShot: 1.2, shots: [
   { id: 'S091', type: 'INSERT', desc: 'Tight on the controller: Eli\'s thumb flips the switch MAIN → BACKUP SENSOR; zap.', w: .8, sfx: [[.3, 'electric_switch', .9]],
     draw: c => { const r = arena(c); const on = c.t > .35; return scene(c, { back: r.back, bb: 16, mid: PR.controller(960, 560, 3.2, { sw: on }) + bigHand(1260 + (on ? 70 : 0), 420, 1.2, 160, PAL.eli, { point: true }), cam: CAM.drift(960, 560, 1, .03)(c.p), flash: on ? clamp(1 - (c.t - .35) / .15) * .5 : 0, overlay: finalTimer(c) }); } },
-  { id: 'S091b', type: 'ECU', dur: 1.0, tin: 'flash', desc: 'Extreme close-up on the robot\'s rear-left corner — the same blue BACKUP box labelled in S060 — its LED ignites and floods the dark chassis with blue light.', music: { name: 'triumph_resolve', vol: .4, fade: .3, at: .3 }, sfx: [[.15, 'sparkle', .5]],
+  { id: 'S091b', type: 'ECU', dur: 1.0, tin: 'flash', desc: 'Extreme close-up on the real robot\'s rear-left corner (wheel + chassis + the blue BACKUP box from S060): its LED ignites and spills blue light across the chassis.', sfx: [[.15, 'sparkle', .5], [.2, 'electric_switch', .4]],
     draw: c => {
-      const r = arena(c); const on = c.t > .2, k = on ? E.out(clamp((c.t - .2) / .2)) : 0;
-      const chassis = S.rect(200, 260, 1500, 620, '#1c2233', { rx: 60 }) + S.rect(200, 260, 1500, 30, PAL.rim, { opacity: .35, rx: 15 }) + S.rect(320, 420, 1200, 40, '#d7383a', { rx: 10 }) + S.rect(320, 480, 1200, 40, '#8cc7f0', { rx: 10 });
-      const box = S.rect(560, 560, 420, 300, '#3b7bd2', { rx: 30 }) + S.rect(560, 560, 420, 20, '#6aa0e8', { rx: 10 }) + S.circle(770, 710, 46, mixc('#1f3b5a', '#bff0ff', k)) + (on ? glow(770, 710, 420, '#6fd0ff', .85 * k) + glow(770, 710, 120, '#ffffff', .8 * k) + S.rect(200, 260, 1500, 620, '#4aa3ff', { opacity: .18 * k, rx: 60 }) : '');
-      return scene(c, { back: r.back, bb: 18, mid: chassis + box, cam: { x: 900, y: 600, z: 1.1 + .05 * c.p }, flash: on ? clamp(1 - (c.t - .2) / .12) * .6 : 0, flashColor: '#bff0ff', overlay: label(770, 980, 'BACKUP · LEFT', { size: 50, k: appear(c.t, .3), fill: '#9fdcff' }) });
+      const r = arena(c); const k = c.t > .2 ? E.out(clamp((c.t - .2) / .2)) : 0;
+      // robot drawn huge so its left end (box at local x -150..-120, y -100..-72) fills the frame
+      const sc = 5.5, rx = 1650, ry = 1180, bx = rx - 135 * sc, by = ry - 86 * sc;
+      const spill = k > 0 ? glow(bx, by, 700, '#4aa3ff', .35 * k) + glow(bx, by, 140, '#e8fbff', .8 * k) : '';
+      return scene(c, { back: r.back, bb: 18, mid: PR.robot(rx, ry, { s: sc, ledBackup: k > .3 }) + spill, cam: { x: 900, y: 600, z: 1.0 + .04 * c.p }, overlay: label(bx, by + 260, 'BACKUP · LEFT', { size: 50, k: appear(c.t, .3), fill: '#9fdcff' }) });
     } },
   { id: 'S093', type: 'TOP-close', desc: 'Close overhead on the metal barrier: lit by its blue backup LED, the robot curves cleanly AROUND the barrier this time (blue trail) instead of veering into it.', w: 1.2, sfx: [[0, 'motor_whir', .8]],
     draw: c => {
@@ -226,8 +227,16 @@ addBeat({ id: 'B35', lines: ['L068'], pre: .2, post: .4, minShot: 1.2, music: { 
     draw: c => scene(c, { mid: S.rect(-200, -200, 2400, 1500, '#120e20') + topRun(c, ROUTE_RECOVER, lerp(.45, .82, atE(c, 0, c.d, 'inOut')), { ledBackup: true }), cam: CAM.drift(960, 560, 1.0, .04, 30)(c.p), overlay: finalTimer(c) }) },
   { id: 'S094b', type: 'ECU', dur: .9, tin: 'flash', desc: 'Extreme close-up of the red timer hitting 0:01. The music cuts out.', music: { name: 'stop', at: 0 }, sfx: [[0, 'clock_tick_fast', .8]],
     draw: c => { const r = arena(c); return scene(c, { back: r.back, bb: 16, mid: PR.timer(960, 560, fmtClock(finalSecs(c.T)), { w: 900, h: 360, size: 260 }) + glow(960, 560, 600, PAL.red, .3), cam: CAM.push(960, 560, 1, 1.1)(c.p), shake: 3 }); } },
-  { id: 'S095', type: 'ECU', tin: 'flash', w: 1.6, min: 2.6, desc: 'Slow-motion extreme close-up on the checkered finish line: in silence but for a heartbeat, the robot\'s front wheel creeps over it; then FINISH horn, flash, crowd, and the triumph theme returns.', music: { name: 'triumph_resolve', vol: .45, fade: .1, at: 1.2 }, sfx: [[0, 'heartbeat_muffled', .8], [1.2, 'finish_horn', .9], [1.3, 'crowd_cheer', .9]],
-    draw: c => { const r = arena(c, { cheer: c.t > 1.2 ? 1 : 0 }); const k = c.t < 1.2 ? E.out(seg(c.t, 0, 1.2)) * .9 : .9 + .1 * E.out(seg(c.t, 1.2, 1.5)); const x = lerp(400, 1100, k); return scene(c, { back: r.back, bb: 14, mid: S.rect(-600, 780, 3200, 400, '#24304a') + S.g({ transform: 'translate(1000,780) skewX(-20)' }, PR.checker(0, 0, 200, 300, 4)) + PR.robot(x, 960, { s: 2.6, wheelRot: k * 600, ledBackup: true }), cam: CAM.push(960, 640, 1, 1.12, 'out')(c.p), flash: c.t > 1.2 ? clamp(1 - (c.t - 1.2) / .3) * .7 : 0, overlay: finalTimer(c) }); } },
+  { id: 'S095', type: 'ECU', tin: 'flash', w: 1.6, min: 2.6, desc: 'Slow-motion close-up: the robot creeps toward the checkered line in silence but for a heartbeat; its front wheel touches the first checker exactly on the horn — flash, crowd, and the triumph theme.', music: { name: 'triumph_resolve', vol: .45, fade: .1, at: 1.2 }, sfx: [[0, 'heartbeat_muffled', .8], [1.2, 'finish_horn', .9], [1.3, 'crowd_cheer', .9]],
+    draw: c => {
+      const r = arena(c, { cheer: c.t > 1.2 ? 1 : 0 });
+      const s = 2.6, wheelOff = 80 * s + 30 * s, lineX = 1000;
+      const xCross = lineX - wheelOff, x = c.t < 1.2 ? lerp(xCross - 140, xCross, E.inOut(seg(c.t, 0, 1.2))) : xCross + 520 * E.out(seg(c.t, 1.2, 1.9));
+      const dip = c.t > 1.2 && c.t < 1.5 ? Math.sin((c.t - 1.2) / .3 * Math.PI) * 3 : 0;
+      const lane = rectGrad(-600, 780, 3200, 400, [[0, '#2a3656', 1], [1, '#121827', 1]]) + glow(lineX, 860, 420, '#e6ecff', .25, 1.6);
+      const fl = c.t > 1.2 ? clamp(1 - (c.t - 1.2) / .35) : 0;
+      return scene(c, { back: r.back, bb: 14, mid: lane + S.g({ transform: `translate(${lineX},780) skewX(-20)` }, PR.checker(0, 0, 200, 300, 4)) + S.g({ transform: `rotate(${dip},${x},960)` }, PR.robot(x, 960, { s, wheelRot: (x - xCross) * 1.2, ledBackup: true })) + glow(x - 135 * s, 960 - 86 * s, 160, '#4aa3ff', .45), cam: CAM.push(960, 640, 1, 1.1, 'out')(c.p), flash: fl * .45, flashColor: '#ffe6b0', overlay: finalTimer(c) + (fl > 0 ? S.ellipse(lineX, 700, 1100 * fl, 6, '#fff', { opacity: .6 * fl, style: 'mix-blend-mode:screen' }) : '') });
+    } },
 ] });
 
 // ---------- ACT V (warm payoff light) ----------
@@ -235,11 +244,11 @@ addBeat({ id: 'B36', lines: ['L070'], pre: .3, post: .3, sfx: [[0, 'applause', .
   { id: 'S096', type: 'WS', desc: 'The crowd erupts under golden light, confetti falls; scoreboard WINNER 0:01.', w: .8,
     draw: c => { const r = arena(c, { cheer: 1, warm: 1 }); let conf = ''; const rr = rng(5); for (let i = 0; i < 80; i++) { const x = rr() * W, y = ((rr() * H + c.t * (200 + rr() * 200)) % H); conf += S.rect(x, y, 10, 16, ['#d7383a', '#8cc7f0', PAL.gold, '#5fe07a'][i % 4], { transform: `rotate(${c.t * 200 + i * 20},${x},${y})` }); } return scene(c, { back: r.back, bb: 2, mid: conf, cam: CAM.drift(960, 520, 1.05, .03, 30)(c.p), grade: WARM }); } },
   { id: 'S097', type: 'CU-rack', desc: 'An official\'s hand lifts the trophy in the foreground; Eli glances at it, then his eyeline moves past it, screen-right, toward Noah (rack focus trophy → Eli).', w: 1.1,
-    draw: c => { const r = arena(c, { cheer: .8, warm: 1 }); const k = atE(c, .4, 1.4); return { layers: [{ svg: r.back, p: .8, blur: 10 }, { svg: A(c, { who: 'eli', x: 1250, y: 1150, h: 700, f: 1, pose: P.stand(), expr: 'neutral', lookX: c.t < .5 ? -1 : 1, light: LT.goldL }), p: 1, blur: lerp(8, 0, k) }, { svg: PR.trophy(620, 780, 2.2) + bigHand(420, 760, 1.1, -10, '#2f3b63'), p: 1.2, blur: lerp(0, 12, k) }], cam: CAM.drift(960, 560, 1, .03)(c.p), grade: WARM }; } },
+    draw: c => { const r = arena(c, { cheer: .8, warm: 1 }); const k = atE(c, .4, 1.4); return { layers: [{ svg: r.back, p: .8, blur: 10 }, { svg: glow(1250, 480, 600, PAL.winHot, .4) + glow(1250, 480, 160, '#fff3d0', .5) + A(c, { who: 'eli', x: 1250, y: 1150, h: 700, f: 1, pose: P.stand(), expr: 'neutral', lookX: c.t < .5 ? -1 : 1, light: LT.goldL }), p: 1, blur: lerp(8, 0, k) }, { svg: PR.trophy(620, 780, 2.2) + bigHand(420, 760, 1.1, -10, '#2f3b63'), p: 1.2, blur: lerp(0, 12, k) }], cam: CAM.drift(960, 560, 1, .03)(c.p), grade: WARM }; } },
   { id: 'S098', type: 'MS', desc: 'Eli walks away from the trophy, threading through the cheering crowd toward Noah — sheepish, determined.', w: 1,
-    draw: c => { const r = arena(c, { cheer: .7, warm: 1 }); let crowd = ''; [[300, 1], [1600, -1], [1800, -1], [140, 1]].forEach(([x, f], i) => crowd += A(c, { who: 'extra', x, y: 1100, h: 640, f, pose: P.cheerBounce(c.T, i), expr: 'happy', light: LT.goldL, t: c.T + i })); const ex = lerp(700, 1200, c.p); return scene(c, { back: r.back, bb: 8, mid: A(c, { who: 'eli', x: ex, y: 1100, h: 640, f: 1, pose: P.walk(walkPh(ex, 640)), expr: 'worried', light: LT.goldL }), fg: crowd, fb: 12, cam: { x: lerp(860, 1100, c.p), y: 600, z: 1 }, grade: WARM }); } },
+    draw: c => { const r = arena(c, { cheer: .7, warm: 1 }); let crowd = ''; [[300, 1], [1600, -1], [1800, -1], [140, 1]].forEach(([x, f], i) => crowd += A(c, { who: 'extra', x, y: 1100, h: 640, f, pose: P.cheerBounce(c.T, i), expr: 'happy', light: LT.goldL, t: c.T + i })); const ex = lerp(700, 1200, c.p); return scene(c, { back: r.back + glow(ex, 480, 600, PAL.winHot, .35), bb: 8, mid: A(c, { who: 'eli', x: ex, y: 1100, h: 640, f: 1, pose: P.walk(walkPh(ex, 640)), expr: 'worried', light: LT.goldL }), fg: crowd, fb: 12, cam: { x: lerp(860, 1100, c.p), y: 600, z: 1 }, grade: WARM }); } },
 ] });
-addBeat({ id: 'B37', lines: ['L071', { id: 'L072', gap: .5 }, { id: 'L073', gap: .9 }, { id: 'L074', gap: .3 }, { id: 'L075', gap: .3 }], pre: .5, post: .8, minShot: 3.0, music: [{ name: 'stop', at: 0 }, { name: 'sad_piano', vol: .25, at: .4, fade: 2 }], shots: [
+addBeat({ id: 'B37', sfx: [[0, 'applause', .45, { dur: 6 }]], lines: ['L071', { id: 'L072', gap: .5 }, { id: 'L073', gap: .9 }, { id: 'L074', gap: .3 }, { id: 'L075', gap: .3 }], pre: .5, post: .8, minShot: 3.0, music: [{ name: 'stop', at: 0 }, { name: 'sad_piano', vol: .25, at: .4, fade: 2 }], shots: [
   { id: 'S099', type: 'MS-2', desc: 'Two-shot by the bleachers, applause softening, golden light: Eli, sincere: "Dude... I\'m sorry." Noah, arms crossed: "For what?"', w: 1.2,
     draw: c => { const r = arena(c, { cheer: .2, noahCrowd: false, warm: 1 }); return scene(c, { back: r.back, bb: 9, mid: glow(970, 560, 520, '#ffcf8a', .3) + A(c, { who: 'eli', x: 760, y: 1100, h: 640, f: 1, pose: P.stand(), expr: 'sad', light: LT.goldR }) + A(c, { who: 'noah', x: 1180, y: 1100, h: 620, f: -1, pose: P.crossArms(), expr: 'unimpressed', light: LT.goldL }), cam: CAM.push(960, 600, 1.2, 1.28)(c.p), grade: WARM }); } },
   { id: 'S100', type: 'OTS', on: 'L073', desc: 'Over Noah\'s shoulder: Eli: "Thinking I didn\'t need you."', w: 1,
@@ -252,9 +261,9 @@ addBeat({ id: 'B37', lines: ['L071', { id: 'L072', gap: .5 }, { id: 'L073', gap:
     draw: c => {
       const r = arena(c, { cheer: .3, noahCrowd: false, warm: 1 });
       const k = poseAt(c.t, [[0, { v: 0 }], [.6, { v: -.25 }], [.8, { v: 1 }, 'out'], [1.2, { v: .85 }]]).v;
-      const hit = c.t > .75 && c.t < 1.2 ? 25 * Math.sin((c.t - .75) / .45 * Math.PI) : 0;
+      const hit = 45 * poseAt(c.t, [[.75, { v: 0 }], [.85, { v: 1 }, 'out'], [1.2, { v: -.15 }], [1.4, { v: 0 }]]).v;
       let crowd = ''; [[200, 1], [1700, -1]].forEach(([x, f], i) => crowd += A(c, { who: 'extra', x, y: 1250, h: 900, f, pose: P.cheerBounce(c.T, i), expr: 'happy', light: LT.goldL }));
-      return scene(c, { back: r.back + glow(960, 560, 600, '#ffcf8a', .3), bb: 9, mid: A(c, { who: 'eli', x: 820 - hit, y: 1080, h: 600, f: 1, pose: P.stand(), rot: -hit * .3, expr: 'happy', headTilt: c.t > 1 ? -8 : 0, light: LT.goldL }) + A(c, { who: 'noah', x: lerp(1160, 1060, Math.max(0, k)), y: 1080, h: 580, f: -1, pose: { ...P.walk(walkPh(1160 - lerp(1160, 1060, Math.max(0, k)), 580)), lean: -4 * k }, expr: 'happy', light: LT.goldL }), fg: crowd, fb: 14, cam: { x: lerp(920, 1000, c.p), y: 660, z: lerp(1.02, 1.08, c.p), r: 0 }, grade: WARM });
+      return scene(c, { back: r.back + glow(960, 560, 600, '#ffcf8a', .3), bb: 9, mid: A(c, { who: 'eli', x: 820 - hit, y: 1080, h: 600, f: 1, pose: P.stand(), rot: -hit * .3, expr: 'happy', headTilt: c.t > 1 ? -8 : 0, light: LT.goldL }) + A(c, { who: 'noah', x: lerp(1160, 1060, Math.max(0, k)), y: 1080, h: 580, f: -1, pose: mixPose(P.walk(walkPh(1160 - lerp(1160, 1060, Math.max(0, k)), 580)), { ...P.stand(), lean: 14 * clamp((c.t - .8) / .15) * (1 - clamp((c.t - 1.1) / .3)) }, atE(c, .55, .8)), expr: 'happy', light: LT.goldL }), fg: crowd, fb: 14, cam: { x: lerp(920, 1000, c.p), y: 660, z: lerp(1.02, 1.08, c.p), r: 0 }, grade: WARM });
     } },
 ] });
 addBeat({ id: 'B38', minShot: 3.5, lines: [{ id: 'L077', gap: .5 }], pre: .8, post: 1.0, music: { name: 'ending_light', vol: .35, at: 0, fade: 2 }, shots: [
@@ -269,19 +278,19 @@ addBeat({ id: 'B39', lines: [{ id: 'L078', gap: 2.0 }, { id: 'L079', gap: .4 }, 
   { id: 'S106', type: 'MS-2', on: 'L078', desc: 'Music room: Noah at the piano: "So... you gonna teach me that piano song or what?" Eli walks in and sits down beside him.', w: 1.4,
     draw: c => {
       const e = ENV.musicroom({ t: c.T });
-      const wk = at(c, .3, 1.6), ex = lerp(1560, 1240, wk), sitK = atE(c, 1.6, 2.2, 'outBack');
-      const pose = c.t < 1.6 ? P.walk(walkPh(1560 - ex, 360)) : mixPose({ ...P.stand(), fa: [40, 30] }, c.t > c.d - 2 ? P.sitPiano(c.T, 1) : P.sit(), sitK);
+      const wk = E.out(at(c, .3, 1.6)), ex = lerp(1560, 1150, wk), sitK = atE(c, 1.6, 2.2, 'inOut');
+      const pose = c.t < 1.6 ? mixPose(P.walk(walkPh(1560 - ex, 360)), P.stand(), atE(c, 1.35, 1.6)) : mixPose(P.stand(), P.sit(), sitK);
       const ey = c.t < 1.6 ? 740 + 117 * 1.2 : lerp(740 + 117 * 1.2, 740, sitK);
-      return scene(c, { back: e.back, bb: 4, mid: PR.piano(700, 860, 1.25) + PR.stool(1000, 860, 1.2) + PR.stool(1240, 860, 1.2) + A(c, { who: 'noah', x: 1000, y: 740, h: 360, f: -1, pose: P.sitPiano(c.T, .5), expr: 'smug', light: LT.warmL }) + A(c, { who: 'eli', x: ex, y: ey, h: 360, f: -1, pose, expr: 'happy', light: LT.warmL }), cam: CAM.drift(1000, 600, 1.15, .03, 30)(c.p) });
+      return scene(c, { back: e.back, bb: 4, mid: PR.piano(700, 860, 1.25) + PR.stool(1000, 860, 1.2) + PR.stool(1150, 860, 1.2) + A(c, { who: 'noah', x: 1000, y: 740, h: 360, f: -1, pose: P.sitPiano(c.T, .5), expr: 'smug', light: LT.warmL }) + A(c, { who: 'eli', x: ex, y: ey, h: 360, f: -1, pose, expr: 'happy', light: LT.warmL }), cam: CAM.drift(1000, 600, 1.15, .03, 30)(c.p) });
     } },
   { id: 'S106b', type: 'TOP-callback', on: 'L079', off: -2.0, min: 1.5, desc: 'Overhead keys (same angle as S002/S105): Eli\'s red-sleeved hands play the first two bars of the song, clean and gold, next to Noah\'s blue sleeve — "Yeah."', 
     draw: c => { const mel = [0, 4, 7, 4, 2, 5]; const pressed = {}; const n = Math.floor(c.t * 3.6); if (n < mel.length) pressed[mel[n] + 6] = 1; const hx = 160 + (mel[Math.min(n, mel.length - 1)] + 6) * 76 + 38; const mid = S.rect(-200, -200, 2400, 1500, '#1a0f14') + PR.keysTop(160, 330, 1600, 21, pressed, { hit: PAL.gold }) + bigHand(hx, 560, 1.4, -90, PAL.eli, { curl: true }) + bigHand(420, 600, 1.3, -80, PAL.noah); return scene(c, { mid, vignette: .72, grade: INSERT_GRADE, cam: CAM.drift(960, 540, 1.05, .04)(c.p) }); } },
   { id: 'S107', type: 'MS', on: 'L080', desc: 'Noah, seated at the piano (keyboard edge in frame), cheerfully: "Cool. It\'ll only take me ten hours."', w: 1,
     draw: c => { const e = ENV.musicroom({ t: c.T }); return scene(c, { back: e.back, bb: 9, mid: A(c, { who: 'noah', headAt: [1080, 480], h: 950, f: 1, pose: P.sitPiano(c.T, .3), expr: 'happy', light: LT.warmL }) + PR.keysTop(-200, 980, 1100, 12, {}), cam: CAM.drift(1000, 540, 1, .03)(c.p) }); } },
   { id: 'S108', type: 'CU-callback', on: 'L081', off: -.9, desc: 'Callback: Eli, seated, turns to camera with exactly the same bewildered face and framing as "Wait... what?" (S026): "...Oh my God." Silent beat, comedic sting, hard cut to black.', w: 1, sfx: [[-0.5, 'comedic_sting', .8]],
-    draw: c => { const e = ENV.musicroom({ t: c.T }); const turn = atE(c, 0, .25, 'outBack'); return scene(c, { back: e.back, bb: 12, mid: A(c, { who: 'eli', ...BEWILDERED_FRAME, f: 1, front: turn > .5, turn: lerp(.45, 0, turn), pose: P.sit(), expr: c.t < .25 ? 'busy' : c.t < 1.4 ? 'shock' : 'bewildered', blink: (c.t > 1.36 && c.t < 1.46) || (c.t > .21 && c.t < .3), light: LT.warmL }), cam: CAM.push(860, 500, 1, 1.05)(c.p) }); } },
+    draw: c => { const e = ENV.musicroom({ t: c.T }); const turn = atE(c, 0, .25, 'outBack'); return scene(c, { back: e.back, bb: 12, mid: A(c, { who: 'eli', ...BEWILDERED_FRAME, f: 1, front: turn > .5, turn: lerp(.45, 0, turn), pose: P.stand(), expr: c.t < .25 ? 'busy' : c.t < 1.4 ? 'shock' : 'bewildered', blink: (c.t > 1.36 && c.t < 1.46) || (c.t > .21 && c.t < .3), light: LT.warmL }), cam: CAM.push(860, 500, 1, 1.05)(c.p) }); } },
 ] });
 addBeat({ id: 'B40', lines: [], min: 3.8, shots: [
-  { id: 'S109', type: 'END', desc: 'Title on black: WHAT IF YOU COULD LEARN ANYTHING 10x FASTER?', w: 1, music: { name: 'stop', at: 3.0 },
+  { id: 'S109', type: 'END', desc: 'Title on black: WHAT IF YOU COULD LEARN ANYTHING 10x FASTER?', w: 1, music: { name: 'stop', at: 0 }, sfx: [[.2, 'piano_clean_chord', .7]],
     draw: c => { const k = atE(c, .2, .9, 'out'); return scene(c, { bgc: '#000', mid: '', overlay: titleText([{ t: 'WHAT IF YOU COULD LEARN', size: 60, y: 480 }, { t: 'ANYTHING 10x FASTER?', size: 96, y: 590, fill: PAL.gold }], { op: k * (1 - at(c, 3.2, 3.8)) }), vignette: 0, burn: 0 }); } },
 ] });

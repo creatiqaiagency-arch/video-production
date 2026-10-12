@@ -67,7 +67,11 @@ for sgm in segments:
     n = int((t1 - t0) * SR)
     if n <= 0: continue
     off = int((t0 - sgm['start']) * SR)  # continue the same track position after a duck
-    idx = (np.arange(n) + off) % len(a)
+    if sgm.get('loop'):
+        idx = (np.arange(n) + off) % len(a)
+    else:
+        n = max(0, min(n, len(a) - off)); idx = np.arange(n) + off
+    if n <= 0: continue
     seg = a[idx] * sgm['vol']
     fi = int((0 if sgm['cont'] else sgm['fade']) * SR); fo = int(.6 * SR)
     if fi > 0: seg[:min(fi, n)] *= np.linspace(0, 1, min(fi, n))[:, None]

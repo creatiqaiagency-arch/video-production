@@ -104,7 +104,11 @@ function face(o, R, mono) {
   if (o.hideMouth) return s;
   if (e === 'shock') s += S.ellipse(mx, my + .02 * R, .07 * R + talk * .03 * R, .1 * R + talk * .05 * R, ink);
   else if (e === 'panic' || e === 'shout') { const op = .35 + .65 * talk; s += S.path(`M${mx - mw * .8},${my + .08 * R} Q${mx - mw * .7},${my - .12 * R * op} ${mx},${my - .13 * R * op} Q${mx + mw * .7},${my - .12 * R * op} ${mx + mw * .8},${my + .08 * R} Q${mx},${my + (.06 + .22 * op) * R} ${mx - mw * .8},${my + .08 * R}Z`, ink); }
-  else if (talk > .08) s += S.path(`M${mx - mw * .9},${my} Q${mx},${my - .03 * R} ${mx + mw * .9},${my} Q${mx},${my + (.05 + talk * .2) * R} ${mx - mw * .9},${my}Z`, ink);
+  else if (talk > .08) {
+    if (['sad', 'worried', 'unimpressed', 'bewildered'].includes(e)) s += S.path(`M${mx - mw * .8},${my + .05 * R} Q${mx},${my - (.03 + .10 * talk) * R} ${mx + mw * .8},${my + .05 * R} Q${mx},${my + (.07 + .08 * talk) * R} ${mx - mw * .8},${my + .05 * R}Z`, ink);
+    else if (['happy', 'smug'].includes(e)) s += S.path(`M${mx - mw * .9},${my} Q${mx},${my - .03 * R} ${mx + mw * .9},${my} Q${mx},${my + (.05 + talk * .2) * R} ${mx - mw * .9},${my}Z`, ink);
+    else s += S.ellipse(mx, my + .04 * R, mw * (.45 + .2 * talk), (.03 + .12 * talk) * R, ink);
+  }
   else if (e === 'happy' || e === 'smug') s += S.path(`M${mx - mw},${my - .03 * R} Q${mx + (e === 'smug' ? .05 * R : 0)},${my + .14 * R} ${mx + mw},${my - (e === 'smug' ? .08 : .03) * R}`, 'none', { stroke: ink, 'stroke-width': sw, 'stroke-linecap': 'round' });
   else if (e === 'sad' || e === 'worried') s += S.path(`M${mx - mw * .8},${my + .06 * R} Q${mx},${my - .06 * R} ${mx + mw * .8},${my + .06 * R}`, 'none', { stroke: ink, 'stroke-width': sw, 'stroke-linecap': 'round' });
   else if (e === 'busy') s += S.line(mx - mw * .5, my + .03 * R, mx + mw * .5, my + .03 * R, ink, sw * .9);
@@ -214,7 +218,7 @@ function character(o) {
   const fo = { ...o, blink, litSide, face: { expr: o.expr, turn: o.turn ?? (o.front ? 0 : undefined), lookX: o.lookX, lookY: o.lookY, hideMouth: o.hideMouth, back: o.back } };
   let main = drawFigure(fo, pose, null);
   if (o.headAt) { const hp = main.j.head; o = { ...o, x: o.headAt[0] - hp[0] * f * sc, y: o.headAt[1] - hp[1] * sc }; }
-  const rimW = Math.min(16, Math.max(o.rimW ?? 6.5, h * .011)) / sc;
+  const rimW = Math.min(16, Math.max(o.rimW ?? 6.5, h * .011)) / sc / (o.camZ || 1);
   const lx = light.dx * f * rimW, ly = light.dy * rimW;
   const rimCol = light.color || PAL.rim;
   const rim = drawFigure(fo, pose, rimCol);

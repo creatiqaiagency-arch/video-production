@@ -143,13 +143,15 @@ addBeat({ id: 'B20', lines: ['L038'], pre: .4, post: .4, music: { name: 'obsessi
     draw: c => obsession(c, 0) },
   { id: 'S054', type: 'MS-locked', desc: 'Obsession montage B: same framing; a book then a circuit diagram; the background is now empty; cool blue light.', w: 1, sfx: [[.1, 'whoosh', .3], [1.4, 'whoosh', .3]],
     draw: c => obsession(c, 1) },
-  { id: 'S054b', type: 'CU', dur: 2.6, desc: 'Alone in the cold light: Eli\'s phone lights up on the desk — "Noah: hey, wanna hang out?" — and he flips it face-down without looking.', sfx: [[.3, 'ui_pop', .5]],
+  { id: 'S054b', type: 'CU', dur: 2.8, desc: 'Alone in the cold light: Eli\'s phone lights up on the desk — "Noah: hey, wanna hang out?" — and without looking up from his circuit diagram he flips it face-down with his own hand.', sfx: [[.3, 'ui_pop', .5], [1.9, 'tool_place', 1.2]],
     draw: c => {
       const e = ENV.classroom({ t: c.T });
-      const flip = atE(c, 1.6, 2.0);
-      const phone = S.g({ transform: `translate(1180,860) scale(${2.2},${2.2 * Math.max(.06, Math.abs(1 - 2 * flip))})` }, S.rect(-30, -55, 60, 110, flip < .5 ? '#1b1820' : '#2b2733', { rx: 10 }), flip < .5 ? S.rect(-25, -48, 50, 92, '#3a5a9a', { rx: 4 }) : S.rect(-12, -20, 24, 24, '#4a4555', { rx: 6 }));
-      const bubble = flip < .4 ? S.g({ opacity: appear(c.t, .3) }, S.rect(1260, 640, 420, 110, '#efe3cf', { rx: 18 }), S.text(1290, 690, 'NOAH', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 26, fill: '#3b7bd2' }), S.text(1290, 730, 'hey, wanna hang out?', { 'font-family': 'Inter', 'font-weight': 600, 'font-size': 30, fill: '#2a2420' })) : '';
-      return scene(c, { back: e.back, bb: 14, mid: A(c, { who: 'eli', headAt: [700, 470], h: 1000, f: 1, pose: P.hold(), expr: 'busy', lookY: 1, light: LT.coolL }) + PR.desk(1000, 1300, 1600, { h: 300 }) + phone + bubble + (flip < .5 ? glow(1180, 860, 260, '#8fb0ff', .5) : '') + (c.t > 1.3 && c.t < 2.3 ? bigHand(lerp(1500, 1260, atE(c, 1.3, 1.6)), 820, 1.0, 190, PAL.eli, { curl: true }) : ''), cam: CAM.drift(900, 540, 1, .03)(c.p), grade: { tint: '#3a5aff', op: .5 }, vignette: .8 });
+      const flip = atE(c, 1.6, 1.95);
+      const eliA = actor(c, { who: 'eli', headAt: [700, 470], h: 1000, f: 1, pose: poseAt(c.t, [[0, P.hold()], [1.3, P.hold()], [1.6, { ...P.hold(), fa: [80, 25] }, 'out'], [2.2, P.hold()]]), expr: 'busy', lookY: 1, light: LT.coolR });
+      const px = 1000, py = 860;
+      const phone = S.g({ transform: `translate(${px},${py}) skewX(-30) scale(2.2,${.45 * 2.2 * Math.max(.08, Math.abs(1 - 2 * flip))})` }, S.rect(-55, -30, 110, 60, flip < .5 ? '#1b1820' : '#2b2733', { rx: 10 }), flip < .5 ? S.rect(-48, -25, 96, 50, '#3a5a9a', { rx: 4 }) : '');
+      const msg = flip < .4 ? S.g({ opacity: appear(c.t, .3) * (1 - flip * 2.5) }, S.rect(px - 60, py - 300, 420, 110, '#d9c9ab', { rx: 18 }), S.path(`M${px + 20},${py - 190} l20,40 l20,-40Z`, '#d9c9ab'), S.text(px - 30, py - 250, 'NOAH', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 26, fill: '#3b7bd2' }), S.text(px - 30, py - 210, 'hey, wanna hang out?', { 'font-family': 'Inter', 'font-weight': 600, 'font-size': 30, fill: '#2a2420' })) : '';
+      return scene(c, { back: e.back, bb: 14, mid: PR.desk(1000, 1300, 1600, { h: 300 }) + PR.circuitDiagram(560, 1010, .5, { r: -6 }) + phone + (flip < .5 ? glow(px, py, 260, '#8fb0ff', .5) : '') + eliA.svg + msg, cam: CAM.drift(900, 560, 1, .03)(c.p), grade: { tint: '#3a5aff', op: .5 }, vignette: .8 });
     } },
 ] });
 function obsession(c, part) {

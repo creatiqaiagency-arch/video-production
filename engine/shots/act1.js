@@ -105,7 +105,7 @@ addBeat({ id: 'B05', minShot: 1.5, lines: ['L006', { id: 'L007', gap: .5 }, { id
       const mid = PR.chair(760, 920, 1, 1.6) + A(c, { who: 'eli', x: 760, y: 820, h: 560, f: 1, pose: mixPose(P.sit(), P.raiseHand(), atE(c, .1, .5, 'outBack') * .7), expr: c.t > .9 ? 'happy' : 'worried', light: LT.warmL }) + PR.desk(1050, 980, 520, { h: 160 });
       return scene(c, { back: e.back, bb: 9, mid, cam: CAM.drift(860, 560, 1.0, .03)(c.p) });
     } },
-  { id: 'S010', type: 'ECU', on: 'L008', off: -.25, desc: 'Extreme close-up on the teacher\'s unamused eyes behind her glasses: "We\'re in English class." The ENGLISH board is visible behind.', w: 1, sfx: [[0, 'record_scratch', .6]],
+  { id: 'S010', min: 1.1, type: 'ECU', on: 'L008', off: -.25, desc: 'Extreme close-up on the teacher\'s unamused eyes behind her glasses: "We\'re in English class." The ENGLISH board is visible behind.', w: 1, sfx: [[0, 'record_scratch', .6]],
     draw: c => {
       const e = ENV.classroom({ t: c.T });
       const mid = A(c, { who: 'teacher', headAt: [1220, 470], h: 2000, f: -1, pose: P.stand(), expr: 'unimpressed', light: LT.warmL, turn: .2 });
@@ -170,7 +170,7 @@ addBeat({ id: 'B07', lines: ['L011', { id: 'L012', gap: .3 }, { id: 'L013', gap:
     } },
   { id: 'S017', type: 'OTS', on: 'L012', desc: 'Over Eli\'s shoulder (Eli seen from behind, foreground): Noah, deadpan, looking at Eli: "Dude, we\'re so cooked."', w: 1,
     draw: c => { const e = ENV.school({ t: c.T }); return scene(c, { back: e.back, bb: 12, mid: A(c, { who: 'noah', headAt: [1180, 470], h: 1150, f: -1, pose: P.sit(), expr: 'unimpressed', lookX: .6, light: LT.hotR }), fg: A(c, { who: 'eli', headAt: [300, 640], h: 1500, front: true, back: true, pose: P.sitSlump(), light: LT.hotR }), fb: 18, cam: CAM.drift(1000, 540, 1, .03)(c.p) }); } },
-  { id: 'S018', type: 'OTS', on: 'L013', desc: 'Reverse over Noah\'s shoulder: Eli, flat: "You think?"', w: 1,
+  { id: 'S018', w: .6, min: 1.3, type: 'OTS', on: 'L013', desc: 'Reverse over Noah\'s shoulder: Eli, flat: "You think?"', w: 1,
     draw: c => { const e = ENV.school({ t: c.T }); return scene(c, { back: e.back, bb: 12, mid: A(c, { who: 'eli', headAt: [740, 470], h: 1150, f: 1, pose: P.sit(), expr: 'unimpressed', lookX: .6, light: LT.hotR }), fg: A(c, { who: 'noah', headAt: [1680, 640], h: 1500, front: true, back: true, pose: P.sit(), light: LT.hotR }), fb: 18, cam: CAM.drift(900, 540, 1, .03)(c.p) }); } },
 ] });
 
@@ -215,7 +215,7 @@ addBeat({ id: 'B09', lines: ['L016', { id: 'L017', gap: .3 }], pre: .2, post: .3
       mid += PR.pencil(1350 + 60 * Math.sin(c.t * 12), 820 + 10 * Math.cos(c.t * 9), 2.2, -40);
       return scene(c, { mid, vignette: .85, overlay: S.rect(0, 0, W, H, '#1a0f1a', { opacity: .22 }), grade: INSERT_GRADE, cam: CAM.drift(900, 560, 1.05, .05)(c.p) });
     } },
-  { id: 'S023', type: 'CU', desc: 'Close-up: Eli\'s eyes widen — a double-take in the dawn light.', w: .8,
+  { id: 'S023', min: 1.2, type: 'CU', desc: 'Close-up: Eli\'s eyes widen — a double-take in the dawn light.', w: .8,
     draw: c => { const r = bedroomDesk(c); const take = c.t > .4 ? 1 + .08 * Math.sin(Math.PI * clamp((c.t - .4) / .25)) : 1; return scene(c, { back: r.e.back, bb: 12, mid: S.g({ transform: `translate(760,430) scale(${take}) translate(-760,-430)` }, A(c, { who: 'eli', headAt: [760, 430], h: 1150, f: 1, pose: P.sit(), expr: c.t > .4 ? 'shock' : 'busy', blink: c.t > .36 && c.t < .42, light: LT.lampR })), cam: CAM.push(800, 500, 1, 1.08)(c.p) }); } },
   { id: 'S024', type: 'TOP', on: 'L017', desc: 'Overhead page: problem after problem gets a green tick, tick, tick.', w: 1, sfx: [[.3, 'ui_tick', .7], [.9, 'ui_tick', .7], [1.5, 'ui_tick', .7]],
     draw: c => {
