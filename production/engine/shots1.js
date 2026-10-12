@@ -16,25 +16,27 @@ function nightBokehBg(cam, t, seed = 3, o = {}) {
   return s;
 }
 function kitchenBg(cam, t, blur = 3) { return envKitchen(cam, t, { bgBlur: blur }).bg; }
-// the present at the crossing, road-level view looking toward the oncoming truck (nearest→furthest: Nora, Leo, boy, guard)
+// the present at the crossing, road-level view looking toward the oncoming truck (nearest→furthest: Leo, Nora, boy, guard)
 function rfPeople(gt, o = {}) {
   const rim = { dx: -3, dy: -2, c: '#fff2c4' };
   let w = '';
   w += shadowAt(1650, 832, 26) + fig({ x: 1650, y: 832, s: 26, fc: -1, who: 'guard', pose: 'wave', expr: 'none', t: gt, rim });
   if (o.boyRoad) w += fig({ x: 1520, y: 866, s: 22, child: true, fc: -1, who: 'boy', pose: runPose((gt * 2) % 1, .8), expr: 'none', t: gt, rim }) + football(1450, 860, 8, gt * 300);
   else w += fig({ x: 1610, y: 864, s: 22, child: true, fc: -1, who: 'boy', pose: 'stand', expr: 'none', t: gt, rim }) + football(1580, 862, 8, 0);
-  w += shadowAt(1730, 890, 32) + fig({ x: 1730, y: 890, s: 32, fc: -1, who: 'leo', pose: o.leoPose || 'stand', expr: 'none', t: gt, rim });
-  w += shadowAt(1830, 925, 37) + fig({ x: 1830, y: 925, s: 37, fc: -1, who: 'nora', pose: o.noraPose || 'armsCross', expr: 'none', t: gt, rim });
+  w += shadowAt(1730, 890, 32) + fig({ x: 1730, y: 890, s: 32, fc: -1, who: 'nora', pose: o.noraPose || 'armsCross', expr: 'none', t: gt, rim });
+  w += shadowAt(1840, 928, 37) + fig({ x: 1840, y: 928, s: 37, fc: -1, who: 'leo', pose: o.leoPose || 'stand', expr: 'none', t: gt, rim });
   return w;
 }
 // the shot Leo sees in the cold open AND in the climax (Future B): ghost Leo in the lane, ghost boy safe on the sidewalk
 function futureBHit(lt, d, gt) {
   const cam = camMove(lt, d, { x: 1110, y: 700, z: 1.55 }, { x: 1100, y: 710, z: 1.75 });
-  const tx = kf(lt, [[0, 2050], [d * .62, 1160, ease.out], [d, 1150]]);
+  const tx = kf(lt, [[0, 2050], [d * .62, 1100, ease.out], [d, 1088]]);
   let w = truckSide(tx, IXP.lane + 22, .8);
-  w += adult(gt, 'nora', IXP.nora, IXP.walk, { pose: 'armsCross', expr: 'shocked' }) + guardFig(gt, { x: 1330, fc: 1, pose: 'wave', sign: false });
+  const rec = seg(lt, d * .3, d * .6, ease.out), fl = { tor: -16, head: -10, ab: [120, 40], af: [130, 40], lb: [6, 0], lf: [-6, 0] };
+  w += adult(gt, 'nora', IXP.nora, IXP.walk, { pose: mixPose(POSES.armsCross, fl, rec), expr: 'shocked' }) + guardFig(gt, { x: 1330, fc: -1, pose: mixPose(POSES.wave, fl, rec), sign: false, expr: 'shocked' });
   w += boyFig(gt, 1200, IXP.walk, { ghost: true, op: .65, pose: 'stand', expr: 'shocked', fc: -1 });
-  const rec = seg(lt, d * .3, d * .6, ease.out);
+  for (let i = 0; i < 4; i++) w += line(tx + 300 + i * 40, IXP.lane - 10 - i * 34, tx + 700 + i * 60, IXP.lane - 10 - i * 34, '#cfe8ff', 4, { opacity: (.35 * (1 - rec * .5)).toFixed(2) });
+  for (let i = 0; i < 5; i++) w += circ(tx + 160 + i * 40, IXP.lane + 10 - rnd(i + 3) * 20, 14 + i * 7, '#9a90a8', { opacity: .22 });
   w += adult(gt, 'leo', 1075, IXP.lane + 10, { fc: 1, pose: mixPose(runPose(.3, .5), { tor: -20, head: -15, ab: [150, 70], af: [135, 80], lb: [-15, 10], lf: [25, 20] }, rec), expr: 'scared', ghost: true, op: .8 });
   return futureWrap(ixWorld(cam, gt, w), 1, { t: gt });
 }
@@ -69,7 +71,7 @@ Object.assign(SHOTS_REG, {
     let o = layer(cam, inner);
     const p = seg(lt, .45, 1.15, ease.lin);
     for (const ex of [-1, 1]) o += layer(cam, ringFx(hx + ex * s * .5 * .27, hy - s * .5 * .1, p, 260));
-    return o + flashPulse(lt, d - .03, .05, .85);
+    return o + flashPulse(lt, d - .03, .05, .5, '#7fc0ff');
   },
   // s004: FUTURE — the exact composition reused in the climax (s082)
   co_future(lt, d, gt) { return futureBHit(lt, d, gt) + flashPulse(lt, 0, .12, .7); },
@@ -139,7 +141,7 @@ Object.assign(SHOTS_REG, {
     const cam = camMove(lt, d, { x: 1150, y: 560, z: 2.5 }, { x: 1150, y: 560, z: 2.6 });
     const e = envKitchen(cam, gt, { bgBlur: 7 });
     const look = kf(lt, [[0, 1], [.5, 1], [.7, -1]]);
-    return e.bg + e.light + layer(cam, leoAtTable(gt, { spoon: .1, look, lookY: lt < .5 ? 1 : 0, expr: 'shocked' }) + tableK());
+    return e.bg + e.light + layer(cam, leoAtTable(gt, { spoon: .1, look, lookY: lt < .5 ? 1 : 0, expr: 'shocked' }) + tableK() + bowl(1040, 680) + glass(GLX(), 680, 1.25));
   },
   k_glassCU(lt, d, gt) {
     const cam = camMove(lt, d, { x: GLX() - 10, y: 640, z: 3.2 }, { x: GLX() - 5, y: 640, z: 3.4 });
@@ -165,13 +167,13 @@ Object.assign(SHOTS_REG, {
     const e = envKitchen(cam, gt, { bgBlur: 8 });
     const gy = kf(lt, [[0, 770], [d * .55, 830, ease.lin], [d, 834]]), rot = kf(lt, [[0, 150], [d * .55, 175], [d, 168]]);
     const hp = seg(lt, 0, d * .5, ease.out);
-    const hx = lerp(1150, 1372, hp), hy = lerp(640, 812, hp);
+    const hx = lerp(1180, 1372, hp), hy = lerp(900, 812, hp);
     let w = `<g transform="rotate(${f1(rot)} 1392 ${f1(gy - 40)})">${glass(1392, gy, 1.25, { fill: .45 })}</g>`;
     const wp = seg(lt, .1, d, ease.out);
     for (let i = 0; i < 8; i++) w += circ(1392 + 50 + i * 14 * wp, gy - 30 - Math.sin(i / 8 * Math.PI) * 40 * wp + i * 6, 6 - i * .4, '#bfe6ff', { opacity: (.85 - i * .08).toFixed(2) });
     w += ell(1440, gy - 26, 40 * wp, 10, '#9fd0f0', { opacity: .5 });
-    w += pline([[hx - 420, hy - 330], [hx - 160, hy - 110], [hx, hy]], OUTFIT.leo.shade, 46) + pline([[hx - 420, hy - 330], [hx - 160, hy - 110], [hx - 34, hy - 26]], OUTFIT.leo.cloth, 38) + mitten(hx, hy, 18, 40, hp > .95 ? 1 : 0);
-    return e.bg + layer(cam, `<g filter="${fRim(-3, -3, '#ffd29a')}">${w}</g>`) + layer(C0, fig({ x: 140, y: 1500, s: 200, fc: 1, who: 'leo', pose: 'catchLow', expr: 'none', t: gt }), { blur: 12 });
+    w += pline([[hx - 520, hy + 300], [hx - 230, hy + 80], [hx, hy]], OUTFIT.leo.shade, 46) + pline([[hx - 520, hy + 300], [hx - 230, hy + 80], [hx - 34, hy + 10]], OUTFIT.leo.cloth, 38) + mitten(hx, hy, 18, -20, hp > .95 ? 1 : 0);
+    return e.bg + layer(cam, `<g filter="${fRim(-3, -3, '#ffd29a')}">${w}</g>`) + layer(C0, figHead(60, 980, 260, { who: 'leo', fc: 1, expr: 'none', pose: { tor: 40, head: 10 } }), { blur: 12 });
   },
   k_whatThe(lt, d, gt) {
     const cam = camMove(lt, d, { x: 1300, y: 700, z: 1.9 }, { x: 1300, y: 690, z: 2.05 });
@@ -333,7 +335,7 @@ Object.assign(SHOTS_REG, {
     const bx = lerp(1350, 1660, p), by = lerp(425, 392, p);
     const tip = seg(lt, .9, 1.5, ease.in2), fall = seg(lt, 1.5, d, ease.in2);
     let w = shelf(1420, 430) + books(1450, 430, hit ? Math.sin(lt * 18) * 6 * (1 - seg(lt, .8, 2)) : 0);
-    w += `<g class="gh" filter="${fGhost(3)}" opacity=".8">${plantPot(1720 + tip * 40 + fall * 20, 430 + fall * 420, .9, tip * 60 + fall * 140)}</g>`;
+    w += `<g class="gh" filter="${fGhostTint(3)}" opacity=".85">${plantPot(1720 + tip * 40 + fall * 20, 430 + fall * 420, .9, tip * 60 + fall * 140)}</g>`;
     w += fig({ x: 1300, y: 860, s: 70, fc: -1, who: 'leo', pose: 'duck', expr: 'determined', t: gt, ghost: true, op: .35 });
     w += dashedPath(parabola(1300, 432, 1660, 392, 20), '#8fd3ff', 4, 1) + (hit ? foamBall(1660 - (lt - .8) * 80, 392 + (lt - .8) * 320, 22, true) : foamBall(bx, by, 22, true));
     return futureWrap(e.bg + layer(cam, w), 1, { t: gt });
@@ -357,18 +359,31 @@ Object.assign(SHOTS_REG, {
     return e.bg + layer(cam, figHead(900, 500, 300, { who: 'leo', fc: 1, expr: 'scared', lookY: -1, lookX: .6, t: gt, sweat: true, rim: { dx: -8, dy: -10, c: '#ffd29a' } }));
   },
   l_diveCatch(lt, d, gt) {
-    const cam = camMove(lt, d, { x: 1560, y: 680, z: 1.6 }, { x: 1620, y: 720, z: 1.75 });
+    const cam = camMove(lt, d, { x: 1520, y: 690, z: 1.7 }, { x: 1560, y: 700, z: 1.8 });
     const e = envLiving(cam, gt, { bgBlur: 3 });
-    const fp = seg(lt, 0, d * .7, ease.in2);
-    const dp = seg(lt, 0, d * .65, ease.out);
-    const lx = lerp(1300, 1580, dp), ly = lerp(860, 840, dp);
-    const pose = mixPose(POSES.stand, { tor: 75, head: 30, ab: [100, 10], af: [110, 5], lb: [-40, 10], lf: [-20, 0], lift: .2 }, dp);
-    let w = shelf(1420, 430) + books(1450, 430, 0) + shadowAt(lx, 860, 70);
+    const prone = { tor: 80, head: -12, ab: [112, 4], af: [104, 0], lb: [-80, 4], lf: [-86, 6] };
+    const air = seg(lt, 0, .5), slide = seg(lt, .5, .9, ease.out);
+    const lx = lt < .5 ? lerp(1260, 1500, air) : lerp(1500, 1585, slide);
+    const pose = lt < .5 ? { ...mixPose(POSES.pushOff, prone, ease.out(air)), lift: Math.sin(air * Math.PI) * 1.1 } : prone;
+    let hEnd = null; fig({ x: 1585, y: 860, s: 70, fc: 1, who: 'leo', pose: prone, still: true, joints: j => { hEnd = j.armF[2]; } });
+    let w = shelf(1420, 430) + books(1450, 430, 0) + shadowAt(lx + 40, 860, 90);
+    for (let k = 3; k >= 1 && lt < .9; k--) w += fig({ x: lx - k * 26, y: 860, s: 70, fc: 1, who: 'leo', pose, expr: 'none', rim: null, op: .08, still: true });
+    w += fig({ x: lx, y: 860, s: 70, fc: 1, who: 'leo', pose, expr: 'determined', t: gt, still: true });
+    const fp = ease.in2(seg(lt, 0, .85));
+    const potX = lerp(1775, hEnd[0] + 14, fp), potY = lerp(640, hEnd[1] + 8, fp), rot = lerp(70, 8, fp);
+    w += plantPot(potX, potY, .9, rot);
+    if (lt > .5 && lt < 1.2) for (let i = 0; i < 4; i++) w += circ(lx - 120 - i * 40, 852 - i * 6, 10 + i * 6 + slide * 8, '#a89a8c', { opacity: (.35 * (1 - seg(lt, .6, 1.2))).toFixed(2) });
+    return e.bg + e.light + layer(cam, w);
+  },
+  // s030c: on the floor, the saved pot held up — relief
+  l_potSafe(lt, d, gt) {
+    const cam = camMove(lt, d, { x: 1560, y: 690, z: 2.2 }, { x: 1570, y: 700, z: 2.32 });
+    const e = envLiving(cam, gt, { bgBlur: 5 });
+    const up = seg(lt, .3, 1.0, ease.out);
+    const pose = mixPose({ tor: 80, head: -12, ab: [112, 4], af: [104, 0], lb: [-80, 4], lf: [-86, 6] }, { tor: 72, head: -30, ab: [112, 4], af: [150, 10], lb: [-80, 4], lf: [-86, 6] }, up);
     let hand = null;
-    for (let k = 3; k >= 1; k--) w += fig({ x: lerp(1300, 1580, Math.max(0, dp - k * .08)), y: ly, s: 70, fc: 1, who: 'leo', pose: mixPose(POSES.stand, pose, Math.max(0, 1 - k * .2)), expr: 'none', rim: null, op: .1, still: true });
-    w += fig({ x: lx, y: ly, s: 70, fc: 1, who: 'leo', pose, expr: 'determined', t: gt, joints: j => { hand = j.armF[2]; } });
-    const potY = lt < d * .7 ? lerp(520, hand[1] + 10, fp) : hand[1] + 10, potX = lt < d * .7 ? lerp(1790, hand[0] + 20, fp) : hand[0] + 20;
-    w += plantPot(potX, potY, .9, lerp(80, 10, fp));
+    let w = shadowAt(1600, 860, 90) + fig({ x: 1585, y: 860, s: 70, fc: 1, who: 'leo', pose, expr: up > .6 ? 'happy' : 'shocked', mouth: up > .6 ? 'grin' : 'o', t: gt, still: true, joints: j => { hand = j.armF[2]; } });
+    w += plantPot(hand[0] + 14, hand[1] + 8, .9, 8 - up * 8);
     return e.bg + e.light + layer(cam, w);
   },
   l_potBase(lt, d, gt) {

@@ -99,6 +99,18 @@ function fRimBlur(dx, dy, color, sd) {
   return url(id);
 }
 // ghost look: ice-white edge + blue bloom; ghosts are lifted out of the future grade (class "gh")
+// ghost version of a coloured prop: recolour to ice blue, then the usual ghost edge + bloom
+function fGhostTint(sd) {
+  sd = Math.round(sd);
+  const id = 'ght' + sd;
+  def(id, `<filter id="${id}" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+  <feColorMatrix in="SourceGraphic" type="matrix" values=".25 .35 .1 0 .45  .3 .4 .1 0 .6  .2 .3 .1 0 .8  0 0 0 1 0" result="t"/>
+  <feMorphology in="SourceAlpha" operator="dilate" radius="${Math.max(1.5, sd * .3).toFixed(1)}" result="d"/>
+  <feFlood flood-color="#e6f6ff"/><feComposite in2="d" operator="in" result="edge"/>
+  <feGaussianBlur in="SourceAlpha" stdDeviation="${sd * 1.6}" result="b"/><feFlood flood-color="#2f7bff" flood-opacity=".95"/><feComposite in2="b" operator="in" result="gl"/>
+  <feMerge><feMergeNode in="gl"/><feMergeNode in="gl"/><feMergeNode in="edge"/><feMergeNode in="t"/></feMerge></filter>`);
+  return url(id);
+}
 function fGhost(sd) {
   sd = Math.round(sd);
   const id = 'gho' + sd;

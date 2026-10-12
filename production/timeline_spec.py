@@ -58,7 +58,8 @@ BLOCKS = [
   dict(name='B09', vo=[('N09', 0.1)], shots=[
       ('s029', 'l_shelfHit', 'N09.1-0.7'),
       ('s030', 'l_leoHorror', '+0.9'),
-      ('s030b', 'l_diveCatch', 'N09$+0.2'),
+      ('s030b', 'l_diveCatch', '+2.0'),
+      ('s030c', 'l_potSafe', 'N09$+0.2'),
       ('s031', 'l_potBase', '+0.9')],
       sfx=[('sfx_ball_shelf', 's029+0.2', -5), ('sfx_whoosh', 's030b', -6)]),
   # ---------------- ACT II ----------------
@@ -143,6 +144,7 @@ BLOCKS = [
       ('s082', 'fb_leoHit', 'N22$+0.5')],
       sfx=[('sfx_whoosh', 's079+0.4', -6), ('sfx_power', 's080', -7), ('sfx_skid_horn', 's082', -9), ('sfx_heartbeat', 's082+1.5', -4)]),
   dict(name='B22', vo=[('N23', 0.2), ('L08', 0.1)], shots=[
+      ('s082b', 'p_gasp', '+0.7'),
       ('s083', 'p_skid', 'N23.1+0.7'),
       ('s084', 'p_eyes2', 'N23.3'),
       ('s085', 'fc_noraRuns', 'N23.4'),
@@ -178,7 +180,7 @@ BLOCKS = [
       ('s104', 'e_ghostFade', 'L12-0.25'),
       ('s105', 'e_final', 'L12$+0.7'),
       ('s105b', 'e_noraSmile', '+1.4'),
-      ('s105c', 'e_pullBack', '+3.6'),
+      ('s105c', 'e_pullBack', '+4.4'),
       ('s106', 'black', '+1.0')],
       sfx=[('amb_city_night', 0, -20)]),
 ]

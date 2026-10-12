@@ -8,7 +8,7 @@ function seated(x, who, fc, gt, o = {}) { // floor at 880, sits on a chair
   return chair(x, fc === 0 ? 1 : fc) + shadowAt(x, 880, 60) + fig({ x, y: 880, s: 60, fc, who, pose: o.pose || 'sit', expr: o.expr || 'neutral', talk: o.talk || 0, t: gt, seed: o.seed || x, lookX: o.lookX || 0, lookY: o.lookY || 0, rim: o.rim, ghost: o.ghost, op: o.op, blur: o.blur, extra: o.extra, mouth: o.mouth, sweat: o.sweat });
 }
 function cafeGroup(gt, o = {}) {
-  let s = '';
+  let s = o.planted ? cakeBox(1130, 884) + rolledBanner(1300, 860) : '';
   s += seated(880, 'nora', 0, gt, { expr: o.noraExpr || 'neutral', talk: o.noraTalk || 0, seed: 3, pose: o.noraPose, lookX: o.noraLook ?? 0, extra: o.noraExtra, mouth: o.noraMouth });
   s += seated(1050, 'maya', 0, gt, { expr: o.mayaExpr || 'happy', seed: 5, pose: o.mayaPose, lookX: o.mayaLook ?? 0, extra: o.mayaExtra });
   s += cafeTable(TB.x, TB.y, TB.w) + (o.tableItems ?? (cup(870, TB.y, 1.1) + cup(1060, TB.y, 1.1)));
@@ -18,6 +18,8 @@ function cafeGroup(gt, o = {}) {
 }
 const CU_BG = (gt, x = 960, y = 420, z = 2.4, blur = 10, tod) => cafeScene({ x, y, z }, gt, { bgBlur: blur, tod });
 const giftBox = (x, y) => rect(x - 40, y - 34, 80, 40, '#7fb4ff', { rx: 4 }) + rect(x - 4, y - 34, 8, 40, '#f6d26a') + path(`M${x} ${y - 34} q-20 -22 -26 -4 M${x} ${y - 34} q20 -22 26 -4`, 'none', { stroke: '#f6d26a', 'stroke-width': 5 });
+const cakeBox = (x, y, hl = 0) => (hl ? circ(x, y - 40, 90, '#fff2c4', { opacity: .18 * hl, filter: fGlow(10, '#ffd27a', 1) }) : '') + rect(x - 50, y - 70, 100, 70, '#f4efe6', { rx: 4 }) + rect(x - 54, y - 76, 108, 12, '#e6ddd0', { rx: 3 }) + rect(x - 5, y - 76, 10, 76, '#ff8fb0');
+const rolledBanner = (x, y, hl = 0) => (hl ? circ(x, y - 50, 70, '#fff2c4', { opacity: .18 * hl, filter: fGlow(10, '#ffd27a', 1) }) : '') + rect(x - 11, y - 120, 22, 120, '#f6d26a', { rx: 10 }) + ell(x, y - 120, 11, 5, '#e0b84a');
 function banner(x0, y0, x1, y1, sag = 20, a = 1) { // hangs between two hands
   const mx = (x0 + x1) / 2, w = Math.hypot(x1 - x0, y1 - y0);
   return g(path(`M${x0} ${y0} Q${mx} ${(y0 + y1) / 2 + sag} ${x1} ${y1} L${x1} ${y1 + 70} Q${mx} ${(y0 + y1) / 2 + sag + 70} ${x0} ${y0 + 70} Z`, '#f6d26a') + text(mx, (y0 + y1) / 2 + sag * .6 + 48, 'HAPPY BIRTHDAY LEO!', { 'font-size': Math.min(30, w / 11), 'font-weight': 900, fill: '#b5323a', 'text-anchor': 'middle' }), { opacity: a });
@@ -229,14 +231,14 @@ Object.assign(SHOTS_REG, {
     let s = rect(0, 0, W, H, '#2c1c26');
     for (let i = 0; i < 12; i++) s += rect(i * 170, 0, 6, H, '#251720');
     s += glowE(960, 560, 700, 520, '#f0b27a', .35) + circ(960, 560, 420, '#8a6266') + circ(960, 560, 400, '#7a565a');
-    const elbow = seg(lt, .8, 1.6);
-    s += `<g filter="${fRim(4, -6, '#ffd29a')}">${pline([[200, 1000], [lerp(560, 760, elbow), lerp(700, 640, elbow)], [500, 380]], BODY, 70) + circ(500, 380, 34, BODY)}</g>`;
-    const ga = 1 - seg(lt, .7, 1.0);
-    const gp = seg(lt, .1, .7);
-    if (ga > 0) s += g(g(circ(0, 0, 46, '#bfe6ff') + circ(0, 0, 36, '#4fa8ff'), { transform: `translate(${f1(820 + gp * 60)} ${f1(600 + gp * 30)}) scale(1 ${f1(1 - gp * .5)}) rotate(${f1(gp * 70)})` }) + ell(860 + gp * 110, 650 + gp * 70, 110 * gp, 60 * gp, '#7fc8ff', { opacity: .6 }), { opacity: ga.toFixed(2), filter: fGhost(4) });
+    const elbow = seg(lt, .9, 1.5, ease.out);
+    s += `<g filter="${fRim(4, -6, '#ffd29a')}">${pline([[200, 1000], [lerp(520, 780, elbow), lerp(720, 640, elbow)]], OUTFIT.grey.cloth, 110) + pline([[lerp(520, 780, elbow), lerp(720, 640, elbow)], [460, 360]], OUTFIT.grey.cloth, 90) + circ(lerp(520, 780, elbow), lerp(720, 640, elbow), 50, OUTFIT.grey.shade)}</g>`;
+    const ga = 1 - seg(lt, .85, 1.1);
+    const gp = seg(lt, .05, .6, ease.in2);
+    if (ga > 0) s += g(g(circ(0, 0, 70, '#dff3ff') + circ(0, 0, 50, '#bfe6ff') + circ(0, 0, 40, '#4fa8ff'), { transform: `translate(${f1(820 + gp * 80)} ${f1(600 + gp * 40)}) scale(1 ${f1(1 - gp * .6)}) rotate(${f1(gp * 80)})` }) + ell(900 + gp * 130, 660 + gp * 80, 170 * gp, 90 * gp, '#7fc8ff', { opacity: .75 }) + [0, 1, 2, 3, 4].map(i => circ(900 + gp * (160 + i * 40), 640 + gp * (i * 30 - 40), 12 * gp, '#bfe6ff')).join(''), { opacity: ga.toFixed(2), filter: fGhost(4), class: 'gh' });
     const slide = seg(lt, .5, 1.1, ease.outBack);
     const cx = lerp(820, 1100, slide), cy = lerp(600, 560, slide);
-    s += circ(cx + 6, cy + 8, 48, '#000', { opacity: .3 }) + circ(cx, cy, 46, '#f4ece2') + circ(cx, cy, 36, '#6a3a2a') + circ(cx - 10, cy - 10, 10, '#a06a4a', { opacity: .6 });
+    s += circ(cx + 6, cy + 8, 72, '#000', { opacity: .3 }) + circ(cx, cy, 70, '#e8e0d4') + circ(cx, cy, 46, '#f4ece2') + circ(cx, cy, 36, '#6a3a2a') + circ(cx - 10, cy - 10, 10, '#a06a4a', { opacity: .6 });
     s += `<g filter="${fRim(-4, -6, '#ffd29a')}">${pline([[1900, 300], [lerp(1500, 1210, slide), lerp(420, 520, slide)]], OUTFIT.leo.cloth, 76) + mitten(lerp(1440, 1150, slide), lerp(450, 540, slide), 34, 200)}</g>`;
     return s;
   },
@@ -259,8 +261,9 @@ Object.assign(SHOTS_REG, {
     const e = envCafeReverse({ x: 960, y: 500, z: 1.6 }, gt, { bgBlur: 8 });
     const roll = seg(lt, .4, .9);
     let s = e.bg;
-    s += layer(cam, figHead(640, 520, 250, { who: 'nora', fc: 1, expr: lt > .4 && lt < 1.3 ? 'closed' : 'neutral', lookY: -roll, lookX: .5, t: gt, rim: { dx: -8, dy: -6, c: '#ffd29a' } }));
-    s += layer(cam, figHead(1280, 500, 280, { who: 'sam', fc: -1, expr: 'angry', talk: talkOf('sam', gt), t: gt, rim: { dx: 8, dy: -6, c: '#ffd29a' } }));
+    s += layer(cam, figHead(1290, 520, 250, { who: 'nora', fc: -1, expr: lt > .4 && lt < 1.3 ? 'closed' : 'neutral', lookY: -roll, lookX: .5, t: gt, rim: { dx: 8, dy: -6, c: '#ffd29a' } }));
+    s += layer(cam, figHead(640, 500, 280, { who: 'sam', fc: 1, expr: 'angry', talk: talkOf('sam', gt), t: gt, rim: { dx: -8, dy: -6, c: '#ffd29a' } }));
+    s += layer(C0, figHead(965, 900, 300, { who: 'maya', fc: 0, expr: 'none' }), { blur: 10 });
     return s;
   },
   // s049: reverse angle from inside the café — the group through the window
@@ -269,8 +272,8 @@ Object.assign(SHOTS_REG, {
     const e = envCafeReverse(cam, gt, { bgBlur: 3, frameBlur: 3 });
     const pc = { x: 960, y: 620, z: 1.25 };
     let w = '';
-    w += seated(1230, 'leo', -1, gt, { expr: 'smug', pose: 'armsCross', seed: 1 }) + seated(1050, 'nora', 0, gt, { expr: 'neutral', seed: 3 }) + seated(880, 'maya', 0, gt, { expr: 'happy', seed: 5 }) + cafeTable(TB.x, TB.y, TB.w) + cup(870, TB.y, 1.1) + cup(1060, TB.y, 1.1) + seated(700, 'sam', 1, gt, { expr: 'happy', talk: Math.abs(Math.sin(lt * 12)) * .5, seed: 7 });
-    return e.bg.replace(/<g transform="[^"]*" filter="url\(#bl2\)">/, m => m) + layer(pc, w, { p: .9 }) + layer(cam, path('M-800 -400 H2800 V1500 H-800 Z M-60 120 V780 H1980 V120 Z', '#24161e', { 'fill-rule': 'evenodd' }) + rect(588, 120, 24, 660, '#24161e') + rect(1288, 120, 24, 660, '#24161e'), { p: 1.2, blur: 3 });
+    w += seated(1230, 'leo', -1, gt, { expr: 'smug', pose: { ...POSES.sit, ab: [20, 120], af: [25, 115] }, seed: 1 }) + seated(1050, 'nora', 0, gt, { expr: 'neutral', seed: 3 }) + seated(880, 'maya', 0, gt, { expr: 'happy', seed: 5 }) + cafeTable(TB.x, TB.y, TB.w) + cup(870, TB.y, 1.1) + cup(1060, TB.y, 1.1) + seated(700, 'sam', 1, gt, { expr: 'happy', talk: Math.abs(Math.sin(lt * 12)) * .5, seed: 7 });
+    return e.bg.replace(/<g transform="[^"]*" filter="url\(#bl2\)">/, m => m) + layer(pc, w, { p: .9 }) + layer(cam, path('M-800 -400 H2800 V1500 H-800 Z M-60 120 V780 H1980 V120 Z', '#24161e', { 'fill-rule': 'evenodd' }) + rect(458, 120, 24, 660, '#24161e') + rect(1438, 120, 24, 660, '#24161e'), { p: 1.2, blur: 3 });
   },
   // s050: ghost speech bubbles pop over each friend before they speak; Leo answers early; camera pushes in on Leo
   c_ghostMouths(lt, d, gt) {
@@ -293,7 +296,7 @@ Object.assign(SHOTS_REG, {
     const p = seg(lt, 0, d);
     const cam = { x: 960, y: 540, z: lerp(1.0, 1.15, p) };
     let s = `<g filter="${fFuture(p * .35)}">${CU_BG(gt, 760, 450) + layer(cam, figHead(900, 490, 300, { who: 'leo', fc: 1, expr: lt < d * .45 ? 'happy' : 'neutral', mouth: lt < d * .45 ? 'smile' : 'flat', t: gt, rim: { dx: -10, dy: -8, c: '#ffd29a' } }))}</g>`;
-    s += layer(C0, figHead(240, 560, 330, { who: 'nora', fc: 1, expr: 'none' }) + figHead(1720, 540, 330, { who: 'maya', fc: -1, expr: 'none' }), { blur: 12 });
+    s += layer(C0, figHead(1600, 560, 330, { who: 'nora', fc: -1, expr: 'none' }) + figHead(2010, 540, 330, { who: 'maya', fc: -1, expr: 'none' }), { blur: 12 });
     return s + rect(0, 0, W, H, '#2a2a6a', { opacity: (p * .2).toFixed(2), style: 'mix-blend-mode:multiply' });
   },
   // s053: low 3/4 across the table — Sam's crossed arms blurred in the foreground, Maya on her phone, Nora sad
@@ -312,9 +315,9 @@ Object.assign(SHOTS_REG, {
   },
   // ---------------- ACT III (afternoon → dusk) ----------------
   c3_approach(lt, d, gt) {
-    const cam = camMove(lt, d, { x: 860, y: 600, z: 1.15 }, { x: 900, y: 600, z: 1.22 });
+    const cam = camMove(lt, d, { x: 860, y: 500, z: 1.1 }, { x: 900, y: 510, z: 1.16 });
     const lx = 140 + lt * 75;
-    let w = cafeGroup(gt, { leo: false, noraExpr: 'happy', samExpr: 'happy', mayaExpr: 'happy', samPose: { tor: 25, head: 10, ab: [30, 50], af: [40, 60], lb: [88, 88], lf: [86, 86] }, noraPose: { tor: 15, head: 10, ab: [30, 60], af: [40, 90], lb: [88, 88], lf: [86, 86] }, noraLook: .6, mayaLook: .5, noraExtra: j => giftBox(j.hip[0] + 10, j.hip[1] - 6) });
+    let w = cafeGroup(gt, { leo: false, noraExpr: 'happy', samExpr: 'happy', mayaExpr: 'happy', samPose: { tor: 25, head: 10, ab: [30, 50], af: [40, 60], lb: [88, 88], lf: [86, 86] }, noraPose: { tor: 15, head: 10, ab: [30, 60], af: [40, 90], lb: [88, 88], lf: [86, 86] }, noraLook: .6, mayaLook: .5, planted: true, noraExtra: j => giftBox(j.hip[0] + 10, j.hip[1] - 6) });
     w += shadowAt(lx, 900, 62) + fig({ x: lx, y: 900, s: 62, fc: 1, who: 'leo', pose: walkPose((lt * 1.6) % 1), expr: 'happy', t: gt });
     return cafeScene(cam, gt, { tod: 'day' }) + layer(cam, w);
   },
@@ -323,7 +326,7 @@ Object.assign(SHOTS_REG, {
     let s = CU_BG(gt, 1100, 420, 2.4, 14, 'day');
     s += layer(cam, figHead(960, 600, 900, { who: 'leo', fc: 0, expr: 'neutral', blink: false, still: true, t: gt, rim: { dx: 0, dy: -10, c: '#ffd29a' } }));
     for (const ex of [-1, 1]) s += layer(cam, ringFx(960 + ex * 450 * .27, 600 - 45, seg(lt, .15, .9, ease.lin), 240));
-    return s + flashPulse(lt, d - .03, .05, .85);
+    return s + flashPulse(lt, d - .03, .05, .5, '#7fc0ff');
   },
   // s056: FUTURE — Nora leans to Sam, hand cupped at her mouth, eyes flick toward camera (checking Leo isn't near). Cake corner in frame.
   c3_noraFuture(lt, d, gt) {
@@ -348,9 +351,9 @@ Object.assign(SHOTS_REG, {
   // s059: low-angle tracking march; he stops at the table's near edge
   c3_march(lt, d, gt) {
     const lx = Math.min(250 + lt * 160, 560);
-    const cam = { x: lx + 300, y: 700, z: 1.6, r: -1.5 };
+    const cam = { x: lx + 300, y: 600, z: 1.45, r: -1.5 };
     const walking = lx < 560;
-    let w = cafeGroup(gt, { leo: false, noraExpr: 'neutral', noraLook: -1, samExpr: 'neutral', mayaExpr: 'worried', noraExtra: j => giftBox(j.hip[0] + 10, j.hip[1] - 6) });
+    let w = cafeGroup(gt, { leo: false, noraExpr: 'neutral', noraLook: -1, samExpr: 'neutral', mayaExpr: 'worried', planted: true, noraExtra: j => giftBox(j.hip[0] + 10, j.hip[1] - 6) });
     w += shadowAt(lx, 900, 62) + fig({ x: lx, y: 900, s: 62, fc: 1, who: 'leo', pose: walking ? walkPose((lt * 2.3) % 1, 1.3) : 'stand', expr: 'angry', t: gt });
     return cafeScene(cam, gt, { tod: 'day' }) + layer(cam, w);
   },
@@ -373,7 +376,7 @@ Object.assign(SHOTS_REG, {
   },
   // s063: wide reveal — Maya and Sam unroll the banner between their hands, the cake comes out; Leo's accusing arm drops
   c3_reveal(lt, d, gt) {
-    const cam = camMove(lt, d, { x: 1000, y: 600, z: 1.3 }, { x: 1000, y: 610, z: 1.15 });
+    const cam = camMove(lt, d, { x: 1000, y: 520, z: 1.2 }, { x: 1000, y: 530, z: 1.08 });
     const un = seg(lt, .1, 1.1, ease.out), drop = seg(lt, 1.4, 1.8, ease.outBack);
     let w = shadowAt(640, 900, 62) + fig({ x: 640, y: 900, s: 62, fc: 1, who: 'leo', pose: mixPose({ tor: 6, head: 4, ab: [6, 8], af: [100, 18], lb: [6, 0], lf: [-6, 0] }, { tor: 10, head: 14, ab: [4, 6], af: [-4, 6], lb: [6, 0], lf: [-6, 0] }, drop), expr: drop > .3 ? 'shocked' : 'angry', t: gt });
     w += seated(880, 'nora', 0, gt, { expr: 'sad', talk: talkOf('nora', gt), pose: 'sitSad' });
@@ -388,7 +391,7 @@ Object.assign(SHOTS_REG, {
   },
   c3_bannerInsert(lt, d, gt) {
     const cam = camMove(lt, d, { x: 1180, y: 680, z: 2.3 }, { x: 1200, y: 690, z: 2.45 });
-    let w = cafeTable(1100, TB.y, 360) + cake(1100, TB.y) + banner(1080, 560, 1420, 560, 28);
+    let w = cafeTable(1100, TB.y, 360) + cake(1100, TB.y) + banner(640, 540, 1760, 540, 34) + mitten(660, 560, 26, 90) + mitten(1740, 560, 26, -90);
     return cafeScene(cam, gt, { bgBlur: 6, tod: 'day' }) + layer(cam, w);
   },
   c3_oh(lt, d, gt) {
@@ -409,7 +412,7 @@ Object.assign(SHOTS_REG, {
     const cupH = j => mitten(j.head[0] + j.headR * .9, j.head[1] + j.headR * .45, j.headR * .32, -70, 0, false, '#9ad6ff');
     const left = futureWrap(CU_BG(gt, 1000, 450, 2.4, 12, 'day') + figHead(1060, 560, 420, { who: 'nora', fc: 1, expr: 'neutral', talk, t: gt, ghost: true, op: .8, pose: { tor: 10, head: 14, ab: [6, 8], af: [70, 120] }, extra: cupH }), 1, { t: gt, border: false });
     const rcam = { x: 1120, y: 640, z: 1.25 };
-    const right = cafeScene(rcam, gt, { tod: 'day' }) + layer(rcam, seated(880, 'nora', 1, gt, { expr: 'happy', talk, pose: { tor: 15, head: 10, ab: [30, 60], af: [70, 120], lb: [88, 88], lf: [86, 86] } }) + cafeTable(1100, TB.y, 360) + cake(1100, TB.y) + seated(1250, 'sam', -1, gt, { expr: 'happy', pose: { tor: 15, head: 5, ab: [30, 50], af: [40, 60], lb: [88, 88], lf: [86, 86] } }) + banner(1360, 580, 1640, 600, 20));
+    const right = cafeScene(rcam, gt, { tod: 'day' }) + layer(rcam, seated(880, 'nora', 1, gt, { expr: 'happy', talk, pose: { tor: 15, head: 10, ab: [30, 60], af: [70, 120], lb: [88, 88], lf: [86, 86] } }) + cakeBox(1080, 884, .6 + .4 * Math.sin(lt * 4)) + cafeTable(1100, TB.y, 360) + cup(1060, TB.y, 1.1) + seated(1250, 'sam', -1, gt, { expr: 'happy', pose: { tor: 15, head: 5, ab: [30, 50], af: [40, 60], lb: [88, 88], lf: [86, 86] } }) + rolledBanner(1320, 860, .6 + .4 * Math.sin(lt * 4 + 1)));
     def('clL', `<clipPath id="clL"><rect x="0" y="0" width="958" height="1080"/></clipPath>`);
     def('clR', `<clipPath id="clR"><rect x="962" y="0" width="958" height="1080"/></clipPath>`);
     let s = `<g clip-path="url(#clL)"><g transform="translate(-480 0)">${left}</g></g><g clip-path="url(#clR)"><g transform="translate(480 0)">${right}</g></g>`;
@@ -421,7 +424,8 @@ Object.assign(SHOTS_REG, {
   c3_noraLeaves(lt, d, gt) {
     const cam = camMove(lt, d, { x: 1100, y: 640, z: 1.45 }, { x: 1150, y: 640, z: 1.5 });
     const nx = lt < .8 ? 900 : 900 + (lt - .8) * 170;
-    let w = cafeTable(1100, TB.y, 360) + cake(1100, TB.y, 1) + seated(1250, 'sam', -1, gt, { expr: 'sad' }) + seated(1050, 'maya', 0, gt, { expr: 'sad' });
+    const up = seg(lt, d - 1.1, d - .5);
+    let w = cafeTable(1100, TB.y, 360) + cake(1100, TB.y, 1) + seated(1250, 'sam', up > 0 ? 1 : -1, gt, { expr: 'sad', pose: mixPose(POSES.sit, POSES.stand, up) }) + seated(1050, 'maya', up > 0 ? 1 : 0, gt, { expr: 'sad', pose: mixPose(POSES.sit, POSES.stand, up) });
     w += lt < .8 ? seated(900, 'nora', 1, gt, { expr: 'sad', pose: mixPose(POSES.sit, POSES.stand, seg(lt, .2, .8)) }) : shadowAt(nx, 900, 62) + fig({ x: nx, y: 900, s: 62, fc: 1, who: 'nora', pose: walkPose(((lt - .8) * 1.6) % 1), expr: 'sad', t: gt });
     let s = cafeScene(cam, gt, { tod: 'dusk' }) + layer(cam, w);
     s += layer(C0, figHead(300, 760, 380, { who: 'leo', fc: 1, expr: 'none', pose: { tor: 20, head: 20 } }), { blur: 10 });
@@ -436,7 +440,7 @@ Object.assign(SHOTS_REG, {
     w += shadowAt(nx, 900, 62) + fig({ x: nx, y: 900, s: 62, fc: 1, who: 'nora', pose: walkPose((lt * 1.4) % 1), expr: 'sad', t: gt });
     const ga = seg(lt, .3, .7) * (1 - seg(lt, 2.0, 2.5));
     const gl = lt > 1.9 && lt < 2.5 && Math.floor(lt * 14) % 2 === 0;
-    if (ga > 0) w += g(fig({ x: nx - 30, y: 900, s: 62, fc: -1, who: 'nora', pose: 'wave', expr: 'happy', talk: Math.abs(Math.sin(lt * 10)) * .6, ghost: true, op: .7 }), { opacity: ga.toFixed(2), transform: `translate(${gl ? 16 : 0} 0)` });
+    if (ga > 0) w += g(fig({ x: 800, y: 900, s: 62, fc: 1, who: 'leo', pose: mixPose(POSES.sit, { tor: -6, head: -8, ab: [20, 30], af: [100, 40], lb: [20, 10], lf: [-10, 20] }, seg(lt, .3, .7)), expr: 'determined', mouth: 'shout', talk: .7, ghost: true, op: .65 }) + fig({ x: nx - 30, y: 900, s: 62, fc: -1, who: 'nora', pose: 'wave', expr: 'happy', talk: Math.abs(Math.sin(lt * 10)) * .6, ghost: true, op: .7 }), { opacity: ga.toFixed(2), transform: `translate(${gl ? 16 : 0} 0)` });
     return cafeScene(cam, gt, { tod: 'dusk' }) + layer(cam, w);
   },
   // s069: one long pull back — Leo small and alone; dusk fades into blue hour

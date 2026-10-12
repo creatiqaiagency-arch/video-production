@@ -169,7 +169,7 @@ function envIntersection(cam, t, o = {}) {
   for (const lx of [-700, 120, 900, 1700, 2500]) mid += lamp(lx, 600, 330, t);
   mid += trafficLight(780, 600, 300, o.light || 'green');
   // road
-  mid += rect(-1400, IX.farCurb, 4400, IX.nearCurb - IX.farCurb, lgrad([[0, '#1f1a2c'], [1, '#2b2438']]));
+  mid += rect(-1400, IX.farCurb, 4400, IX.nearCurb - IX.farCurb, lgrad([[0, '#16121f'], [1, '#1f1a2b']]));
   for (let x = -1400; x < 3000; x += 220) mid += rect(x, 730, 110, 7, '#8c8496', { opacity: .55 });
   // crosswalk (perspective stripes across the road)
   for (let i = 0; i < 6; i++) { const yy = IX.farCurb + 12 + i * 40; mid += poly([[IX.cross0 + 20 - i * 6, yy], [IX.cross1 - 20 + i * 6, yy], [IX.cross1 - 14 + i * 7, yy + 24], [IX.cross0 + 14 - i * 7, yy + 24]], '#8e86a0', { opacity: .55 }); }
@@ -183,7 +183,7 @@ function envIntersection(cam, t, o = {}) {
   for (let i = 0; i < 6; i++) mid += rect(bx - 210 + i * 84, 575, 36, 26, '#c13a3a', { opacity: .9 });
   for (const px of [-200, 0, 200]) mid += rect(bx + px - 6, 598, 12, 26, '#6d6670');
   // near sidewalk
-  mid += rect(-1400, IX.nearCurb, 4400, 14, '#5c4f68') + rect(-1400, IX.nearCurb + 14, 4400, 300, lgrad([[0, '#2e2639'], [1, '#1a1524']]));
+  mid += rect(-1400, IX.nearCurb, 4400, 14, '#9a8ca6') + rect(-1400, IX.nearCurb, 4400, 3, '#d8cce0') + rect(-1400, IX.nearCurb + 14, 4400, 300, lgrad([[0, '#3a3247'], [1, '#221c2d']]));
   for (let x = -1400; x < 3000; x += 160) mid += rect(x, IX.nearCurb + 14, 3, 300, '#241d2e');
   mid += rect(1985, 600, 10, 240, '#120c16') + circ(1990, 590, 34, '#e8dccf') + circ(1990, 590, 28, '#f6efe6') + text(1990, 598, o.clock || '8:17', { 'font-size': 20, 'font-weight': 800, fill: '#2a1a22', 'text-anchor': 'middle' });
   return { bg: layer(cam, far, { p: .35, blur: o.bgBlur ?? 2 }) + layer(cam, mid, { p: 1, blur: o.midBlur || 0 }), fg: '' };
@@ -320,7 +320,7 @@ function envCafe(cam, t, o = {}) {
   far += skyline(560, 4, '#3a2a48', 26, -1200, 4400, 260);
   let mid = '';
   const lit = tod !== 'day';
-  mid += rect(-800, 200, 3600, 400, '#47303e') + rect(-800, 186, 3600, 16, '#2c1c26');
+  mid += rect(-800, 200, 3600, 400, tod === 'day' ? '#7a5866' : '#47303e') + rect(-800, 186, 3600, 16, '#2c1c26');
   for (let i = 0; i < 14; i++) mid += windowLit(-700 + i * 260, 230, 70, 80, lit && rnd(i * 3 + 1) < .6, '#e8a860');
   mid += rect(300, 330, 1320, 330, '#2c1c26');
   for (let i = 0; i < 4; i++) { mid += windowLit(330 + i * 325, 360, 300, 260, 1, lit ? '#f2b06a' : '#9fb3c4', '#2a1a22'); for (let k = 0; k < (i % 2 ? 1 : 2); k++) { const px = 380 + i * 325 + k * 150 + rnd(i * 5 + k) * 70, sz = .75 + rnd(i * 3 + k) * .5, py = 520 + rnd(i + k * 7) * 30; mid += circ(px, py, 24 * sz, '#3a2430', { opacity: .55 }) + rect(px - 28 * sz, py + 24 * sz, 56 * sz, 80, '#3a2430', { opacity: .55, rx: 18 }); } mid += rect(340 + i * 325, 590, 280, 20, '#3a2430', { opacity: .5 }); mid += line(480 + i * 325, 362, 480 + i * 325, 410, '#2a1a22', 3) + path(`M${455 + i * 325} 410 h50 l-8 18 h-34 Z`, '#2a1a22') + glow(480 + i * 325, 425, 70, '#ffd27a', lit ? .55 : .25); }
@@ -328,8 +328,8 @@ function envCafe(cam, t, o = {}) {
   mid += rect(1660, 520, 130, 150, '#1e1418', { rx: 6 }) + text(1725, 575, 'CAFE', { 'font-size': 26, 'font-weight': 800, fill: '#e8d9cf', 'text-anchor': 'middle' }) + text(1725, 610, 'open', { 'font-size': 20, fill: '#e8d9cf', 'text-anchor': 'middle' }) + rect(1700, 670, 10, 20, '#1e1418') + rect(1740, 670, 10, 20, '#1e1418');
   for (const px of [240, 1650]) mid += rect(px - 40, 600, 80, 70, '#5a3a33', { rx: 6 }) + circ(px - 20, 590, 34, '#2f5a40') + circ(px + 20, 585, 38, '#3a6a4c') + circ(px, 560, 30, '#3f7a54');
   mid += awning(260, 270, 1400, 70, 16);
-  for (let i = 0; i < 18; i++) { const x = 270 + i * 78; mid += line(x, 262, x + 78, 262, '#120c16', 2) + circ(x + 39, 270 + Math.sin(i) * 3, 5, '#ffe1a0') + glow(x + 39, 270, 26, '#ffd27a', .5); }
-  mid += rect(-800, 660, 3600, 560, lgrad([[0, '#3a2a36'], [1, '#22161f']]));
+  for (let i = 0; i < 18; i++) { const x = 270 + i * 78; mid += line(x, 262, x + 78, 262, '#120c16', 2) + circ(x + 39, 270 + Math.sin(i) * 3, 5, lit ? '#ffe1a0' : '#c8bfb0') + (lit ? glow(x + 39, 270, 26, '#ffd27a', .5) : ''); }
+  mid += rect(-800, 660, 3600, 560, tod === 'day' ? lgrad([[0, '#8a7480'], [1, '#5a4652']]) : lgrad([[0, '#3a2a36'], [1, '#22161f']]));
   for (let i = 0; i < 20; i++) mid += line(-800 + i * 200, 660, -1000 + i * 240, 1300, '#2c1f2a', 3);
   mid += tree(-260, 660, 260, '#1a1018', 6) + tree(2180, 660, 240, '#1a1018', 9) + lamp(-500, 662, 360, t, tod !== 'day');
   const grade = tod === 'blue' ? rect(-2000, -1000, 6000, 3000, '#1a1440', { opacity: .28, style: 'mix-blend-mode:multiply' }) : tod === 'day' ? rect(-2000, -1000, 6000, 3000, '#dfeaf5', { opacity: .2, style: SCREEN }) : '';
