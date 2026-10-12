@@ -24,7 +24,7 @@
     return { s, a: Math.max(0, a), words: E.wordsShown(l.text, id, t), text: l.text };
   };
   // convenience: draw a thought window for line id
-  E.th = (c, id, t, o) => { const v = E.tv(id, t, o.pre, o.post); if (v.a <= 0) return; E.thought(c, Object.assign({ s: v.s * (o.s || 1), a: v.a * (o.a === undefined ? 1 : o.a), text: v.text, words: o.allWords ? undefined : v.words }, o), t); };
+  E.th = (c, id, t, o) => { const v = E.tv(id, t, o.pre, o.post); if (v.a <= 0) return; E.thought(c, Object.assign({ s: v.s * (o.s || 1), a: v.a * (o.a === undefined ? 1 : o.a), text: v.text, words: o.allWords ? undefined : v.words }, o, { size: Math.max(44, o.size || 48) }), t); };
   // standard camera with slow push and handheld drift
   E.push = (lt, D, o = {}) => E.cam(Object.assign({ z: E.lerp(o.z0 || 1, o.z1 || 1.06, E.ease.sine(E.clamp(lt / D))), x: (o.x || 960) + (o.dx || 0) * E.ease.sine(E.clamp(lt / D)) + E.wobble(lt, 3, 0.25, o.drift || 3), y: (o.y || 540) + (o.dy || 0) * E.ease.sine(E.clamp(lt / D)) + E.wobble(lt, 7, 0.22, o.drift || 3), focus: o.focus === undefined ? 1 : o.focus, ap: o.ap === undefined ? 9 : o.ap, rot: o.rot || 0 }, o.extra || {}));
   E.D = (s) => s.t1 - s.t0;
@@ -68,6 +68,6 @@
 })();
 // cadence exceptions (see E.retime): impact/montage beats and moving Act-3 holds
 (function () { const E = globalThis.E;
-  E.BEATS = new Set(['s01h_eyes', 's01i_slowmo', 's01j_crash', 's03d_uh', 's03f_Bshout', 's03h_montage', 's04c_hide', 's06c_notsomuch', 's06g_peak', 's11a_days', 's13d_howdid', 's15e_memory', 's04h_oh']);
+  E.BEATS = new Set(['s01h_eyes', 's01i_slowmo', 's01j_crash', 's03d_uh', 's03f_Bshout', 's04c_hide', 's06c_notsomuch', 's13d_howdid', 's04h_oh']);
   E.HOLDS = new Set(['s12a_ews', 's13b_projected', 's15d_scared', 's16a_face', 's17e_choose', 's17f_hug', 's19_endcard', 's16f_wide', 's15g_silence']);
 })();

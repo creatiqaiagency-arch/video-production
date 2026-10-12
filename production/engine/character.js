@@ -74,7 +74,7 @@
     const fd = Math.abs(f) > 0.35 ? Math.sign(f) : 0;
     const R = 0.14 * h, lw = 0.062 * h;
     const tt = c.t || 0, sd = c.seed || 0, life = c.bob === undefined ? 1 : c.bob;
-    const breath = life * Math.sin(tt * 1.7 + sd) * 0.011 * h;
+    const breath = life * Math.sin(tt * 1.7 + sd) * 0.015 * h;
     const bob = breath;
     const hipY = -0.45 * h + (c.squat || 0) * h;
     const headY = -(h - R) + bob * 1.2 + (c.squat || 0) * h * 0.9;
@@ -251,5 +251,20 @@
     letter: (x, hf, hb, h) => { const s = h * 0.12; const cx = (hf[0] + hb[0]) / 2, cy = (hf[1] + hb[1]) / 2 - s * 0.2; x.save(); x.translate(cx, cy); x.rotate(-0.05); x.fillStyle = '#f4ede6'; x.fillRect(-s * 0.45, -s * 0.6, s * 0.9, s * 1.1); x.fillStyle = '#b9a99a'; for (let i = 0; i < 5; i++) x.fillRect(-s * 0.33, -s * 0.4 + i * s * 0.16, s * (0.66 - (i === 4 ? 0.3 : 0)), s * 0.04); x.fillStyle = '#c8302f'; x.beginPath(); x.arc(s * 0.25, s * 0.32, s * 0.08, 0, Math.PI * 2); x.fill(); x.restore(); },
     folded: (x, hf, hb, h) => { const s = h * 0.07; x.save(); x.translate(hf[0], hf[1] - s * 0.3); x.rotate(-0.3); x.fillStyle = '#f4ede6'; x.fillRect(-s * 0.5, -s * 0.35, s, s * 0.7); x.strokeStyle = '#c9b9aa'; x.lineWidth = 2; x.beginPath(); x.moveTo(-s * 0.5, 0); x.lineTo(s * 0.5, 0); x.stroke(); x.restore(); },
     tray: (x, hf, hb, h) => { const s = h * 0.13; const cx = (hf[0] + hb[0]) / 2, cy = Math.min(hf[1], hb[1]); x.save(); x.translate(cx, cy); x.fillStyle = '#c9c0c8'; x.fillRect(-s * 0.6, -s * 0.06, s * 1.2, s * 0.1); x.fillStyle = '#e8a070'; x.beginPath(); x.arc(-s * 0.2, -s * 0.06, s * 0.16, Math.PI, 0); x.fill(); x.restore(); },
+  };
+})();
+// ---------- in bed (V3) ----------
+// Hip fixed on the mattress top; torso pivots from lying (u=0) to sitting (u=1) while the legs stay
+// flat under the duvet. o: {x (hip x), y (mattress top), h, f (±1 = direction the legs point), u,
+// arms (pose name for the arms), duvet (colour | false), + any E.char options}.
+(function () {
+  const E = globalThis.E;
+  E.inBed = (ctx, o) => {
+    const dir = Math.sign(o.f || 1), th = (Math.PI / 2) * (1 - E.clamp(o.u || 0));
+    const lw = 0.062 * o.h, hipY = -0.45 * o.h, ang = Math.PI / 2 - th;
+    const arms = E.POSE[o.arms || 'sit'];
+    const pose = Object.assign({}, arms, { lB: [ang, 0], lF: [ang + 0.02, 0] });
+    E.char(ctx, Object.assign({}, o, { y: o.y - hipY - lw * 0.6, pose, hipRot: -dir * th || -dir * 1e-6, ground: false, seat: false, shadow: false }));
+    if (o.duvet !== false) { const L = 0.44 * o.h; ctx.save(); ctx.fillStyle = o.duvet || '#4a3d78'; ctx.beginPath(); ctx.roundRect(dir > 0 ? o.x - 0.06 * o.h : o.x - L, o.y - lw * 1.7, L + 0.06 * o.h, lw * 2.3, lw * 0.9); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,0.08)'; ctx.fillRect(dir > 0 ? o.x - 0.06 * o.h : o.x - L, o.y - lw * 1.7, L + 0.06 * o.h, lw * 0.35); ctx.restore(); }
   };
 })();

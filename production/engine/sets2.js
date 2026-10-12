@@ -110,9 +110,9 @@
 
   // COURTYARD views + moods ---------------------------------------------------
   const MOOD = {
-    conf:   { top: '#3e3258', mid: '#8a6680', hor: '#b9788a', ground: '#5e4650', groundFar: '#7a5a60', sunA: 0.0, rays: 0.0, win: 0.5, shadow: 0.35, haze: '#6a7bc0' },
-    reveal: { top: '#55406a', mid: '#a87a88', hor: '#d89a88', ground: '#6e5050', groundFar: '#8a6660', sunA: 0.5, rays: 0.05, win: 0.7, shadow: 0.25, haze: '#6a7bc0' },
-    warm:   { top: '#6a4a7a', mid: '#d08a82', hor: '#ffc27a', ground: '#8a5e4e', groundFar: '#b07a5a', sunA: 1.0, rays: 0.16, win: 0.9, shadow: 0.3, haze: '#ffb070' },
+    conf:   { top: '#3a3f66', mid: '#5f6488', hor: '#8a8fb0', ground: '#45465a', groundFar: '#5a5b72', sunA: 0.0, rays: 0.0, win: 0.3, shadow: 0.4, haze: '#6a7bc0' },
+    reveal: { top: '#4a4870', mid: '#8a7c9c', hor: '#c49a92', ground: '#5a4c58', groundFar: '#76606a', sunA: 0.45, rays: 0.05, win: 0.45, shadow: 0.3, haze: '#6a7bc0' },
+    warm:   { top: '#7a4a6e', mid: '#e0906a', hor: '#ffcf8a', ground: '#74503f', groundFar: '#9a6a50', sunA: 1.0, rays: 0.14, win: 0.75, shadow: 0.34, haze: '#6a7bc0' },
   };
   E.yardMood = (t) => MOOD[t] || MOOD.warm;
   // view 'building' (Noah's reverse) or 'tree' (Leo's reverse: open courtyard, tree, low sun)
@@ -150,7 +150,7 @@
   S.cafeExtAM = (t, o = {}) => { const L = S.cafeExt(t, o); L[0] = { d: 0.05, draw: (c) => { E.sky(c, '#5f8fd8', '#f0b8a8', '#ffc98a', -600, 760); E.sun(c, 520, 260, 60, t); E.rays(c, 520, 260, 1500, 16, '#fff0c8', 0.08, t); U.clouds(c, t, 80, 2, '#f0d8e0'); } }; return L; };
   S.schoolAM = (t, o = {}) => { const L = S.entrance(t, o); L[0] = { d: 0.05, draw: (c) => { E.sky(c, '#5f8fd8', '#f0b8a8', '#ffc98a', -600, 760, -2000, 6000); E.sun(c, 1500, 260, 60, t); E.rays(c, 1500, 260, 1700, 16, '#fff0c8', 0.08, t); U.clouds(c, t, 120, 9, '#f0d8e0'); } }; return L; };
   // sunset entrance: less blown
-  S.entranceSet = (t, o = {}) => { const L = S.entrance(t, o); L[0] = { d: 0.05, draw: (c) => { E.sky(c, '#5a3a6e', '#d07a72', '#ffb46a', -600, 760, -2000, 6000); E.sun(c, 1500, 560, 52, t); E.rays(c, 1500, 560, 1800, 18, '#ffcf8a', 0.12, t); U.clouds(c, t, 120, 9, '#e08a8a'); } }; return L; };
+  S.entranceSet = (t, o = {}) => { const L = S.entrance(t, o); L[0] = { d: 0.05, draw: (c) => { E.sky(c, '#5a3a66', '#d77a6a', '#ffc98a', -600, 760, -2000, 6000); E.sun(c, 1500, 560, 52, t); E.rays(c, 1500, 560, 1800, 18, '#ffcf8a', 0.12, t); U.clouds(c, t, 120, 9, '#e08a8a'); } }; return L; };
 })();
 
 // ---------------- V3 perspective sets ----------------

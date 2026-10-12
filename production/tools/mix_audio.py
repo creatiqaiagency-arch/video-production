@@ -63,6 +63,9 @@ def src(name):
         if os.path.exists(p): return p
     raise FileNotFoundError(name)
 
+# thoughts Noah chooses not to read (s17e / s18d): heard only as a muffled fragment
+UNREAD = {'s17_leo_th', 's18_maya_th'}
+
 def build(out):
     inputs, chains, vo_labels, mu_labels, fx_labels = [], [], [], [], []
     def add_input(path, loop=False):
@@ -75,7 +78,11 @@ def build(out):
         g = -2.0 if l['kind'] == 'thought' else 0.0
         if lid.startswith('s06_c'): g = -5.0
         d = int(round(l['start'] * 1000))
-        chains.append(f'[{k}:a]aformat=sample_rates=44100:channel_layouts=stereo,volume={g}dB,adelay={d}|{d}[v{k}]'); vo_labels.append(f'[v{k}]')
+        extra = ''
+        if lid in UNREAD:  # Noah chooses not to read it: muffled, far away, cut off mid-word
+            cut = l['dur'] * 0.5
+            extra = f',lowpass=f=1100,volume=-18dB,afade=t=out:st={cut:.3f}:d=0.12,atrim=0:{cut + 0.12:.3f}'
+        chains.append(f'[{k}:a]aformat=sample_rates=44100:channel_layouts=stereo,volume={g}dB{extra},adelay={d}|{d}[v{k}]'); vo_labels.append(f'[v{k}]')
     def cue(item, labels, tag):
         name, start, dur, gain, fi, fo, off, loop = item
         if dur <= 0.05: return

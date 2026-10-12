@@ -30,19 +30,20 @@ import re as _re
 _h = open(os.path.join(ROOT, 'engine', 'shots', '_helpers.js')).read()
 def _set(name):
     m = _re.search(r'E\.%s = new Set\(\[([^\]]*)\]' % name, _h); return set(_re.findall(r"'([^']+)'", m.group(1))) if m else set()
-BEATS, HOLDS = _set('BEATS'), _set('HOLDS')
-TOL = 0.05  # ~1 frame
+BEATS, HOLDS = _set('BEATS') | {s['id'] for s in shots if s.get('beat')}, _set('HOLDS') | {s['id'] for s in shots if s.get('hold')}
+TOL = 1 / 24 + 1e-6  # 1 frame at 24 fps
 bad_short = [s for s in shots if s['dur'] < 3.0 - TOL]
 bad_long = [s for s in shots if s['dur'] > 5.0 + TOL]
 in_rule = len(shots) - len(bad_short) - len(bad_long)
-ok_exc = [s for s in shots if (s['id'] in BEATS and s['dur'] >= 0.8) or (s['id'] in HOLDS and 3 - TOL <= s['dur'] <= 7 + TOL) or (3 - TOL <= s['dur'] <= 5 + TOL)]
+ok_exc = [s for s in shots if (s['id'] in BEATS and 1.0 - TOL <= s['dur'] <= 2.5 + TOL) or (s['id'] in HOLDS and 3 - TOL <= s['dur'] <= 7 + TOL) or (3 - TOL <= s['dur'] <= 5 + TOL)]
 types = [s['type'] for s in shots]
 repeats = [(shots[i]['id'], shots[i + 1]['id']) for i in range(len(shots) - 1) if types[i] == types[i + 1] and types[i] in ('CU', 'ECU')]
 with open(os.path.join(out, 'cadence.md'), 'w') as f:
     f.write(f'# {V} cadence report\n\nshots {len(shots)} · mean {statistics.mean(d):.2f}s · median {statistics.median(d):.2f}s · min {min(d):.2f}s · max {max(d):.2f}s\n\n')
     f.write(f'strictly within 3–5 s (±1 frame): **{in_rule}/{len(shots)} ({100 * in_rule / len(shots):.0f}%)**\n\n')
+    f.write(f'shots between 2.90 and 3.10 s (metronome check): **{sum(1 for x in d if 2.9 <= x <= 3.1)}**\n\n')
     f.write(f'within the rule incl. declared exceptions: **{len(ok_exc)}/{len(shots)} ({100 * len(ok_exc) / len(shots):.0f}%)**\n\n')
-    f.write('declared impact/montage beats (allowed ≥0.8 s): ' + ', '.join(sorted(BEATS)) + '\n\n')
+    f.write('declared impact beats (allowed 1.0–2.5 s): ' + ', '.join(sorted(BEATS)) + '\n\n')
     f.write('declared moving Act-3 holds (allowed ≤7 s): ' + ', '.join(sorted(HOLDS)) + '\n\n')
     f.write('## shorter than 3 s\n' + ''.join(f"- {s['id']} {s['dur']:.2f}s ({s['type']})\n" for s in bad_short))
     f.write('\n## longer than 5 s\n' + ''.join(f"- {s['id']} {s['dur']:.2f}s ({s['type']})\n" for s in bad_long))

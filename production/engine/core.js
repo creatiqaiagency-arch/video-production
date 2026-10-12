@@ -109,25 +109,38 @@
 // Shots with meta.beat (impact/montage) only need ≥0.8 s; meta.hold (moving Act-3 holds) may run to 7 s.
 (function () {
   const E = globalThis.E;
+  // Cadence optimiser. Every cut may slide ±0.7 s so shots land in their allowed range:
+  //   normal 3–5 s (soft preference for ≥3.3 s, to avoid a metronomic 3.0 s rhythm),
+  //   declared impact beats 1.0–2.5 s (E.BEATS / meta.beat), declared moving holds 3–7 s (E.HOLDS / meta.hold).
+  // A cut that would land inside a spoken phrase is penalised, and a shot's meta.keep marks
+  // (names in E.TL.marks or absolute seconds) must stay inside the shot.
   E.retime = (shots, total) => {
     const n = shots.length; if (n < 2) return;
     const OFF = []; for (let o = -0.7; o <= 0.7001; o += 0.05) OFF.push(+o.toFixed(2));
-    const lim = (s) => (s.beat || (E.BEATS && E.BEATS.has(s.id)) ? [0.8, 3.2] : s.hold || (E.HOLDS && E.HOLDS.has(s.id)) ? [3, 7] : [3, 5]);
-    const cost = (s, d) => { const [a, b] = lim(s); if (d < 0.5) return 1e6; return d < a ? (a - d) ** 2 * 40 : d > b ? (d - b) ** 2 * 20 : 0; };
+    const lim = (s) => (s.beat || (E.BEATS && E.BEATS.has(s.id)) ? [1.0, 2.5] : s.hold || (E.HOLDS && E.HOLDS.has(s.id)) ? [3, 7] : [3, 5]);
+    const soft = (s) => !(s.beat || (E.BEATS && E.BEATS.has(s.id)));
+    const segs = []; for (const l of Object.values((E.TL && E.TL.lines) || {})) for (const g of (l.segs && l.segs.length ? l.segs : [[l.start, l.end]])) segs.push(g);
+    const inPhrase = (t) => { for (const [a, b] of segs) if (t > a + 0.1 && t < b - 0.1) return true; return false; };
+    const mk = (m) => (typeof m === 'number' ? m : E.TL.marks && E.TL.marks[m]);
+    const keeps = shots.map((s) => (s.keep || []).map(mk).filter((x) => x !== undefined));
+    const cost = (i, t0, t1) => { const s = shots[i], d = t1 - t0, [a, b] = lim(s); if (d < 0.5) return 1e6;
+      let c = d < a ? (a - d) ** 2 * 40 : d > b ? (d - b) ** 2 * 20 : 0;
+      if (soft(s) && d >= a && d < 3.3) c += (3.3 - d) * 1.5;
+      for (const m of keeps[i]) { if (m < t0 + 0.3) c += 400 * (t0 + 0.3 - m); if (m > t1 - 0.6) c += 400 * (m - t1 + 0.6); }
+      return c; };
     const base = shots.map((s) => s.t0);
-    // dp[i][k]: best cost for cuts 1..i with cut i shifted by OFF[k]
-    let prev = OFF.map((o, k) => (o === 0 ? 0 : 1e9)); // cut 0 fixed at its time
+    const cutPen = base.map((b, i) => OFF.map((o) => (i > 0 && inPhrase(b + o) ? (inPhrase(b) ? 2 : 6) : 0)));
+    let prev = OFF.map((o) => (o === 0 ? 0 : 1e9)); // cut 0 fixed
     const back = [];
     for (let i = 1; i < n; i++) {
       const cur = new Array(OFF.length).fill(1e12), bk = new Array(OFF.length).fill(0);
       for (let k = 0; k < OFF.length; k++) {
         const ti = base[i] + OFF[k];
-        for (let j = 0; j < OFF.length; j++) { if (prev[j] >= 1e9 && i > 1) continue; if (i === 1 && OFF[j] !== 0) continue; const tj = base[i - 1] + OFF[j]; const c = prev[j] + cost(shots[i - 1], ti - tj) + Math.abs(OFF[k]) * 0.6; if (c < cur[k]) { cur[k] = c; bk[k] = j; } }
+        for (let j = 0; j < OFF.length; j++) { if (prev[j] >= 1e9) continue; const tj = base[i - 1] + OFF[j]; const c = prev[j] + cost(i - 1, tj, ti) + Math.abs(OFF[k]) * 0.6 + cutPen[i][k]; if (c < cur[k]) { cur[k] = c; bk[k] = j; } }
       }
       back.push(bk); prev = cur;
     }
-    // last shot ends at total
-    let bestK = 0, best = 1e15; for (let k = 0; k < OFF.length; k++) { const c = prev[k] + cost(shots[n - 1], total - (base[n - 1] + OFF[k])); if (c < best) { best = c; bestK = k; } }
+    let bestK = 0, best = 1e15; for (let k = 0; k < OFF.length; k++) { const c = prev[k] + cost(n - 1, base[n - 1] + OFF[k], total); if (c < best) { best = c; bestK = k; } }
     const ks = new Array(n).fill(0); ks[n - 1] = bestK; for (let i = n - 1; i >= 1; i--) ks[i - 1] = back[i - 1][ks[i]];
     for (let i = 1; i < n; i++) shots[i].t0 = base[i] + OFF[ks[i]];
   };

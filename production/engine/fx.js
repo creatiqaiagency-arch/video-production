@@ -54,8 +54,8 @@
     ctx.translate(o.x, o.y + fy); ctx.scale(s, s);
     const w = o.w, h = o.h;
     // darken what is behind the panel so it always reads
-    if (o.text && kind !== 'spec') { ctx.save(); ctx.shadowBlur = 0; const dg = ctx.createRadialGradient(0, 0, Math.min(w, h) * 0.3, 0, 0, w * 0.75); dg.addColorStop(0, 'rgba(12,6,20,0.45)'); dg.addColorStop(1, 'rgba(12,6,20,0)'); ctx.fillStyle = dg; ctx.fillRect(-w, -h * 1.4, w * 2, h * 2.8); ctx.restore(); }
-    ctx.shadowColor = glow; ctx.shadowBlur = kind === 'spec' ? 4 : 28;
+    if (o.text && kind !== 'spec') { ctx.save(); ctx.shadowBlur = 0; const dg = ctx.createRadialGradient(0, 0, Math.min(w, h) * 0.3, 0, 0, w * 0.75); dg.addColorStop(0, 'rgba(12,6,20,0.55)'); dg.addColorStop(1, 'rgba(12,6,20,0)'); ctx.fillStyle = dg; ctx.fillRect(-w, -h * 1.4, w * 2, h * 2.8); ctx.restore(); }
+    ctx.shadowColor = glow; ctx.shadowBlur = kind === 'spec' ? 4 : 12;
     if (kind === 'spec') { // torn jagged frame, grey, grainy
       const r = E.rng(o.seed || 3); ctx.beginPath();
       const pts = []; const n = 28;
@@ -64,9 +64,9 @@
       ctx.fillStyle = E.rgba('#2a2630', 0.82); ctx.fill(); ctx.strokeStyle = E.rgba(glow, 0.5); ctx.lineWidth = 2; ctx.stroke();
     } else {
       ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, 22);
-      ctx.fillStyle = o.backing === false ? 'rgba(0,0,0,0)' : 'rgba(26,12,42,0.74)'; ctx.fill();
+      ctx.fillStyle = o.backing === false ? 'rgba(0,0,0,0)' : 'rgba(20,10,34,0.86)'; ctx.fill();
       ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, 22);
-      const g = ctx.createLinearGradient(0, -h / 2, 0, h / 2); g.addColorStop(0, E.rgba(col, 0.34)); g.addColorStop(1, E.rgba(col, 0.16));
+      const g = ctx.createLinearGradient(0, -h / 2, 0, h / 2); g.addColorStop(0, E.rgba(col, 0.14)); g.addColorStop(1, E.rgba(col, 0.06));
       ctx.fillStyle = g; ctx.fill(); ctx.strokeStyle = E.rgba(glow, 0.95); ctx.lineWidth = 2.5; ctx.stroke();
       ctx.shadowBlur = 0; ctx.strokeStyle = E.rgba('#ffffff', 0.18); ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect(-w / 2 + 7, -h / 2 + 7, w - 14, h - 14, 16); ctx.stroke();
     }
@@ -92,7 +92,7 @@
     let k = 0; const lh = size * 1.05; const y0 = y - ((lines.length - 1) * lh) / 2;
     lines.forEach((ln, li) => {
       const ws = ln.split(' '); const full = ctx.measureText(ln).width; let cx = x - full / 2;
-      ws.forEach((wd) => { const ww = ctx.measureText(wd + ' ').width; if (k < n) { ctx.globalAlpha = o.a === undefined ? 1 : o.a; ctx.shadowColor = o.glow || GLOW; ctx.shadowBlur = 18; ctx.fillStyle = o.color || TXT; ctx.textAlign = 'left'; ctx.fillText(wd, cx, y0 + li * lh); } k++; cx += ww; });
+      ws.forEach((wd) => { const ww = ctx.measureText(wd + ' ').width; if (k < n) { ctx.globalAlpha = o.a === undefined ? 1 : o.a; ctx.shadowColor = o.glow || GLOW; ctx.shadowBlur = o.glowBlur === undefined ? 6 : o.glowBlur; ctx.fillStyle = o.color || TXT; ctx.textAlign = 'left'; ctx.fillText(wd, cx, y0 + li * lh); } k++; cx += ww; });
     });
     ctx.restore();
   };

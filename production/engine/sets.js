@@ -164,7 +164,7 @@
       const vx = 960, vy = 470;
       E.vgrad(c, -1000, -500, 4000, 2000, [[0, '#5d3d44'], [1, '#3a262c']]);
       // far end window
-      win(c, vx - 160, vy - 210, 320, 330, { cols: 3, rows: 3, hi: '#ffd896', lo: '#e8904a' }); E.glow(c, vx, vy - 40, 520, '#ffd59a', 0.35);
+      win(c, vx - 160, vy - 210, 320, 330, { cols: 3, rows: 3, hi: '#ffcf7a', lo: '#e8803a' }); E.glow(c, vx, vy - 40, 520, '#ffc27a', 0.3);
       // floor + ceiling planes
       c.fillStyle = '#4a3036'; c.beginPath(); c.moveTo(-1000, 1400); c.lineTo(vx - 180, vy + 140); c.lineTo(vx + 180, vy + 140); c.lineTo(2900, 1400); c.fill();
       c.fillStyle = '#4e343c'; c.beginPath(); c.moveTo(-1000, -500); c.lineTo(vx - 180, vy - 230); c.lineTo(vx + 180, vy - 230); c.lineTo(2900, -500); c.fill();
@@ -173,9 +173,13 @@
         for (let k = 0; k < 18; k++) { const z0 = Math.pow(0.82, k), z1 = Math.pow(0.82, k + 1); const x0 = vx + side * (180 + 2200 * z0), x1 = vx + side * (180 + 2200 * z1);
           const top0 = vy - 230 + (-500 - (vy - 230)) * z0 * 0.55 + 260 * z0, bot0 = vy + 140 + (1400 - vy - 140) * z0 * 0.55;
           const top1 = vy - 230 + (-500 - (vy - 230)) * z1 * 0.55 + 260 * z1, bot1 = vy + 140 + (1400 - vy - 140) * z1 * 0.55;
-          c.fillStyle = k % 2 ? '#3d5a73' : '#33506a'; c.beginPath(); c.moveTo(x0, top0); c.lineTo(x1, top1); c.lineTo(x1, bot1); c.lineTo(x0, bot0); c.closePath(); c.fill();
+          c.fillStyle = k % 2 ? '#2c3550' : '#262e46'; c.beginPath(); c.moveTo(x0, top0); c.lineTo(x1, top1); c.lineTo(x1, bot1); c.lineTo(x0, bot0); c.closePath(); c.fill();
           c.strokeStyle = 'rgba(0,0,0,0.3)'; c.lineWidth = 2; c.stroke(); }
       }
+      // light from the end window: a warm trapezoid on the floor + rays (V3)
+      c.save(); c.globalCompositeOperation = 'lighter'; const fg = c.createLinearGradient(0, vy + 140, 0, 1300); fg.addColorStop(0, 'rgba(255,208,138,0.32)'); fg.addColorStop(1, 'rgba(255,208,138,0)');
+      c.fillStyle = fg; c.beginPath(); c.moveTo(vx - 150, vy + 140); c.lineTo(vx + 150, vy + 140); c.lineTo(vx + 620, 1300); c.lineTo(vx - 620, 1300); c.closePath(); c.fill(); c.restore();
+      E.rays(c, vx, vy - 40, 1400, 10, '#ffcf8a', 0.08, t, Math.PI * 0.9, Math.PI / 2);
       // ceiling lights
       for (let k = 0; k < 7; k++) { const z = Math.pow(0.7, k); const y = vy - 230 - 500 * z * 0.9; E.glow(c, vx, y + 20, 160 * z + 20, '#fff1c9', 0.5); c.fillStyle = '#fff6df'; c.fillRect(vx - 120 * z - 10, y, 240 * z + 20, 10 * z + 3); }
       E.dust(c, t, { n: 40, color: '#ffe2b8', a: 0.4 });
