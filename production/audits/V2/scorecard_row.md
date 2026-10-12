@@ -1,0 +1,1 @@
+| V2 | overall 6/10 | Big gains (perspective school sets, two-axis golden Act 3, readable key thoughts, in-world replays, Leo planted), but the cold open is still broken or unreadable, exteriors are still flat façades, Noah's Act 3 coverage repeats, s11d/s17f/s17e don't deliver, and acting still leans on stock poses |
