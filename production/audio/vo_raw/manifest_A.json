@@ -1,0 +1,693 @@
+[
+  {
+    "id": "s01_vo1",
+    "speaker": "narrator",
+    "flow_id": "FTkn2vkA3iTd7qjtT4IX",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_vo1_t1.mp3",
+        "duration": 8.986
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_vo1_t2.mp3",
+        "duration": 7.967
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_vo1_t3.mp3",
+        "duration": 8.986
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_vo1_t4.mp3",
+        "duration": 8.829
+      }
+    ]
+  },
+  {
+    "id": "s01_vo2",
+    "speaker": "narrator",
+    "flow_id": "ucA7ehQfj9MaBbwpMk10",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_vo2_t1.mp3",
+        "duration": 6.766
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_vo2_t2.mp3",
+        "duration": 4.049
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_vo2_t3.mp3",
+        "duration": 5.068
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_vo2_t4.mp3",
+        "duration": 5.068
+      }
+    ]
+  },
+  {
+    "id": "s01_barista_say",
+    "speaker": "barista",
+    "flow_id": "ZeBJiVsftiEGPrsszM1z",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_say_t1.mp3",
+        "duration": 2.116
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_say_t2.mp3",
+        "duration": 2.116
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_say_t3.mp3",
+        "duration": 2.038
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_say_t4.mp3",
+        "duration": 2.038
+      }
+    ]
+  },
+  {
+    "id": "s01_barista_th1",
+    "speaker": "barista",
+    "flow_id": "o94OJnXGOzX0XUVICemh",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_th1_t1.mp3",
+        "duration": 2.847
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_th1_t2.mp3",
+        "duration": 3.239
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_th1_t3.mp3",
+        "duration": 2.508
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_th1_t4.mp3",
+        "duration": 2.769
+      }
+    ]
+  },
+  {
+    "id": "s01_noah1",
+    "speaker": "noah",
+    "flow_id": "fTj2Jn7YOJXBKIrGayII",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_noah1_t1.mp3",
+        "duration": 2.273
+      }
+    ],
+    "error": "partial: 3 of 4 variations rejected with 429 rate_limit_exceeded; 1 take"
+  },
+  {
+    "id": "s01_barista_th2",
+    "speaker": "barista",
+    "flow_id": "fDr5D0FNNSa6ZTrGApI7",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_th2_t1.mp3",
+        "duration": 1.802
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_th2_t2.mp3",
+        "duration": 1.724
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_th2_t3.mp3",
+        "duration": 1.411
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s01_barista_th2_t4.mp3",
+        "duration": 1.881
+      }
+    ]
+  },
+  {
+    "id": "s02_vo1",
+    "speaker": "narrator",
+    "flow_id": "51YvioiO7OWx4he3F5XZ",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_vo1_t1.mp3",
+        "duration": 13.087
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_vo1_t2.mp3",
+        "duration": 10.266
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_vo1_t3.mp3",
+        "duration": 11.964
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_vo1_t4.mp3",
+        "duration": 10.371
+      }
+    ]
+  },
+  {
+    "id": "s02_biz_say",
+    "speaker": "businessman",
+    "flow_id": "Jzyyz8qaquWBII5Xkou6",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_biz_say_t1.mp3",
+        "duration": 2.508
+      }
+    ],
+    "error": "partial: 3 of 4 variations rejected with 429 rate_limit_exceeded; 1 take"
+  },
+  {
+    "id": "s02_biz_th",
+    "speaker": "businessman",
+    "flow_id": "GRRxUATN8TLJ7QOxb86C",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_biz_th_t1.mp3",
+        "duration": 2.691
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_biz_th_t2.mp3",
+        "duration": 2.038
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_biz_th_t3.mp3",
+        "duration": 3.082
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_biz_th_t4.mp3",
+        "duration": 2.194
+      }
+    ]
+  },
+  {
+    "id": "s02_woman_th",
+    "speaker": "woman",
+    "flow_id": "SaMVkW195WeSh6mLAYoI",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_woman_th_t1.mp3",
+        "duration": 1.959
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_woman_th_t2.mp3",
+        "duration": 1.489
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_woman_th_t3.mp3",
+        "duration": 1.959
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_woman_th_t4.mp3",
+        "duration": 1.802
+      }
+    ]
+  },
+  {
+    "id": "s02_man_th",
+    "speaker": "man",
+    "flow_id": "D283g0cdl1xuMfER7Akt",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_man_th_t1.mp3",
+        "duration": 2.116
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_man_th_t2.mp3",
+        "duration": 2.273
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_man_th_t3.mp3",
+        "duration": 2.508
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_man_th_t4.mp3",
+        "duration": 2.116
+      }
+    ]
+  },
+  {
+    "id": "s02_noah1",
+    "speaker": "noah",
+    "flow_id": "6FXklOLYF1lUqA6V50Is",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_noah1_t1.mp3",
+        "duration": 3.788
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_noah1_t2.mp3",
+        "duration": 3.396
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_noah1_t3.mp3",
+        "duration": 3.866
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s02_noah1_t4.mp3",
+        "duration": 4.049
+      }
+    ]
+  },
+  {
+    "id": "s03_vo1",
+    "speaker": "narrator",
+    "flow_id": "VXVpeRX5cWW69n0mLQOJ",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_vo1_t1.mp3",
+        "duration": 7.549
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_vo1_t2.mp3",
+        "duration": 7.158
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_vo1_t3.mp3",
+        "duration": 7.079
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_vo1_t4.mp3",
+        "duration": 7.471
+      }
+    ]
+  },
+  {
+    "id": "s03_teacher1",
+    "speaker": "teacher",
+    "flow_id": "glvbsWvzVS6cgYAQcE7W",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher1_t1.mp3",
+        "duration": 2.351
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher1_t2.mp3",
+        "duration": 2.586
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher1_t3.mp3",
+        "duration": 2.508
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher1_t4.mp3",
+        "duration": 2.508
+      }
+    ]
+  },
+  {
+    "id": "s03_noah1",
+    "speaker": "noah",
+    "flow_id": "DXHFosx9zwKr4JFkl7sU",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_noah1_t1.mp3",
+        "duration": 1.646
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_noah1_t2.mp3",
+        "duration": 1.724
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_noah1_t3.mp3",
+        "duration": 2.038
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_noah1_t4.mp3",
+        "duration": 1.489
+      }
+    ]
+  },
+  {
+    "id": "s03_teacher_th",
+    "speaker": "teacher",
+    "flow_id": "omK1q1WbfHeMc028neXR",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher_th_t1.mp3",
+        "duration": 3.082
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher_th_t2.mp3",
+        "duration": 2.926
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher_th_t3.mp3",
+        "duration": 3.474
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher_th_t4.mp3",
+        "duration": 2.429
+      }
+    ]
+  },
+  {
+    "id": "s03_noah2",
+    "speaker": "noah",
+    "flow_id": "YMYATaWjcZkhVf0O4wae",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_noah2_t1.mp3",
+        "duration": 1.959
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_noah2_t2.mp3",
+        "duration": 1.802
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_noah2_t3.mp3",
+        "duration": 2.273
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_noah2_t4.mp3",
+        "duration": 1.228
+      }
+    ]
+  },
+  {
+    "id": "s03_teacher2",
+    "speaker": "teacher",
+    "flow_id": "ZDkA8XVYrDpbyNOliVit",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher2_t1.mp3",
+        "duration": 1.802
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher2_t2.mp3",
+        "duration": 1.411
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher2_t3.mp3",
+        "duration": 2.351
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_teacher2_t4.mp3",
+        "duration": 2.194
+      }
+    ]
+  },
+  {
+    "id": "s03_vo2",
+    "speaker": "narrator",
+    "flow_id": "5u1gz8CAL3p7GpyjwifQ",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_vo2_t1.mp3",
+        "duration": 2.194
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_vo2_t2.mp3",
+        "duration": 2.429
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_vo2_t3.mp3",
+        "duration": 2.273
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s03_vo2_t4.mp3",
+        "duration": 2.351
+      }
+    ]
+  },
+  {
+    "id": "s04_vo1",
+    "speaker": "narrator",
+    "flow_id": "rNUUk6R8wN8UId5968aI",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_vo1_t1.mp3",
+        "duration": 12.931
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_vo1_t2.mp3",
+        "duration": 11.468
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_vo1_t3.mp3",
+        "duration": 9.561
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_vo1_t4.mp3",
+        "duration": 9.718
+      }
+    ]
+  },
+  {
+    "id": "s04_maya_th1",
+    "speaker": "maya",
+    "flow_id": "G2rlf3vcqiMz89NEHIVQ",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_maya_th1_t1.mp3",
+        "duration": 4.049
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_maya_th1_t2.mp3",
+        "duration": 5.878
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_maya_th1_t3.mp3",
+        "duration": 4.441
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_maya_th1_t4.mp3",
+        "duration": 4.598
+      }
+    ]
+  },
+  {
+    "id": "s04_noah1",
+    "speaker": "noah",
+    "flow_id": "wxrdiod7FmnyepC5mRrz",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_noah1_t1.mp3",
+        "duration": 1.411
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_noah1_t2.mp3",
+        "duration": 2.116
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_noah1_t3.mp3",
+        "duration": 1.724
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_noah1_t4.mp3",
+        "duration": 2.194
+      }
+    ]
+  },
+  {
+    "id": "s04_maya_th2",
+    "speaker": "maya",
+    "flow_id": "2QcJtEeX2c9rqTR72HdY",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_maya_th2_t1.mp3",
+        "duration": 1.959
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_maya_th2_t2.mp3",
+        "duration": 2.194
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_maya_th2_t3.mp3",
+        "duration": 4.049
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_maya_th2_t4.mp3",
+        "duration": 2.194
+      }
+    ]
+  },
+  {
+    "id": "s04_noah2",
+    "speaker": "noah",
+    "flow_id": "GijUEd5rIVcMR3254awX",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_noah2_t1.mp3",
+        "duration": 1.228
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_noah2_t2.mp3",
+        "duration": 2.351
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_noah2_t3.mp3",
+        "duration": 1.228
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s04_noah2_t4.mp3",
+        "duration": 1.567
+      }
+    ]
+  },
+  {
+    "id": "s05_vo1",
+    "speaker": "narrator",
+    "flow_id": "PQhCJqWJefIbhk5I81a9",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s05_vo1_t1.mp3",
+        "duration": 10.762
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s05_vo1_t2.mp3",
+        "duration": 9.482
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s05_vo1_t3.mp3",
+        "duration": 8.046
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s05_vo1_t4.mp3",
+        "duration": 8.516
+      }
+    ]
+  },
+  {
+    "id": "s05_noah1",
+    "speaker": "noah",
+    "flow_id": "IvYBgqV6hP7i7s7cgfDo",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s05_noah1_t1.mp3",
+        "duration": 2.273
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s05_noah1_t2.mp3",
+        "duration": 2.429
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s05_noah1_t3.mp3",
+        "duration": 2.273
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s05_noah1_t4.mp3",
+        "duration": 2.116
+      }
+    ]
+  },
+  {
+    "id": "s06_vo1",
+    "speaker": "narrator",
+    "flow_id": "FkGgBxo78eDCOGKETvT0",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_vo1_t1.mp3",
+        "duration": 9.874
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_vo1_t2.mp3",
+        "duration": 9.404
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_vo1_t3.mp3",
+        "duration": 10.109
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_vo1_t4.mp3",
+        "duration": 9.404
+      }
+    ]
+  },
+  {
+    "id": "s06_c1",
+    "speaker": "crowd_a",
+    "flow_id": "P3lpmvOCoJoxqQ6q8VFW",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c1_t1.mp3",
+        "duration": 2.273
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c1_t2.mp3",
+        "duration": 2.586
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c1_t3.mp3",
+        "duration": 4.049
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c1_t4.mp3",
+        "duration": 3.474
+      }
+    ]
+  },
+  {
+    "id": "s06_c2",
+    "speaker": "crowd_b",
+    "flow_id": "IQSH61n2iaiPiyQgtnBi",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c2_t1.mp3",
+        "duration": 1.959
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c2_t2.mp3",
+        "duration": 2.038
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c2_t3.mp3",
+        "duration": 1.802
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c2_t4.mp3",
+        "duration": 3.239
+      }
+    ]
+  },
+  {
+    "id": "s06_c3",
+    "speaker": "crowd_c",
+    "flow_id": "NDea8eFwvHO36NW4Irwy",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c3_t1.mp3",
+        "duration": 3.866
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c3_t2.mp3",
+        "duration": 1.959
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c3_t3.mp3",
+        "duration": 4.441
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c3_t4.mp3",
+        "duration": 2.116
+      }
+    ]
+  },
+  {
+    "id": "s06_c4",
+    "speaker": "crowd_d",
+    "flow_id": "D1CxJfnsx646hLEUmXeH",
+    "takes": [
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c4_t1.mp3",
+        "duration": 1.411
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c4_t2.mp3",
+        "duration": 1.802
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c4_t3.mp3",
+        "duration": 2.926
+      },
+      {
+        "file": "/home/user/video-production/production/audio/vo_raw/s06_c4_t4.mp3",
+        "duration": 1.646
+      }
+    ]
+  }
+]

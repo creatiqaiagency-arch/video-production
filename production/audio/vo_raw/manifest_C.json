@@ -1,0 +1,681 @@
+[
+  {
+    "id": "s13_noah1",
+    "speaker": "noah",
+    "flow_id": "7dnxN677vypbE86eGHWv",
+    "takes": [
+      {
+        "file": "s13_noah1_t1.mp3",
+        "duration": 3.63102
+      }
+    ],
+    "error": "partial: only 1 of 4 variations started; 3 rejected with 429 rate_limit_exceeded"
+  },
+  {
+    "id": "s13_leo1",
+    "speaker": "leo",
+    "flow_id": "0QutplOlHHkGLXlaLI0n",
+    "takes": [
+      {
+        "file": "s13_leo1_t1.mp3",
+        "duration": 2.76898
+      },
+      {
+        "file": "s13_leo1_t2.mp3",
+        "duration": 2.847347
+      },
+      {
+        "file": "s13_leo1_t3.mp3",
+        "duration": 2.429388
+      },
+      {
+        "file": "s13_leo1_t4.mp3",
+        "duration": 2.507755
+      }
+    ]
+  },
+  {
+    "id": "s13_leo_th",
+    "speaker": "leo",
+    "flow_id": "1BLegA5h3L0OKEMqQcEj",
+    "takes": [
+      {
+        "file": "s13_leo_th_t1.mp3",
+        "duration": 2.037551
+      },
+      {
+        "file": "s13_leo_th_t2.mp3",
+        "duration": 2.507755
+      },
+      {
+        "file": "s13_leo_th_t3.mp3",
+        "duration": 2.272653
+      },
+      {
+        "file": "s13_leo_th_t4.mp3",
+        "duration": 2.194286
+      }
+    ]
+  },
+  {
+    "id": "s13_noah2",
+    "speaker": "noah",
+    "flow_id": "5Pkx1YriPeEDKFYtZ9G0",
+    "takes": [
+      {
+        "file": "s13_noah2_t1.mp3",
+        "duration": 1.802449
+      },
+      {
+        "file": "s13_noah2_t2.mp3",
+        "duration": 2.35102
+      },
+      {
+        "file": "s13_noah2_t3.mp3",
+        "duration": 2.690612
+      },
+      {
+        "file": "s13_noah2_t4.mp3",
+        "duration": 2.194286
+      }
+    ]
+  },
+  {
+    "id": "s13_leo2",
+    "speaker": "leo",
+    "flow_id": "GAbiVKl7T3N1ZhzSAIMM",
+    "takes": [
+      {
+        "file": "s13_leo2_t1.mp3",
+        "duration": 1.306122
+      },
+      {
+        "file": "s13_leo2_t2.mp3",
+        "duration": 1.567347
+      },
+      {
+        "file": "s13_leo2_t3.mp3",
+        "duration": 1.802449
+      },
+      {
+        "file": "s13_leo2_t4.mp3",
+        "duration": 1.410612
+      }
+    ]
+  },
+  {
+    "id": "s13_noah3",
+    "speaker": "noah",
+    "flow_id": "QLRdpeyQWv3fPsMpCoWz",
+    "takes": [
+      {
+        "file": "s13_noah3_t1.mp3",
+        "duration": 2.429388
+      },
+      {
+        "file": "s13_noah3_t2.mp3",
+        "duration": 2.35102
+      },
+      {
+        "file": "s13_noah3_t3.mp3",
+        "duration": 2.194286
+      },
+      {
+        "file": "s13_noah3_t4.mp3",
+        "duration": 2.76898
+      }
+    ]
+  },
+  {
+    "id": "s14_leo1",
+    "speaker": "leo",
+    "flow_id": "6xWjTpc9zniT01ScKH1a",
+    "takes": [
+      {
+        "file": "s14_leo1_t1.mp3",
+        "duration": 3.474286
+      },
+      {
+        "file": "s14_leo1_t2.mp3",
+        "duration": 3.474286
+      },
+      {
+        "file": "s14_leo1_t3.mp3",
+        "duration": 3.474286
+      },
+      {
+        "file": "s14_leo1_t4.mp3",
+        "duration": 2.507755
+      }
+    ]
+  },
+  {
+    "id": "s14_noah1",
+    "speaker": "noah",
+    "flow_id": "e97GewOJ77GCWUQ7udiv",
+    "takes": [
+      {
+        "file": "s14_noah1_t1.mp3",
+        "duration": 1.880816
+      },
+      {
+        "file": "s14_noah1_t2.mp3",
+        "duration": 2.429388
+      },
+      {
+        "file": "s14_noah1_t3.mp3",
+        "duration": 1.645714
+      },
+      {
+        "file": "s14_noah1_t4.mp3",
+        "duration": 1.07102
+      }
+    ]
+  },
+  {
+    "id": "s14_leo2",
+    "speaker": "leo",
+    "flow_id": "xBf1qZfO2F8IIkJCHvEp",
+    "takes": [
+      {
+        "file": "s14_leo2_t1.mp3",
+        "duration": 2.925714
+      },
+      {
+        "file": "s14_leo2_t2.mp3",
+        "duration": 3.239184
+      },
+      {
+        "file": "s14_leo2_t3.mp3",
+        "duration": 3.082449
+      },
+      {
+        "file": "s14_leo2_t4.mp3",
+        "duration": 3.474286
+      }
+    ]
+  },
+  {
+    "id": "s14_noah2",
+    "speaker": "noah",
+    "flow_id": "XKCwn56KdR0kSLPqOyMN",
+    "takes": [
+      {
+        "file": "s14_noah2_t1.mp3",
+        "duration": 2.586122
+      },
+      {
+        "file": "s14_noah2_t2.mp3",
+        "duration": 2.847347
+      },
+      {
+        "file": "s14_noah2_t3.mp3",
+        "duration": 2.507755
+      },
+      {
+        "file": "s14_noah2_t4.mp3",
+        "duration": 2.507755
+      }
+    ]
+  },
+  {
+    "id": "s14_leo3",
+    "speaker": "leo",
+    "flow_id": "piuFnCTfHpnIuMGAhjTc",
+    "takes": [
+      {
+        "file": "s14_leo3_t1.mp3",
+        "duration": 3.709388
+      },
+      {
+        "file": "s14_leo3_t2.mp3",
+        "duration": 3.787755
+      },
+      {
+        "file": "s14_leo3_t3.mp3",
+        "duration": 4.127347
+      },
+      {
+        "file": "s14_leo3_t4.mp3",
+        "duration": 3.63102
+      }
+    ]
+  },
+  {
+    "id": "s14_leo_th",
+    "speaker": "leo",
+    "flow_id": "JiNBbDtNkk1dN0mp82kZ",
+    "takes": [
+      {
+        "file": "s14_leo_th_t1.mp3",
+        "duration": 2.194286
+      },
+      {
+        "file": "s14_leo_th_t2.mp3",
+        "duration": 2.194286
+      },
+      {
+        "file": "s14_leo_th_t3.mp3",
+        "duration": 2.037551
+      },
+      {
+        "file": "s14_leo_th_t4.mp3",
+        "duration": 2.272653
+      }
+    ]
+  },
+  {
+    "id": "s15_noah1",
+    "speaker": "noah",
+    "flow_id": "TtfmYNg2zgkYKIJ34T1v",
+    "takes": [
+      {
+        "file": "s15_noah1_t1.mp3",
+        "duration": 2.037551
+      },
+      {
+        "file": "s15_noah1_t2.mp3",
+        "duration": 2.429388
+      },
+      {
+        "file": "s15_noah1_t3.mp3",
+        "duration": 2.35102
+      },
+      {
+        "file": "s15_noah1_t4.mp3",
+        "duration": 3.160816
+      }
+    ]
+  },
+  {
+    "id": "s15_leo1",
+    "speaker": "leo",
+    "flow_id": "MOH7KHuFeYIXZI6CjAlu",
+    "takes": [
+      {
+        "file": "s15_leo1_t1.mp3",
+        "duration": 5.955918
+      },
+      {
+        "file": "s15_leo1_t2.mp3",
+        "duration": 5.32898
+      },
+      {
+        "file": "s15_leo1_t3.mp3",
+        "duration": 6.112653
+      },
+      {
+        "file": "s15_leo1_t4.mp3",
+        "duration": 6.347755
+      }
+    ]
+  },
+  {
+    "id": "s15_noah2",
+    "speaker": "noah",
+    "flow_id": "6tgojdX3x4Y3PHGJ3P3E",
+    "takes": [
+      {
+        "file": "s15_noah2_t1.mp3",
+        "duration": 2.429388
+      },
+      {
+        "file": "s15_noah2_t2.mp3",
+        "duration": 2.76898
+      },
+      {
+        "file": "s15_noah2_t3.mp3",
+        "duration": 1.645714
+      },
+      {
+        "file": "s15_noah2_t4.mp3",
+        "duration": 1.724082
+      }
+    ]
+  },
+  {
+    "id": "s15_leo2",
+    "speaker": "leo",
+    "flow_id": "IPcEIoH57ovNllNiDdZh",
+    "takes": [
+      {
+        "file": "s15_leo2_t1.mp3",
+        "duration": 4.362449
+      },
+      {
+        "file": "s15_leo2_t2.mp3",
+        "duration": 3.866122
+      },
+      {
+        "file": "s15_leo2_t3.mp3",
+        "duration": 5.720816
+      },
+      {
+        "file": "s15_leo2_t4.mp3",
+        "duration": 4.284082
+      }
+    ]
+  },
+  {
+    "id": "s15_leo3",
+    "speaker": "leo",
+    "flow_id": "XNilrGesMGAz2aAq82dh",
+    "takes": [
+      {
+        "file": "s15_leo3_t1.mp3",
+        "duration": 2.76898
+      },
+      {
+        "file": "s15_leo3_t2.mp3",
+        "duration": 2.690612
+      },
+      {
+        "file": "s15_leo3_t3.mp3",
+        "duration": 2.586122
+      },
+      {
+        "file": "s15_leo3_t4.mp3",
+        "duration": 3.160816
+      }
+    ]
+  },
+  {
+    "id": "s16_vo1",
+    "speaker": "narrator",
+    "flow_id": "4lR6qGWhLttHHfocelo4",
+    "takes": [
+      {
+        "file": "s16_vo1_t1.mp3",
+        "duration": 19.226122
+      },
+      {
+        "file": "s16_vo1_t2.mp3",
+        "duration": 19.565714
+      },
+      {
+        "file": "s16_vo1_t3.mp3",
+        "duration": 18.912653
+      },
+      {
+        "file": "s16_vo1_t4.mp3",
+        "duration": 19.957551
+      }
+    ]
+  },
+  {
+    "id": "s17_noah1",
+    "speaker": "noah",
+    "flow_id": "zLhw04cE1ej4gj3PweA9",
+    "takes": [
+      {
+        "file": "s17_noah1_t1.mp3",
+        "duration": 3.63102
+      },
+      {
+        "file": "s17_noah1_t2.mp3",
+        "duration": 4.597551
+      },
+      {
+        "file": "s17_noah1_t3.mp3",
+        "duration": 4.205714
+      },
+      {
+        "file": "s17_noah1_t4.mp3",
+        "duration": 3.552653
+      }
+    ]
+  },
+  {
+    "id": "s17_leo1",
+    "speaker": "leo",
+    "flow_id": "qZsexktH9o16Bg3wlCd6",
+    "takes": [
+      {
+        "file": "s17_leo1_t1.mp3",
+        "duration": 1.48898
+      },
+      {
+        "file": "s17_leo1_t2.mp3",
+        "duration": 1.227755
+      },
+      {
+        "file": "s17_leo1_t3.mp3",
+        "duration": 1.48898
+      },
+      {
+        "file": "s17_leo1_t4.mp3",
+        "duration": 2.76898
+      }
+    ]
+  },
+  {
+    "id": "s17_noah2",
+    "speaker": "noah",
+    "flow_id": "3YoF7uUjFzGdiHHcLHjd",
+    "takes": [
+      {
+        "file": "s17_noah2_t1.mp3",
+        "duration": 3.317551
+      },
+      {
+        "file": "s17_noah2_t2.mp3",
+        "duration": 3.082449
+      },
+      {
+        "file": "s17_noah2_t3.mp3",
+        "duration": 3.082449
+      },
+      {
+        "file": "s17_noah2_t4.mp3",
+        "duration": 3.317551
+      }
+    ]
+  },
+  {
+    "id": "s17_leo2",
+    "speaker": "leo",
+    "flow_id": "nVzRK5MXvAyjCmJp2ycX",
+    "takes": [
+      {
+        "file": "s17_leo2_t1.mp3",
+        "duration": 3.160816
+      },
+      {
+        "file": "s17_leo2_t2.mp3",
+        "duration": 3.082449
+      },
+      {
+        "file": "s17_leo2_t3.mp3",
+        "duration": 3.317551
+      },
+      {
+        "file": "s17_leo2_t4.mp3",
+        "duration": 3.552653
+      }
+    ]
+  },
+  {
+    "id": "s17_noah3",
+    "speaker": "noah",
+    "flow_id": "nikn8JGRQbEJFe5F5617",
+    "takes": [
+      {
+        "file": "s17_noah3_t1.mp3",
+        "duration": 1.410612
+      },
+      {
+        "file": "s17_noah3_t2.mp3",
+        "duration": 1.227755
+      },
+      {
+        "file": "s17_noah3_t3.mp3",
+        "duration": 1.410612
+      },
+      {
+        "file": "s17_noah3_t4.mp3",
+        "duration": 1.645714
+      }
+    ]
+  },
+  {
+    "id": "s17_leo_th",
+    "speaker": "leo",
+    "flow_id": "xnaBoAsTUeOSTeaaMeIs",
+    "takes": [
+      {
+        "file": "s17_leo_th_t1.mp3",
+        "duration": 2.272653
+      },
+      {
+        "file": "s17_leo_th_t2.mp3",
+        "duration": 1.567347
+      },
+      {
+        "file": "s17_leo_th_t3.mp3",
+        "duration": 1.48898
+      },
+      {
+        "file": "s17_leo_th_t4.mp3",
+        "duration": 1.645714
+      }
+    ]
+  },
+  {
+    "id": "s17_laugh_noah",
+    "speaker": "noah",
+    "flow_id": "GTbb7iuRZLZ1Bd7HKqAQ",
+    "takes": [
+      {
+        "file": "s17_laugh_noah_t1.mp3",
+        "duration": 5.407347
+      },
+      {
+        "file": "s17_laugh_noah_t2.mp3",
+        "duration": 7.47102
+      },
+      {
+        "file": "s17_laugh_noah_t3.mp3",
+        "duration": 3.709388
+      },
+      {
+        "file": "s17_laugh_noah_t4.mp3",
+        "duration": 3.787755
+      }
+    ]
+  },
+  {
+    "id": "s17_laugh_leo",
+    "speaker": "leo",
+    "flow_id": "epI9i3IWLMTnvfZ7WrtZ",
+    "takes": [
+      {
+        "file": "s17_laugh_leo_t1.mp3",
+        "duration": 3.970612
+      },
+      {
+        "file": "s17_laugh_leo_t2.mp3",
+        "duration": 2.507755
+      },
+      {
+        "file": "s17_laugh_leo_t3.mp3",
+        "duration": 2.586122
+      },
+      {
+        "file": "s17_laugh_leo_t4.mp3",
+        "duration": 3.082449
+      }
+    ]
+  },
+  {
+    "id": "s18_vo1",
+    "speaker": "narrator",
+    "flow_id": "lUi0vwvmPFv53wGQeHbe",
+    "takes": [
+      {
+        "file": "s18_vo1_t1.mp3",
+        "duration": 3.866122
+      },
+      {
+        "file": "s18_vo1_t2.mp3",
+        "duration": 3.552653
+      },
+      {
+        "file": "s18_vo1_t3.mp3",
+        "duration": 3.474286
+      },
+      {
+        "file": "s18_vo1_t4.mp3",
+        "duration": 3.709388
+      }
+    ]
+  },
+  {
+    "id": "s18_maya1",
+    "speaker": "maya",
+    "flow_id": "ZSmEzRnTqwclN4eTLzik",
+    "takes": [
+      {
+        "file": "s18_maya1_t1.mp3",
+        "duration": 4.754286
+      },
+      {
+        "file": "s18_maya1_t2.mp3",
+        "duration": 2.925714
+      },
+      {
+        "file": "s18_maya1_t3.mp3",
+        "duration": 2.429388
+      },
+      {
+        "file": "s18_maya1_t4.mp3",
+        "duration": 2.507755
+      }
+    ]
+  },
+  {
+    "id": "s18_maya_th",
+    "speaker": "maya",
+    "flow_id": "CXcfIBknR9Mr9k6ydxu7",
+    "takes": [
+      {
+        "file": "s18_maya_th_t1.mp3",
+        "duration": 1.724082
+      },
+      {
+        "file": "s18_maya_th_t2.mp3",
+        "duration": 2.194286
+      },
+      {
+        "file": "s18_maya_th_t3.mp3",
+        "duration": 1.724082
+      },
+      {
+        "file": "s18_maya_th_t4.mp3",
+        "duration": 1.880816
+      }
+    ]
+  },
+  {
+    "id": "s18_noah1",
+    "speaker": "noah",
+    "flow_id": "dX8CD3Rbj5hzirkhxJnj",
+    "takes": [
+      {
+        "file": "s18_noah1_t1.mp3",
+        "duration": 2.847347
+      },
+      {
+        "file": "s18_noah1_t2.mp3",
+        "duration": 2.690612
+      },
+      {
+        "file": "s18_noah1_t3.mp3",
+        "duration": 2.586122
+      },
+      {
+        "file": "s18_noah1_t4.mp3",
+        "duration": 2.115918
+      }
+    ]
+  }
+]

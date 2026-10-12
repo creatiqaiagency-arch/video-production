@@ -1,0 +1,218 @@
+[
+  {
+    "id": "m01_curious_playful",
+    "type": "music",
+    "file": "/home/user/video-production/production/audio/music/m01_curious_playful.mp3",
+    "duration": 75.024,
+    "prompt": "Instrumental only, no vocals. Light, curious and playful orchestral-pop storytelling bed: plucky pizzicato strings, soft marimba melody and gentle brushed drums at a bouncy mid tempo (around 105 BPM), whimsical and warm with crisp modern production. Stays light and steady with small playful variations throughout, room for narration. Duration: 75 seconds.",
+    "model": "eleven_music_v2_5"
+  },
+  {
+    "id": "m02_romantic_swell",
+    "type": "music",
+    "file": "/home/user/video-production/production/audio/music/m02_romantic_swell.mp3",
+    "duration": 15.024,
+    "prompt": "Instrumental only, no vocals. Tender solo piano melody, soft and intimate, joined by gentle strings that swell upward into a hopeful, warm lift, slow tempo, cinematic romantic feel. Duration: 15 seconds.",
+    "model": "eleven_music_v2_5"
+  },
+  {
+    "id": "m03_overload_tension",
+    "type": "music",
+    "file": "/home/user/video-production/production/audio/music/m03_overload_tension.mp3",
+    "duration": 70.032,
+    "prompt": "Instrumental only, no vocals, no melody. Dark ambient tension score: starts as a low unsettling drone, then steadily builds into dense layered textures of pulsing synths, detuned strings and swirling noise, anxious and claustrophobic, rising pulse and swelling intensity to an overwhelming peak, then ends abruptly with a hard cut. Duration: 70 seconds.",
+    "model": "eleven_music_v2_5"
+  },
+  {
+    "id": "m04_suspicion_low",
+    "type": "music",
+    "file": "/home/user/video-production/production/audio/music/m04_suspicion_low.mp3",
+    "duration": 60.024,
+    "prompt": "Instrumental only, no vocals. Sparse dark minimal score: slow, hesitant piano notes over a low warm synth bed with a soft ticking clock-like pulse, suspicious and quietly tense, slow tempo, lots of space, subtle and restrained throughout. Duration: 60 seconds.",
+    "model": "eleven_music_v2_5"
+  },
+  {
+    "id": "m05_heartfelt_piano",
+    "type": "music",
+    "file": "/home/user/video-production/production/audio/music/m05_heartfelt_piano.mp3",
+    "duration": 70.032,
+    "prompt": "Instrumental only, no vocals. Gentle emotional solo piano with warm sustained strings, reflective and sincere, slow tempo, soft dynamics that slowly grow a little fuller in the middle and settle back to a quiet, tender ending. Duration: 70 seconds.",
+    "model": "eleven_music_v2_5"
+  },
+  {
+    "id": "m06_warm_resolution",
+    "type": "music",
+    "file": "/home/user/video-production/production/audio/music/m06_warm_resolution.mp3",
+    "duration": 60.024,
+    "prompt": "Instrumental only, no vocals. Warm uplifting acoustic folk-pop: fingerpicked acoustic guitar, gentle piano and soft strings, relaxed mid-slow tempo, golden and hopeful, friendly and comforting, gradually building to a gentle uplifting lift near the end before a soft resolve. Duration: 60 seconds.",
+    "model": "eleven_music_v2_5"
+  },
+  {
+    "id": "sfx_cafe_ambience",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_cafe_ambience.mp3",
+    "duration": 22.047,
+    "prompt": "Cozy cafe room tone ambience, soft indistinct chatter murmur, cups clinking, espresso machine hissing and grinding in the background, 20 seconds",
+    "model": "eleven_text_to_sound_v2",
+    "duration_seconds_param": 22
+  },
+  {
+    "id": "sfx_ceramic_shatter",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_ceramic_shatter.mp3",
+    "duration": 4.049,
+    "prompt": "Ceramic coffee mug hitting a tile floor and shattering, sharp bright crash, shards scattering, close-mic",
+    "model": "eleven_text_to_sound_v2"
+  },
+  {
+    "id": "sfx_thought_pop",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_thought_pop.mp3",
+    "duration": 1.045,
+    "prompt": "Soft magical bubble pop with a tiny bright chime sparkle, very short, gentle and playful",
+    "model": "eleven_text_to_sound_v2"
+  },
+  {
+    "id": "sfx_whoosh_soft",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_whoosh_soft.mp3",
+    "duration": 2.038,
+    "prompt": "Soft airy whoosh transition, smooth breathy swish passing quickly, light and clean",
+    "model": "eleven_text_to_sound_v2"
+  },
+  {
+    "id": "sfx_whoosh_deep",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_whoosh_deep.mp3",
+    "duration": 1.045,
+    "prompt": "Deep heavy cinematic whoosh with low rumble, sweeping past then cutting into total silence",
+    "model": "eleven_text_to_sound_v2"
+  },
+  {
+    "id": "sfx_record_scratch",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_record_scratch.mp3",
+    "duration": 4.049,
+    "prompt": "Comedic vinyl record scratch stop, quick sharp scratch then abrupt halt",
+    "model": "eleven_text_to_sound_v2"
+  },
+  {
+    "id": "sfx_school_bell",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_school_bell.mp3",
+    "duration": 1.045,
+    "prompt": "Electric school bell ringing loudly in a hallway, metallic continuous ring for a few seconds then stopping",
+    "model": "eleven_text_to_sound_v2"
+  },
+  {
+    "id": "sfx_classroom_tone",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_classroom_tone.mp3",
+    "duration": 16.039,
+    "prompt": "Quiet classroom room tone, pens and pencils scribbling on paper, occasional page turn and chair creak, soft air hum, 15 seconds",
+    "model": "eleven_text_to_sound_v2",
+    "duration_seconds_param": 16
+  },
+  {
+    "id": "sfx_cafeteria_walla",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_cafeteria_walla.mp3",
+    "duration": 22.047,
+    "prompt": "Busy school cafeteria crowd walla, teenagers chattering and laughing, plastic trays and cutlery clattering, large reverberant hall, 20 seconds",
+    "model": "eleven_text_to_sound_v2",
+    "duration_seconds_param": 22
+  },
+  {
+    "id": "sfx_city_street",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_city_street.mp3",
+    "duration": 22.047,
+    "prompt": "Daytime city sidewalk ambience, pedestrian footsteps passing, distant traffic hum and occasional far car horn, light outdoor air, 20 seconds",
+    "model": "eleven_text_to_sound_v2",
+    "duration_seconds_param": 22
+  },
+  {
+    "id": "sfx_low_tone",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_low_tone.mp3",
+    "duration": 2.038,
+    "prompt": "Single deep isolated sub bass tone, ominous low hum hit with a slow 4 second decay into silence",
+    "model": "eleven_text_to_sound_v2"
+  },
+  {
+    "id": "sfx_clock_tick",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_clock_tick.mp3",
+    "duration": 12.042,
+    "prompt": "Slow wall clock ticking, steady dry mechanical tick once per second in a quiet room, close-mic, 10 seconds",
+    "model": "eleven_text_to_sound_v2",
+    "duration_seconds_param": 12
+  },
+  {
+    "id": "sfx_courtyard_wind",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_courtyard_wind.mp3",
+    "duration": 22.047,
+    "prompt": "Gentle outdoor wind ambience in a school courtyard, soft breeze through leaves, very distant sports practice whistle and faint far-away shouts, 20 seconds",
+    "model": "eleven_text_to_sound_v2",
+    "duration_seconds_param": 22
+  },
+  {
+    "id": "sfx_time_freeze",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_time_freeze.mp3",
+    "duration": 1.045,
+    "prompt": "Reverse swell rising quickly then a sudden sharp suck-in implosion cutting to silence, time stop effect",
+    "model": "eleven_text_to_sound_v2"
+  },
+  {
+    "id": "sfx_heartbeat_slow",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_heartbeat_slow.mp3",
+    "duration": 6.034,
+    "prompt": "Slow deep human heartbeat, muffled low thumps, steady lub-dub, close and intimate, 6 seconds",
+    "model": "eleven_text_to_sound_v2",
+    "duration_seconds_param": 6
+  },
+  {
+    "id": "sfx_door_double",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_door_double.mp3",
+    "duration": 2.038,
+    "prompt": "School hallway double doors pushed open, metal push bar clunk, doors swinging and creaking on hinges",
+    "model": "eleven_text_to_sound_v2"
+  },
+  {
+    "id": "sfx_bathroom_lock",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_bathroom_lock.mp3",
+    "duration": 1.045,
+    "prompt": "Bathroom stall door lock sliding and clicking shut, small metal latch click, small tiled room echo",
+    "model": "eleven_text_to_sound_v2"
+  },
+  {
+    "id": "sfx_paper_unfold",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_paper_unfold.mp3",
+    "duration": 28.029,
+    "prompt": "Folded paper letter being slowly unfolded, crisp paper crinkle and rustle, close-mic",
+    "model": "eleven_text_to_sound_v2"
+  },
+  {
+    "id": "sfx_riser_tension",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_riser_tension.mp3",
+    "duration": 6.034,
+    "prompt": "Tension riser, rising airy noise and pitch-climbing synth swell building intensity, 6 seconds",
+    "model": "eleven_text_to_sound_v2",
+    "duration_seconds_param": 6
+  },
+  {
+    "id": "sfx_impact_soft",
+    "type": "sfx",
+    "file": "/home/user/video-production/production/audio/sfx/sfx_impact_soft.mp3",
+    "duration": 2.038,
+    "prompt": "Soft cinematic low boom hit, warm deep thud with gentle sub tail",
+    "model": "eleven_text_to_sound_v2"
+  }
+]

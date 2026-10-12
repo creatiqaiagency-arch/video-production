@@ -1,5 +1,4 @@
 production/renders/
 production/build/frames/
-production/audio/vo_raw/
 node_modules/
 *.tmp
