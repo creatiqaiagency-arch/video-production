@@ -1,0 +1,1 @@
+| V1 | overall 5/10 | Complete, coherent story and right palette family, but flat stage-like sets, blown exposure, static acting, hard-to-read thoughts and a visually repetitive Act 3 keep it far from the Ifverse reference |
