@@ -7,13 +7,13 @@ function futureWrap(inner, amt = 1, o = {}) {
   let s = `<g filter="${fFuture(amt)}">${inner}</g>`;
   if (amt > .3) s += `<g class="go">${inner}</g>`;  // ghosts lifted out of the grade so they are always the brightest thing
   if (amt > .05) {
-    s += rect(0, 0, W, H, rgrad([[0, '#2f7bff', 0], [.7, '#2f7bff', .08 * amt], [1, '#1a4bb0', .35 * amt]]), { style: SCREEN });
+    s += rect(0, 0, W, H, rgrad([[0, '#000814', 0], [.55, '#000814', .15 * amt], [1, '#000814', .7 * amt]], .5, .5, .72));
     // scanline shimmer
     const sl = Math.floor(((o.t || 0) * 140) % H);
     s += rect(0, sl, W, 3, '#bfe6ff', { opacity: .12 * amt }) + rect(0, (sl + 377) % H, W, 2, '#bfe6ff', { opacity: .08 * amt });
     if (o.border !== false) {
       s += rect(26, BAR + 18, W - 52, H - 2 * BAR - 36, 'none', { stroke: '#8fd3ff', 'stroke-width': 3, rx: 18, opacity: .75 * amt, filter: fGlow(6, '#2f7bff', 1) });
-      s += g(rect(52, BAR + 40, 132, 46, '#0d2a5c', { rx: 10, opacity: .8 }) + text(118, BAR + 73, '+5 s', { 'font-size': 30, 'font-weight': 800, fill: '#d8f0ff', 'text-anchor': 'middle', 'letter-spacing': 2 }), { opacity: amt });
+      s += g(rect(52, BAR + 40, 150, 52, '#0d2a5c', { rx: 10, opacity: .85 }) + text(127, BAR + 77, '+5 s', { 'font-size': 34, 'font-weight': 900, fill: '#d8f0ff', 'text-anchor': 'middle', 'letter-spacing': 2, filter: fGlow(5, '#2f7bff', .9) }), { opacity: amt });
     }
   }
   return s;

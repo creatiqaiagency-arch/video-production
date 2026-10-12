@@ -7,8 +7,9 @@ const glowE = (x, y, rx, ry, c, a = .5) => ell(x, y, rx, ry, rgrad([[0, c, a], [
 const SKY = {
   dusk: [[0, '#241a44'], [.35, '#4f3566'], [.62, '#9a5a6c'], [.82, '#e0946a'], [1, '#f4c58a']],
   night: [[0, '#0b0a1c'], [.5, '#17142f'], [.8, '#2e2448'], [1, '#4a3558']],
-  morning: [[0, '#6f8fbf'], [.5, '#b8b6c8'], [.8, '#f0c9a2'], [1, '#fbe0b8']],
+  morning: [[0, '#7fa7d6'], [.55, '#cfe3f2'], [1, '#fff3d6']],
   afternoon: [[0, '#5b6fa8'], [.6, '#c79a8c'], [1, '#f2c08e']],
+  day: [[0, '#6f9fd0'], [.6, '#b9d3e8'], [1, '#f3e2c0']],
 };
 function sky(kind, x = -2000, y = -800, w = 6000, h = 1700) { return rect(x, y, w, h, lgrad(SKY[kind])); }
 function clouds(y, n, seed, c = '#e9a982', a = .55, spread = 2600, x0 = -400) {
@@ -223,7 +224,7 @@ function envRoadFront(cam, t, o = {}) {
 
 // KITCHEN (morning). Table top at y=640 centred x=960. Window at back.
 function envKitchen(cam, t, o = {}) {
-  let back = rect(-600, -400, 3200, 1100, lgrad([[0, '#5d4250'], [1, '#7a5658']]));
+  let back = rect(-600, -400, 3200, 1200, lgrad([[0, '#5d4250'], [1, '#7a5658']])) + rect(-600, 700, 3200, 100, '#4a3238');
   // window
   back += rect(560, 120, 620, 420, '#3a2730') + rect(580, 140, 580, 380, lgrad(SKY.morning));
   back += sun(1080, 230, 30, '#fffbea', '#ffe7b0') + ell(760, 250, 120, 8, '#fff1dd', { opacity: .5 }) + ell(1060, 300, 90, 6, '#fff1dd', { opacity: .45 });
@@ -312,7 +313,7 @@ function envArcade(cam, t, o = {}) {
 // CAFE STREET (dusk, striped awning — the reference location). Table row at y=700.
 function envCafe(cam, t, o = {}) {
   const tod = o.tod || (o.night ? 'night' : 'dusk');
-  const sk = { day: 'afternoon', dusk: 'dusk', blue: 'night', night: 'night' }[tod];
+  const sk = { day: 'day', dusk: 'dusk', blue: 'night', night: 'night' }[tod];
   let far = sky(sk) + (tod === 'night' || tod === 'blue' ? stars(50, 2) : sun(1500, tod === 'day' ? 120 : 330, 40)) + clouds(120, 9, 7, tod === 'night' || tod === 'blue' ? '#5b4a7a' : '#f0a982', .5);
   if (tod === 'dusk') far += rays(1500, 330, 22, 1400, '#ffd6a0', .07, t * 2);
   if (tod === 'blue') far += glowE(1500, 520, 900, 120, '#ff8a5c', .25);
@@ -322,7 +323,7 @@ function envCafe(cam, t, o = {}) {
   mid += rect(-800, 200, 3600, 400, '#47303e') + rect(-800, 186, 3600, 16, '#2c1c26');
   for (let i = 0; i < 14; i++) mid += windowLit(-700 + i * 260, 230, 70, 80, lit && rnd(i * 3 + 1) < .6, '#e8a860');
   mid += rect(300, 330, 1320, 330, '#2c1c26');
-  for (let i = 0; i < 4; i++) { mid += windowLit(330 + i * 325, 360, 300, 260, 1, lit ? '#f2b06a' : '#c9a58a', '#2a1a22'); for (let k = 0; k < 2; k++) { const px = 380 + i * 325 + k * 140 + rnd(i * 5 + k) * 60; mid += circ(px, 520, 26, '#3a2430', { opacity: .7 }) + rect(px - 30, 545, 60, 75, '#3a2430', { opacity: .7, rx: 20 }); } mid += line(480 + i * 325, 362, 480 + i * 325, 410, '#2a1a22', 3) + path(`M${455 + i * 325} 410 h50 l-8 18 h-34 Z`, '#2a1a22') + glow(480 + i * 325, 425, 70, '#ffd27a', lit ? .55 : .25); }
+  for (let i = 0; i < 4; i++) { mid += windowLit(330 + i * 325, 360, 300, 260, 1, lit ? '#f2b06a' : '#9fb3c4', '#2a1a22'); for (let k = 0; k < (i % 2 ? 1 : 2); k++) { const px = 380 + i * 325 + k * 150 + rnd(i * 5 + k) * 70, sz = .75 + rnd(i * 3 + k) * .5, py = 520 + rnd(i + k * 7) * 30; mid += circ(px, py, 24 * sz, '#3a2430', { opacity: .55 }) + rect(px - 28 * sz, py + 24 * sz, 56 * sz, 80, '#3a2430', { opacity: .55, rx: 18 }); } mid += rect(340 + i * 325, 590, 280, 20, '#3a2430', { opacity: .5 }); mid += line(480 + i * 325, 362, 480 + i * 325, 410, '#2a1a22', 3) + path(`M${455 + i * 325} 410 h50 l-8 18 h-34 Z`, '#2a1a22') + glow(480 + i * 325, 425, 70, '#ffd27a', lit ? .55 : .25); }
   mid += glow(960, 500, 700, '#ffb46a', lit ? .22 : .08);
   mid += rect(1660, 520, 130, 150, '#1e1418', { rx: 6 }) + text(1725, 575, 'CAFE', { 'font-size': 26, 'font-weight': 800, fill: '#e8d9cf', 'text-anchor': 'middle' }) + text(1725, 610, 'open', { 'font-size': 20, fill: '#e8d9cf', 'text-anchor': 'middle' }) + rect(1700, 670, 10, 20, '#1e1418') + rect(1740, 670, 10, 20, '#1e1418');
   for (const px of [240, 1650]) mid += rect(px - 40, 600, 80, 70, '#5a3a33', { rx: 6 }) + circ(px - 20, 590, 34, '#2f5a40') + circ(px + 20, 585, 38, '#3a6a4c') + circ(px, 560, 30, '#3f7a54');
@@ -331,7 +332,7 @@ function envCafe(cam, t, o = {}) {
   mid += rect(-800, 660, 3600, 560, lgrad([[0, '#3a2a36'], [1, '#22161f']]));
   for (let i = 0; i < 20; i++) mid += line(-800 + i * 200, 660, -1000 + i * 240, 1300, '#2c1f2a', 3);
   mid += tree(-260, 660, 260, '#1a1018', 6) + tree(2180, 660, 240, '#1a1018', 9) + lamp(-500, 662, 360, t, tod !== 'day');
-  const grade = tod === 'blue' ? rect(-2000, -1000, 6000, 3000, '#1a1440', { opacity: .28, style: 'mix-blend-mode:multiply' }) : tod === 'day' ? rect(-2000, -1000, 6000, 3000, '#fff3e0', { opacity: .08, style: SCREEN }) : '';
+  const grade = tod === 'blue' ? rect(-2000, -1000, 6000, 3000, '#1a1440', { opacity: .28, style: 'mix-blend-mode:multiply' }) : tod === 'day' ? rect(-2000, -1000, 6000, 3000, '#dfeaf5', { opacity: .2, style: SCREEN }) : '';
   return { bg: layer(cam, far, { p: .35, blur: (o.bgBlur ?? 3) + 1 }) + layer(cam, mid + grade, { p: .8, blur: o.bgBlur ?? 3 }), fg: '' };
 }
 // CAFE REVERSE ANGLE: from inside the cafe looking out through the big window at the street

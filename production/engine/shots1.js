@@ -34,11 +34,9 @@ function futureBHit(lt, d, gt) {
   let w = truckSide(tx, IXP.lane + 22, .8);
   w += adult(gt, 'nora', IXP.nora, IXP.walk, { pose: 'armsCross', expr: 'shocked' }) + guardFig(gt, { x: 1330, fc: 1, pose: 'wave', sign: false });
   w += boyFig(gt, 1200, IXP.walk, { ghost: true, op: .65, pose: 'stand', expr: 'shocked', fc: -1 });
-  w += adult(gt, 'leo', 1075, IXP.lane + 10, { fc: 1, pose: 'shout', expr: 'scared', ghost: true, op: .75 });
-  let s = futureWrap(ixWorld(cam, gt, w), 1, { t: gt });
-  const frz = seg(lt, d * .62, d * .7);
-  if (frz > 0) s += rect(0, 0, W, H, '#dff2ff', { opacity: (frz * .1).toFixed(3) });
-  return s;
+  const rec = seg(lt, d * .3, d * .6, ease.out);
+  w += adult(gt, 'leo', 1075, IXP.lane + 10, { fc: 1, pose: mixPose(runPose(.3, .5), { tor: -20, head: -15, ab: [150, 70], af: [135, 80], lb: [-15, 10], lf: [25, 20] }, rec), expr: 'scared', ghost: true, op: .8 });
+  return futureWrap(ixWorld(cam, gt, w), 1, { t: gt });
 }
 
 Object.assign(SHOTS_REG, {
@@ -71,7 +69,7 @@ Object.assign(SHOTS_REG, {
     let o = layer(cam, inner);
     const p = seg(lt, .45, 1.15, ease.lin);
     for (const ex of [-1, 1]) o += layer(cam, ringFx(hx + ex * s * .5 * .27, hy - s * .5 * .1, p, 260));
-    return o + flashPulse(lt, d - .06, .1, .8);
+    return o + flashPulse(lt, d - .03, .05, .85);
   },
   // s004: FUTURE — the exact composition reused in the climax (s082)
   co_future(lt, d, gt) { return futureBHit(lt, d, gt) + flashPulse(lt, 0, .12, .7); },
@@ -387,8 +385,8 @@ function bowl(x, y) { return path(`M${x - 46} ${y - 30} Q${x} ${y + 10} ${x + 46
 function foamBall(x, y, r = 22, ghost = false) { return ghost ? circ(x, y, r, '#bfe6ff', { opacity: .85, filter: fGhost(4), class: 'gh' }) : circ(x, y, r, '#ff8a3c') + circ(x - r * .3, y - r * .3, r * .35, '#ffc08a', { opacity: .7 }); }
 function shelfSet(wob = 0) { return shelf(1420, 430) + `<g transform="rotate(${f1(wob * .3)} 1600 430)">` + books(1450, 430, wob) + plantPot(1720, 430, .9, wob * 1.5) + '</g>'; }
 // mitten hand with thumb; rot in degrees; closed=1 curls the thumb in; open=true shows fingers
-function mitten(x, y, r, rot = 0, closed = 0, open = false) {
-  return g(ell(0, 0, r * 1.2, r * (open ? 1.05 : .9), BODY) + ell(r * (closed ? .3 : .9), -r * .7, r * .38, r * .62, BODY, { transform: `rotate(-35 ${r * .9} ${-r * .7})` }) + (open ? [0, 1, 2, 3].map(i => ell(r * (1.0 + i * .02), -r * .45 + i * r * .36, r * .55, r * .2, BODY)).join('') : ''), { transform: `translate(${f1(x)} ${f1(y)}) rotate(${f1(rot)})` });
+function mitten(x, y, r, rot = 0, closed = 0, open = false, c = BODY) {
+  return g(ell(0, 0, r * 1.2, r * (open ? 1.05 : .9), c) + ell(r * (closed ? .3 : .9), -r * .7, r * .38, r * .62, c, { transform: `rotate(-35 ${r * .9} ${-r * .7})` }) + (open ? [0, 1, 2, 3].map(i => ell(r * (1.0 + i * .02), -r * .45 + i * r * .36, r * .55, r * .2, c)).join('') : ''), { transform: `translate(${f1(x)} ${f1(y)}) rotate(${f1(rot)})` });
 }
 function leoChair() { return rect(1145, 783, 130, 16, '#6b4540', { rx: 4 }) + rect(1258, 610, 16, 190, '#6b4540', { rx: 4 }) + rect(1150, 797, 12, 103, '#54352f') + rect(1258, 797, 12, 103, '#54352f'); }
 function noraSofa(gt, expr = 'happy') { return shadowAt(170, 840, 60) + fig({ x: 170, y: 840, s: 60, fc: 1, who: 'nora', pose: { tor: -12, head: -6, ab: [20, 40], af: [40, 100], lb: [80, 85], lf: [84, 86] }, expr, mouth: expr === 'happy' ? 'grin' : undefined, t: gt, seed: 3 }); }

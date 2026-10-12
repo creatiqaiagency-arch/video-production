@@ -323,16 +323,16 @@ Object.assign(SHOTS_REG, {
     let s = CU_BG(gt, 1100, 420, 2.4, 14, 'day');
     s += layer(cam, figHead(960, 600, 900, { who: 'leo', fc: 0, expr: 'neutral', blink: false, still: true, t: gt, rim: { dx: 0, dy: -10, c: '#ffd29a' } }));
     for (const ex of [-1, 1]) s += layer(cam, ringFx(960 + ex * 450 * .27, 600 - 45, seg(lt, .15, .9, ease.lin), 240));
-    return s + flashPulse(lt, d - .06, .1, .75);
+    return s + flashPulse(lt, d - .03, .05, .85);
   },
   // s056: FUTURE — Nora leans to Sam, hand cupped at her mouth, eyes flick toward camera (checking Leo isn't near). Cake corner in frame.
   c3_noraFuture(lt, d, gt) {
     const cam = camMove(lt, d, { x: 960, y: 540, z: 1.05 }, { x: 960, y: 520, z: 1.18 });
     const talk = talkOf('nora', gt);
-    const cupH = j => mitten(j.head[0] + j.headR * .9, j.head[1] + j.headR * .45, j.headR * .32, -70, 0);
+    const cupH = j => mitten(j.head[0] + j.headR * .9, j.head[1] + j.headR * .45, j.headR * .32, -70, 0, false, '#9ad6ff');
     let w = CU_BG(gt, 1000, 450, 2.4, 12, 'day');
     w += layer(cam, figHead(860, 520, 330, { who: 'nora', fc: 1, expr: 'neutral', talk, lookX: lt % 1.6 > 1.0 ? -1 : .8, t: gt, ghost: true, op: .8, pose: { tor: 10, head: 14, ab: [6, 8], af: [70, 120] }, extra: cupH }));
-    w += layer(C0, figHead(1580, 560, 360, { who: 'sam', fc: -1, expr: 'none' }) + cake(300, 1080), { blur: 9 });
+    w += layer(C0, figHead(1580, 560, 360, { who: 'sam', fc: -1, expr: 'neutral', ghost: true, op: .55 }) + cake(300, 1080), { blur: 7 });
     return futureWrap(w, 1, { t: gt });
   },
   c3_leoFroze(lt, d, gt) {
@@ -406,7 +406,7 @@ Object.assign(SHOTS_REG, {
   // s066: 50/50 split — left: the blue preview (Nora whispering, tight); right: the same instant wide (Nora whispering to Sam, cake, banner)
   c3_whatVsWhy(lt, d, gt) {
     const talk = Math.abs(Math.sin(lt * 9)) * .6;
-    const cupH = j => mitten(j.head[0] + j.headR * .9, j.head[1] + j.headR * .45, j.headR * .32, -70, 0);
+    const cupH = j => mitten(j.head[0] + j.headR * .9, j.head[1] + j.headR * .45, j.headR * .32, -70, 0, false, '#9ad6ff');
     const left = futureWrap(CU_BG(gt, 1000, 450, 2.4, 12, 'day') + figHead(1060, 560, 420, { who: 'nora', fc: 1, expr: 'neutral', talk, t: gt, ghost: true, op: .8, pose: { tor: 10, head: 14, ab: [6, 8], af: [70, 120] }, extra: cupH }), 1, { t: gt, border: false });
     const rcam = { x: 1120, y: 640, z: 1.25 };
     const right = cafeScene(rcam, gt, { tod: 'day' }) + layer(rcam, seated(880, 'nora', 1, gt, { expr: 'happy', talk, pose: { tor: 15, head: 10, ab: [30, 60], af: [70, 120], lb: [88, 88], lf: [86, 86] } }) + cafeTable(1100, TB.y, 360) + cake(1100, TB.y) + seated(1250, 'sam', -1, gt, { expr: 'happy', pose: { tor: 15, head: 5, ab: [30, 50], af: [40, 60], lb: [88, 88], lf: [86, 86] } }) + banner(1360, 580, 1640, 600, 20));

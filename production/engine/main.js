@@ -8,8 +8,8 @@ function talkOf(speaker, gt) {
 function shotTimes(id) { const s = TL.shots.find(x => x.id === id); return [s.f0 / 24, s.f1 / 24]; }
 // climax clock: real-world seconds left before the truck reaches the crossing (keeps running in the present)
 function clockVal(gt) {
-  const k = id => shotTimes(id)[0];
-  return kf(gt, [[k('s076'), 5.0], [k('s079'), 4.6], [k('s083'), 3.7], [k('s088'), 2.9], [k('s089'), 2.7], [k('s090'), 2.25], [k('s091'), 2.15], [k('s093'), 2.0], [k('s096'), 1.0], [k('s098'), 0.4], [k('s099'), 0.0]], ease.lin);
+  const a = shotTimes('s076')[0], b = shotTimes('s099')[0];
+  return clamp(5 * (1 - (gt - a) / (b - a)), 0, 5);
 }
 function shotAt(t) {
   const f = Math.round(t * 24); const S = TL.shots;

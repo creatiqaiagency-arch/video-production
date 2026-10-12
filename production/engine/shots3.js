@@ -61,7 +61,7 @@ Object.assign(SHOTS_REG, {
     let s = nightBokehBg(C0, gt, 21, { x: 1300 });
     s += layer(cam, figHead(960, 600, 900, { who: 'leo', fc: 0, expr: 'shocked', blink: false, still: true, t: gt, rim: { dx: 0, dy: -10, c: '#ffd29a' } }));
     for (const ex of [-1, 1]) s += layer(cam, ringFx(960 + ex * 450 * .27, 555, seg(lt, .15, .95, ease.lin), 240));
-    return s + flashPulse(lt, d - .06, .1, .8);
+    return s + flashPulse(lt, d - .03, .05, .85);
   },
   // ---------- FUTURE A: the boy gets hit (everyone present, only the boy is the ghost) ----------
   fa_child(lt, d, gt) {
@@ -134,7 +134,7 @@ Object.assign(SHOTS_REG, {
     let s = nightBokehBg(C0, gt, 33, { x: 1300 });
     s += layer(cam, figHead(960, 560, 600, { who: 'leo', fc: 0, expr: 'worried', blink: false, still: true, t: gt, rim: { dx: 0, dy: -10, c: '#ffd29a' } }));
     for (const ex of [-1, 1]) s += layer(cam, ringFx(960 + ex * 300 * .27, 530, seg(lt, .35, 1.2, ease.lin), 200));
-    return s + headlightWash(gt, .6) + flashPulse(lt, d - .06, .1, .8) + hud(gt);
+    return s + headlightWash(gt, .6) + flashPulse(lt, d - .03, .05, .85) + hud(gt);
   },
   // ---------- FUTURE C: Nora runs in (Leo, real, darkened in the foreground) ----------
   fc_noraRuns(lt, d, gt) {
