@@ -8,3 +8,5 @@ __pycache__/
 engine/.render_*.html
 production/*/renders/*/mix.wav
 production/*/renders/*/video_noaudio.mp4*
+production/*/renders/*/*.seg*.mp4
+production/*/renders/*/*.txt
