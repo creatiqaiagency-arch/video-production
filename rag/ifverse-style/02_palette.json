@@ -1,0 +1,68 @@
+{
+  "_note": "Palette measured from reference frames (median-cut) plus picked accents. Hex values are the canonical tokens the engine uses.",
+  "character": {
+    "skin_black": "#0b0709",
+    "rim_warm": "#f3b483",
+    "rim_warm_hot": "#ffd6a6",
+    "rim_cool": "#7fc8ff",
+    "eye_white": "#fff6ec",
+    "shade_multiply": 0.65
+  },
+  "wardrobe": {
+    "eli_hoodie": "#d7383a",
+    "eli_hoodie_shade": "#8f1f27",
+    "eli_drawstring": "#f4ece6",
+    "noah_shirt": "#8cc7f0",
+    "noah_shirt_shade": "#4f86b3",
+    "noah_cap": "#f2c230",
+    "teacher_cardigan": "#8a7d72",
+    "teacher_glasses": "#e9e4dc",
+    "announcer_jacket": "#2f3b63",
+    "student_cap": "#5fd16a"
+  },
+  "dusk_world": {
+    "shadow_deep": "#1e101b",
+    "shadow": "#25151e",
+    "mid_dark": "#3a2229",
+    "mid": "#5a3a55",
+    "mid_light": "#694a53",
+    "haze": "#b48e86",
+    "sky_top": "#3b2a54",
+    "sky_mid": "#8a5f8a",
+    "sky_horizon": "#e8a37a",
+    "sun": "#ffe2b0"
+  },
+  "warm_practicals": {
+    "window_glow": "#f2a65a",
+    "window_hot": "#ffcf8a",
+    "lamp": "#ffe0a8"
+  },
+  "night_world": {
+    "deep": "#0d0b19",
+    "base": "#14112a",
+    "mid": "#2a2a55",
+    "light": "#4e4870",
+    "screen_glow": "#9a7cff"
+  },
+  "sports_world": {
+    "field_dark": "#1f5a3a",
+    "field": "#2f7d4f",
+    "field_line": "#d9f0dd",
+    "floodlight": "#f4f6ff",
+    "crowd": "#3a3352"
+  },
+  "ui": {
+    "text_cream": "#fff3df",
+    "text_gold": "#ffd27a",
+    "title_glow": "#ff9e4a",
+    "alert_red": "#ff4a4a",
+    "ok_green": "#5fe07a",
+    "panel": "#15121c"
+  },
+  "post": {
+    "letterbox_px_1080": 60,
+    "vignette_strength": 0.45,
+    "grain_opacity": 0.045,
+    "black_lift": "#1a0f1a"
+  }
+}

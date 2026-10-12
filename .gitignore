@@ -1,0 +1,10 @@
+node_modules/
+engine/node_modules/
+production/*/frames/
+production/*/tmp/
+*.pyc
+__pycache__/
+
+engine/.render_*.html
+production/*/renders/*/mix.wav
+production/*/renders/*/video_noaudio.mp4*

@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'Lilita One'; src: url(fonts/LilitaOne.woff2) format('woff2'); }
+@font-face { font-family: 'Oswald'; font-weight: 600; src: url(fonts/Oswald600.woff2) format('woff2'); }
+html, body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+#stage { width: 100vw; height: 100vh; }
+#stage svg { display: block; }
+</style>
+<script src="lib/core.js"></script>
+<script src="lib/rig.js"></script>
+<script src="lib/props.js"></script>
+<script src="lib/env.js"></script>
+<script src="lib/post.js"></script>
+<script src="lib/timeline.js"></script>
+<script src="SHOTS_FILE"></script>
+</head><body><div id="stage"></div>
+<script>
+// L-text bootstrap; data injected by the renderer: window.VO_DUR, window.VO_ENV
+window.ready = (async () => {
+  await document.fonts.load('80px "Lilita One"'); await document.fonts.load('600 40px Oswald');
+  initGrain();
+  window.TL = buildTimeline(BEATS, window.VO_DUR || {});
+  return TL.total;
+})();
+window.renderAt = (T) => {
+  resetUid();
+  const spec = frameSpec(window.TL, T);
+  document.getElementById('stage').innerHTML = composeFrame(spec, T);
+  return true;
+};
+</script></body></html>
