@@ -38,3 +38,16 @@ Apply them from the first draft of every new film.
 20. Cut on VO phrase boundaries; shots 3–5 s (use the `E.retime` optimiser), with only deliberate
     impact/montage beats shorter and moving Act-3 holds longer.
 21. Check calendar/age/voice logic (e.g. "I hate Mondays" requires a Monday; teens get teen voices).
+
+## Added after the V2 audit (V2 averaged 6.0)
+22. **Shot budget = runtime ÷ 3.8 s.** If there are more shots than that, no optimiser can satisfy 3–5 s; the
+    result is a metronomic 3.0 s rhythm and cuts pushed into words. Merge shots first, then retime.
+23. Motion that a shot exists to show (doors opening, a slip, a hand-off) is keyed to the **shot's own clock**,
+    or the shot declares `keep: [mark]` so retiming cannot cut it off.
+24. Impact beats are 1.0–2.5 s; anything under 1 s does not register.
+25. Changelog claims are verified on rendered stills before they are written. "In the code" ≠ "on screen".
+26. A thought window's look: dark plate ≥ 0.85, light tint, small glow; it must not wash out to lavender.
+27. A lesson shown through action (e.g. choosing not to read a thought) needs a full-size, visible stimulus,
+    a readable eye **and** head turn (10–12 frames), and sound that agrees with the picture.
+28. Act 3 emotional scenes breathe: moving holds of 4–7 s, a mean of ≥ 4.5 s.
+29. Characters in bed: hip on the mattress, torso pivots from the hip, legs flat under the duvet (`E.inBed`).
