@@ -18,5 +18,5 @@ for p in "${pids[@]}"; do wait $p; done
 ls build/seg/seg_*.mp4 | sort -V | sed "s/^/file '/; s/$/'/; s|file 'build/seg/|file '|" > build/seg/list.txt
 ffmpeg -v error -y -f concat -safe 0 -i build/seg/list.txt -c copy build/silent.mp4
 python3 tools/mix_audio.py
-ffmpeg -v error -y -i build/silent.mp4 -i build/mix.wav -vf "noise=alls=6:allf=t,format=yuv420p" -c:v libx264 -preset medium -crf 19 -c:a aac -b:a 192k -shortest -movflags +faststart renders/what_if_5_seconds_${VER}.mp4
+ffmpeg -v error -y -i build/silent.mp4 -i build/mix.wav -vf "noise=alls=3:allf=t,format=yuv420p" -c:v libx264 -preset medium -crf 23 -c:a aac -b:a 192k -shortest -movflags +faststart renders/what_if_5_seconds_${VER}.mp4
 ls -la renders/what_if_5_seconds_${VER}.mp4

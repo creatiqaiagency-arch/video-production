@@ -37,10 +37,15 @@ for v in tl['vo']:
     x = load(os.path.join(ROOT, 'build', 'vo', v['clip'] + '.wav'))
     place(vo_bus, x, v['t0'], GAIN[v['speaker']])
 missing = set()
+LAYERS = {'sfx_truck_approach': [('truck_approach_long', -4.5, -2)], 'sfx_skid_horn': [('skid_long', 0.4, -3)], 'sfx_crash': [('crash_tail', 0.0, -2)]}
 for s in tl['sfx']:
     p = os.path.join(ROOT, 'audio', 'sfx', s['name'] + '.mp3')
     if not os.path.exists(p): missing.add(s['name']); continue
+    if s['name'].startswith('amb_') and os.path.exists(os.path.join(ROOT, 'audio', 'synth', s['name'] + '.wav')):
+        p = os.path.join(ROOT, 'audio', 'synth', s['name'] + '.wav')
     x = load(p)
+    for layer, off, lg in LAYERS.get(s['name'], []):
+        place(fx_bus, load(os.path.join(ROOT, 'audio', 'synth', layer + '.wav')), s['t0'] + off, s['gain'] + lg, 0.05, 0.3)
     if s['name'].startswith('amb_'):
         place(amb_bus, x, s['t0'], s['gain'], 0.8, 0.8, length=s['block_end'] - s['t0'])
     else:
