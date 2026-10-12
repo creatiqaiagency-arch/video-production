@@ -17,7 +17,7 @@ function scene(c, o) {
   if (o.back2) layers.push({ svg: o.back2, p: o.bp2 ?? .95, blur: o.bb2 ?? 1 });
   if (o.mid) layers.push({ svg: [].concat(o.mid).join(''), p: 1, blur: o.mb || 0 });
   if (o.fg) layers.push({ svg: [].concat(o.fg).join(''), p: o.fp ?? 1.25, blur: o.fb ?? 14 });
-  return { layers, cam: o.cam || { x: W / 2, y: H / 2, z: 1 }, overlay: o.overlay, grade: o.grade, shake: o.shake, flash: o.flash, fade: o.fade, vignette: o.vignette, letterbox: o.letterbox, grain: o.grain, bg: o.bgc };
+  return { layers, cam: o.cam || { x: W / 2, y: H / 2, z: 1 }, overlay: o.overlay, grade: o.grade, shake: o.shake, flash: o.flash, fade: o.fade, vignette: o.vignette, letterbox: o.letterbox, grain: o.grain, bg: o.bgc, bloom: o.bloom, burn: o.burn, flashColor: o.flashColor };
 }
 // time-of-shot helpers
 const at = (c, t0, t1) => seg(c.t, t0, t1);              // 0..1 progress between seconds

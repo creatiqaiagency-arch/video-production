@@ -56,9 +56,9 @@ addBeat({ id: 'B22', lines: ['L041'], pre: .2, post: .3, shots: [
     draw: c => {
       const r = workshop(c);
       const fast = t => ({ ...P.controller(t), fa: [52 + 18 * Math.sin(t * 30), 72], ba: [48 + 18 * Math.cos(t * 28), 76] });
-      const eh = A(c, { who: 'eli', x: 760, y: 1000, h: 360, f: 1, pose: fast(c.T), expr: 'busy', lookY: 1, light: LT.warmL });
+      const eh = PR.stool(760, 1000, 1.1) + A(c, { who: 'eli', x: 760, y: 893, h: 360, f: 1, pose: { ...fast(c.T), fl: [88, 92], bl: [84, 88], sit: true }, expr: 'busy', lookY: 1, light: LT.warmL });
       const nk = (c.t % 1.2) / 1.2;
-      return scene(c, { back: r.back, bb: 5, mid: ghosts(dt => A({ ...c, T: c.T + dt }, { who: 'eli', x: 760, y: 1000, h: 360, f: 1, pose: fast(c.T + dt), expr: 'busy', light: { none: true } }), 4, .025, .35) + eh + PR.laptop(980, 800, .6, codeScreen((c.t * 2) % 1)) + A(c, { who: 'noah', x: 1300, y: 1000, h: 350, f: -1, pose: { ...P.hold(), fa: [62 + 10 * Math.sin(nk * Math.PI), 60] }, expr: 'worried', lookY: 1, light: LT.warmL, holdSvg: PR.book(0, 0, 90, 60, '#3a5a8a') }), cam: CAM.drift(1000, 640, 1.2, .03, 30)(c.p) });
+      return scene(c, { back: r.back, bb: 5, mid: ghosts(dt => A({ ...c, T: c.T + dt }, { who: 'eli', x: 760, y: 893, h: 360, f: 1, pose: { ...fast(c.T + dt), fl: [88, 92], bl: [84, 88], sit: true }, expr: 'busy', light: { none: true } }), 4, .025, .35) + eh + PR.laptop(980, 800, .6, codeScreen((c.t * 2) % 1)) + A(c, { who: 'noah', x: 1300, y: 1000, h: 350, f: -1, pose: { ...P.hold(), fa: [62 + 10 * Math.sin(nk * Math.PI), 60] }, expr: 'worried', lookY: 1, light: LT.warmL, holdSvg: PR.book(0, 0, 90, 60, '#3a5a8a') }), cam: CAM.drift(1000, 640, 1.2, .03, 30)(c.p) });
     } },
 ] });
 // ---------- B23 the plant: backup sensor ----------
@@ -82,7 +82,7 @@ addBeat({ id: 'B24', lines: ['L044', { id: 'L045', gap: .1 }, { id: 'L046', gap:
   { id: 'S064', type: 'CU', on: 'L046', off: -.4, desc: 'Noah close-up, hurt: "Dude, can I at least do something?" The music has dropped out.', w: 1,
     draw: c => { const r = workshop(c, { tod: .6 }); return scene(c, { back: r.back, bb: 12, mid: A(c, { who: 'noah', headAt: [1180, 450], h: 1150, f: -1, pose: P.stand(), expr: 'sad', light: LT.warmL }), cam: CAM.push(1100, 520, 1, 1.05)(c.p) }); } },
   { id: 'S065', type: 'OTS', on: 'L047', desc: 'Over Noah\'s shoulder: Eli, back turned, still typing: "I mean... I\'ll probably finish it faster."', w: 1,
-    draw: c => { const r = { back: ENV.workshopRev({ t: c.T }).back }; return scene(c, { back: r.back, bb: 8, mid: A(c, { who: 'eli', headAt: [820, 540], h: 880, f: -1, turn: .95, pose: P.controller(c.T), expr: 'busy', lookY: 1, light: LT.warmL }) + PR.laptop(520, 1000, 1.1, codeScreen(1)), fg: A(c, { who: 'noah', headAt: [1650, 420], h: 1300, front: true, back: true, pose: P.stand(), light: LT.warmL }), fb: 16, cam: CAM.drift(900, 560, 1, .03, 30)(c.p) }); } },
+    draw: c => { const r = { back: ENV.workshopRev({ t: c.T }).back }; return scene(c, { back: r.back, bb: 8, mid: A(c, { who: 'eli', headAt: [820, 540], h: 880, f: -1, front: true, back: true, pose: P.controller(c.T), light: LT.warmL }) + PR.laptop(820, 1060, 1.3, codeScreen((c.t * .8) % 1)) + glow(820, 900, 300, '#8fb0ff', .3), fg: A(c, { who: 'noah', headAt: [1650, 420], h: 1300, front: true, back: true, pose: P.stand(), light: LT.warmL }), fb: 16, cam: CAM.drift(900, 560, 1, .03, 30)(c.p) }); } },
   { id: 'S066', type: 'MCU-hold', hold: true, at: -5.2, desc: 'HOLD on Noah in silence (no music). He hesitates, then slowly lowers his small blue screwdriver onto his bench in the foreground — one isolated click — head dropping.', w: 1, sfx: [[0, 'workshop_ambience', .35], [3.0, 'tool_place', 2.2]],
     draw: c => {
       const r = workshop(c, { tod: .75, lamp: .5 });

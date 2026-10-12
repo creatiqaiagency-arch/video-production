@@ -1,0 +1,701 @@
+{
+ "version": "V2",
+ "overall_score": 6.0,
+ "overall_justification": "V2 is now a watchable, followable story with real VO, one clock, a reference-grade climax cut and a breathing workshop turn. But the payoff and the emotional hinge still contradict themselves on screen (double finish, invisible screwdriver set-down, laughing shout faces, card-like LED), and the bodies are mostly paper dolls.",
+ "auditor_scores": {
+  "shot_rhythm": {
+   "v1": 4.5,
+   "v2": 6.5
+  },
+  "logic_sense": {
+   "v1": 4.0,
+   "v2": 6.0
+  },
+  "lighting": {
+   "v1": 5.5,
+   "v2": 7.0
+  },
+  "animation": {
+   "v1": 3.5,
+   "v2": 5.5
+  },
+  "story_flow": {
+   "v1": 4.0,
+   "v2": 7.0
+  },
+  "mean": {
+   "v1": 4.3,
+   "v2": 6.4
+  },
+  "showrunner_overall": {
+   "v1": 4.0,
+   "v2": 6.0
+  }
+ },
+ "delta": {
+  "mean": "+2.1",
+  "overall": "+2.0",
+  "note": "Every auditor moved up 1.5-3.0. The V1 prediction for V2 was 7.0 and actual is 6.0. The gap is in the fixes that only half landed (S066 bench under the letterbox, S093 wrong lane, S091b card, 0:01/0:02 clock) and in animation, which needs per-shot acting work rather than lib passes."
+ },
+ "verdict": "V2 is the first cut a stranger could watch to the end and follow. The VO fix brought back the hook, the proof, the dialogue and the timing (5:53, 0 overlaps). The climax is now cut at action tempo, and the workshop turn finally has silence and room. It does not ship yet, because the beats that carry the meaning still contradict the picture. The robot finishes twice while the clock goes 0:01→0:02. The 'swerve' never threatens the barrier. The cause beat (S091b) is an abstract blue card. Noah's set-down of the screwdriver happens under the letterbox. In the key shout exchange, both boys look like they are laughing. In the working tree the animator has already fixed most of the story, rhythm and lighting items, and has started on logic and animation: clock and finish, S066 bench, shout mouth, numeric sit, idle sway, smoothed lip-sync, S091b chassis, S093 overhead swerve, music stops, room tone. One new P0 came out of this review: the overhead route cuts through barrier 3, which S094 now shows during the payoff. V3 priorities: finish and verify the P0s, then the remaining acting (S065 oblivious Eli, S058, gestures, S054b), the warm payoff light and the hall-exchange angles. No script changes. The WIP timeline is 350.2 s with 122 shots.",
+ "keep": [
+  "The VO pipeline and runtime guard: real durations and speakers, 0 overlaps, 5:30-6:00. render.js throws on placeholder VO.",
+  "The B35 climax grammar: switch → LED ECU flash → payoff → explanation GFX → overhead → 0:01 flash ECU → heartbeat-only slow-mo → horn plus triumph. Keep the music stop on S094b and triumph on the horn.",
+  "One shared, monotonic competition clock on the scoreboard and the overlay from S075. WINNER only after the horn.",
+  "The plant/payoff chain: S059 diagram held up → S060 BACKUP SENSOR · LEFT SIDE → S063 diagram pushed aside → L064 'three weeks ago' → sepia S087 restaging S059 with the returning click → S090 LEFT SIDE → S091b box ignites.",
+  "The workshop turn: music cut on L046, the S066 5.2 s hold with one click, the S067 VO-free exit (now from the reverse plate), the S068 time-lapse with the empty bench and DAY counter, L050 on S069. Room tone, not digital silence.",
+  "The callback structure: the S026 'Wait... what?' face = S108 'Oh my God' face (BEWILDERED_FRAME), 0.7 s of silence, the sting, a hard cut, and the title on black. The S105 bad note → S106b red sleeve plays gold keys → 'ten hours'.",
+  "The hook equation ('=' and 'SAME SONG' pop), the S028 rule card with its limits (S044 sleep, S045 speed/strength), and the S046 = S008 classroom mirror.",
+  "The look: purple-lifted blacks, letterbox, grain, window god-rays, visible arena flood clusters with bloom and shafts, the cold → sepia → warm colour arc, DOF CUs and OTS shots with blurred backs of heads, headAt on thirds.",
+  "Lib motion upgrades: stride-locked walks (walkPh), head tilt and nod while talking, hash blinks with doubles, poseAt/mixPose blending, numeric sit, idle sway with a `still` override.",
+  "Screen direction in the hall (Eli points right, Noah left) and the S084 geography wide from behind Eli.",
+  "Continuity props: the friends' photo (S055→S068→S104), the TEAM: ELI & NOAH card, red+blue stripes, Noah's screwdriver on the empty bench, the cap absent from the workshop after he leaves.",
+  "Music map contrast: workshop warmth → hard stop → sad_piano → tension (stop under the flashback, restart on S089) → stop → triumph on the horn → stop plus soft piano for 'I'm sorry' → ending_light."
+ ],
+ "fixes": [
+  {
+   "id": "G01",
+   "priority": "P0",
+   "shots": "S072b, S073, S094 (ROUTE_OK / ROUTE_RECOVER)",
+   "fix": "NEW, found by the showrunner check: the segment [1220,400]→[1420,500] cuts through barrier 3 (courseTop bars[2] = [1300,260,40,200], so x 1300-1340, y 260-460). The route sits at y≈440-460 there. S094 now runs ROUTE_RECOVER k .45→.82, which covers exactly that segment, so the payoff overhead shows the robot driving through a metal barrier. That is the V1 sin again. Fix in env.js courseTop: default bars[2] → [1300,180,40,190] (y 180-370). Then add a dev assert in act3.js: sample pathAt(route,k) for k=0..1 in 200 steps and throw if any point lies within 45 px of a barrier rect (ROUTE_FAIL excepted, at its end point). Re-check S073, S077 and S094 stills.",
+   "raised_by": [
+    "logic_sense",
+    "showrunner"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G02",
+   "priority": "P0",
+   "shots": "S083, S086, S089, S090, S078 (all shout/panic)",
+   "fix": "The shout/panic mouth was a D-shaped grin, so the key exchange read as laughing. WORKING TREE (rig.js face): open arch, corners below the top, openness .35+.65*talk. STILL TO DO: when the speaker is silent (talk<.05 and the line has ended), fall back to a small closed shout mouth (ellipse .08R×.05R) so mouths don't hang open after the line (S086 tail, S090). VERIFY on stills of S083, S086, S089 and S090 that they read as yelling.",
+   "raised_by": [
+    "logic_sense",
+    "animation"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G03",
+   "priority": "P0",
+   "shots": "S094, S094b, S095",
+   "fix": "The finish happens twice and the clock runs backwards (S094 reaches FINISH at 0:03, S094b shows a literal 0:01, S095 opens at 0:02 and crosses again). WORKING TREE: finalSecs() s1 = shotStart('S094b') so the clock is 0:01 from S094b through the crossing. S094 topRun k lerp(.45,.82) stops ~120 px short of the flag. S094b uses fmtClock(finalSecs(c.T)). WINNER flips at S095+1.2 (on the horn). VERIFY on the V3 stills: S094 0:03→0:02 with no flag contact, S094b and S095 at a steady 0:01, WINNER only after the horn.",
+   "raised_by": [
+    "logic_sense",
+    "story_flow"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G04",
+   "priority": "P0",
+   "shots": "S091b",
+   "fix": "The plant payoff image read as a flat blue UI card. WORKING TREE: it is now a dark chassis (#1c2233) with the red and blue stripes, the blue BACKUP box with an LED that ignites (glow .85 + white core), blue spill over the chassis, an ignite flash, and a BACKUP · LEFT label that rhymes with S060. VERIFY that it reads as the robot's rear-left corner. The flash colour is lost until G41 lands (scene() drops flashColor).",
+   "raised_by": [
+    "story_flow",
+    "lighting",
+    "logic_sense"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G05",
+   "priority": "P0",
+   "shots": "S093, S092 (order)",
+   "fix": "The swerve avoided nothing (wrong lane), and the 2D rotate read as a hop. WORKING TREE: S093 is now a TOP-close overhead at z 2.1 on barrier 1 (hiBar 1). The robot goes up and over the barrier's top end on ROUTE_RECOVER.slice(0,4), with a blue trail and a backup glow. The order is now S091→S091b→S093→S092, so L068's 'The robot turned' lands on the turn. VERIFY the robot's footprint clears barrier 1 (route y 420 vs bar top 520). Optional: pulse barrier 1 red for the first 0.3 s (hiK 1→0) so it reads as the same barrier from S077, this time avoided.",
+   "raised_by": [
+    "logic_sense",
+    "animation",
+    "story_flow"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G06",
+   "priority": "P0",
+   "shots": "S094-S095 (B35 audio, L069)",
+   "fix": "L069 announced the finish over the slow-mo, with triumph_resolve under the heartbeat. WORKING TREE: L069 dropped, B35 post .4, music stop on S094b, S095 plays heartbeat only, triumph_resolve (.45) returns on the horn at S095+1.2. WIP timeline: stop 299.88, horn and triumph 301.98. VERIFY by ear. S095 is only 2.16 s, so about 1 s of release after the horn (see G10).",
+   "raised_by": [
+    "story_flow"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G07",
+   "priority": "P0",
+   "shots": "S066",
+   "fix": "The emotional hinge never played: the bench was under the letterbox and the tool vanished. WORKING TREE: benchY 880 with an apron below it. The tool stays in handF until 2.7 s, then over 2.75-3.0 s eases to the bench top with an 80°→0° rotation and a settle, landing on the tool_place sfx at 3.0. CAM.push is 'sine', and still:true after 2.7 s so idle sway doesn't move the frozen beat. Room tone underneath. VERIFY in the still at 1.08 zoom that the bench and tool sit at screen y≈930, inside frame. Nice-to-have: 0.4 s with the hand resting on the bench beside the tool before it lifts away.",
+   "raised_by": [
+    "logic_sense",
+    "animation",
+    "story_flow"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G08",
+   "priority": "P1",
+   "shots": "S065 (+S067, S068 done)",
+   "fix": "Eli must read as oblivious, not gloating. S067 and S068 are DONE (S067 is re-staged on ENV.workshopRev with Eli as a back-turned FG and Noah exiting to the door in the BG; in S068 Eli has turn .95). S065 still shows Eli's face turned toward Noah with a smile-like busy mouth (contact sheet 3). act3.js S065: Eli in profile to his laptop at screen-left (f:-1, turn:.3, lookX:-1, lookY:.9, expr:'focused' or a neutral mouth). He speaks the line without turning. Rims: S065 now uses the cool workshopRev plate, so switch Eli and Noah from LT.warmL to LT.coolL plus the laptop glow (as in S061). Also update the S067 desc to the new staging so auditors judge the right thing.",
+   "raised_by": [
+    "logic_sense",
+    "story_flow",
+    "shot_rhythm",
+    "lighting"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G09",
+   "priority": "P1",
+   "shots": "ALL dialogue",
+   "fix": "Mouth amplitude was pinned and noisy. WORKING TREE (timeline.js speakAmp): attack/release smoothing (env._s), gain 1.0, 1-frame lead. STILL TO DO: soft knee o = 1-(1-a)^2*.85, and on saturated runs (a>.9 for 4+ frames) add .15*sin(t*2π*7) so held vowels still move. Re-check the share of frames at 1.0 and the frame-to-frame jumps on L064 and L083 (targets: <10% at 1.0, <8% jumps over .35).",
+   "raised_by": [
+    "animation"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G10",
+   "priority": "P1",
+   "shots": "S095, S027b, S086b, S100b, S106b (engine)",
+   "fix": "NEW: timeline.js ignores per-shot `min` when distributing. Only the group total uses it (\"distribute by weight but respect minimums\" isn't implemented). WIP result: S095 is 2.16 s against min 2.6, which leaves about 1 s after the horn. Fix in the distribution loop: water-fill. Give each shot max(min, free*w/wsum), take the overflow out of the shots above their min proportionally, then re-normalise. Quick alternative: S095 dur: 2.6.",
+   "raised_by": [
+    "showrunner"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G11",
+   "priority": "P1",
+   "shots": "S058",
+   "fix": "Aliasing strobe. WORKING TREE: arm sine dropped to ~4.8 Hz (sin t*30). STILL TO DO: seat Eli (sit:1, stool) with hands on the laptop keys (place the laptop at handF). Draw arm-only ghosts at dt .012/.024/.036 op .35 plus 3-4 speed ticks. Give Noah a real page turn every 1.2 s (ba 20°→120° outBack, page rect rotating) so the pace contrast reads.",
+   "raised_by": [
+    "animation"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G12",
+   "priority": "P1",
+   "shots": "S090, S099, S100, S100b, S088",
+   "fix": "Frozen bodies in long holds. WORKING TREE: rig.js character() adds lean noise 1.6° and arm micro-noise unless o.still. STILL TO DO: S090 poseAt([[0,{...P.shout(),lean:-6}],[.12,{...P.point(),lean:10},'outBack']]) plus a 10-frame ±1.5 lean vibration and shake 3. S099/S100: on stressed words (L071 'sorry', L073 'need') blend fa to [40,90] for 8 frames. Noah listener nod (0→5→0 over .4 s) at the end of L071. Pass still:true on deliberate freezes (S081 ECU, S088 guilty freeze).",
+   "raised_by": [
+    "animation"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G13",
+   "priority": "P1",
+   "shots": "S020, S044",
+   "fix": "The book hides the action. WORKING TREE: bedroomDesk moved the open book to x 1090 (VERIFY that S020's face and the eye-rub are now visible). S044 is still wrong: the book sits on top of his head. act2.js S044: draw PR.openBook first, under the actor, at desk height, headAt [1000,560], cheek on the right page.",
+   "raised_by": [
+    "logic_sense",
+    "animation"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G14",
+   "priority": "P1",
+   "shots": "S054b (+B20 VO)",
+   "fix": "Make the ignore a performed choice. WORKING TREE: the phone has a lit glow that dies on the flip, the back face is visible after the flip, the grade is colder, vignette .8. STILL TO DO: lay the phone flat on the desk (y≈1000), put the bubble on the screen as a lock-screen card, blend Eli's handF to the phone over 1.2-1.6 s while his eyes stay on his work, and keep the face-down phone visible to the end. B20: end L038 before S054b (post +1.0) so the ignore plays without VO. Window dusk: grade is fine at .5, but pass ENV.classroom({night:true}) if it exists.",
+   "raised_by": [
+    "logic_sense",
+    "story_flow",
+    "lighting"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G15",
+   "priority": "P1",
+   "shots": "S070-S095 (arena exposure)",
+   "fix": "WORKING TREE: floor darkened (#141120, pool .16, gradient .35), flood cores glow 140 @ .85, horizontal flare streaks. STILL TO DO: haze band peak .07→.12, limited to y 160-420 (beams, not floor). For CUs with bb ≥ 12 pass bloom .8 (needs G41 scene() forwarding) so the blurred floods still read as light. Target arena p95 ≥ .45 and highlights ≥ 2%, measured on S078, S081 and S088 stills.",
+   "raised_by": [
+    "lighting"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G16",
+   "priority": "P1",
+   "shots": "S096, S097, S098, S100, S100b, S101, S102",
+   "fix": "Warm payoff reads as a brown wash. DONE in the working tree: S099 glow between the pair with inward rims, S102 back glow. STILL TO DO: in S097/S098/S100/S100b/S101 add glow(leadX,480,600,PAL.winHot,.4) + glow(leadX,480,160,'#fff3d0',.5) behind the speaking head. WARM op .22→.15. ENV.arena warm=1: flood core .9, shafts .22. S096: grade {tint:'#ffb070',op:.15}, no WARM, so blacks stay near #0b0709. S102: Eli LT.goldR (inward), Noah stays goldL.",
+   "raised_by": [
+    "lighting"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G17",
+   "priority": "P1",
+   "shots": "B05, B06, B13, B30 (Acts 1-2 rhythm)",
+   "fix": "WORKING TREE: minShot 1.5 on B05/B06/B13/B30. The WIP timeline has 10 shots under 1.5 s and 11 still on the 2.2 floor. STILL TO DO: S010 w .6, S013 keep ≥2.2 (action must read, see conflicts), S015 w .7, S032 w .6, S078 w .7, S022 w 1.4. Target ≥12 shots under 1.5 s outside B35, and fewer than 8 at exactly 2.2.",
+   "raised_by": [
+    "shot_rhythm"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G18",
+   "priority": "P1",
+   "shots": "S084, S085, S089",
+   "fix": "Hall exchange. DONE: S084 robot jammed on the table, all three cameras move, S086 split by the S086b stuck cutaway. STILL TO DO: S085 is still 4.07 s. Cut it at the L063 comma into S085 (OTS-high 2.2 s) and S085b (Eli CU worried, CAM.push 1→1.08). Make it a real high angle: cam y 640→700 with the bleacher layer shifted up 120. S084 w 1.3 (~1.8 s) so the geography registers. S089 true low: Eli y 1300→1180, bleacher layer +180, flood rig in the top of frame, cam r 4→6. Use finalTimer(c,1450,880) with a large size so the FG timer reads.",
+   "raised_by": [
+    "shot_rhythm",
+    "logic_sense"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G19",
+   "priority": "P1",
+   "shots": "S061, S065, S067 (workshop re-angle)",
+   "fix": "Reverse workshop plate ENV.workshopRev (door with EXIT sign, shelving, whiteboard, cool high window) used for S061, S065 and S067. S061 gets coolL rims plus a laptop glow, which also fixes its muddy lighting. S067 now differs from S068 (other wall, pull-back). DONE.",
+   "raised_by": [
+    "shot_rhythm",
+    "lighting",
+    "story_flow"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G20",
+   "priority": "P1",
+   "shots": "S027b, S057b, S071b, S072b, S086b, S106b (new cutaways / splits)",
+   "fix": "The rhythm splits are in: the S027b grin ECU breaks the paper block, the S057b calendar months flip, S071b is the telephoto tail as its own shot, S072 w .6 plus the S072b TOP whip, the S086b stuck-robot cutaway under L064, and the S106b keys insert. DONE (WIP: 122 shots, 350.2 s, 0 overlaps).",
+   "raised_by": [
+    "shot_rhythm",
+    "story_flow"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G21",
+   "priority": "P1",
+   "shots": "B33, B34 (music)",
+   "fix": "The accidental loop fade under S087 is fixed: music stop at S087, and tension_competition (.32) restarts on S089. DONE.",
+   "raised_by": [
+    "story_flow"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G22",
+   "priority": "P1",
+   "shots": "S066, S067 (room tone)",
+   "fix": "The digital-zero hush is fixed: workshop_ambience .35 under S066 and S067, with the click and door on top. DONE.",
+   "raised_by": [
+    "story_flow"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G23",
+   "priority": "P1",
+   "shots": "S007",
+   "fix": "Hero regression fixed: the glow moved into the back layer, bloom is composited under the characters (post.js), and the flare is at y 235 above the head, widening 500→1000. DONE. Verify head luma < 25.",
+   "raised_by": [
+    "lighting"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G24",
+   "priority": "P1",
+   "shots": "S072",
+   "fix": "Robot speed: x -1200→3000 over ~3.9 s (≈1080 px/s), so seams and posts whip past. DONE.",
+   "raised_by": [
+    "animation",
+    "shot_rhythm"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G25",
+   "priority": "P1",
+   "shots": "S084 (+S080b→S086b)",
+   "fix": "Robot visible jammed on the table in the geography wide, with a flickering LED and spinning wheels. DONE.",
+   "raised_by": [
+    "logic_sense",
+    "story_flow"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G26",
+   "priority": "P2",
+   "shots": "S102",
+   "fix": "Reconciliation's last image. DONE: Noah steps in (walk phase) and stops at x 1060, so the heads no longer touch, with a camera move. STILL TO DO: make it a true low wide (horizon lower, feet at y≈980, FG crowd heads/arms fp 1.4 fb 18 filling the bottom 25%), Eli hit 45 px with outBack recovery, then both laugh (headTilt -10, bob 4 at 5 Hz).",
+   "raised_by": [
+    "shot_rhythm",
+    "logic_sense",
+    "animation"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G27",
+   "priority": "P2",
+   "shots": "S106, S108",
+   "fix": "DONE: the S106b TOP insert has Eli's red sleeve playing gold keys beside Noah's blue sleeve, with the melody trimmed to 1.7 s at L079-1.9, so the punchline plays dry. Numeric sit removes the hip pop. STILL TO DO: S106 second stool flush with the keyboard (x = piano right edge − 40), ey ease E.inOut not outBack, plus a 3-frame settle drop. S108: {...P.sitPiano(c.T,0), fa:[30,40], ba:[30,40]} plus PR.keysTop at the bottom edge so it isn't a starfish pose.",
+   "raised_by": [
+    "story_flow",
+    "logic_sense",
+    "animation"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G28",
+   "priority": "P2",
+   "shots": "S053, S054",
+   "fix": "Obsession swaps. WORKING TREE: sIn starts at .6. STILL TO DO: ease over f/.25, outgoing ghosts with a whoosh arc in the last 15%, the desk drawn in front of Eli's legs (top y≈1000), objects resting on the desk (chessboard flat), and per-object working poses with hands at the object. Hold the book lower so the face shows.",
+   "raised_by": [
+    "animation",
+    "logic_sense"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G29",
+   "priority": "P2",
+   "shots": "S045",
+   "fix": "WORKING TREE: the ball is carried ahead of the bigger kid. STILL TO DO: 0-1.0 s the ball sits at Eli's feet with small touches (bx = ex+30). Extra h 420. Eli decelerates to P.stand with 'unimpressed' when the ✗ label appears.",
+   "raised_by": [
+    "logic_sense"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G30",
+   "priority": "P2",
+   "shots": "S013",
+   "fix": "Landing still reads as a headstand in the held frame. End with rot -90 and torso horizontal at ground y, a 6-frame bounce plus shake 8, a blink and leg twitch at +0.6 s. Keep the shot ≥2.2 s.",
+   "raised_by": [
+    "logic_sense",
+    "animation"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G31",
+   "priority": "P2",
+   "shots": "S037",
+   "fix": "WORKING TREE: the ball arc now starts at (990,930). STILL TO DO: align the phase so contact is at ph=0 (repPose keys [[0,kick],[.15,stand],[.8,kickWind],[1,kick]]), and add a 2-frame ball squash on contact.",
+   "raised_by": [
+    "animation"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G32",
+   "priority": "P2",
+   "shots": "S026, S108",
+   "fix": "DONE: S026 holds shock until 1.6 s with a blink into bewildered. S108 holds shock until 1.4 s with blinks on both switches. STILL TO DO: a shared take(c,t0) helper (head scale 1→1.08→1 over 6 frames) used at the shock onset in both, so the callback matches beat for beat.",
+   "raised_by": [
+    "story_flow",
+    "animation"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G33",
+   "priority": "P2",
+   "shots": "S036, S038",
+   "fix": "S036: at contact add a 4-frame shin recoil (hip -20°) and headDrop 6, plus one head shake in the facepalm hold. S038: route the cheer arm outside the head via an intermediate key, and bulge only the net path, not the posts.",
+   "raised_by": [
+    "animation"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G34",
+   "priority": "P2",
+   "shots": "S035",
+   "fix": "Two musics at once: put music {name:'duck',vol:0} at S035 0 s, restore .35 on S036, and give L025 post +1.0 so the melody starts after the last word.",
+   "raised_by": [
+    "story_flow"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G35",
+   "priority": "P2",
+   "shots": "S109",
+   "fix": "Give the title card a musical button: sfx piano_clean_chord (.6) at 0.2 s, which closes the hook loop.",
+   "raised_by": [
+    "story_flow"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G36",
+   "priority": "P2",
+   "shots": "S070-S074",
+   "fix": "The pre-final scoreboard shows a static 1:00 while rounds race. Pass arena({clock:'✓'}) with ROUND 1 or ROUND 2 so the only running clock is the final's. (fmtClock '0:60'→'1:00' for S075 is DONE.)",
+   "raised_by": [
+    "story_flow",
+    "logic_sense"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G37",
+   "priority": "P2",
+   "shots": "S091, S078, S088",
+   "fix": "S091 1.08 s: add tin:'flash'. S078: headAt [1180,470], f:-1, with the left flood in the open third. S088: tin:'flash' so the flashback exits the way it entered.",
+   "raised_by": [
+    "shot_rhythm",
+    "lighting"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G38",
+   "priority": "P2",
+   "shots": "S036-S040",
+   "fix": "Five field shots share one plate. S039: OTS from behind Eli (FG back, fb 16) toward Noah arriving. S040: high angle with the horizon out of frame, grass only.",
+   "raised_by": [
+    "shot_rhythm"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G39",
+   "priority": "P2",
+   "shots": "S097",
+   "fix": "Put bigHand's grip on the trophy stem (600,900) and lift the trophy 40 px over 0.6 s. Eli's head turns .35 to screen right and holds 0.8 s so 'looks past it toward Noah' reads.",
+   "raised_by": [
+    "logic_sense"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G40",
+   "priority": "P2",
+   "shots": "S002, S003, S032, S035, S105, S106b",
+   "fix": "Keyboard hands are flat palms pointing up. Add bigHand {palmDown:true}: knuckles toward camera, fingertips to the keys, foreshortened.",
+   "raised_by": [
+    "animation"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G41",
+   "priority": "P2",
+   "shots": "post.js / shots/common.js scene()",
+   "fix": "scene() drops bloom, burn and flashColor, so per-shot bloom (G15) and S091b's blue flash do nothing. Forward bloom:o.bloom, burn:o.burn, flashColor:o.flashColor. Optional: include the mid layer in bloomSrc for inserts (o.glowMid) so LEDs, phones and laptop screens bloom.",
+   "raised_by": [
+    "lighting",
+    "showrunner"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G42",
+   "priority": "P2",
+   "shots": "S021, S022, S024 (+S004, S015, S027, S047)",
+   "fix": "DONE for S021/S022/S024: dark overlay .22, vignette .85. Measure the mean on the V3 stills (target ≤ .45). Apply the same to S004, S015, S027 and S047 if they are still over .5.",
+   "raised_by": [
+    "lighting"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G43",
+   "priority": "P2",
+   "shots": "S013, S036-S040, S045 (field)",
+   "fix": "DONE: global .14 dark overlay in ENV.field. STILL TO DO: a cast shadow per character, skewed away from sunX, and FG darkening starting at hy+120, end opacity .75.",
+   "raised_by": [
+    "lighting"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G44",
+   "priority": "P2",
+   "shots": "S072, S080b, S086b, S093-S095, S073, S077 (lane / course)",
+   "fix": "Lane: a gradient toward camera plus a reflection streak under the robot. courseTop(): a radial light pool over the course, the floor outside it at #0b0810, vignette .75 on the overheads.",
+   "raised_by": [
+    "lighting"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G45",
+   "priority": "P2",
+   "shots": "S075, S082, S071b (crowd)",
+   "fix": "DONE: crowd blur, spot vignette, red spill. STILL TO DO: near-monochrome shirts, mixc(mixc(hue,'#5a5078',.6),'#221c34',dark), to match the reference's lavender crowd.",
+   "raised_by": [
+    "lighting"
+   ],
+   "status": "partial"
+  },
+  {
+   "id": "G46",
+   "priority": "P2",
+   "shots": "S051, S069, S010, S074, S006, S001",
+   "fix": "S051: Eli looks up at the student, and the cube drops from the student's hand at 0.2 s. S069: lookX 1 toward the stool at 0.6-1.4 s. S010 'unimpressed' talking mouth: flat top edge. S074: headset mic. S006 walkers h ≥110, or drop them. S001 hook: calendar and clock at x≈820, scale .9, players h 420.",
+   "raised_by": [
+    "logic_sense",
+    "animation",
+    "story_flow"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G47",
+   "priority": "P2",
+   "shots": "S020, S023, S026 (bedroom lamp); S006, S016-S018, S103 (school windows); S031, S063, S065, S079 (corners)",
+   "fix": "Lamp fixture: emissive inner edge plus a lit cone so it survives blur. School windows: inner gradient plus 30% with blinds or silhouettes. Corners brighter than centre: vignette .8 per shot, S079 back bb 16 and bloom .3.",
+   "raised_by": [
+    "lighting"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G48",
+   "priority": "P2",
+   "shots": "S006 (title placement)",
+   "fix": "Moving B03 after B07 so the title lands at about 0:45: DEFERRED. The cold open works now, and the reorder risks the B02→B04 transition and the runtime for little gain. Revisit only if V3 story_flow flags the opening.",
+   "raised_by": [
+    "story_flow"
+   ],
+   "status": "deferred"
+  },
+  {
+   "id": "G49",
+   "priority": "P2",
+   "shots": "rig.js mixPose / drawFigure",
+   "fix": "sit is numeric, and hipY lerps between standing and seated, so there is no hip pop at stand↔sit (S016, S106, S009). DONE.",
+   "raised_by": [
+    "animation"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G50",
+   "priority": "P2",
+   "shots": "S081 and all ECUs",
+   "fix": "Rim width capped at 16 px. DONE.",
+   "raised_by": [
+    "lighting"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G51",
+   "priority": "P2",
+   "shots": "S060, S087",
+   "fix": "METAL tag moved off the red caption (props.js circuitDiagram). DONE.",
+   "raised_by": [
+    "logic_sense"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G52",
+   "priority": "P2",
+   "shots": "S061 (B23)",
+   "fix": "L043 gap -.25, so 'Already fixed it' cuts Noah off. DONE.",
+   "raised_by": [
+    "story_flow"
+   ],
+   "status": "in_progress_done"
+  },
+  {
+   "id": "G53",
+   "priority": "P2",
+   "shots": "S068",
+   "fix": "Hold trimmed to 8.79 s (B26 pre 1.5), under the 9 s cap. DONE.",
+   "raised_by": [
+    "shot_rhythm"
+   ],
+   "status": "in_progress_done"
+  }
+ ],
+ "conflicts_resolved": [
+  {
+   "topic": "S093 swerve staging: logic wanted a locked LOW with a depth yaw and the barrier occluding, animation wanted a scaleX yaw fake, story wanted a same-lane bank, and the animator built a close overhead.",
+   "decision": "Keep the TOP-close overhead and drop the LOW variant.",
+   "why": "An overhead is the only angle where 'went around the barrier instead of into it' is unambiguous in about 1.6 s. It rhymes with the S077 failure map (same barrier, opposite outcome), and it avoids the 2D-rotate hop entirely. The S092 GFX sits between S093 and the S094 overhead, so there are no back-to-back TOPs. Condition: the route must clear every barrier (new P0 on barrier 3)."
+  },
+  {
+   "topic": "S013 landing: animation called it fixed (motion reads), logic called it a headstand (held frame).",
+   "decision": "P2 polish. The torso ends horizontal at ground level with a bounce, and the shot stays ≥2.2 s.",
+   "why": "Both are right: the fall reads in motion, but the 1.5 s hold is a headstand silhouette. Fixing the final frame costs little and doesn't touch the timing."
+  },
+  {
+   "topic": "Rhythm wants Acts 1-2 punch cuts under 1.5 s (minShot 1.3-1.4, w .6-.7). Animation wants room for the action (S013 fall, S036 trap) to read.",
+   "decision": "Shorten only reaction and comedy cuts (S010, S015, S032, S078) and lengthen S022. Leave the S013 and S036 action shots at ≥2.2 s.",
+   "why": "Cut contrast comes from short reactions next to readable actions. Clipping a gag before it lands is worse than a 2.2 s shot."
+  },
+  {
+   "topic": "S067: rhythm proposed a dark door-frame FG with Noah walking toward the lens. Logic and story wanted Eli visibly back-turned and oblivious. The animator reversed the setup.",
+   "decision": "Accept the working-tree staging: the ENV.workshopRev door wall, Eli as a back-turned FG, Noah walking to the lit door, the door closing.",
+   "why": "It satisfies all three: a different wall and a pull-out against S068's push, so no jump cut. Eli can't see Noah leave. The door close is motivated in picture. Update the S067 desc to match."
+  },
+  {
+   "topic": "S106 callback: story offered either Eli on the bench next to Noah or a TOP insert. Logic wanted Eli's stool flush with the keys.",
+   "decision": "The S106b TOP insert (done) carries the musical payoff. Moving the stool flush is a P2 so the wide agrees with the insert.",
+   "why": "The insert mirrors S002/S105 exactly (strongest callback), and the melody is trimmed so 'ten hours' plays dry."
+  },
+  {
+   "topic": "L069 'crossed the finish line just before the timer ran out': drop it, or move it after the horn.",
+   "decision": "Dropped (done).",
+   "why": "The picture now carries 0:01 → crossing → horn → WINNER. The runtime stays at 350.2 s, inside 5:30-6:00."
+  },
+  {
+   "topic": "tension_competition overrun: stop at S087 and restart at S089, or start the cue later.",
+   "decision": "Stop and restart (done).",
+   "why": "It turns an accidental fade into a deliberate hush that mirrors S066, and the restart lands on 'What do I do?!'."
+  },
+  {
+   "topic": "S061 lighting: lighting wanted the hanging lamp as the visible source. Rhythm wanted a true reverse plate.",
+   "decision": "The reverse plate (ENV.workshopRev, with a cool high window and laptop glow) supersedes the lamp fix.",
+   "why": "The new plate has its own motivated sources, and the cool reverse versus the warm window side splits the argument by speaker. Follow-up: S065 rims must switch to cool (in the S065 fix)."
+  },
+  {
+   "topic": "Warm payoff: lighting says WARM reads as a brown wash. Story likes the warm grade after the win.",
+   "decision": "Keep the hue arc. Replace the wash with emitted light: lower WARM to .15, add glows behind the speakers, hotter warm floods, true blacks in S096.",
+   "why": "Same emotional colour, but light that has a source reads as triumph, not sepia."
+  },
+  {
+   "topic": "Idle sway everywhere (animation) versus deliberate freezes (S066 hesitation, S088 guilty freeze, S081 ECU).",
+   "decision": "Sway stays on by default. Pass still:true on deliberate freezes.",
+   "why": "Stillness reads as a choice only when everything else breathes."
+  },
+  {
+   "topic": "Rim width: V1 asked for thicker rims, V2 lighting says ECU rims look like stickers.",
+   "decision": "Auto-scale with a 16 px cap (done).",
+   "why": "Wides keep the readable rims and ECUs match reference frames 05/28."
+  },
+  {
+   "topic": "S006 title placement (story low, V3 option) versus the V1 decision to keep the cold open.",
+   "decision": "Deferred.",
+   "why": "Low value, and real risk to the B02→B04 transition and runtime. Revisit only if V3 story flags the opening."
+  }
+ ],
+ "wip_timeline_check": {
+  "runtime_s": 350.2,
+  "shots": 122,
+  "vo_overlaps": 0,
+  "bins": {
+   "<1.5": 10,
+   "1.5-3": 69,
+   "3-5": 35,
+   "5-8": 7,
+   ">8": 1
+  },
+  "at_2.2_floor": 11,
+  "S068": 8.79,
+  "S085": 4.07,
+  "S095": 2.16,
+  "note": "Built from the working tree with render.js --timeline into the scratchpad (no engine files touched)."
+ },
+ "predicted_v3_score": 7.5,
+ "predicted_v3_rationale": "With P0 and P1 done and verified: story_flow 8.0 (the payoff reads cleanly, the turn is acted), logic_sense 7.5 (no on-screen contradictions left, only P2 staging nits), shot_rhythm 7.5 (the hall exchange and Act 1-2 contrast fixed, still below the reference's long-take share), lighting 7.5 (arena highlights, emitted warm light), animation 6.5-7.0 (mouths, the S058 strobe, gestures; full-body acting is still the ceiling). Mean ≈7.4, overall 7.5. Reaching 8+ needs the P2 acting pass (S053/S054, S036-S038, S102, hands) and a pass for reference-style dynamic angles."
+}

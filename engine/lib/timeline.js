@@ -44,8 +44,23 @@ function buildTimeline(BEATS, VO) {
         }
         const free = Math.max(0, (j < b.shots.length ? anchors[j] : bd) - a0 - fixed);
         // distribute by weight but respect minimums
+        // give every weighted shot its minimum first, then share the rest by weight
+        const mins = group.map(x => x.dur ? 0 : (x.min ?? b.minShot ?? 2.2));
+        const minSum = mins.reduce((a, b) => a + b, 0);
+        let lens;
+        if (free <= minSum) lens = group.map((x, k) => x.dur ? x.dur : free * mins[k] / (minSum || 1));
+        else {
+          lens = group.map((x, k) => x.dur ? x.dur : free * (x.w ?? 1) / (wsum || 1));
+          for (let it = 0; it < 6; it++) {
+            const under = group.map((x, k) => !x.dur && lens[k] < mins[k]);
+            if (!under.some(Boolean)) break;
+            let deficit = 0; group.forEach((x, k) => { if (under[k]) { deficit += mins[k] - lens[k]; lens[k] = mins[k]; } });
+            const ow = group.reduce((a, x, k) => a + (!x.dur && !under[k] && lens[k] > mins[k] ? (x.w ?? 1) : 0), 0);
+            group.forEach((x, k) => { if (!x.dur && !under[k] && lens[k] > mins[k] && ow) lens[k] -= deficit * (x.w ?? 1) / ow; });
+          }
+        }
         let tt = a0;
-        group.forEach((s, k) => { starts[i + k] = tt; tt += s.dur ? s.dur : free * (s.w ?? 1) / (wsum || 1); });
+        group.forEach((s, k) => { starts[i + k] = tt; tt += lens[k]; });
         i = j;
       }
       if (!changed) break;

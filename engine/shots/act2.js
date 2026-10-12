@@ -149,7 +149,7 @@ addBeat({ id: 'B20', lines: ['L038'], pre: .4, post: .4, music: { name: 'obsessi
       const flip = atE(c, 1.6, 2.0);
       const phone = S.g({ transform: `translate(1180,860) scale(${2.2},${2.2 * Math.max(.06, Math.abs(1 - 2 * flip))})` }, S.rect(-30, -55, 60, 110, flip < .5 ? '#1b1820' : '#2b2733', { rx: 10 }), flip < .5 ? S.rect(-25, -48, 50, 92, '#3a5a9a', { rx: 4 }) : S.rect(-12, -20, 24, 24, '#4a4555', { rx: 6 }));
       const bubble = flip < .4 ? S.g({ opacity: appear(c.t, .3) }, S.rect(1260, 640, 420, 110, '#efe3cf', { rx: 18 }), S.text(1290, 690, 'NOAH', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 26, fill: '#3b7bd2' }), S.text(1290, 730, 'hey, wanna hang out?', { 'font-family': 'Inter', 'font-weight': 600, 'font-size': 30, fill: '#2a2420' })) : '';
-      return scene(c, { back: e.back, bb: 14, mid: A(c, { who: 'eli', headAt: [700, 470], h: 1000, f: 1, pose: P.hold(), expr: 'busy', lookY: 1, light: LT.coolL }) + PR.desk(1000, 1300, 1600, { h: 300 }) + phone + bubble + (flip < .5 ? glow(1180, 860, 260, '#8fb0ff', .5) : ''), cam: CAM.drift(900, 540, 1, .03)(c.p), grade: { tint: '#3a5aff', op: .5 }, vignette: .8 });
+      return scene(c, { back: e.back, bb: 14, mid: A(c, { who: 'eli', headAt: [700, 470], h: 1000, f: 1, pose: P.hold(), expr: 'busy', lookY: 1, light: LT.coolL }) + PR.desk(1000, 1300, 1600, { h: 300 }) + phone + bubble + (flip < .5 ? glow(1180, 860, 260, '#8fb0ff', .5) : '') + (c.t > 1.3 && c.t < 2.3 ? bigHand(lerp(1500, 1260, atE(c, 1.3, 1.6)), 820, 1.0, 190, PAL.eli, { curl: true }) : ''), cam: CAM.drift(900, 540, 1, .03)(c.p), grade: { tint: '#3a5aff', op: .5 }, vignette: .8 });
     } },
 ] });
 function obsession(c, part) {

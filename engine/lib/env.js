@@ -260,7 +260,7 @@ function courseTop(o = {}) {
   s += S.rect(300, 470, 120, 140, '#2fa24d', { opacity: .35, rx: 8 }) + S.text(360, 640, 'START', { 'font-family': 'Oswald', 'font-size': 30, fill: '#7dffa6', 'text-anchor': 'middle' });
   s += S.g({ transform: 'translate(1540,460)' }, PR.checker(0, 0, 80, 160, 4)) + S.text(1580, 660, 'FINISH', { 'font-family': 'Oswald', 'font-size': 30, fill: '#fff', 'text-anchor': 'middle' });
   // barriers (metal)
-  const bars = o.barriers || [[760, 300, 40, 260], [1100, 520, 40, 300], [1300, 260, 40, 200]];
+  const bars = o.barriers || [[760, 300, 40, 260], [1100, 520, 40, 300], [1300, 180, 40, 190]];
   bars.forEach(([x, y, w, h], i) => s += S.rect(x, y, w, h, '#8a8c9c', { rx: 4 }) + S.rect(x, y, 8, h, '#c6c8d6') + (o.hiBar === i ? glow(x + w / 2, y + h / 2, 160, PAL.red, .35 * (o.hiK ?? 1)) : ''));
   if (o.route) s += S.pl(o.route, o.routeCol || '#fff', 5, { 'stroke-dasharray': '18 14', opacity: o.routeOp ?? .6 });
   if (o.bad) s += S.pl(o.bad, PAL.red, 6, { 'stroke-dasharray': '10 10', opacity: .8 });
