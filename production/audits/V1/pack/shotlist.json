@@ -1,0 +1,898 @@
+[
+ {
+  "id": "s01a_ews",
+  "t0": 0,
+  "t1": 4.212,
+  "dur": 4.212,
+  "type": "EWS",
+  "desc": "Dusk café façade establishing; Noah walks toward the door; slow push-in."
+ },
+ {
+  "id": "s01b_secret",
+  "t0": 4.212,
+  "t1": 6.889,
+  "dur": 2.677,
+  "type": "MS",
+  "desc": "Inside café: patron whispers a secret to another (Every secret. Every lie.)."
+ },
+ {
+  "id": "s01c_crush",
+  "t0": 6.889,
+  "t1": 10.222,
+  "dur": 3.333,
+  "type": "MS",
+  "desc": "Outside: a girl glances at a boy; tiny pink \"?\" thought (what your crush thinks)."
+ },
+ {
+  "id": "s01d_wake",
+  "t0": 10.222,
+  "t1": 14.981,
+  "dur": 4.759,
+  "type": "MS",
+  "desc": "Morning bedroom: alarm rings, Noah's eyes snap open and he sits up; a violet shimmer = the power arrives."
+ },
+ {
+  "id": "s01e_handoff",
+  "t0": 14.981,
+  "t1": 17.22,
+  "dur": 2.239,
+  "type": "OTS",
+  "desc": "Over Noah's shoulder: smiling barista hands him a coffee (\"Here you go!\")."
+ },
+ {
+  "id": "s01f_thought",
+  "t0": 17.22,
+  "t1": 20.48,
+  "dur": 3.26,
+  "type": "CU",
+  "desc": "Barista keeps smiling (mouth closed) while a violet thought pops behind her: \"Please don't spill it.\""
+ },
+ {
+  "id": "s01g_eyes",
+  "t0": 20.48,
+  "t1": 21.701,
+  "dur": 1.221,
+  "type": "ECU",
+  "desc": "Extreme close-up of Noah's eyes widening; pupils reflect the barista and the falling cup (\"WHAT THE—\")."
+ },
+ {
+  "id": "s01h_slowmo",
+  "t0": 21.701,
+  "t1": 23.101,
+  "dur": 1.4,
+  "type": "LOW",
+  "desc": "Low-angle slow motion: the cup tumbles, time FREEZES (violet pulse), then resumes falling."
+ },
+ {
+  "id": "s01i_crash",
+  "t0": 23.101,
+  "t1": 23.901,
+  "dur": 0.8,
+  "type": "INSERT",
+  "desc": "Floor-level: the cup smashes; coffee splashes, shards scatter."
+ },
+ {
+  "id": "s01j_fired",
+  "t0": 23.901,
+  "t1": 26.461,
+  "dur": 2.56,
+  "type": "CU",
+  "desc": "Barista looks down in horror, hands to chest; thought: \"I'm getting fired.\""
+ },
+ {
+  "id": "s01k_title",
+  "t0": 26.461,
+  "t1": 30.861,
+  "dur": 4.4,
+  "type": "EWS",
+  "desc": "Title card over the café façade: \"WHAT IF YOU COULD HEAR EVERYONE'S THOUGHTS?\""
+ },
+ {
+  "id": "s02a_confused",
+  "t0": 30.861,
+  "t1": 36.996,
+  "dur": 6.135,
+  "type": "CU",
+  "desc": "Noah clutches his head outside the café; faint whisper ghosts swirl (\"losing his mind\")."
+ },
+ {
+  "id": "s02b_outside",
+  "t0": 36.996,
+  "t1": 42.932,
+  "dur": 5.936,
+  "type": "WS",
+  "desc": "Wide: Noah steps onto the morning street; a tiny \"...\" thought pops above every passer-by."
+ },
+ {
+  "id": "s02c_biz",
+  "t0": 42.932,
+  "t1": 48.665,
+  "dur": 5.733,
+  "type": "TRACK",
+  "desc": "Side-tracking: businessman on phone says \"Almost at the office\"; his thought window shows the boss tapping a foot beside a clock."
+ },
+ {
+  "id": "s02d_woman",
+  "t0": 48.665,
+  "t1": 50.863,
+  "dur": 2.198,
+  "type": "TRACK",
+  "desc": "Woman passes; holographic window with a glowing oven: \"Did I leave the oven on?\""
+ },
+ {
+  "id": "s02e_stare",
+  "t0": 50.863,
+  "t1": 53.62,
+  "dur": 2.757,
+  "type": "MS",
+  "desc": "Snap zoom onto a man in a flat cap staring right back at Noah: \"Why is that kid staring at me?\""
+ },
+ {
+  "id": "s02f_real",
+  "t0": 53.62,
+  "t1": 57.992,
+  "dur": 4.372,
+  "type": "CU",
+  "desc": "Close-up: Noah grins in disbelief — \"Oh my god. This is actually real.\""
+ },
+ {
+  "id": "s03a_smug",
+  "t0": 57.992,
+  "t1": 62.2,
+  "dur": 4.208,
+  "type": "MS",
+  "desc": "Classroom: Noah taps his temple smugly; small thoughts pop over bored classmates."
+ },
+ {
+  "id": "s03b_wide",
+  "t0": 62.2,
+  "t1": 65.671,
+  "dur": 3.471,
+  "type": "WS",
+  "desc": "Wide classroom: teacher at the chalkboard, Noah near the back."
+ },
+ {
+  "id": "s03c_teacher",
+  "t0": 65.671,
+  "t1": 68.501,
+  "dur": 2.83,
+  "type": "MS",
+  "desc": "Teacher (glasses) points: \"Noah. What's the answer to question seven?\""
+ },
+ {
+  "id": "s03d_uh",
+  "t0": 68.501,
+  "t1": 69.583,
+  "dur": 1.082,
+  "type": "CU",
+  "desc": "Close-up: Noah freezes, nervous — \"Uh...\""
+ },
+ {
+  "id": "s03e_B",
+  "t0": 69.583,
+  "t1": 73.063,
+  "dur": 3.48,
+  "type": "WS",
+  "desc": "Room desaturates; teacher's thought \"It's B\" — a luminous B floats across the room and lands above Noah's desk."
+ },
+ {
+  "id": "s03f_Bshout",
+  "t0": 73.063,
+  "t1": 74.559,
+  "dur": 1.496,
+  "type": "CU",
+  "desc": "Noah shoots his hand up: \"B!\""
+ },
+ {
+  "id": "s03g_correct",
+  "t0": 74.559,
+  "t1": 77.128,
+  "dur": 2.569,
+  "type": "CU",
+  "desc": "Smash cut: the teacher, stunned — \"...Correct.\""
+ },
+ {
+  "id": "s03h_montage",
+  "t0": 77.128,
+  "t1": 79.824,
+  "dur": 2.696,
+  "type": "MONTAGE",
+  "desc": "Three-beat montage: Noah answers again and again; glowing answers \"x = 7\", \"1776\", \"H₂O\" (VO: school wasn't so difficult)."
+ },
+ {
+  "id": "s03i_bell",
+  "t0": 79.824,
+  "t1": 82.124,
+  "dur": 2.3,
+  "type": "INSERT",
+  "desc": "Insert: the classroom clock hits 3:00 as the bell rings."
+ },
+ {
+  "id": "s04a_hall",
+  "t0": 82.124,
+  "t1": 86.109,
+  "dur": 3.985,
+  "type": "WS",
+  "desc": "Busy school hallway: Noah walks through, confident; blurred students pass in the foreground."
+ },
+ {
+  "id": "s04b_maya_reveal",
+  "t0": 86.109,
+  "t1": 89.895,
+  "dur": 3.785,
+  "type": "WS",
+  "desc": "One-point corridor: Maya stands in a pool of warm light at the far end (label: MAYA)."
+ },
+ {
+  "id": "s04c_hide",
+  "t0": 89.895,
+  "t1": 93.58,
+  "dur": 3.685,
+  "type": "MS",
+  "desc": "Comedic: Noah hides behind an open locker door, peeking out nervously (too scared for a year)."
+ },
+ {
+  "id": "s04d_push",
+  "t0": 93.58,
+  "t1": 96.08,
+  "dur": 2.5,
+  "type": "WS",
+  "desc": "Long-lens push from behind Noah toward Maya; focus racks from Noah to Maya as the distance compresses."
+ },
+ {
+  "id": "s04e_cute",
+  "t0": 96.08,
+  "t1": 100.606,
+  "dur": 4.526,
+  "type": "MS",
+  "desc": "Maya glances over; a pink handwritten thought (with tiny hearts): \"Wait... Noah actually looks kinda cute today.\""
+ },
+ {
+  "id": "s04f_noway",
+  "t0": 100.606,
+  "t1": 102.598,
+  "dur": 1.992,
+  "type": "CU",
+  "desc": "Noah's eyes go wide — whispers \"No way\" — then a triumphant fist-pump grin with sparkles."
+ },
+ {
+  "id": "s04g_why",
+  "t0": 102.598,
+  "t1": 105.186,
+  "dur": 2.588,
+  "type": "MS",
+  "desc": "Maya tilts her head, puzzled; a cooler blue thought: \"Why is he smiling like that?\""
+ },
+ {
+  "id": "s04h_oh",
+  "t0": 105.186,
+  "t1": 106.885,
+  "dur": 1.699,
+  "type": "CU",
+  "desc": "Hard cut: Noah freezes into a painfully awkward grin and looks away — \"Oh.\" (record scratch)."
+ },
+ {
+  "id": "s05a_lucky",
+  "t0": 106.885,
+  "t1": 112.224,
+  "dur": 5.339,
+  "type": "TRACK",
+  "desc": "Noah struts down the hallway with sparkles — \"luckiest person alive\"."
+ },
+ {
+  "id": "s05b_doors",
+  "t0": 112.224,
+  "t1": 116.879,
+  "dur": 4.655,
+  "type": "MS",
+  "desc": "From behind Noah: he pushes the CAFETERIA double doors open — warm light and a crowd beyond."
+ },
+ {
+  "id": "s05c_bubbles",
+  "t0": 116.879,
+  "t1": 119.729,
+  "dur": 2.85,
+  "type": "OTS",
+  "desc": "Locked behind Noah: every student has a thought shape above their head; they multiply and overlap."
+ },
+ {
+  "id": "s05d_hold_on",
+  "t0": 119.729,
+  "t1": 122.919,
+  "dur": 3.19,
+  "type": "CU",
+  "desc": "Noah, worried (\"Wait, hold on—\"), as overlapping thought windows crowd in; camera pushes into them until violet fills the screen."
+ },
+ {
+  "id": "s06a_orbit",
+  "t0": 122.919,
+  "t1": 126.387,
+  "dur": 3.468,
+  "type": "WS",
+  "desc": "Camera orbits Noah as the cafeteria stretches into an infinite violet space full of layered thought panels."
+ },
+ {
+  "id": "s06b_overhead",
+  "t0": 126.387,
+  "t1": 129.706,
+  "dur": 3.318,
+  "type": "TOP",
+  "desc": "Overhead: rows of students, a thought window pops over every head; counter ticks to \"200 THOUGHTS\"."
+ },
+ {
+  "id": "s06c_notsomuch",
+  "t0": 129.706,
+  "t1": 133.123,
+  "dur": 3.417,
+  "type": "CU",
+  "desc": "Close-up: Noah winces, deadpan, boxed in by thought windows (\"Not so much.\")."
+ },
+ {
+  "id": "s06d_crowd1",
+  "t0": 133.123,
+  "t1": 135.223,
+  "dur": 2.1,
+  "type": "MS",
+  "desc": "Students at a table, mouths shut, thoughts popping: \"I'm starving.\" / \"Why did she leave me on read?\" / \"I hate Mondays.\""
+ },
+ {
+  "id": "s06e_crowd2",
+  "t0": 135.223,
+  "t1": 140.074,
+  "dur": 4.851,
+  "type": "MS",
+  "desc": "Another table: \"Did I fail chemistry?\" / \"Does anyone even like me?\" / \"Is my hair weird today?\""
+ },
+ {
+  "id": "s06f_tighten",
+  "t0": 140.074,
+  "t1": 145.789,
+  "dur": 5.715,
+  "type": "CU",
+  "desc": "Orbit tightens on Noah covering his ears as panels multiply around him (\"couldn't turn any of it off\")."
+ },
+ {
+  "id": "s06g_peak",
+  "t0": 145.789,
+  "t1": 148.789,
+  "dur": 3,
+  "type": "MONTAGE",
+  "desc": "Overload peak: rapid cuts — Noah's eyes, hands over ears, overhead of countless windows — then a hard cut to black silence."
+ },
+ {
+  "id": "s07a_ears",
+  "t0": 148.789,
+  "t1": 153.972,
+  "dur": 5.183,
+  "type": "ECU",
+  "desc": "Extreme close-up: Noah's hands pressed over his ears; violet thought-lines keep streaming past (\"Nothing.\")."
+ },
+ {
+  "id": "s07b_headphones",
+  "t0": 153.972,
+  "t1": 158.389,
+  "dur": 4.417,
+  "type": "CU",
+  "desc": "Profile: Noah in huge headphones; the thought lines pass straight through them (\"Still nothing.\")."
+ },
+ {
+  "id": "s07c_bathroom",
+  "t0": 158.389,
+  "t1": 162.077,
+  "dur": 3.688,
+  "type": "WS",
+  "desc": "Wide symmetrical bathroom: Noah alone in the centre while glowing thought windows drift straight through the walls."
+ },
+ {
+  "id": "s07d_shout",
+  "t0": 162.077,
+  "t1": 164.742,
+  "dur": 2.665,
+  "type": "LOW",
+  "desc": "Low angle: Noah throws his arms up and shouts at the ceiling — \"ARE YOU KIDDING ME?\""
+ },
+ {
+  "id": "s08a_locker",
+  "t0": 164.742,
+  "t1": 169.414,
+  "dur": 4.672,
+  "type": "MS",
+  "desc": "A calm, ordinary hallway (no effects): Noah slumps at his open locker, exhausted."
+ },
+ {
+  "id": "s08b_photo",
+  "t0": 169.414,
+  "t1": 173.886,
+  "dur": 4.472,
+  "type": "INSERT",
+  "desc": "Insert: a photo taped inside the locker — young Noah and Leo laughing, \"best friends forever (age 8)\"."
+ },
+ {
+  "id": "s08c_twoshot",
+  "t0": 173.886,
+  "t1": 176.281,
+  "dur": 2.395,
+  "type": "MS",
+  "desc": "Stable two-shot: Leo (green cap) strolls in, taps Noah's shoulder — \"Yo, you coming over Friday?\""
+ },
+ {
+  "id": "s08d_cantkeep",
+  "t0": 176.281,
+  "t1": 178.413,
+  "dur": 2.132,
+  "type": "CU",
+  "desc": "Close on Noah; the hallway darkens; Leo's thought appears word by word beside him: \"I can't keep doing this.\""
+ },
+ {
+  "id": "s08e_doingwhat",
+  "t0": 178.413,
+  "t1": 181.269,
+  "dur": 2.856,
+  "type": "MS",
+  "desc": "Two-shot: Noah asks \"...Doing what?\" — Leo, confused: \"What?\""
+ },
+ {
+  "id": "s08f_hateme",
+  "t0": 181.269,
+  "t1": 185.711,
+  "dur": 4.442,
+  "type": "CU",
+  "desc": "Close on Leo, looking down, unaware Noah can hear: \"I have to tell him. He's gonna hate me.\" Silence after."
+ },
+ {
+  "id": "s09a_stare",
+  "t0": 185.711,
+  "t1": 188.683,
+  "dur": 2.972,
+  "type": "CU",
+  "desc": "Noah at his desk, chin in hand, worried; Leo's two thoughts echo and drift around him."
+ },
+ {
+  "id": "s09b_laptop",
+  "t0": 188.683,
+  "t1": 191.655,
+  "dur": 2.972,
+  "type": "MS",
+  "desc": "Library: Leo quickly snaps his laptop shut as Noah walks up (\"Was Leo planning to ditch him?\")."
+ },
+ {
+  "id": "s09c_phone",
+  "t0": 191.655,
+  "t1": 197.498,
+  "dur": 5.844,
+  "type": "OTS",
+  "desc": "Over Noah's shoulder: Leo laughs on the phone, sees Noah, hangs up abruptly with an awkward smile (\"lying this whole time?\")."
+ },
+ {
+  "id": "s09d_stopasking",
+  "t0": 197.498,
+  "t1": 200.775,
+  "dur": 3.277,
+  "type": "MS",
+  "desc": "Leo at his locker with Noah hovering behind; Leo's thought: \"I wish he'd stop asking.\""
+ },
+ {
+  "id": "s09e_friday",
+  "t0": 200.775,
+  "t1": 204.561,
+  "dur": 3.786,
+  "type": "CU",
+  "desc": "Leo, determined; his thought window shows a calendar with FRIDAY circled: \"Friday. I have to do it Friday.\""
+ },
+ {
+  "id": "s09f_speculation",
+  "t0": 204.561,
+  "t1": 210.591,
+  "dur": 6.03,
+  "type": "MS",
+  "desc": "Leo walks away; behind him, Noah's imagined fears appear as grainy grey torn panels (Leo ditching him, laughing behind his back, Noah alone on Friday) — speculation, not real thoughts."
+ },
+ {
+  "id": "s10a_okay",
+  "t0": 210.591,
+  "t1": 213.317,
+  "dur": 2.726,
+  "type": "MS",
+  "desc": "Close two-shot: Maya gently reaches toward Noah — \"Hey, Noah. You okay?\" — he's still buried in harsh purple thought-noise."
+ },
+ {
+  "id": "s10b_upset",
+  "t0": 213.317,
+  "t1": 215.611,
+  "dur": 2.294,
+  "type": "CU",
+  "desc": "Maya, concerned; her thought is soft and warm-coloured: \"He seems really upset.\""
+ },
+ {
+  "id": "s10c_fine",
+  "t0": 215.611,
+  "t1": 216.71,
+  "dur": 1.099,
+  "type": "CU",
+  "desc": "Noah, arms crossed, avoiding her eyes — \"I'm fine.\" — purple noise all around him."
+ },
+ {
+  "id": "s10d_help",
+  "t0": 216.71,
+  "t1": 222.591,
+  "dur": 5.881,
+  "type": "OTS",
+  "desc": "Over Noah's shoulder on Maya: \"I want to help, but I don't know what to say.\" — Noah snaps \"Then don't say ANYTHING!\" and every overlay vanishes."
+ },
+ {
+  "id": "s10e_what",
+  "t0": 222.591,
+  "t1": 225.205,
+  "dur": 2.614,
+  "type": "CU",
+  "desc": "Clean, ordinary frame — no overlays: Maya, hurt and confused, \"...What?\" Held for a full beat."
+ },
+ {
+  "id": "s10f_alone",
+  "t0": 225.205,
+  "t1": 230.177,
+  "dur": 4.971,
+  "type": "WS",
+  "desc": "Wide: Maya walks off; Noah left alone in the empty hallway, regretful."
+ },
+ {
+  "id": "s10g_understand",
+  "t0": 230.177,
+  "t1": 235.748,
+  "dur": 5.571,
+  "type": "CU",
+  "desc": "Close on Noah looking down at his hands; labels HEAR ≠ UNDERSTAND fade in (VO: hearing a thought didn't mean he understood it)."
+ },
+ {
+  "id": "s11a_clock",
+  "t0": 235.748,
+  "t1": 239.74,
+  "dur": 3.992,
+  "type": "INSERT",
+  "desc": "Insert: the classroom clock ticks toward the end of Thursday."
+ },
+ {
+  "id": "s11b_watch",
+  "t0": 239.74,
+  "t1": 243.979,
+  "dur": 4.239,
+  "type": "OTS",
+  "desc": "Dusk, school entrance: over Noah's shoulder (blurred FG) we watch Leo walk away down the street."
+ },
+ {
+  "id": "s11c_tomorrow",
+  "t0": 243.979,
+  "t1": 246.928,
+  "dur": 2.949,
+  "type": "CU",
+  "desc": "Leo walking in the sunset, anxious; thought: \"Tomorrow's going to change everything.\""
+ },
+ {
+  "id": "s11d_date",
+  "t0": 246.928,
+  "t1": 249.128,
+  "dur": 2.2,
+  "type": "INSERT",
+  "desc": "Night: Noah lies awake; a date graphic flips THURSDAY 11:59 PM → FRIDAY 12:00 AM over the low clock tick."
+ },
+ {
+  "id": "s12a_ews",
+  "t0": 249.128,
+  "t1": 254.627,
+  "dur": 5.5,
+  "type": "EWS",
+  "desc": "Extreme wide, nearly empty courtyard (Friday): Noah waits under a big tree, arms crossed; Leo approaches from far away. Held."
+ },
+ {
+  "id": "s12b_arrive",
+  "t0": 254.627,
+  "t1": 258.327,
+  "dur": 3.7,
+  "type": "WS",
+  "desc": "Camera creeps closer as Leo reaches Noah; the friends occupy opposite sides of the frame."
+ },
+ {
+  "id": "s12c_tell",
+  "t0": 258.327,
+  "t1": 262.184,
+  "dur": 3.857,
+  "type": "MS",
+  "desc": "Medium two-shot, wide gap between them: Noah — \"So. What were you gonna tell me?\" Leo — \"What?\""
+ },
+ {
+  "id": "s12d_dontact",
+  "t0": 262.184,
+  "t1": 263.995,
+  "dur": 1.811,
+  "type": "OTS",
+  "desc": "Over Leo's shoulder: Noah, cold — \"Don't act like you don't know.\""
+ },
+ {
+  "id": "s12e_notlikethis",
+  "t0": 263.995,
+  "t1": 266.796,
+  "dur": 2.801,
+  "type": "OTS",
+  "desc": "Over Noah's shoulder: Leo panics silently; a subdued violet thought behind him — \"Oh no. Not like this.\""
+ },
+ {
+  "id": "s13a_track",
+  "t0": 266.796,
+  "t1": 273.377,
+  "dur": 6.581,
+  "type": "MS",
+  "desc": "Camera tracks around the pair: Noah accuses (\"You've been hiding something from me all week\"); Leo pleads (\"just let me explain\")."
+ },
+ {
+  "id": "s13b_projected",
+  "t0": 273.377,
+  "t1": 275.998,
+  "dur": 2.621,
+  "type": "ECU",
+  "desc": "Sharp close-up of Noah's eyes; Leo's thought \"He's gonna think I'm abandoning him\" is projected across his face."
+ },
+ {
+  "id": "s13c_abandon",
+  "t0": 275.998,
+  "t1": 278.364,
+  "dur": 2.366,
+  "type": "CU",
+  "desc": "Noah, angry and hurt, repeats the private thought aloud: \"So you ARE abandoning me?\""
+ },
+ {
+  "id": "s13d_howdid",
+  "t0": 278.364,
+  "t1": 279.308,
+  "dur": 0.944,
+  "type": "ECU",
+  "desc": "Extreme close-up on Leo: his eyes widen, mouth falls open — \"How did you—\""
+ },
+ {
+  "id": "s13e_iknow",
+  "t0": 279.308,
+  "t1": 281.562,
+  "dur": 2.254,
+  "type": "CU",
+  "desc": "Noah blurts out his secret: \"I KNOW what you're thinking, Leo!\""
+ },
+ {
+  "id": "s13f_distance",
+  "t0": 281.562,
+  "t1": 283.962,
+  "dur": 2.4,
+  "type": "WS",
+  "desc": "Silence. The camera pulls back to a wide: a big empty gap of courtyard between the two friends."
+ },
+ {
+  "id": "s14a_accepted",
+  "t0": 283.962,
+  "t1": 288.36,
+  "dur": 4.398,
+  "type": "OTS",
+  "desc": "Leo pulls a folded letter from his bag and holds it out: \"I got accepted into a school overseas.\""
+ },
+ {
+  "id": "s14b_what",
+  "t0": 288.36,
+  "t1": 289.033,
+  "dur": 0.673,
+  "type": "CU",
+  "desc": "Noah, all the anger draining away — \"...What?\""
+ },
+ {
+  "id": "s14c_letter",
+  "t0": 289.033,
+  "t1": 293.314,
+  "dur": 4.281,
+  "type": "INSERT",
+  "desc": "Insert: the acceptance letter — \"ASHFORD INTERNATIONAL ACADEMY, London · FULL SCHOLARSHIP · Departure: Sunday, August 30\"."
+ },
+ {
+  "id": "s14d_leave",
+  "t0": 293.314,
+  "t1": 299.725,
+  "dur": 6.411,
+  "type": "WS",
+  "desc": "Wider two-shot with the letter between them: Noah — \"And you were just gonna leave without telling me?\" Leo — \"No! I was trying to figure out HOW to tell you.\""
+ },
+ {
+  "id": "s14e_happy",
+  "t0": 299.725,
+  "t1": 302.942,
+  "dur": 3.217,
+  "type": "CU",
+  "desc": "Leo, earnest and scared; his last thought glows faintly then fades away: \"Please just be happy for me.\" (violet overlays fade out of the film here)."
+ },
+ {
+  "id": "s15a_couldnt",
+  "t0": 302.942,
+  "t1": 305.51,
+  "dur": 2.568,
+  "type": "CU",
+  "desc": "Eye-level close-up, golden light: Noah, quietly — \"You said you couldn't keep doing this.\""
+ },
+ {
+  "id": "s15b_pretending",
+  "t0": 305.51,
+  "t1": 311.75,
+  "dur": 6.24,
+  "type": "CU",
+  "desc": "Leo, embarrassed and sad: \"Yeah. Pretending everything was normal… while I knew I was leaving.\""
+ },
+ {
+  "id": "s15c_hate",
+  "t0": 311.75,
+  "t1": 313.568,
+  "dur": 1.818,
+  "type": "CU",
+  "desc": "Noah looks down at the letter in his hands: \"And you thought I'd hate you?\""
+ },
+ {
+  "id": "s15d_scared",
+  "t0": 313.568,
+  "t1": 317.53,
+  "dur": 3.962,
+  "type": "CU",
+  "desc": "Leo, voice trembling: \"I was scared you'd think I chose a new life over being your friend.\""
+ },
+ {
+  "id": "s15e_memory",
+  "t0": 317.53,
+  "t1": 319.83,
+  "dur": 2.3,
+  "type": "WS",
+  "desc": "Brief warm memory: young Noah and Leo (age 8) laughing, kicking a ball in a golden park."
+ },
+ {
+  "id": "s15f_first",
+  "t0": 319.83,
+  "t1": 324.6,
+  "dur": 4.77,
+  "type": "CU",
+  "desc": "Back on Leo, a small sincere look: \"I wanted you to be the first person I told.\" Music enters after the line."
+ },
+ {
+  "id": "s16a_face",
+  "t0": 324.6,
+  "t1": 331.081,
+  "dur": 6.481,
+  "type": "CU",
+  "desc": "Noah's face softens as he understands (\"And suddenly, Noah understood.\")."
+ },
+ {
+  "id": "s16b_maya",
+  "t0": 331.081,
+  "t1": 334.322,
+  "dur": 3.241,
+  "type": "INSERT",
+  "desc": "Revisit: Maya — SAID \"You okay?\" + THOUGHT \"I want to help…\" → MEANT \"She cared about him.\""
+ },
+ {
+  "id": "s16c_teacher",
+  "t0": 334.322,
+  "t1": 337.563,
+  "dur": 3.241,
+  "type": "INSERT",
+  "desc": "Revisit: Teacher — SAID \"What's the answer?\" + THOUGHT \"Please don't say C again.\" → MEANT \"She was rooting for him.\""
+ },
+ {
+  "id": "s16d_leo",
+  "t0": 337.563,
+  "t1": 340.803,
+  "dur": 3.241,
+  "type": "INSERT",
+  "desc": "Revisit: Leo — SAID \"Coming over Friday?\" + THOUGHT \"He's gonna hate me.\" → MEANT \"He was scared of losing his best friend.\""
+ },
+ {
+  "id": "s16e_hear",
+  "t0": 340.803,
+  "t1": 342.3,
+  "dur": 1.496,
+  "type": "CU",
+  "desc": "Noah looks at the letter, then up (\"He could hear what people were thinking…\")."
+ },
+ {
+  "id": "s16f_wide",
+  "t0": 342.3,
+  "t1": 345.843,
+  "dur": 3.543,
+  "type": "EWS",
+  "desc": "Wide, golden courtyard, no text on screen: the two friends standing closer now (\"He still didn't know what they meant.\")."
+ },
+ {
+  "id": "s17a_dude",
+  "t0": 345.843,
+  "t1": 349.641,
+  "dur": 3.798,
+  "type": "CU",
+  "desc": "Noah breaks into a grin: \"Dude. You're actually getting a FULL scholarship?\" Faint thought windows linger, blurred, in the background — he ignores them."
+ },
+ {
+  "id": "s17b_yeah",
+  "t0": 349.641,
+  "t1": 353.862,
+  "dur": 4.221,
+  "type": "CU",
+  "desc": "Leo, shy smile: \"Yeah.\""
+ },
+ {
+  "id": "s17c_insane",
+  "t0": 353.862,
+  "t1": 357.117,
+  "dur": 3.255,
+  "type": "MS",
+  "desc": "Two-shot, now standing close: \"That's insane! Why didn't you just tell me?\" — Leo laughs: \"I was TRYING to.\""
+ },
+ {
+  "id": "s17d_happy",
+  "t0": 357.117,
+  "t1": 358.719,
+  "dur": 1.602,
+  "type": "CU",
+  "desc": "Noah, sincere: \"...I'm happy for you, man.\""
+ },
+ {
+  "id": "s17e_thankgod",
+  "t0": 358.719,
+  "t1": 364.636,
+  "dur": 5.917,
+  "type": "CU",
+  "desc": "Leo relaxes into a laugh; a tiny, faint thought (\"Thank god.\") appears small and soft — Noah doesn't react to it."
+ },
+ {
+  "id": "s17f_hug",
+  "t0": 364.636,
+  "t1": 368.236,
+  "dur": 3.6,
+  "type": "WS",
+  "desc": "A small, slightly awkward hug; the camera slowly pulls out to the wide courtyard composition from the start of Act 3."
+ },
+ {
+  "id": "s18a_steps",
+  "t0": 368.236,
+  "t1": 372.089,
+  "dur": 3.853,
+  "type": "WS",
+  "desc": "School entrance in warm late-afternoon light: Noah walks down the steps (\"one person he was too scared to ask about\")."
+ },
+ {
+  "id": "s18b_walkhome",
+  "t0": 372.089,
+  "t1": 375.462,
+  "dur": 3.373,
+  "type": "MS",
+  "desc": "Maya enters from the left; Noah turns to her — \"Hey. You want to walk home together?\""
+ },
+ {
+  "id": "s18c_sayyes",
+  "t0": 375.462,
+  "t1": 376.944,
+  "dur": 1.482,
+  "type": "CU",
+  "desc": "Maya, nervous smile; a small understated thought: \"Please say yes.\""
+ },
+ {
+  "id": "s18d_yes",
+  "t0": 376.944,
+  "t1": 379.072,
+  "dur": 2.128,
+  "type": "CU",
+  "desc": "Hold on Noah's genuine smile — he answers what she SAID: \"Yeah. I'd like that.\""
+ },
+ {
+  "id": "s18e_walkoff",
+  "t0": 379.072,
+  "t1": 383.672,
+  "dur": 4.6,
+  "type": "EWS",
+  "desc": "Wide sunset street: Noah and Maya walk off together."
+ },
+ {
+  "id": "s19_endcard",
+  "t0": 383.672,
+  "t1": 388.672,
+  "dur": 5,
+  "type": "END",
+  "desc": "End card: \"What would YOU do if you could hear everyone's thoughts?\" with the cast line-up."
+ }
+]

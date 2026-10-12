@@ -4,3 +4,4 @@ node_modules/
 *.tmp
 production/audio/vo/
 production/build/
+production/audits/*/pack/frames/
