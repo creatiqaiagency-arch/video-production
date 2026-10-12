@@ -1,0 +1,11 @@
+{
+  "universal": {"body": "#0b0709", "face": "#f6f1e8", "rim_warm": "#f0b27a", "rim_warm_hot": "#ffd29a", "rim_cool": "#9fd0ff", "letterbox": "#000000"},
+  "dusk_cafe": ["#1e101b", "#271620", "#411f28", "#4b3235", "#7d564b", "#843834", "#b3875d"],
+  "night_street": ["#100d1c", "#171424", "#211d30", "#2a263a", "#353045", "#3f2f47", "#464054", "#877a80"],
+  "warm_hall": ["#150d15", "#2e1b22", "#39262b", "#653d41", "#9f6b60", "#c89d71"],
+  "sunset_field": ["#281a1c", "#473237", "#503e46", "#745244", "#816a5b", "#a4754f", "#c99166", "#dcae8a"],
+  "sky_dusk": ["#2a1f4a", "#5b3d6e", "#a35d6b", "#e89a6a", "#f6c98a"],
+  "sky_night": ["#0d0b1e", "#1c1838", "#3a2c55", "#5b3f63"],
+  "characters": {"leo": ["#d8373a", "#9e2229"], "nora": ["#e3b23c", "#a77b1c"], "sam": ["#4cc36b"], "boy": ["#7ee08a"], "guard": ["#ff7a1a", "#cfd6dc"]},
+  "future_preview": {"tint": "#0a1a3a", "glow": "#2f7bff", "ghost": "#7fc8ff", "ghost_edge": "#d8f0ff"}
+}
