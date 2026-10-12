@@ -47,7 +47,7 @@ if (args.shotlist) {
   const workers = +(args.workers || 3);
   const nTotal = Math.round((t1 - t0) * fps);
   const per = Math.ceil(nTotal / workers);
-  const tmp = args.out + '.parts'; fs.mkdirSync(tmp, { recursive: true });
+  args.out = path.resolve(args.out); const tmp = args.out + '.parts'; fs.mkdirSync(tmp, { recursive: true });
   const started = Date.now();
   let done = 0;
   await Promise.all(Array.from({ length: workers }, async (_, w) => {
@@ -68,7 +68,8 @@ if (args.shotlist) {
   }));
   const list = Array.from({ length: workers }, (_, w) => path.join(tmp, `part${w}.mp4`)).filter(f => fs.existsSync(f));
   fs.writeFileSync(path.join(tmp, 'list.txt'), list.map(f => `file '${f}'`).join('\n'));
-  await new Promise(r => spawn('ffmpeg', ['-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', path.join(tmp, 'list.txt'), '-c', 'copy', args.out], { stdio: 'inherit' }).on('close', r));
+  const code = await new Promise(r => spawn('ffmpeg', ['-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', path.join(tmp, 'list.txt'), '-c', 'copy', args.out], { stdio: 'inherit' }).on('close', r));
+  if (code !== 0) { console.error('concat failed; parts kept in', tmp); process.exit(1); }
   fs.rmSync(tmp, { recursive: true, force: true });
   console.log(`rendered ${nTotal} frames in ${((Date.now() - started) / 1000).toFixed(0)}s -> ${args.out}`);
 }
