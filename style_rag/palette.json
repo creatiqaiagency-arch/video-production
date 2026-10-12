@@ -1,0 +1,9 @@
+{
+  "core": {"body": "#0a080d", "face": "#f4ede6", "rim_warm": "#f0a77e", "rim_cool": "#9fc6ff", "title": "#ffefd7", "letterbox": "#000000"},
+  "dusk": {"sky_top": "#85618f", "sky_mid": "#bb80a0", "horizon": "#e8a070", "sun": "#fff1c9", "bldg": "#3a2433", "bldg_dark": "#2a1826", "bldg_far": "#6a4a66", "street": "#593736", "window": "#d1966a", "window_glow": "#f2c184", "awning": "#9a3a44", "awning_stripe": "#e8d2bc"},
+  "interior_warm": {"wall": "#5b3a3e", "wall2": "#43343d", "floor": "#3e2a32", "light": "#cfa496", "lamp": "#ffd59a"},
+  "night": {"bg": "#191a39", "mid": "#2d2d5a", "deep": "#1c2244", "screen": "#8fb4ff", "accent": "#8a5cff"},
+  "thought": {"violet": "#a98bff", "glow": "#d9c9ff", "deep": "#3b2a7a", "blue": "#6fa8ff", "speculation": "#8d8597", "maya_pink": "#ff9ccf", "warm_thought": "#ffc98a"},
+  "resolution": {"gold": "#f3b56f", "rose": "#e58f86", "sky": "#f6d0a8"},
+  "costume": {"noah": "#c8302f", "noah_shade": "#942327", "leo_cap": "#5fd068", "leo_tee": "#2f8f87", "maya": "#c9a0e8", "maya_clip": "#ffd166", "barista_apron": "#e8d8c0", "teacher": "#ece8e2", "suit": "#2c3550", "tie": "#c8a03a"}
+}
