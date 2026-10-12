@@ -1,0 +1,3 @@
+AUDITOR: Lighting — SCORE: 6 (V2: 5)
+Top problems: (1) navy future grade now too crushed — lift floor to #0e1f48, truck as dim ghost with ice edge + headlight cones; (2) side-view climax set lacks lamp heads / sodium pools / reflections, s079 needs headlight cone; (3) afternoon café flat — golden afternoon key, long shadows, warmer CU bokeh; (4) continuous grade ramp s063→s069; (5) truck cargo box too bright — #7c7684 with sodium kiss; (6) s055 ring missing — dark outer stroke on daylight; (7) amber hazard flasher missing in the ending; (8) s002 rim on Leo; (9) s008 aerial muddy; (10) s070 lamp pools; (11) inserts flat (s044, s019); (12) gym rims.
+Works: night CUs; gym/kitchen motivated light; emotional grade moves.
