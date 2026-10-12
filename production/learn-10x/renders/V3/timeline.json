@@ -1,0 +1,3033 @@
+{
+ "total": 350.1779999999999,
+ "lines": [
+  {
+   "id": "L001",
+   "start": 0.5,
+   "dur": 5.417,
+   "end": 5.917,
+   "spk": "NAR",
+   "beat": "B01",
+   "vol": 1
+  },
+  {
+   "id": "L002",
+   "start": 6.517,
+   "dur": 5.167,
+   "end": 11.684000000000001,
+   "spk": "NAR",
+   "beat": "B02",
+   "vol": 1
+  },
+  {
+   "id": "L003",
+   "start": 11.904,
+   "dur": 3.833,
+   "end": 15.737,
+   "spk": "NAR",
+   "beat": "B02",
+   "vol": 1
+  },
+  {
+   "id": "L004",
+   "start": 17.237,
+   "dur": 3.625,
+   "end": 20.862,
+   "spk": "NAR",
+   "beat": "B03",
+   "vol": 1
+  },
+  {
+   "id": "L005",
+   "start": 22.962,
+   "dur": 3.208,
+   "end": 26.17,
+   "spk": "NAR",
+   "beat": "B04",
+   "vol": 1
+  },
+  {
+   "id": "L006",
+   "start": 26.669999999999998,
+   "dur": 1.833,
+   "end": 28.502999999999997,
+   "spk": "TEA",
+   "beat": "B05",
+   "vol": 1
+  },
+  {
+   "id": "L007",
+   "start": 28.723,
+   "dur": 1.917,
+   "end": 30.64,
+   "spk": "ELI",
+   "beat": "B05",
+   "vol": 1
+  },
+  {
+   "id": "L008",
+   "start": 31.139999999999997,
+   "dur": 1.417,
+   "end": 32.556999999999995,
+   "spk": "TEA",
+   "beat": "B05",
+   "vol": 1
+  },
+  {
+   "id": "L009",
+   "start": 34.457,
+   "dur": 1.417,
+   "end": 35.874,
+   "spk": "NAR",
+   "beat": "B06",
+   "vol": 1
+  },
+  {
+   "id": "L010",
+   "start": 36.094,
+   "dur": 5.292,
+   "end": 41.386,
+   "spk": "NAR",
+   "beat": "B06",
+   "vol": 1
+  },
+  {
+   "id": "L011",
+   "start": 42.086,
+   "dur": 2.375,
+   "end": 44.461,
+   "spk": "NAR",
+   "beat": "B07",
+   "vol": 1
+  },
+  {
+   "id": "L012",
+   "start": 44.681,
+   "dur": 1.625,
+   "end": 46.306,
+   "spk": "NOA",
+   "beat": "B07",
+   "vol": 1
+  },
+  {
+   "id": "L013",
+   "start": 46.881,
+   "dur": 0.583,
+   "end": 47.464,
+   "spk": "ELI",
+   "beat": "B07",
+   "vol": 1
+  },
+  {
+   "id": "L014",
+   "start": 49.230999999999995,
+   "dur": 2.125,
+   "end": 51.355999999999995,
+   "spk": "NAR",
+   "beat": "B08",
+   "vol": 1
+  },
+  {
+   "id": "L015",
+   "start": 51.576,
+   "dur": 5.833,
+   "end": 57.409,
+   "spk": "NAR",
+   "beat": "B08",
+   "vol": 1
+  },
+  {
+   "id": "L016",
+   "start": 58.009,
+   "dur": 3.25,
+   "end": 61.259,
+   "spk": "NAR",
+   "beat": "B09",
+   "vol": 1
+  },
+  {
+   "id": "L017",
+   "start": 62.358999999999995,
+   "dur": 2.625,
+   "end": 64.984,
+   "spk": "NAR",
+   "beat": "B09",
+   "vol": 1
+  },
+  {
+   "id": "L018",
+   "start": 65.484,
+   "dur": 4.417,
+   "end": 69.901,
+   "spk": "NAR",
+   "beat": "B10",
+   "vol": 1
+  },
+  {
+   "id": "L019",
+   "start": 70.121,
+   "dur": 1.417,
+   "end": 71.538,
+   "spk": "ELI",
+   "beat": "B10",
+   "vol": 1
+  },
+  {
+   "id": "L020",
+   "start": 72.338,
+   "dur": 5.208,
+   "end": 77.54599999999999,
+   "spk": "NAR",
+   "beat": "B11",
+   "vol": 1
+  },
+  {
+   "id": "L021",
+   "start": 77.76599999999999,
+   "dur": 5,
+   "end": 82.76599999999999,
+   "spk": "NAR",
+   "beat": "B11",
+   "vol": 1
+  },
+  {
+   "id": "L022",
+   "start": 83.466,
+   "dur": 4.542,
+   "end": 88.008,
+   "spk": "NAR",
+   "beat": "B12",
+   "vol": 1
+  },
+  {
+   "id": "L023",
+   "start": 88.228,
+   "dur": 2.208,
+   "end": 90.43599999999999,
+   "spk": "ELI",
+   "beat": "B12",
+   "vol": 1
+  },
+  {
+   "id": "L024",
+   "start": 92.48599999999998,
+   "dur": 1.375,
+   "end": 93.86099999999998,
+   "spk": "NAR",
+   "beat": "B13",
+   "vol": 1
+  },
+  {
+   "id": "L025",
+   "start": 94.46099999999998,
+   "dur": 5.833,
+   "end": 100.29399999999998,
+   "spk": "NAR",
+   "beat": "B13",
+   "vol": 1
+  },
+  {
+   "id": "L026",
+   "start": 103.89399999999998,
+   "dur": 3.875,
+   "end": 107.76899999999998,
+   "spk": "NAR",
+   "beat": "B14",
+   "vol": 1
+  },
+  {
+   "id": "L027",
+   "start": 107.98899999999998,
+   "dur": 5.833,
+   "end": 113.82199999999997,
+   "spk": "NAR",
+   "beat": "B14",
+   "vol": 1
+  },
+  {
+   "id": "L028",
+   "start": 114.32199999999997,
+   "dur": 2.583,
+   "end": 116.90499999999997,
+   "spk": "NOA",
+   "beat": "B15",
+   "vol": 1
+  },
+  {
+   "id": "L029",
+   "start": 117.12499999999997,
+   "dur": 0.958,
+   "end": 118.08299999999997,
+   "spk": "ELI",
+   "beat": "B15",
+   "vol": 1
+  },
+  {
+   "id": "L030",
+   "start": 119.37499999999997,
+   "dur": 5.292,
+   "end": 124.66699999999997,
+   "spk": "NAR",
+   "beat": "B16",
+   "vol": 1
+  },
+  {
+   "id": "L031",
+   "start": 124.88699999999997,
+   "dur": 5.875,
+   "end": 130.76199999999997,
+   "spk": "NAR",
+   "beat": "B16",
+   "vol": 1
+  },
+  {
+   "id": "L032",
+   "start": 131.36199999999997,
+   "dur": 7.625,
+   "end": 138.98699999999997,
+   "spk": "NAR",
+   "beat": "B17",
+   "vol": 1
+  },
+  {
+   "id": "L033",
+   "start": 139.68699999999995,
+   "dur": 6.375,
+   "end": 146.06199999999995,
+   "spk": "NAR",
+   "beat": "B18",
+   "vol": 1
+  },
+  {
+   "id": "L034",
+   "start": 146.28199999999995,
+   "dur": 3,
+   "end": 149.28199999999995,
+   "spk": "NAR",
+   "beat": "B18",
+   "vol": 1
+  },
+  {
+   "id": "L035",
+   "start": 150.73199999999994,
+   "dur": 4.708,
+   "end": 155.43999999999994,
+   "spk": "NAR",
+   "beat": "B19",
+   "vol": 1
+  },
+  {
+   "id": "L036",
+   "start": 155.65999999999997,
+   "dur": 1.542,
+   "end": 157.20199999999997,
+   "spk": "STU",
+   "beat": "B19",
+   "vol": 1
+  },
+  {
+   "id": "L037",
+   "start": 157.85999999999996,
+   "dur": 1.708,
+   "end": 159.56799999999996,
+   "spk": "ELI",
+   "beat": "B19",
+   "vol": 1
+  },
+  {
+   "id": "L038",
+   "start": 160.56799999999998,
+   "dur": 4.667,
+   "end": 165.23499999999999,
+   "spk": "NAR",
+   "beat": "B20",
+   "vol": 1
+  },
+  {
+   "id": "L039",
+   "start": 167.468,
+   "dur": 5.125,
+   "end": 172.593,
+   "spk": "NAR",
+   "beat": "B21",
+   "vol": 1
+  },
+  {
+   "id": "L040",
+   "start": 172.813,
+   "dur": 5.458,
+   "end": 178.271,
+   "spk": "NAR",
+   "beat": "B21",
+   "vol": 1
+  },
+  {
+   "id": "L041",
+   "start": 178.77099999999996,
+   "dur": 4.917,
+   "end": 183.68799999999996,
+   "spk": "NAR",
+   "beat": "B22",
+   "vol": 1
+  },
+  {
+   "id": "L042",
+   "start": 184.28799999999998,
+   "dur": 7.833,
+   "end": 192.12099999999998,
+   "spk": "NOA",
+   "beat": "B23",
+   "vol": 1
+  },
+  {
+   "id": "L043",
+   "start": 192.34099999999998,
+   "dur": 0.917,
+   "end": 193.25799999999998,
+   "spk": "ELI",
+   "beat": "B23",
+   "vol": 1
+  },
+  {
+   "id": "L044",
+   "start": 193.85799999999995,
+   "dur": 2.458,
+   "end": 196.31599999999995,
+   "spk": "NOA",
+   "beat": "B24",
+   "vol": 1
+  },
+  {
+   "id": "L045",
+   "start": 196.53599999999997,
+   "dur": 0.875,
+   "end": 197.41099999999997,
+   "spk": "ELI",
+   "beat": "B24",
+   "vol": 1
+  },
+  {
+   "id": "L046",
+   "start": 198.98599999999996,
+   "dur": 1.917,
+   "end": 200.90299999999996,
+   "spk": "NOA",
+   "beat": "B24",
+   "vol": 1
+  },
+  {
+   "id": "L047",
+   "start": 201.50299999999996,
+   "dur": 2.792,
+   "end": 204.29499999999996,
+   "spk": "ELI",
+   "beat": "B24",
+   "vol": 1
+  },
+  {
+   "id": "L048",
+   "start": 216.79499999999996,
+   "dur": 1.5,
+   "end": 218.29499999999996,
+   "spk": "NAR",
+   "beat": "B26",
+   "vol": 1
+  },
+  {
+   "id": "L049",
+   "start": 218.51499999999996,
+   "dur": 5.417,
+   "end": 223.93199999999996,
+   "spk": "NAR",
+   "beat": "B26",
+   "vol": 1
+  },
+  {
+   "id": "L050",
+   "start": 224.23199999999997,
+   "dur": 2.458,
+   "end": 226.68999999999997,
+   "spk": "NAR",
+   "beat": "B26",
+   "vol": 1
+  },
+  {
+   "id": "L051",
+   "start": 228.08199999999997,
+   "dur": 5.792,
+   "end": 233.87399999999997,
+   "spk": "NAR",
+   "beat": "B27",
+   "vol": 1
+  },
+  {
+   "id": "L052",
+   "start": 234.38199999999995,
+   "dur": 5.583,
+   "end": 239.96499999999995,
+   "spk": "NAR",
+   "beat": "B28",
+   "vol": 1
+  },
+  {
+   "id": "L053",
+   "start": 240.18499999999995,
+   "dur": 3.417,
+   "end": 243.60199999999995,
+   "spk": "NAR",
+   "beat": "B28",
+   "vol": 1
+  },
+  {
+   "id": "L054",
+   "start": 243.90199999999996,
+   "dur": 3.083,
+   "end": 246.98499999999996,
+   "spk": "ANN",
+   "beat": "B28",
+   "vol": 1
+  },
+  {
+   "id": "L055",
+   "start": 247.88499999999996,
+   "dur": 3.167,
+   "end": 251.05199999999996,
+   "spk": "NAR",
+   "beat": "B29",
+   "vol": 1
+  },
+  {
+   "id": "L056",
+   "start": 251.27199999999996,
+   "dur": 3.667,
+   "end": 254.93899999999996,
+   "spk": "NAR",
+   "beat": "B29",
+   "vol": 1
+  },
+  {
+   "id": "L057",
+   "start": 255.23899999999995,
+   "dur": 1.625,
+   "end": 256.8639999999999,
+   "spk": "ELI",
+   "beat": "B30",
+   "vol": 1
+  },
+  {
+   "id": "L058",
+   "start": 257.08399999999995,
+   "dur": 4.583,
+   "end": 261.667,
+   "spk": "NAR",
+   "beat": "B30",
+   "vol": 1
+  },
+  {
+   "id": "L059",
+   "start": 262.06699999999995,
+   "dur": 8.125,
+   "end": 270.19199999999995,
+   "spk": "NAR",
+   "beat": "B31",
+   "vol": 1
+  },
+  {
+   "id": "L060",
+   "start": 270.412,
+   "dur": 2.167,
+   "end": 272.57899999999995,
+   "spk": "NAR",
+   "beat": "B31",
+   "vol": 1
+  },
+  {
+   "id": "L061",
+   "start": 272.87899999999996,
+   "dur": 0.833,
+   "end": 273.712,
+   "spk": "ELI",
+   "beat": "B32",
+   "vol": 1
+  },
+  {
+   "id": "L062",
+   "start": 274.3289999999999,
+   "dur": 0.542,
+   "end": 274.87099999999987,
+   "spk": "NOA",
+   "beat": "B32",
+   "vol": 1
+  },
+  {
+   "id": "L063",
+   "start": 275.7289999999999,
+   "dur": 3.875,
+   "end": 279.6039999999999,
+   "spk": "ELI",
+   "beat": "B32",
+   "vol": 1
+  },
+  {
+   "id": "L064",
+   "start": 279.8039999999999,
+   "dur": 4.75,
+   "end": 284.5539999999999,
+   "spk": "NOA",
+   "beat": "B32",
+   "vol": 1
+  },
+  {
+   "id": "L066",
+   "start": 289.3539999999999,
+   "dur": 1.417,
+   "end": 290.7709999999999,
+   "spk": "ELI",
+   "beat": "B34",
+   "vol": 1
+  },
+  {
+   "id": "L067",
+   "start": 290.99099999999993,
+   "dur": 2.542,
+   "end": 293.5329999999999,
+   "spk": "NOA",
+   "beat": "B34",
+   "vol": 1
+  },
+  {
+   "id": "L068",
+   "start": 293.9329999999999,
+   "dur": 3.708,
+   "end": 297.6409999999999,
+   "spk": "NAR",
+   "beat": "B35",
+   "vol": 1
+  },
+  {
+   "id": "L070",
+   "start": 303.2329999999999,
+   "dur": 6.125,
+   "end": 309.3579999999999,
+   "spk": "NAR",
+   "beat": "B36",
+   "vol": 1
+  },
+  {
+   "id": "L071",
+   "start": 310.1579999999999,
+   "dur": 1.875,
+   "end": 312.0329999999999,
+   "spk": "ELI",
+   "beat": "B37",
+   "vol": 1
+  },
+  {
+   "id": "L072",
+   "start": 312.25299999999993,
+   "dur": 0.875,
+   "end": 313.12799999999993,
+   "spk": "NOA",
+   "beat": "B37",
+   "vol": 1
+  },
+  {
+   "id": "L073",
+   "start": 313.62799999999993,
+   "dur": 1.708,
+   "end": 315.33599999999996,
+   "spk": "ELI",
+   "beat": "B37",
+   "vol": 1
+  },
+  {
+   "id": "L074",
+   "start": 317.77799999999996,
+   "dur": 2,
+   "end": 319.77799999999996,
+   "spk": "NOA",
+   "beat": "B37",
+   "vol": 1
+  },
+  {
+   "id": "L075",
+   "start": 320.87799999999993,
+   "dur": 1.542,
+   "end": 322.4199999999999,
+   "spk": "ELI",
+   "beat": "B37",
+   "vol": 1
+  },
+  {
+   "id": "L077",
+   "start": 325.72799999999995,
+   "dur": 5.917,
+   "end": 331.6449999999999,
+   "spk": "NAR",
+   "beat": "B38",
+   "vol": 1
+  },
+  {
+   "id": "L078",
+   "start": 334.9949999999999,
+   "dur": 3.333,
+   "end": 338.3279999999999,
+   "spk": "NOA",
+   "beat": "B39",
+   "vol": 1
+  },
+  {
+   "id": "L079",
+   "start": 340.3279999999999,
+   "dur": 0.5,
+   "end": 340.8279999999999,
+   "spk": "ELI",
+   "beat": "B39",
+   "vol": 1
+  },
+  {
+   "id": "L080",
+   "start": 341.2279999999999,
+   "dur": 1.958,
+   "end": 343.1859999999999,
+   "spk": "NOA",
+   "beat": "B39",
+   "vol": 1
+  },
+  {
+   "id": "L081",
+   "start": 344.1779999999999,
+   "dur": 1,
+   "end": 345.1779999999999,
+   "spk": "ELI",
+   "beat": "B39",
+   "vol": 1
+  }
+ ],
+ "sfx": [
+  {
+   "t": 0,
+   "name": "piano_bad_notes",
+   "vol": 0.45,
+   "shot": "S001"
+  },
+  {
+   "t": 0,
+   "name": "clock_tick_loop",
+   "vol": 0.5,
+   "shot": "S001"
+  },
+  {
+   "t": 2.6,
+   "name": "piano_clean_chord",
+   "vol": 0.7,
+   "shot": "S001"
+  },
+  {
+   "t": 2.6,
+   "name": "ui_pop",
+   "vol": 0.6,
+   "shot": "S001"
+  },
+  {
+   "t": 6.417,
+   "name": "piano_melody_good",
+   "vol": 0.5,
+   "shot": "S002"
+  },
+  {
+   "t": 8.99,
+   "name": "whoosh",
+   "vol": 0.4,
+   "shot": "S003"
+  },
+  {
+   "t": 9.09,
+   "name": "keyboard_typing",
+   "vol": 0.5,
+   "shot": "S003"
+  },
+  {
+   "t": 11.420000000000002,
+   "name": "paper_flip",
+   "vol": 0.6,
+   "shot": "S004"
+  },
+  {
+   "t": 11.720000000000002,
+   "name": "pencil_scratch",
+   "vol": 0.4,
+   "shot": "S004"
+  },
+  {
+   "t": 13.850000000000001,
+   "name": "whoosh",
+   "vol": 0.35,
+   "shot": "S005"
+  },
+  {
+   "t": 14.250000000000002,
+   "name": "ball_kick",
+   "vol": 0.5,
+   "shot": "S005"
+  },
+  {
+   "t": 16.436999999999998,
+   "name": "sparkle",
+   "vol": 0.5,
+   "shot": "S006"
+  },
+  {
+   "t": 17.436999999999998,
+   "name": "whoosh",
+   "vol": 0.3,
+   "shot": "S006"
+  },
+  {
+   "t": 22.662,
+   "name": "epic_rise_cut",
+   "vol": 0.55,
+   "beat": "B04"
+  },
+  {
+   "t": 30.889999999999997,
+   "name": "record_scratch",
+   "vol": 0.6,
+   "shot": "S010"
+  },
+  {
+   "t": 32.657,
+   "name": "class_laugh",
+   "vol": 0.7,
+   "shot": "S011"
+  },
+  {
+   "t": 36.494,
+   "name": "whoosh",
+   "vol": 0.35,
+   "shot": "S013"
+  },
+  {
+   "t": 36.714,
+   "name": "body_fall",
+   "vol": 1,
+   "shot": "S013"
+  },
+  {
+   "t": 38.253499999999995,
+   "name": "piano_bad_notes",
+   "vol": 0.8,
+   "shot": "S014"
+  },
+  {
+   "t": 40.24475,
+   "name": "paper_flip",
+   "vol": 0.7,
+   "shot": "S015"
+  },
+  {
+   "t": 40.64475,
+   "name": "comedic_sting",
+   "vol": 0.5,
+   "shot": "S015"
+  },
+  {
+   "t": 49.131,
+   "name": "clock_tick_loop",
+   "vol": 0.3,
+   "shot": "S019"
+  },
+  {
+   "t": 51.826,
+   "name": "pencil_scratch",
+   "vol": 0.35,
+   "shot": "S020"
+  },
+  {
+   "t": 57.909,
+   "name": "pencil_scratch",
+   "vol": 0.5,
+   "shot": "S022"
+  },
+  {
+   "t": 58.909,
+   "name": "sparkle",
+   "vol": 0.5,
+   "shot": "S022"
+  },
+  {
+   "t": 62.50899999999999,
+   "name": "ui_tick",
+   "vol": 0.7,
+   "shot": "S024"
+  },
+  {
+   "t": 63.108999999999995,
+   "name": "ui_tick",
+   "vol": 0.7,
+   "shot": "S024"
+  },
+  {
+   "t": 63.708999999999996,
+   "name": "ui_tick",
+   "vol": 0.7,
+   "shot": "S024"
+  },
+  {
+   "t": 65.28399999999999,
+   "name": "clock_tick_fast",
+   "vol": 0.4,
+   "shot": "S025"
+  },
+  {
+   "t": 68.08399999999999,
+   "name": "ui_pop",
+   "vol": 0.6,
+   "shot": "S025"
+  },
+  {
+   "t": 72.538,
+   "name": "pencil_scratch",
+   "vol": 0.4,
+   "shot": "S027"
+  },
+  {
+   "t": 73.13799999999999,
+   "name": "ui_tick",
+   "vol": 0.6,
+   "shot": "S027"
+  },
+  {
+   "t": 73.538,
+   "name": "ui_tick",
+   "vol": 0.6,
+   "shot": "S027"
+  },
+  {
+   "t": 73.93799999999999,
+   "name": "ui_tick",
+   "vol": 0.6,
+   "shot": "S027"
+  },
+  {
+   "t": 74.538,
+   "name": "paper_flip",
+   "vol": 0.7,
+   "shot": "S027"
+  },
+  {
+   "t": 74.588,
+   "name": "success_chime",
+   "vol": 0.5,
+   "shot": "S027"
+  },
+  {
+   "t": 76.20482352941175,
+   "name": "sparkle",
+   "vol": 0.4,
+   "shot": "S027b"
+  },
+  {
+   "t": 77.81599999999999,
+   "name": "ui_pop",
+   "vol": 0.6,
+   "shot": "S028"
+  },
+  {
+   "t": 79.01599999999999,
+   "name": "ui_tick",
+   "vol": 0.5,
+   "shot": "S028"
+  },
+  {
+   "t": 79.41599999999998,
+   "name": "ui_tick",
+   "vol": 0.5,
+   "shot": "S028"
+  },
+  {
+   "t": 79.81599999999999,
+   "name": "ui_tick",
+   "vol": 0.5,
+   "shot": "S028"
+  },
+  {
+   "t": 83.666,
+   "name": "whoosh",
+   "vol": 0.3,
+   "shot": "S029"
+  },
+  {
+   "t": 90.88599999999998,
+   "name": "piano_bad_notes",
+   "vol": 0.9,
+   "shot": "S032"
+  },
+  {
+   "t": 94.31099999999998,
+   "name": "clock_tick_fast",
+   "vol": 0.35,
+   "shot": "S034"
+  },
+  {
+   "t": 99.29399999999998,
+   "name": "piano_melody_good",
+   "vol": 0.95,
+   "shot": "S035"
+  },
+  {
+   "t": 103.69399999999997,
+   "name": "whoosh",
+   "vol": 0.4,
+   "shot": "S036"
+  },
+  {
+   "t": 104.64399999999998,
+   "name": "ball_bounce",
+   "vol": 0.7,
+   "shot": "S036"
+  },
+  {
+   "t": 108.03899999999997,
+   "name": "ball_kick",
+   "vol": 0.5,
+   "shot": "S037"
+  },
+  {
+   "t": 108.63899999999997,
+   "name": "ball_kick",
+   "vol": 0.5,
+   "shot": "S037"
+  },
+  {
+   "t": 109.23899999999998,
+   "name": "ball_kick",
+   "vol": 0.5,
+   "shot": "S037"
+  },
+  {
+   "t": 109.83899999999997,
+   "name": "ball_kick",
+   "vol": 0.5,
+   "shot": "S037"
+  },
+  {
+   "t": 110.43899999999996,
+   "name": "ball_kick",
+   "vol": 0.5,
+   "shot": "S037"
+  },
+  {
+   "t": 111.7300952380952,
+   "name": "ball_kick",
+   "vol": 0.9,
+   "shot": "S038"
+  },
+  {
+   "t": 112.13009523809521,
+   "name": "whoosh",
+   "vol": 0.4,
+   "shot": "S038"
+  },
+  {
+   "t": 114.12199999999997,
+   "name": "ball_bounce",
+   "vol": 0.4,
+   "shot": "S039"
+  },
+  {
+   "t": 119.57499999999997,
+   "name": "paper_flip",
+   "vol": 0.6,
+   "shot": "S041"
+  },
+  {
+   "t": 120.57499999999997,
+   "name": "paper_flip",
+   "vol": 0.6,
+   "shot": "S041"
+  },
+  {
+   "t": 121.8350869565217,
+   "name": "keyboard_typing",
+   "vol": 0.6,
+   "shot": "S042"
+  },
+  {
+   "t": 123.4350869565217,
+   "name": "success_chime",
+   "vol": 0.6,
+   "shot": "S042"
+  },
+  {
+   "t": 131.16199999999998,
+   "name": "night_room_tone",
+   "vol": 0.8,
+   "shot": "S044"
+  },
+  {
+   "t": 135.2460909090909,
+   "name": "ball_kick",
+   "vol": 0.5,
+   "shot": "S045"
+  },
+  {
+   "t": 136.14609090909087,
+   "name": "whoosh",
+   "vol": 0.4,
+   "shot": "S045"
+  },
+  {
+   "t": 143.26771428571425,
+   "name": "paper_flip",
+   "vol": 0.7,
+   "shot": "S047"
+  },
+  {
+   "t": 143.66771428571423,
+   "name": "success_chime",
+   "vol": 0.5,
+   "shot": "S047"
+  },
+  {
+   "t": 146.13199999999995,
+   "name": "impressed_murmur",
+   "vol": 0.6,
+   "shot": "S048"
+  },
+  {
+   "t": 148.33199999999997,
+   "name": "impressed_murmur",
+   "vol": 0.5,
+   "shot": "S049"
+  },
+  {
+   "t": 155.70999999999995,
+   "name": "tool_place",
+   "vol": 1.4,
+   "shot": "S051"
+  },
+  {
+   "t": 160.26799999999997,
+   "name": "whoosh",
+   "vol": 0.3,
+   "shot": "S053"
+  },
+  {
+   "t": 161.56799999999998,
+   "name": "whoosh",
+   "vol": 0.3,
+   "shot": "S053"
+  },
+  {
+   "t": 162.46799999999996,
+   "name": "whoosh",
+   "vol": 0.3,
+   "shot": "S054"
+  },
+  {
+   "t": 163.76799999999997,
+   "name": "whoosh",
+   "vol": 0.3,
+   "shot": "S054"
+  },
+  {
+   "t": 164.868,
+   "name": "ui_pop",
+   "vol": 0.5,
+   "shot": "S054b"
+  },
+  {
+   "t": 167.16799999999998,
+   "name": "workshop_ambience",
+   "vol": 0.6,
+   "shot": "S055"
+  },
+  {
+   "t": 169.36799999999997,
+   "name": "ui_pop",
+   "vol": 0.3,
+   "shot": "S055"
+  },
+  {
+   "t": 170.46527272727272,
+   "name": "motor_whir",
+   "vol": 0.5,
+   "shot": "S056"
+  },
+  {
+   "t": 176.1452222222222,
+   "name": "paper_flip",
+   "vol": 0.5,
+   "shot": "S057b"
+  },
+  {
+   "t": 176.74522222222222,
+   "name": "paper_flip",
+   "vol": 0.5,
+   "shot": "S057b"
+  },
+  {
+   "t": 177.34522222222222,
+   "name": "paper_flip",
+   "vol": 0.5,
+   "shot": "S057b"
+  },
+  {
+   "t": 178.57099999999997,
+   "name": "keyboard_typing",
+   "vol": 0.5,
+   "shot": "S058"
+  },
+  {
+   "t": 183.98799999999997,
+   "name": "workshop_ambience",
+   "vol": 0.5,
+   "shot": "S059"
+  },
+  {
+   "t": 187.28799999999995,
+   "name": "ui_pop",
+   "vol": 0.5,
+   "shot": "S060"
+  },
+  {
+   "t": 192.39099999999996,
+   "name": "electric_switch",
+   "vol": 0.3,
+   "shot": "S061"
+  },
+  {
+   "t": 196.38599999999997,
+   "name": "keyboard_typing",
+   "vol": 0.5,
+   "shot": "S063"
+  },
+  {
+   "t": 197.18599999999998,
+   "name": "paper_flip",
+   "vol": 0.5,
+   "shot": "S063"
+  },
+  {
+   "t": 204.49499999999998,
+   "name": "workshop_ambience",
+   "vol": 0.35,
+   "shot": "S066"
+  },
+  {
+   "t": 207.49499999999998,
+   "name": "tool_place",
+   "vol": 2.2,
+   "shot": "S066"
+  },
+  {
+   "t": 209.69499999999996,
+   "name": "workshop_ambience",
+   "vol": 0.35,
+   "shot": "S067"
+  },
+  {
+   "t": 213.29499999999996,
+   "name": "door_close",
+   "vol": 3,
+   "shot": "S067"
+  },
+  {
+   "t": 215.29499999999996,
+   "name": "clock_tick_loop",
+   "vol": 0.3,
+   "shot": "S068"
+  },
+  {
+   "t": 227.58199999999997,
+   "name": "crowd_cheer",
+   "vol": 0.3,
+   "beat": "B27"
+  },
+  {
+   "t": 234.18199999999996,
+   "name": "motor_whir",
+   "vol": 0.7,
+   "shot": "S072"
+  },
+  {
+   "t": 238.08399999999995,
+   "name": "whoosh",
+   "vol": 0.4,
+   "shot": "S072b"
+  },
+  {
+   "t": 240.03499999999994,
+   "name": "timer_beep",
+   "vol": 0.6,
+   "shot": "S073"
+  },
+  {
+   "t": 241.63499999999993,
+   "name": "crowd_cheer",
+   "vol": 0.5,
+   "shot": "S073"
+  },
+  {
+   "t": 243.95199999999994,
+   "name": "crowd_cheer",
+   "vol": 0.8,
+   "shot": "S074"
+  },
+  {
+   "t": 247.58499999999995,
+   "name": "timer_beep",
+   "vol": 0.8,
+   "shot": "S075"
+  },
+  {
+   "t": 247.78499999999994,
+   "name": "clock_tick_fast",
+   "vol": 0.5,
+   "shot": "S075"
+  },
+  {
+   "t": 251.52199999999996,
+   "name": "sensor_warning",
+   "vol": 0.8,
+   "shot": "S076"
+  },
+  {
+   "t": 253.32199999999995,
+   "name": "robot_bump",
+   "vol": 0.9,
+   "shot": "S077"
+  },
+  {
+   "t": 253.52199999999996,
+   "name": "crowd_gasp",
+   "vol": 0.7,
+   "shot": "S077"
+  },
+  {
+   "t": 255.13899999999995,
+   "name": "heartbeat_muffled",
+   "vol": 0.5,
+   "shot": "S078"
+  },
+  {
+   "t": 257.33399999999995,
+   "name": "ui_tick",
+   "vol": 0.6,
+   "shot": "S079"
+  },
+  {
+   "t": 258.93399999999997,
+   "name": "ui_tick",
+   "vol": 0.6,
+   "shot": "S079"
+  },
+  {
+   "t": 261.86699999999996,
+   "name": "clock_tick_fast",
+   "vol": 0.5,
+   "shot": "S080"
+  },
+  {
+   "t": 265.3086666666666,
+   "name": "motor_whir",
+   "vol": 0.5,
+   "shot": "S080b"
+  },
+  {
+   "t": 267.5086666666666,
+   "name": "heartbeat_muffled",
+   "vol": 0.6,
+   "shot": "S081"
+  },
+  {
+   "t": 282.2039999999999,
+   "name": "motor_whir",
+   "vol": 0.4,
+   "shot": "S086b"
+  },
+  {
+   "t": 284.95399999999995,
+   "name": "sparkle",
+   "vol": 0.4,
+   "shot": "S087"
+  },
+  {
+   "t": 286.2539999999999,
+   "name": "tool_place",
+   "vol": 2.2,
+   "shot": "S087"
+  },
+  {
+   "t": 294.0329999999999,
+   "name": "electric_switch",
+   "vol": 0.9,
+   "shot": "S091"
+  },
+  {
+   "t": 295.08299999999986,
+   "name": "sparkle",
+   "vol": 0.5,
+   "shot": "S091b"
+  },
+  {
+   "t": 295.9329999999999,
+   "name": "motor_whir",
+   "vol": 0.8,
+   "shot": "S093"
+  },
+  {
+   "t": 297.2329999999999,
+   "name": "ui_pop",
+   "vol": 0.5,
+   "shot": "S092"
+  },
+  {
+   "t": 298.2329999999999,
+   "name": "clock_tick_fast",
+   "vol": 0.7,
+   "shot": "S094"
+  },
+  {
+   "t": 299.4329999999999,
+   "name": "clock_tick_fast",
+   "vol": 0.8,
+   "shot": "S094b"
+  },
+  {
+   "t": 300.3329999999999,
+   "name": "heartbeat_muffled",
+   "vol": 0.8,
+   "shot": "S095"
+  },
+  {
+   "t": 301.5329999999999,
+   "name": "finish_horn",
+   "vol": 0.9,
+   "shot": "S095"
+  },
+  {
+   "t": 301.6329999999999,
+   "name": "crowd_cheer",
+   "vol": 0.9,
+   "shot": "S095"
+  },
+  {
+   "t": 302.9329999999999,
+   "name": "applause",
+   "vol": 0.6,
+   "beat": "B36"
+  },
+  {
+   "t": 321.62799999999993,
+   "name": "ui_tick",
+   "vol": 0.4,
+   "shot": "S102"
+  },
+  {
+   "t": 332.94499999999994,
+   "name": "piano_bad_notes",
+   "vol": 0.7,
+   "shot": "S105"
+  },
+  {
+   "t": 345.8779999999999,
+   "name": "comedic_sting",
+   "vol": 0.8,
+   "shot": "S108"
+  },
+  {
+   "t": 338.42799999999994,
+   "name": "piano_melody_good",
+   "vol": 0.6,
+   "dur": 1.7,
+   "beat": "B39"
+  }
+ ],
+ "music": [
+  {
+   "name": "curious_open",
+   "vol": 0.55,
+   "fade": 1.5,
+   "t": 0,
+   "beat": "B01"
+  },
+  {
+   "name": "stop",
+   "at": 0,
+   "t": 22.662,
+   "beat": "B04"
+  },
+  {
+   "name": "comedy_light",
+   "vol": 0.35,
+   "at": 2,
+   "t": 28.369999999999997,
+   "beat": "B05"
+  },
+  {
+   "name": "discovery",
+   "vol": 0.4,
+   "at": 0.2,
+   "fade": 2,
+   "t": 49.131,
+   "beat": "B08"
+  },
+  {
+   "name": "montage_upbeat",
+   "vol": 0.35,
+   "at": 1.2,
+   "fade": 1,
+   "t": 84.466,
+   "beat": "B12"
+  },
+  {
+   "name": "duck",
+   "vol": 0.2,
+   "at": 0,
+   "t": 131.16199999999998,
+   "beat": "B17"
+  },
+  {
+   "name": "montage_upbeat",
+   "vol": 0.35,
+   "at": 0,
+   "t": 139.48699999999997,
+   "beat": "B18"
+  },
+  {
+   "name": "obsession_cool",
+   "vol": 0.4,
+   "at": 0,
+   "fade": 1.5,
+   "t": 160.16799999999998,
+   "beat": "B20"
+  },
+  {
+   "name": "curious_open",
+   "vol": 0.3,
+   "at": 0,
+   "fade": 2,
+   "t": 167.16799999999998,
+   "beat": "B21"
+  },
+  {
+   "name": "stop",
+   "onLine": "L046",
+   "off": -0.2,
+   "t": 198.78599999999997,
+   "beat": "B24"
+  },
+  {
+   "name": "sad_piano",
+   "vol": 0.4,
+   "at": 0,
+   "fade": 2,
+   "t": 215.29499999999996,
+   "beat": "B26"
+  },
+  {
+   "name": "tension_competition",
+   "vol": 0.3,
+   "at": 0,
+   "fade": 1,
+   "t": 227.58199999999997,
+   "beat": "B27"
+  },
+  {
+   "name": "stop",
+   "at": 0,
+   "t": 284.8539999999999,
+   "beat": "B33"
+  },
+  {
+   "name": "tension_competition",
+   "vol": 0.32,
+   "at": 0,
+   "fade": 0.2,
+   "t": 289.2539999999999,
+   "beat": "B34"
+  },
+  {
+   "name": "stop",
+   "at": 0.15,
+   "t": 293.88299999999987,
+   "beat": "B35"
+  },
+  {
+   "name": "triumph_resolve",
+   "vol": 0.4,
+   "fade": 0.3,
+   "at": 0.3,
+   "t": 295.2329999999999,
+   "beat": "B35"
+  },
+  {
+   "name": "stop",
+   "at": 0,
+   "t": 299.4329999999999,
+   "beat": "B35"
+  },
+  {
+   "name": "triumph_resolve",
+   "vol": 0.45,
+   "fade": 0.1,
+   "at": 1.2,
+   "t": 301.5329999999999,
+   "beat": "B35"
+  },
+  {
+   "name": "stop",
+   "at": 0,
+   "t": 309.6579999999999,
+   "beat": "B37"
+  },
+  {
+   "name": "sad_piano",
+   "vol": 0.25,
+   "at": 0.4,
+   "fade": 2,
+   "t": 310.0579999999999,
+   "beat": "B37"
+  },
+  {
+   "name": "ending_light",
+   "vol": 0.35,
+   "at": 0,
+   "fade": 2,
+   "t": 323.72799999999995,
+   "beat": "B38"
+  },
+  {
+   "name": "stop",
+   "at": 3,
+   "t": 349.3779999999999,
+   "beat": "B40"
+  }
+ ],
+ "beats": [
+  {
+   "id": "B01",
+   "start": 0,
+   "end": 6.317
+  },
+  {
+   "id": "B02",
+   "start": 6.317,
+   "end": 16.037
+  },
+  {
+   "id": "B03",
+   "start": 16.037,
+   "end": 22.662
+  },
+  {
+   "id": "B04",
+   "start": 22.662,
+   "end": 26.369999999999997
+  },
+  {
+   "id": "B05",
+   "start": 26.369999999999997,
+   "end": 34.357
+  },
+  {
+   "id": "B06",
+   "start": 34.357,
+   "end": 41.885999999999996
+  },
+  {
+   "id": "B07",
+   "start": 41.885999999999996,
+   "end": 48.931
+  },
+  {
+   "id": "B08",
+   "start": 48.931,
+   "end": 57.809
+  },
+  {
+   "id": "B09",
+   "start": 57.809,
+   "end": 65.28399999999999
+  },
+  {
+   "id": "B10",
+   "start": 65.28399999999999,
+   "end": 72.13799999999999
+  },
+  {
+   "id": "B11",
+   "start": 72.13799999999999,
+   "end": 83.26599999999999
+  },
+  {
+   "id": "B12",
+   "start": 83.26599999999999,
+   "end": 90.83599999999998
+  },
+  {
+   "id": "B13",
+   "start": 90.83599999999998,
+   "end": 103.69399999999997
+  },
+  {
+   "id": "B14",
+   "start": 103.69399999999997,
+   "end": 114.12199999999997
+  },
+  {
+   "id": "B15",
+   "start": 114.12199999999997,
+   "end": 119.17499999999997
+  },
+  {
+   "id": "B16",
+   "start": 119.17499999999997,
+   "end": 131.16199999999998
+  },
+  {
+   "id": "B17",
+   "start": 131.16199999999998,
+   "end": 139.48699999999997
+  },
+  {
+   "id": "B18",
+   "start": 139.48699999999997,
+   "end": 150.53199999999995
+  },
+  {
+   "id": "B19",
+   "start": 150.53199999999995,
+   "end": 160.16799999999998
+  },
+  {
+   "id": "B20",
+   "start": 160.16799999999998,
+   "end": 167.16799999999998
+  },
+  {
+   "id": "B21",
+   "start": 167.16799999999998,
+   "end": 178.57099999999997
+  },
+  {
+   "id": "B22",
+   "start": 178.57099999999997,
+   "end": 183.98799999999997
+  },
+  {
+   "id": "B23",
+   "start": 183.98799999999997,
+   "end": 193.65799999999996
+  },
+  {
+   "id": "B24",
+   "start": 193.65799999999996,
+   "end": 209.69499999999996
+  },
+  {
+   "id": "B25",
+   "start": 209.69499999999996,
+   "end": 215.29499999999996
+  },
+  {
+   "id": "B26",
+   "start": 215.29499999999996,
+   "end": 227.58199999999997
+  },
+  {
+   "id": "B27",
+   "start": 227.58199999999997,
+   "end": 234.18199999999996
+  },
+  {
+   "id": "B28",
+   "start": 234.18199999999996,
+   "end": 247.58499999999995
+  },
+  {
+   "id": "B29",
+   "start": 247.58499999999995,
+   "end": 255.13899999999995
+  },
+  {
+   "id": "B30",
+   "start": 255.13899999999995,
+   "end": 261.86699999999996
+  },
+  {
+   "id": "B31",
+   "start": 261.86699999999996,
+   "end": 272.77899999999994
+  },
+  {
+   "id": "B32",
+   "start": 272.77899999999994,
+   "end": 284.8539999999999
+  },
+  {
+   "id": "B33",
+   "start": 284.8539999999999,
+   "end": 289.2539999999999
+  },
+  {
+   "id": "B34",
+   "start": 289.2539999999999,
+   "end": 293.7329999999999
+  },
+  {
+   "id": "B35",
+   "start": 293.7329999999999,
+   "end": 302.9329999999999
+  },
+  {
+   "id": "B36",
+   "start": 302.9329999999999,
+   "end": 309.6579999999999
+  },
+  {
+   "id": "B37",
+   "start": 309.6579999999999,
+   "end": 323.72799999999995
+  },
+  {
+   "id": "B38",
+   "start": 323.72799999999995,
+   "end": 332.6449999999999
+  },
+  {
+   "id": "B39",
+   "start": 332.6449999999999,
+   "end": 346.3779999999999
+  },
+  {
+   "id": "B40",
+   "start": 346.3779999999999,
+   "end": 350.1779999999999
+  }
+ ],
+ "shots": [
+  {
+   "id": "S001",
+   "beat": "B01",
+   "start": 0,
+   "end": 3.8873846153846157,
+   "dur": 3.8873846153846157,
+   "hold": false,
+   "type": "GFX-split",
+   "desc": "Split screen: left an ordinary kid practises piano while a calendar flips DAY 1→10; right Eli practises while a clock advances only 1 hour. Both reach the SAME result together (gold notes) and a big \"=\" appears."
+  },
+  {
+   "id": "S001b",
+   "beat": "B01",
+   "start": 3.8873846153846157,
+   "end": 6.317,
+   "dur": 2.4296153846153845,
+   "hold": false,
+   "type": "CU",
+   "desc": "Close-up on Eli at the piano, playing fluently and smiling; the clock behind him shows only one hour passed."
+  },
+  {
+   "id": "S002",
+   "beat": "B02",
+   "start": 6.317,
+   "end": 8.99,
+   "dur": 2.673,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Top-down piano keys lighting up in a fluent melody (match-cut source). \"1 HOUR = 10 HOURS\"."
+  },
+  {
+   "id": "S003",
+   "beat": "B02",
+   "start": 8.99,
+   "end": 11.420000000000002,
+   "dur": 2.4300000000000015,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Match cut: piano keys become a laptop keyboard; fast typing."
+  },
+  {
+   "id": "S004",
+   "beat": "B02",
+   "start": 11.420000000000002,
+   "end": 13.850000000000001,
+   "dur": 2.4299999999999997,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Keyboard becomes a textbook page under a desk lamp; \"1 DAY = 10 DAYS\"."
+  },
+  {
+   "id": "S005",
+   "beat": "B02",
+   "start": 13.850000000000001,
+   "end": 16.037,
+   "dur": 2.1869999999999976,
+   "hold": false,
+   "type": "GFX",
+   "desc": "The page folds into a football tactics board; an arrow draws the play; pull-out reveals it."
+  },
+  {
+   "id": "S006",
+   "beat": "B03",
+   "start": 16.037,
+   "end": 22.662,
+   "dur": 6.625,
+   "hold": true,
+   "type": "EST",
+   "desc": "School exterior at dusk; Eli and Noah walk to school; title card WHAT IF YOU COULD LEARN ANYTHING 10x FASTER? glows in."
+  },
+  {
+   "id": "S007",
+   "beat": "B04",
+   "start": 22.662,
+   "end": 26.369999999999997,
+   "dur": 3.7079999999999984,
+   "hold": false,
+   "type": "LOW",
+   "desc": "Heroic low angle: Eli in the hallway, blinding backlight, rim light on both edges, lens flare; camera spins in like a superhero reveal."
+  },
+  {
+   "id": "S008",
+   "beat": "B05",
+   "start": 26.369999999999997,
+   "end": 28.573,
+   "dur": 2.203000000000003,
+   "hold": false,
+   "type": "WS",
+   "desc": "Flat awkward classroom wide: teacher at the ENGLISH board points at Eli: \"Eli. The answer?\""
+  },
+  {
+   "id": "S009",
+   "beat": "B05",
+   "start": 28.573,
+   "end": 30.889999999999997,
+   "dur": 2.3169999999999966,
+   "hold": false,
+   "type": "MS",
+   "desc": "Eli medium shot, hand half-raised, confidently wrong: \"Uh... thirty-seven?\""
+  },
+  {
+   "id": "S010",
+   "beat": "B05",
+   "start": 30.889999999999997,
+   "end": 32.657,
+   "dur": 1.7669999999999995,
+   "hold": false,
+   "type": "ECU",
+   "desc": "Extreme close-up on the teacher's unamused eyes behind her glasses: \"We're in English class.\" The ENGLISH board is visible behind."
+  },
+  {
+   "id": "S011",
+   "beat": "B05",
+   "start": 32.657,
+   "end": 34.357,
+   "dur": 1.7000000000000028,
+   "hold": false,
+   "type": "WS",
+   "desc": "Class laughs (extras rocking with laughter); Eli sinks in his chair."
+  },
+  {
+   "id": "S012",
+   "beat": "B06",
+   "start": 34.357,
+   "end": 35.994,
+   "dur": 1.6370000000000005,
+   "hold": false,
+   "type": "CU",
+   "desc": "Close-up Eli, deflated, chin on desk."
+  },
+  {
+   "id": "S013",
+   "beat": "B06",
+   "start": 35.994,
+   "end": 38.2035,
+   "dur": 2.2094999999999985,
+   "hold": false,
+   "type": "WS",
+   "desc": "Football field: Eli winds up (anticipation), swings, whiffs just over the ball, lands flat on his back with a thud; the ball dribbles away toward the goal."
+  },
+  {
+   "id": "S014",
+   "beat": "B06",
+   "start": 38.2035,
+   "end": 40.04475,
+   "dur": 1.8412500000000023,
+   "hold": false,
+   "type": "MS-side",
+   "desc": "Side-profile piano: Eli hits awful notes, winces on each one; keys flash red."
+  },
+  {
+   "id": "S015",
+   "beat": "B06",
+   "start": 40.04475,
+   "end": 41.885999999999996,
+   "dur": 1.8412499999999952,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Overhead under a lamp: a sheet of music flutters down and becomes a math test with a huge red F."
+  },
+  {
+   "id": "S016",
+   "beat": "B07",
+   "start": 41.885999999999996,
+   "end": 44.531,
+   "dur": 2.645000000000003,
+   "hold": false,
+   "type": "MS-2",
+   "desc": "Outside school at dusk: Eli slumped on a bench; Noah (yellow cap, blue shirt) walks in holding his own D- test and drops onto the bench."
+  },
+  {
+   "id": "S017",
+   "beat": "B07",
+   "start": 44.531,
+   "end": 46.731,
+   "dur": 2.200000000000003,
+   "hold": false,
+   "type": "OTS",
+   "desc": "Over Eli's shoulder (Eli seen from behind, foreground): Noah, deadpan, looking at Eli: \"Dude, we're so cooked.\""
+  },
+  {
+   "id": "S018",
+   "beat": "B07",
+   "start": 46.731,
+   "end": 48.931,
+   "dur": 2.1999999999999957,
+   "hold": false,
+   "type": "OTS",
+   "desc": "Reverse over Noah's shoulder: Eli, flat: \"You think?\""
+  },
+  {
+   "id": "S019",
+   "beat": "B08",
+   "start": 48.931,
+   "end": 51.426,
+   "dur": 2.4950000000000045,
+   "hold": false,
+   "type": "EST",
+   "desc": "Dawn establishing: the view from Eli's window at sunrise; 6:00 AM."
+  },
+  {
+   "id": "S020",
+   "beat": "B08",
+   "start": 51.426,
+   "end": 55.2558,
+   "dur": 3.8297999999999988,
+   "hold": false,
+   "type": "MS",
+   "desc": "At his desk at dawn, Eli rubs his eyes over messy notes; DAY 7 on the wall calendar (a week of struggle)."
+  },
+  {
+   "id": "S021",
+   "beat": "B08",
+   "start": 55.2558,
+   "end": 57.809,
+   "dur": 2.553199999999997,
+   "hold": false,
+   "type": "INSERT",
+   "desc": "Notebook insert under lamplight: messy crossed-out working, a red question mark."
+  },
+  {
+   "id": "S022",
+   "beat": "B09",
+   "start": 57.809,
+   "end": 60.00899999999999,
+   "dur": 2.1999999999999957,
+   "hold": false,
+   "type": "ECU",
+   "desc": "Extreme close-up pencil under lamplight: the messy steps rearrange themselves into a clean ordered solution (the pattern clicks)."
+  },
+  {
+   "id": "S023",
+   "beat": "B09",
+   "start": 60.00899999999999,
+   "end": 62.208999999999996,
+   "dur": 2.200000000000003,
+   "hold": false,
+   "type": "CU",
+   "desc": "Close-up: Eli's eyes widen — a double-take in the dawn light."
+  },
+  {
+   "id": "S024",
+   "beat": "B09",
+   "start": 62.208999999999996,
+   "end": 65.28399999999999,
+   "dur": 3.0749999999999957,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Overhead page: problem after problem gets a green tick, tick, tick."
+  },
+  {
+   "id": "S025",
+   "beat": "B10",
+   "start": 65.28399999999999,
+   "end": 69.521,
+   "dur": 4.237000000000009,
+   "hold": false,
+   "type": "GFX",
+   "desc": "Proof graphic over a dimmed desk: timer 00:00→06:00; BEFORE bar = 60 MIN, NOW bar stops at 6 MIN (one tenth); \"SAME UNDERSTANDING\"."
+  },
+  {
+   "id": "S026",
+   "beat": "B10",
+   "start": 69.521,
+   "end": 72.13799999999999,
+   "dur": 2.6169999999999902,
+   "hold": false,
+   "type": "CU",
+   "desc": "Beat of silence, then Eli close-up facing camera with the BEWILDERED look (callback face for the ending): \"Wait... what?\""
+  },
+  {
+   "id": "S027",
+   "beat": "B11",
+   "start": 72.13799999999999,
+   "end": 76.00482352941175,
+   "dur": 3.8668235294117608,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Overhead: Eli's old F math test; his hand (sleeve entering from frame edge) re-does it; red crosses flip to green ticks one by one, then a big green 6/7 stamp lands over the F."
+  },
+  {
+   "id": "S027b",
+   "beat": "B11",
+   "start": 76.00482352941175,
+   "end": 77.61599999999999,
+   "dur": 1.6111764705882337,
+   "hold": false,
+   "type": "ECU",
+   "desc": "Extreme close-up: Eli stares at the result, a slow grin spreading."
+  },
+  {
+   "id": "S028",
+   "beat": "B11",
+   "start": 77.61599999999999,
+   "end": 83.26599999999999,
+   "dur": 5.650000000000006,
+   "hold": false,
+   "type": "GFX",
+   "desc": "The rule card: \"LEARNS 10× FASTER FROM PRACTICE\" with crossed-out myths: instant knowledge, superhuman body, perfect judgment. Eli thinking beside it."
+  },
+  {
+   "id": "S029",
+   "beat": "B12",
+   "start": 83.26599999999999,
+   "end": 85.672,
+   "dur": 2.406000000000006,
+   "hold": false,
+   "type": "MS",
+   "desc": "Dawn bedroom: Eli springs up from the desk with an eager grin and cracks his knuckles."
+  },
+  {
+   "id": "S030",
+   "beat": "B12",
+   "start": 85.672,
+   "end": 88.07799999999999,
+   "dur": 2.4059999999999917,
+   "hold": false,
+   "type": "EST",
+   "desc": "Music room wide at sunset: upright piano waiting; label EXPERIMENT 1 · PIANO."
+  },
+  {
+   "id": "S031",
+   "beat": "B12",
+   "start": 88.07799999999999,
+   "end": 90.83599999999998,
+   "dur": 2.7579999999999956,
+   "hold": false,
+   "type": "MS",
+   "desc": "Eli at the piano, cocky: \"Okay. How hard can this be?\""
+  },
+  {
+   "id": "S032",
+   "beat": "B13",
+   "start": 90.83599999999998,
+   "end": 92.33599999999997,
+   "dur": 1.4999999999999858,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Overhead hands: wrong keys flash red, discordant notes, camera jolts on each clunker."
+  },
+  {
+   "id": "S033",
+   "beat": "B13",
+   "start": 92.33599999999997,
+   "end": 94.31099999999998,
+   "dur": 1.9750000000000085,
+   "hold": false,
+   "type": "CU",
+   "desc": "Eli wincing close-up as the narrator deadpans \"Pretty hard, apparently.\""
+  },
+  {
+   "id": "S034",
+   "beat": "B13",
+   "start": 94.31099999999998,
+   "end": 99.29399999999998,
+   "dur": 4.983000000000004,
+   "hold": false,
+   "type": "WS-timelapse",
+   "desc": "Time-lapse: sunlight slides across the room, the clock spins one hour, Eli practises with less and less fumbling; PRACTICE bar fills to 60 MIN."
+  },
+  {
+   "id": "S035",
+   "beat": "B13",
+   "start": 99.29399999999998,
+   "end": 103.69399999999997,
+   "dur": 4.3999999999999915,
+   "hold": false,
+   "type": "TOP-dolly",
+   "desc": "Music moment (no VO): slow lateral dolly along the keyboard as Eli plays the full melody; correct keys glow gold and release floating note shapes."
+  },
+  {
+   "id": "S036",
+   "beat": "B14",
+   "start": 103.69399999999997,
+   "end": 107.83899999999997,
+   "dur": 4.144999999999996,
+   "hold": false,
+   "type": "WS",
+   "desc": "Field at sunset: Eli tries to trap the ball; it bounces off his shin and rolls away. He facepalms."
+  },
+  {
+   "id": "S037",
+   "beat": "B14",
+   "start": 107.83899999999997,
+   "end": 111.13009523809521,
+   "dur": 3.291095238095238,
+   "hold": false,
+   "type": "LOW",
+   "desc": "Extreme low angle beside the ball: Eli taps it up again and again; dotted trajectory lines get tighter and tidier each rep; REP counter climbs."
+  },
+  {
+   "id": "S038",
+   "beat": "B14",
+   "start": 111.13009523809521,
+   "end": 114.12199999999997,
+   "dur": 2.991904761904763,
+   "hold": false,
+   "type": "WS",
+   "desc": "Wide: a clean skill move — Eli flicks the ball up and volleys it into the goal; the net bulges; he celebrates."
+  },
+  {
+   "id": "S039",
+   "beat": "B15",
+   "start": 114.12199999999997,
+   "end": 116.97499999999997,
+   "dur": 2.8529999999999944,
+   "hold": false,
+   "type": "MS",
+   "desc": "Noah arrives at the touchline, jaw on the floor: \"Bro, since WHEN could you do that?!\""
+  },
+  {
+   "id": "S040",
+   "beat": "B15",
+   "start": 116.97499999999997,
+   "end": 119.17499999999997,
+   "dur": 2.200000000000003,
+   "hold": false,
+   "type": "MS",
+   "desc": "Eli, juggling, shrugs, equally amazed: \"I don't know!\""
+  },
+  {
+   "id": "S041",
+   "beat": "B16",
+   "start": 119.17499999999997,
+   "end": 121.8350869565217,
+   "dur": 2.660086956521738,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Flashcard HOLA flips to こんにちは, flips again; the practice timeline at the bottom keeps filling."
+  },
+  {
+   "id": "S042",
+   "beat": "B16",
+   "start": 121.8350869565217,
+   "end": 124.73699999999997,
+   "dur": 2.9019130434782596,
+   "hold": false,
+   "type": "TOP",
+   "desc": "The flashcard slides into a laptop screen: code types, an ERROR appears, gets fixed, BUILD OK."
+  },
+  {
+   "id": "S043",
+   "beat": "B16",
+   "start": 124.73699999999997,
+   "end": 128.30644444444442,
+   "dur": 3.569444444444457,
+   "hold": false,
+   "type": "WS",
+   "desc": "The coded animation (a little bouncing gold ball) hops out of the screen into the real bedroom."
+  },
+  {
+   "id": "S043b",
+   "beat": "B16",
+   "start": 128.30644444444442,
+   "end": 131.16199999999998,
+   "dur": 2.8555555555555543,
+   "hold": false,
+   "type": "CU",
+   "desc": "Eli close-up, delighted, eyes following the bouncing ball."
+  },
+  {
+   "id": "S044",
+   "beat": "B17",
+   "start": 131.16199999999998,
+   "end": 134.94609090909088,
+   "dur": 3.7840909090909065,
+   "hold": false,
+   "type": "MS",
+   "desc": "Limits #1: Eli asleep with his head on his open textbook at 2:00 AM, lamp still on — he still needs sleep."
+  },
+  {
+   "id": "S045",
+   "beat": "B17",
+   "start": 134.94609090909088,
+   "end": 139.48699999999997,
+   "dur": 4.540909090909082,
+   "hold": false,
+   "type": "WS",
+   "desc": "Limits #2: on the field Eli dribbles neatly, but a bigger kid simply out-sprints him to the ball. Labels SKILL ✓ / SPEED · STRENGTH ✗."
+  },
+  {
+   "id": "S046",
+   "beat": "B18",
+   "start": 139.48699999999997,
+   "end": 142.96771428571424,
+   "dur": 3.4807142857142708,
+   "hold": false,
+   "type": "WS-repeat",
+   "desc": "SAME classroom angle as S008 (deliberate repeat). MATH on the board now; teacher asks; Eli raises his hand confidently."
+  },
+  {
+   "id": "S047",
+   "beat": "B18",
+   "start": 142.96771428571424,
+   "end": 146.13199999999995,
+   "dur": 3.164285714285711,
+   "hold": false,
+   "type": "TOP-match",
+   "desc": "Match cut: the old F test is swept aside by a new test stamped A+."
+  },
+  {
+   "id": "S048",
+   "beat": "B18",
+   "start": 146.13199999999995,
+   "end": 148.33199999999997,
+   "dur": 2.200000000000017,
+   "hold": false,
+   "type": "CU",
+   "desc": "Teacher close-up: her glasses slide down her face in genuine surprise."
+  },
+  {
+   "id": "S049",
+   "beat": "B18",
+   "start": 148.33199999999997,
+   "end": 150.53199999999995,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "WS",
+   "desc": "Students crowd around Eli's desk holding out notebooks and questions."
+  },
+  {
+   "id": "S050",
+   "beat": "B19",
+   "start": 150.53199999999995,
+   "end": 155.50999999999996,
+   "dur": 4.978000000000009,
+   "hold": false,
+   "type": "WS",
+   "desc": "Hallway: friends point at things on the lockers — a guitar, a chess-club flyer, a basketball poster; Eli grins eagerly at each one."
+  },
+  {
+   "id": "S051",
+   "beat": "B19",
+   "start": 155.50999999999996,
+   "end": 157.70999999999995,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "MS-2",
+   "desc": "Classroom: Eli seated at his desk (left, looking up); a cocky student in a green cap stands behind the desk and slaps a scrambled Rubik's cube down: \"Bet you can't solve this.\""
+  },
+  {
+   "id": "S052",
+   "beat": "B19",
+   "start": 157.70999999999995,
+   "end": 160.16799999999998,
+   "dur": 2.458000000000027,
+   "hold": false,
+   "type": "CU",
+   "desc": "Eli close-up, sly confident smile: \"Give me ten minutes.\""
+  },
+  {
+   "id": "S053",
+   "beat": "B20",
+   "start": 160.16799999999998,
+   "end": 162.36799999999997,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "MS-locked",
+   "desc": "Obsession montage A: Eli centred, front-on; a puzzle cube then a chessboard swap in front of him; friends behind him lose patience and walk away; light shifts warm → cool."
+  },
+  {
+   "id": "S054",
+   "beat": "B20",
+   "start": 162.36799999999997,
+   "end": 164.56799999999998,
+   "dur": 2.200000000000017,
+   "hold": false,
+   "type": "MS-locked",
+   "desc": "Obsession montage B: same framing; a book then a circuit diagram; the background is now empty; cool blue light."
+  },
+  {
+   "id": "S054b",
+   "beat": "B20",
+   "start": 164.56799999999998,
+   "end": 167.16799999999998,
+   "dur": 2.5999999999999943,
+   "hold": false,
+   "type": "CU",
+   "desc": "Alone in the cold light: Eli's phone lights up on the desk — \"Noah: hey, wanna hang out?\" — and he flips it face-down without looking."
+  },
+  {
+   "id": "S055",
+   "beat": "B21",
+   "start": 167.16799999999998,
+   "end": 170.1652727272727,
+   "dur": 2.9972727272727298,
+   "hold": false,
+   "type": "EST",
+   "desc": "Robotics workshop, warm afternoon: Eli and Noah build the robot together and high-five. Two benches: Eli's (left, with a photo of the two friends) and Noah's (right, blue tool tray)."
+  },
+  {
+   "id": "S056",
+   "beat": "B21",
+   "start": 170.1652727272727,
+   "end": 172.66299999999998,
+   "dur": 2.497727272727275,
+   "hold": false,
+   "type": "INSERT",
+   "desc": "Robot close-up: red stripe (Eli) and blue stripe (Noah) side by side — built together; both their hands (sleeves entering from the frame edges) tighten parts."
+  },
+  {
+   "id": "S057",
+   "beat": "B21",
+   "start": 172.66299999999998,
+   "end": 175.9452222222222,
+   "dur": 3.282222222222231,
+   "hold": false,
+   "type": "INSERT",
+   "desc": "A poster on the workshop wall: ROBOTICS CUP — WINNER QUALIFIES FOR STATE FINALS; a calendar beside it flips through months."
+  },
+  {
+   "id": "S057b",
+   "beat": "B21",
+   "start": 175.9452222222222,
+   "end": 178.57099999999997,
+   "dur": 2.6257777777777562,
+   "hold": false,
+   "type": "INSERT",
+   "desc": "Calendar on the workshop wall: months flip by — they spent months building it."
+  },
+  {
+   "id": "S058",
+   "beat": "B22",
+   "start": 178.57099999999997,
+   "end": 183.98799999999997,
+   "dur": 5.417000000000002,
+   "hold": false,
+   "type": "MS-2",
+   "desc": "Pace contrast: Eli types at blurring speed (motion-trail arms, code scrolling) while Noah slowly turns pages of a manual."
+  },
+  {
+   "id": "S059",
+   "beat": "B23",
+   "start": 183.98799999999997,
+   "end": 187.18799999999996,
+   "dur": 3.1999999999999886,
+   "hold": false,
+   "type": "MS-2",
+   "desc": "Noah, eager, holds up his sensor drawing and points at it: \"the metal barriers could confuse this sensor. I added a backup on the left...\" Eli works at his bench, half-listening."
+  },
+  {
+   "id": "S060",
+   "beat": "B23",
+   "start": 187.18799999999996,
+   "end": 192.29099999999997,
+   "dur": 5.103000000000009,
+   "hold": false,
+   "type": "INSERT",
+   "desc": "Insert of Noah's diagram: METAL barrier note, BACKUP sensor labelled LEFT; then the real robot's blue backup box on its left side lights up (labelled)."
+  },
+  {
+   "id": "S061",
+   "beat": "B23",
+   "start": 192.29099999999997,
+   "end": 193.65799999999996,
+   "dur": 1.3669999999999902,
+   "hold": false,
+   "type": "MS-rev",
+   "desc": "Reverse angle from Noah's side (shelves behind): Eli, seated at his bench with his back three-quarter to Noah, doesn't look up: \"Already fixed it.\" Noah's sentence is cut off."
+  },
+  {
+   "id": "S062",
+   "beat": "B24",
+   "start": 193.65799999999996,
+   "end": 196.38599999999997,
+   "dur": 2.7280000000000086,
+   "hold": false,
+   "type": "OTS",
+   "desc": "Over Eli's shoulder (Eli from behind, foreground): Noah tries again, \"Oh. Well, what about the steering?\""
+  },
+  {
+   "id": "S063",
+   "beat": "B24",
+   "start": 196.38599999999997,
+   "end": 198.58599999999996,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Top-down over Eli's bench: his hands type on the laptop; Noah's hand slides his diagram in — Eli pushes it aside without looking: \"Fixed that too.\""
+  },
+  {
+   "id": "S064",
+   "beat": "B24",
+   "start": 198.58599999999996,
+   "end": 201.35299999999995,
+   "dur": 2.766999999999996,
+   "hold": false,
+   "type": "CU",
+   "desc": "Noah close-up, hurt: \"Dude, can I at least do something?\" The music has dropped out."
+  },
+  {
+   "id": "S065",
+   "beat": "B24",
+   "start": 201.35299999999995,
+   "end": 204.49499999999998,
+   "dur": 3.1420000000000243,
+   "hold": false,
+   "type": "OTS",
+   "desc": "Over Noah's shoulder: Eli, back turned, still typing: \"I mean... I'll probably finish it faster.\""
+  },
+  {
+   "id": "S066",
+   "beat": "B24",
+   "start": 204.49499999999998,
+   "end": 209.69499999999996,
+   "dur": 5.199999999999989,
+   "hold": true,
+   "type": "MCU-hold",
+   "desc": "HOLD on Noah in silence (no music). He hesitates, then slowly lowers his small blue screwdriver onto his bench in the foreground — one isolated click — head dropping."
+  },
+  {
+   "id": "S067",
+   "beat": "B25",
+   "start": 209.69499999999996,
+   "end": 215.29499999999996,
+   "dur": 5.599999999999994,
+   "hold": true,
+   "type": "WS-hold",
+   "desc": "From the workshop doorway: Noah walks out toward camera and past it without a word; behind him Eli, small, keeps working at his bench, back turned. Noah's screwdriver lies on his empty bench."
+  },
+  {
+   "id": "S068",
+   "beat": "B26",
+   "start": 215.29499999999996,
+   "end": 224.08199999999997,
+   "dur": 8.787000000000006,
+   "hold": true,
+   "type": "WS-timelapse",
+   "desc": "One fixed wide over several afternoons: sunlight sweeps across the workshop again and again; Eli alone works faster, the robot gets more polished; Noah's bench stays empty (his screwdriver still lying there); the photo of the two friends sits on Eli's bench."
+  },
+  {
+   "id": "S069",
+   "beat": "B26",
+   "start": 224.08199999999997,
+   "end": 227.58199999999997,
+   "dur": 3.5,
+   "hold": false,
+   "type": "CU",
+   "desc": "Close-up: Eli glances at the empty stool, then back to work. Cool light."
+  },
+  {
+   "id": "S070",
+   "beat": "B27",
+   "start": 227.58199999999997,
+   "end": 229.78199999999995,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "EST",
+   "desc": "Tournament hall wide: ROBOTICS CUP banner, floodlights and haze, crowd in the bleachers, course table with metal barriers."
+  },
+  {
+   "id": "S071",
+   "beat": "B27",
+   "start": 229.78199999999995,
+   "end": 231.98199999999997,
+   "dur": 2.200000000000017,
+   "hold": false,
+   "type": "MS",
+   "desc": "Eli alone at the team station; the name card reads TEAM: ELI & NOAH (Noah is still officially registered). Telephoto: Noah, arms crossed, in the crowd under a pale beam."
+  },
+  {
+   "id": "S071b",
+   "beat": "B27",
+   "start": 231.98199999999997,
+   "end": 234.18199999999996,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "TELE",
+   "desc": "Telephoto: Noah, arms crossed, sitting in the crowd under a pale beam — he came, but not as part of the team."
+  },
+  {
+   "id": "S072",
+   "beat": "B28",
+   "start": 234.18199999999996,
+   "end": 238.08399999999995,
+   "dur": 3.901999999999987,
+   "hold": false,
+   "type": "LOW",
+   "desc": "Low tracking shot beside the robot racing along the table: table seams and blurred foreground posts whip past, speed lines behind it."
+  },
+  {
+   "id": "S072b",
+   "beat": "B28",
+   "start": 238.08399999999995,
+   "end": 240.03499999999994,
+   "dur": 1.9509999999999934,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Whip to overhead: the robot zips through the course corners at speed, motion-blurred."
+  },
+  {
+   "id": "S073",
+   "beat": "B28",
+   "start": 240.03499999999994,
+   "end": 243.75199999999995,
+   "dur": 3.717000000000013,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Overhead course: the robot weaves around the barriers along the dotted route and finishes — ROUND 1 ✓, then ROUND 2 ✓."
+  },
+  {
+   "id": "S074",
+   "beat": "B28",
+   "start": 243.75199999999995,
+   "end": 247.58499999999995,
+   "dur": 3.8329999999999984,
+   "hold": false,
+   "type": "MS",
+   "desc": "Announcer with headset mic, arm thrown out to the side (face clear): \"And Eli's team advances to the final!\" Crowd cheers."
+  },
+  {
+   "id": "S075",
+   "beat": "B29",
+   "start": 247.58499999999995,
+   "end": 251.12199999999996,
+   "dur": 3.537000000000006,
+   "hold": false,
+   "type": "INSERT",
+   "desc": "Scoreboard flips to FINAL, clock starts at 0:60 in red; the music tightens."
+  },
+  {
+   "id": "S076",
+   "beat": "B29",
+   "start": 251.12199999999996,
+   "end": 252.72199999999995,
+   "dur": 1.5999999999999943,
+   "hold": false,
+   "type": "POV",
+   "desc": "Robot POV rushing toward a shiny METAL barrier; the orange main-sensor LED flickers."
+  },
+  {
+   "id": "S077",
+   "beat": "B29",
+   "start": 252.72199999999995,
+   "end": 255.13899999999995,
+   "dur": 2.4170000000000016,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Overhead: the robot suddenly veers the wrong way and bumps the barrier; red wrong-route line; clock running."
+  },
+  {
+   "id": "S078",
+   "beat": "B30",
+   "start": 255.13899999999995,
+   "end": 256.93399999999997,
+   "dur": 1.795000000000016,
+   "hold": false,
+   "type": "CU",
+   "desc": "Eli panics, hands on his head: \"No, no, no. WHAT?!\""
+  },
+  {
+   "id": "S079",
+   "beat": "B30",
+   "start": 256.93399999999997,
+   "end": 261.86699999999996,
+   "dur": 4.932999999999993,
+   "hold": false,
+   "type": "INSERT",
+   "desc": "Diagnostic laptop: SOFTWARE ✓ OK, MOTORS ✓ OK — nothing wrong found; the timer keeps falling."
+  },
+  {
+   "id": "S080",
+   "beat": "B31",
+   "start": 261.86699999999996,
+   "end": 265.3086666666666,
+   "dur": 3.441666666666663,
+   "hold": false,
+   "type": "MS",
+   "desc": "Eli frozen at the station, the crowd blurred and muffled; the timer ticks."
+  },
+  {
+   "id": "S080b",
+   "beat": "B31",
+   "start": 265.3086666666666,
+   "end": 267.5086666666666,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "INSERT",
+   "desc": "Cutaway: the robot stuck against the barrier, wheels spinning, orange LED flickering."
+  },
+  {
+   "id": "S081",
+   "beat": "B31",
+   "start": 267.5086666666666,
+   "end": 270.262,
+   "dur": 2.753333333333387,
+   "hold": false,
+   "type": "ECU",
+   "desc": "Extreme close-up on Eli's eyes: this isn't something he can learn his way out of."
+  },
+  {
+   "id": "S082",
+   "beat": "B31",
+   "start": 270.262,
+   "end": 272.77899999999994,
+   "dur": 2.516999999999939,
+   "hold": false,
+   "type": "TELE",
+   "desc": "Eli looks up; a telephoto shot isolates Noah (yellow cap) in the crowd, picked out by a pale beam."
+  },
+  {
+   "id": "S083",
+   "beat": "B32",
+   "start": 272.77899999999994,
+   "end": 274.1789999999999,
+   "dur": 1.3999999999999773,
+   "hold": false,
+   "type": "CU",
+   "desc": "Eli shouts across the hall: \"NOAH!\""
+  },
+  {
+   "id": "S084",
+   "beat": "B32",
+   "start": 274.1789999999999,
+   "end": 275.57899999999995,
+   "dur": 1.400000000000034,
+   "hold": false,
+   "type": "WS-geo",
+   "desc": "Geography wide from behind Eli at the station: across the hall, Noah stands up in the bleachers: \"What?!\""
+  },
+  {
+   "id": "S085",
+   "beat": "B32",
+   "start": 275.57899999999995,
+   "end": 279.65399999999994,
+   "dur": 4.074999999999989,
+   "hold": false,
+   "type": "OTS-high",
+   "desc": "High angle over Noah's shoulder down to Eli at the station: \"Remember that sensor setup...? Why did you want to change it?\""
+  },
+  {
+   "id": "S086",
+   "beat": "B32",
+   "start": 279.65399999999994,
+   "end": 282.2039999999999,
+   "dur": 2.5499999999999545,
+   "hold": false,
+   "type": "CU",
+   "desc": "Noah close-up, frustrated: \"Because the metal barriers mess with the readings! I told you that three weeks ago!\""
+  },
+  {
+   "id": "S086b",
+   "beat": "B32",
+   "start": 282.2039999999999,
+   "end": 284.8539999999999,
+   "dur": 2.650000000000034,
+   "hold": false,
+   "type": "INSERT",
+   "desc": "Cutaway under Noah's line: the robot still jammed against the metal barrier, wheels spinning, orange LED flickering."
+  },
+  {
+   "id": "S087",
+   "beat": "B33",
+   "start": 284.8539999999999,
+   "end": 287.0539999999999,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "FLASH",
+   "desc": "Sepia flashback that exactly matches S059: Noah holding up the diagram and pointing (BACKUP · LEFT, METAL); Eli not listening; the soft tool-click returns."
+  },
+  {
+   "id": "S088",
+   "beat": "B33",
+   "start": 287.0539999999999,
+   "end": 289.2539999999999,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "CU",
+   "desc": "Back in the hall: Eli freezes — guilty realisation."
+  },
+  {
+   "id": "S089",
+   "beat": "B34",
+   "start": 289.2539999999999,
+   "end": 290.84099999999995,
+   "dur": 1.587000000000046,
+   "hold": false,
+   "type": "LOW",
+   "desc": "Low angle on Eli, the timer large in the foreground: \"Okay! What do I do?!\""
+  },
+  {
+   "id": "S090",
+   "beat": "B34",
+   "start": 290.84099999999995,
+   "end": 293.7329999999999,
+   "dur": 2.891999999999939,
+   "hold": false,
+   "type": "TELE",
+   "desc": "Telephoto push on Noah in the bleachers, pointing hard to his left: \"Switch to the backup sensor! LEFT SIDE!\""
+  },
+  {
+   "id": "S091",
+   "beat": "B35",
+   "start": 293.7329999999999,
+   "end": 294.9329999999999,
+   "dur": 1.1999999999999886,
+   "hold": false,
+   "type": "INSERT",
+   "desc": "Tight on the controller: Eli's thumb flips the switch MAIN → BACKUP SENSOR; zap."
+  },
+  {
+   "id": "S091b",
+   "beat": "B35",
+   "start": 294.9329999999999,
+   "end": 295.9329999999999,
+   "dur": 1,
+   "hold": false,
+   "type": "ECU",
+   "desc": "Extreme close-up on the robot's rear-left corner — the same blue BACKUP box labelled in S060 — its LED ignites and floods the dark chassis with blue light."
+  },
+  {
+   "id": "S093",
+   "beat": "B35",
+   "start": 295.9329999999999,
+   "end": 297.13299999999987,
+   "dur": 1.1999999999999886,
+   "hold": false,
+   "type": "TOP-close",
+   "desc": "Close overhead on the metal barrier: lit by its blue backup LED, the robot curves cleanly AROUND the barrier this time (blue trail) instead of veering into it."
+  },
+  {
+   "id": "S092",
+   "beat": "B35",
+   "start": 297.13299999999987,
+   "end": 298.2329999999999,
+   "dur": 1.1000000000000227,
+   "hold": false,
+   "type": "GFX",
+   "desc": "Overlay explaining why it worked: the main sensor's reading near metal is jagged; the backup sensor's reading is clean."
+  },
+  {
+   "id": "S094",
+   "beat": "B35",
+   "start": 298.2329999999999,
+   "end": 299.4329999999999,
+   "dur": 1.1999999999999886,
+   "hold": false,
+   "type": "TOP",
+   "desc": "Overhead: the robot races the rest of the route toward the finish; clock 0:03 → 0:02."
+  },
+  {
+   "id": "S094b",
+   "beat": "B35",
+   "start": 299.4329999999999,
+   "end": 300.3329999999999,
+   "dur": 0.9000000000000341,
+   "hold": false,
+   "type": "ECU",
+   "desc": "Extreme close-up of the red timer hitting 0:01. The music cuts out."
+  },
+  {
+   "id": "S095",
+   "beat": "B35",
+   "start": 300.3329999999999,
+   "end": 302.9329999999999,
+   "dur": 2.599999999999966,
+   "hold": false,
+   "type": "ECU",
+   "desc": "Slow-motion extreme close-up on the checkered finish line: in silence but for a heartbeat, the robot's front wheel creeps over it; then FINISH horn, flash, crowd, and the triumph theme returns."
+  },
+  {
+   "id": "S096",
+   "beat": "B36",
+   "start": 302.9329999999999,
+   "end": 305.13299999999987,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "WS",
+   "desc": "The crowd erupts under golden light, confetti falls; scoreboard WINNER 0:01."
+  },
+  {
+   "id": "S097",
+   "beat": "B36",
+   "start": 305.13299999999987,
+   "end": 307.45799999999986,
+   "dur": 2.3249999999999886,
+   "hold": false,
+   "type": "CU-rack",
+   "desc": "An official's hand lifts the trophy in the foreground; Eli glances at it, then his eyeline moves past it, screen-right, toward Noah (rack focus trophy → Eli)."
+  },
+  {
+   "id": "S098",
+   "beat": "B36",
+   "start": 307.45799999999986,
+   "end": 309.6579999999999,
+   "dur": 2.2000000000000455,
+   "hold": false,
+   "type": "MS",
+   "desc": "Eli walks away from the trophy, threading through the cheering crowd toward Noah — sheepish, determined."
+  },
+  {
+   "id": "S099",
+   "beat": "B37",
+   "start": 309.6579999999999,
+   "end": 313.47799999999995,
+   "dur": 3.82000000000005,
+   "hold": false,
+   "type": "MS-2",
+   "desc": "Two-shot by the bleachers, applause softening, golden light: Eli, sincere: \"Dude... I'm sorry.\" Noah, arms crossed: \"For what?\""
+  },
+  {
+   "id": "S100",
+   "beat": "B37",
+   "start": 313.47799999999995,
+   "end": 316.47799999999995,
+   "dur": 3,
+   "hold": false,
+   "type": "OTS",
+   "desc": "Over Noah's shoulder: Eli: \"Thinking I didn't need you.\""
+  },
+  {
+   "id": "S100b",
+   "beat": "B37",
+   "start": 316.47799999999995,
+   "end": 317.72799999999995,
+   "dur": 1.25,
+   "hold": false,
+   "type": "CU",
+   "desc": "Noah's soft, unreadable reaction — then the corner of a smile."
+  },
+  {
+   "id": "S101",
+   "beat": "B37",
+   "start": 317.72799999999995,
+   "end": 320.72799999999995,
+   "dur": 3,
+   "hold": false,
+   "type": "OTS",
+   "desc": "Over Eli's shoulder: Noah, teasing: \"Yeah, that was pretty stupid.\""
+  },
+  {
+   "id": "S102",
+   "beat": "B37",
+   "start": 320.72799999999995,
+   "end": 323.72799999999995,
+   "dur": 3,
+   "hold": false,
+   "type": "WS-low",
+   "desc": "Low profile wide, blurred applauding crowd in the foreground: Eli laughs \"You're telling me.\" — Noah bumps his shoulder; Eli rocks sideways and they both laugh."
+  },
+  {
+   "id": "S103",
+   "beat": "B38",
+   "start": 323.72799999999995,
+   "end": 327.22799999999995,
+   "dur": 3.5,
+   "hold": true,
+   "type": "EST",
+   "desc": "Dusk outside the school: the two friends walk home together through the warm door-light, carrying the robot and the trophy; camera pans with them."
+  },
+  {
+   "id": "S104",
+   "beat": "B38",
+   "start": 327.22799999999995,
+   "end": 332.6449999999999,
+   "dur": 5.416999999999973,
+   "hold": false,
+   "type": "INSERT",
+   "desc": "The robot's red and blue stripes side by side in warm light; the camera drifts to the friends' photo propped next to it."
+  },
+  {
+   "id": "S105",
+   "beat": "B39",
+   "start": 332.6449999999999,
+   "end": 334.8449999999999,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "TOP-callback",
+   "desc": "Match cut to the opening piano (overhead keys): Noah's hand hits a terrible note."
+  },
+  {
+   "id": "S106",
+   "beat": "B39",
+   "start": 334.8449999999999,
+   "end": 338.3279999999999,
+   "dur": 3.483000000000004,
+   "hold": false,
+   "type": "MS-2",
+   "desc": "Music room: Noah at the piano: \"So... you gonna teach me that piano song or what?\" Eli walks in and sits down beside him."
+  },
+  {
+   "id": "S106b",
+   "beat": "B39",
+   "start": 338.3279999999999,
+   "end": 341.0779999999999,
+   "dur": 2.75,
+   "hold": false,
+   "type": "TOP-callback",
+   "desc": "Overhead keys (same angle as S002/S105): Eli's red-sleeved hands play the first two bars of the song, clean and gold, next to Noah's blue sleeve — \"Yeah.\""
+  },
+  {
+   "id": "S107",
+   "beat": "B39",
+   "start": 341.0779999999999,
+   "end": 343.2779999999999,
+   "dur": 2.1999999999999886,
+   "hold": false,
+   "type": "MS",
+   "desc": "Noah, seated at the piano (keyboard edge in frame), cheerfully: \"Cool. It'll only take me ten hours.\""
+  },
+  {
+   "id": "S108",
+   "beat": "B39",
+   "start": 343.2779999999999,
+   "end": 346.3779999999999,
+   "dur": 3.099999999999966,
+   "hold": false,
+   "type": "CU-callback",
+   "desc": "Callback: Eli, seated, turns to camera with exactly the same bewildered face and framing as \"Wait... what?\" (S026): \"...Oh my God.\" Silent beat, comedic sting, hard cut to black."
+  },
+  {
+   "id": "S109",
+   "beat": "B40",
+   "start": 346.3779999999999,
+   "end": 350.1779999999999,
+   "dur": 3.8000000000000114,
+   "hold": false,
+   "type": "END",
+   "desc": "Title on black: WHAT IF YOU COULD LEARN ANYTHING 10x FASTER?"
+  }
+ ]
+}
