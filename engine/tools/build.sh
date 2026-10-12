@@ -12,8 +12,8 @@ mkdir -p $OUT/stills
 python3 tools/vo_data.py $PROD/vo $PROD/vo_lines.json $VO
 node render.js --shots $SHOTS --vo $VO --timeline $OUT/timeline.json --stills shots --outdir $OUT/stills > /dev/null
 python3 tools/sheet.py $OUT/stills $OUT/contact_sheet.jpg 4 28 > /dev/null
-node render.js --shots $SHOTS --vo $VO --video $OUT/video_noaudio.mp4 --res $RES --workers 4 --crf 20
+node render.js --shots $SHOTS --vo $VO --video $OUT/video_noaudio.mp4 --res $RES --workers 4 --crf 24
 python3 tools/mix.py $OUT/timeline.json $VO $PROD $OUT/mix.wav
-ffmpeg -y -v error -i $OUT/video_noaudio.mp4 -i $OUT/mix.wav -c:v copy -c:a aac -b:a 192k -shortest $OUT/learn10x_$V.mp4
+ffmpeg -y -v error -i $OUT/video_noaudio.mp4 -i $OUT/mix.wav -c:v copy -af loudnorm=I=-16:TP=-1.5:LRA=11 -ar 48000 -c:a aac -b:a 192k -shortest -movflags +faststart $OUT/learn10x_$V.mp4
 rm -f $OUT/video_noaudio.mp4
 ls -la $OUT
