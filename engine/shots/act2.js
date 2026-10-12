@@ -14,7 +14,7 @@ addBeat({ id: 'B12', lines: ['L022', { id: 'L023', gap: .3 }], pre: .2, post: .4
   { id: 'S031', type: 'MS', on: 'L023', desc: 'Eli at the piano, cocky: "Okay. How hard can this be?"', w: 1,
     draw: c => { const r = musicRoom(c, { pose: P.sit(), expr: 'smug' }); return scene(c, { back: r.e.back, bb: 6, mid: r.mid, cam: CAM.drift(1000, 560, 1.7, .04)(c.p) }); } },
 ] });
-addBeat({ id: 'B13', lines: [{ id: 'L024', gap: .6 }, 'L025'], pre: 1.4, post: 3.4, shots: [
+addBeat({ id: 'B13', minShot: 1.5, lines: [{ id: 'L024', gap: .6 }, 'L025'], pre: 1.4, post: 3.4, shots: [
   { id: 'S032', type: 'TOP', desc: 'Overhead hands: wrong keys flash red, discordant notes, camera jolts on each clunker.', w: 1, sfx: [[.05, 'piano_bad_notes', .9]],
     draw: c => { const pressed = {}; const n = Math.floor(c.t * 5); pressed[(n * 7) % 21] = 1; pressed[100 + (n * 5) % 20] = 1; const mid = S.rect(-200, -200, 2400, 1500, '#1a0f14') + PR.keysTop(160, 330, 1600, 21, pressed, { hit: '#ff6a5a' }) + bigHand(560 + 300 * hash(n), 560, 1.4, -90, PAL.eli, { curl: true }) + bigHand(1100 + 300 * hash(n + 3), 560, 1.4, -90, PAL.eli); return scene(c, { mid, vignette: .72, grade: INSERT_GRADE, cam: CAM.drift(960, 540, 1.08, .03)(c.p), shake: n % 2 ? 3 : 0 }); } },
   { id: 'S033', type: 'CU', on: 'L024', desc: 'Eli wincing close-up as the narrator deadpans "Pretty hard, apparently."', w: 1,

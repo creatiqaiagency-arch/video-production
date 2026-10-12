@@ -45,8 +45,10 @@ addBeat({ id: 'B21', lines: ['L039', { id: 'L040', gap: .3 }], pre: .3, post: .3
     draw: c => {
       const e = ENV.workshop({ t: c.T });
       const poster = S.g({ transform: 'rotate(-2,960,520)' }, S.rect(620, 180, 680, 700, '#d9c9ab'), S.rect(620, 180, 680, 150, '#2a1f4a'), S.text(960, 280, 'ROBOTICS CUP', { 'font-family': 'Lilita One', 'font-size': 84, fill: PAL.gold, 'text-anchor': 'middle' }), PR.robotTop(960, 520, -20, 1.6, {}), S.text(960, 760, 'WINNER QUALIFIES', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 52, fill: '#2a1f2a', 'text-anchor': 'middle' }), S.text(960, 830, 'FOR STATE FINALS', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 52, fill: '#c0392b', 'text-anchor': 'middle' }));
-      return scene(c, { back: e.back, bb: 12, mid: poster + PR.calendar(1540, 700, Math.min(90, 30 + Math.floor(c.t * 25)), .7), cam: CAM.push(960, 540, 1.0, 1.08)(c.p) });
+      return scene(c, { back: e.back, bb: 12, mid: poster, cam: CAM.push(960, 540, 1.0, 1.08)(c.p) });
     } },
+  { id: 'S057b', type: 'INSERT', w: .8, desc: 'Calendar on the workshop wall: months flip by — they spent months building it.', sfx: [[.2, 'paper_flip', .5], [.8, 'paper_flip', .5], [1.4, 'paper_flip', .5]],
+    draw: c => { const e = ENV.workshop({ t: c.T }); const n = Math.floor(c.t / .6), f = (c.t % .6) / .6; const m = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL'][Math.min(6, n)]; return scene(c, { back: e.back, bb: 12, mid: S.g({ transform: 'translate(960,560) scale(2.2)' }, S.rect(-90, -110, 180, 220, '#d9c9ab', { rx: 8 }), S.rect(-90, -110, 180, 60, '#d23b3b', { rx: 8 }), S.text(0, -66, m, { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 40, fill: '#fff', 'text-anchor': 'middle' }), S.text(0, 60, 'ROBOT', { 'font-family': 'Lilita One', 'font-size': 34, fill: '#3a302a', 'text-anchor': 'middle' }), S.g({ transform: `translate(0,${-f * 140}) rotate(${-f * 25})`, opacity: 1 - f }, S.rect(-90, -110, 180, 220, '#e9dcc4', { rx: 8 }))), cam: CAM.drift(960, 540, 1.05, .05, 30)(c.p) }); } },
 ] });
 // ---------- B22 Eli outpaces Noah ----------
 addBeat({ id: 'B22', lines: ['L041'], pre: .2, post: .3, shots: [
@@ -70,7 +72,7 @@ addBeat({ id: 'B23', lines: ['L042', { id: 'L043', gap: -.2 }], pre: .3, post: .
       return scene(c, { back: e.back, bb: 12, mid: PR.robot(1180, 980, { s: 3.0, ledBackup: true }) + glow(745, 722, 200, '#6fd0ff', .35), cam: CAM.push(900, 640, 1.0, 1.12)(seg(c.p, .55, 1)), overlay: label(760, 420, 'BACKUP SENSOR · LEFT SIDE', { size: 44, k: appear(c.t, c.d * .6), fill: '#9fdcff' }) + S.line(760, 440, 760, 600, '#9fdcff', 4, { opacity: appear(c.t, c.d * .6) }) });
     } },
   { id: 'S061', type: 'MS-rev', on: 'L043', off: -.05, desc: 'Reverse angle from Noah\'s side (shelves behind): Eli, seated at his bench with his back three-quarter to Noah, doesn\'t look up: "Already fixed it." Noah\'s sentence is cut off.', w: 1, sfx: [[.1, 'electric_switch', .3]],
-    draw: c => { const r = workshop(c); return scene(c, { back: r.back, bb: 8, mid: A(c, { who: 'eli', headAt: [900, 520], h: 900, f: 1, turn: .95, pose: P.controller(c.T), expr: 'busy', lookY: 1 }) + PR.laptop(1300, 980, 1.2, codeScreen(1)), fg: A(c, { who: 'noah', headAt: [260, 380], h: 1300, front: true, back: true, pose: P.stand() }), fb: 16, cam: { x: 1500 - 500 * 0 + 80 * c.p, y: 560, z: 1 } }); } },
+    draw: c => { const e = ENV.workshopRev({ t: c.T }); return scene(c, { back: e.back, bb: 8, mid: A(c, { who: 'eli', headAt: [1000, 520], h: 900, f: 1, turn: .95, pose: P.controller(c.T), expr: 'busy', lookY: 1, light: LT.coolL }) + PR.laptop(1380, 980, 1.2, codeScreen(1)), fg: A(c, { who: 'noah', headAt: [260, 380], h: 1300, front: true, back: true, pose: P.stand(), light: LT.coolL }), fb: 16, cam: CAM.drift(1000, 560, 1, .03, 30)(c.p) }); } },
 ] });
 addBeat({ id: 'B24', lines: ['L044', { id: 'L045', gap: .1 }, { id: 'L046', gap: .6 }, { id: 'L047', gap: .5 }], pre: .2, post: 5.4, music: { name: 'stop', onLine: 'L046', off: -.2 }, shots: [
   { id: 'S062', type: 'OTS', desc: 'Over Eli\'s shoulder (Eli from behind, foreground): Noah tries again, "Oh. Well, what about the steering?"', w: 1,
@@ -80,7 +82,7 @@ addBeat({ id: 'B24', lines: ['L044', { id: 'L045', gap: .1 }, { id: 'L046', gap:
   { id: 'S064', type: 'CU', on: 'L046', off: -.4, desc: 'Noah close-up, hurt: "Dude, can I at least do something?" The music has dropped out.', w: 1,
     draw: c => { const r = workshop(c, { tod: .6 }); return scene(c, { back: r.back, bb: 12, mid: A(c, { who: 'noah', headAt: [1180, 450], h: 1150, f: -1, pose: P.stand(), expr: 'sad', light: LT.warmL }), cam: CAM.push(1100, 520, 1, 1.05)(c.p) }); } },
   { id: 'S065', type: 'OTS', on: 'L047', desc: 'Over Noah\'s shoulder: Eli, back turned, still typing: "I mean... I\'ll probably finish it faster."', w: 1,
-    draw: c => { const r = workshop(c, { tod: .6 }); return scene(c, { back: r.back, bb: 8, mid: A(c, { who: 'eli', headAt: [820, 540], h: 880, f: -1, turn: .95, pose: P.controller(c.T), expr: 'busy', lookY: 1, light: LT.warmL }) + PR.laptop(520, 1000, 1.1, codeScreen(1)), fg: A(c, { who: 'noah', headAt: [1650, 420], h: 1300, front: true, back: true, pose: P.stand(), light: LT.warmL }), fb: 16, cam: CAM.drift(900, 560, 1, .03, 30)(c.p) }); } },
+    draw: c => { const r = { back: ENV.workshopRev({ t: c.T }).back }; return scene(c, { back: r.back, bb: 8, mid: A(c, { who: 'eli', headAt: [820, 540], h: 880, f: -1, turn: .95, pose: P.controller(c.T), expr: 'busy', lookY: 1, light: LT.warmL }) + PR.laptop(520, 1000, 1.1, codeScreen(1)), fg: A(c, { who: 'noah', headAt: [1650, 420], h: 1300, front: true, back: true, pose: P.stand(), light: LT.warmL }), fb: 16, cam: CAM.drift(900, 560, 1, .03, 30)(c.p) }); } },
   { id: 'S066', type: 'MCU-hold', hold: true, at: -5.2, desc: 'HOLD on Noah in silence (no music). He hesitates, then slowly lowers his small blue screwdriver onto his bench in the foreground — one isolated click — head dropping.', w: 1, sfx: [[3.0, 'tool_place', 2.2]],
     draw: c => {
       const r = workshop(c, { tod: .75, lamp: .5 });
@@ -94,14 +96,14 @@ addBeat({ id: 'B24', lines: ['L044', { id: 'L045', gap: .1 }, { id: 'L046', gap:
 addBeat({ id: 'B25', lines: [], min: 5.6, shots: [
   { id: 'S067', type: 'WS-hold', hold: true, desc: 'From the workshop doorway: Noah walks out toward camera and past it without a word; behind him Eli, small, keeps working at his bench, back turned. Noah\'s screwdriver lies on his empty bench.', w: 1, sfx: [[3.6, 'door_close', 3.0]],
     draw: c => {
-      const r = workshop(c, { tod: .75, toolOnBench: true });
-      const k = at(c, .3, 3.6), nx = lerp(1250, 1500, k), nh = lerp(320, 900, E.in(k)), ny = lerp(1000, 1500, E.in(k));
-      const doorFrame = S.rect(-200, -200, 260, 1500, '#140c10') + S.rect(W - 60, -200, 400, 1500, '#140c10') + S.rect(-200, -200, 2400, 230, '#140c10');
-      return scene(c, { back: r.back, bb: 3, mid: A(c, { who: 'eli', x: 640, y: 1000, h: 330, f: -1, turn: .95, pose: P.controller(c.T), expr: 'busy', light: LT.warmL }) + (k < .98 ? A(c, { who: 'noah', x: nx, y: ny, h: nh, f: 1, pose: P.walk(walkPh(k * 600, 500)), expr: 'sad', lookY: .8, light: LT.warmL }) : ''), fg: doorFrame, fb: 6, fp: 1.05, cam: CAM.push(1100, 600, 1.0, 1.06)(c.p), grade: { tint: '#6a5aa0', op: .18 } });
+      const k = at(c, .2, 3.0), door = c.t < 2.6 ? atE(c, 2.0, 2.5) : 1 - atE(c, 3.3, 3.7);
+      const e = ENV.workshopRev({ t: c.T, door });
+      const nx = lerp(900, 1590, k), out = c.t > 3.0;
+      return scene(c, { back: e.back, bb: 3, mid: out ? '' : A(c, { who: 'noah', x: nx, y: 860, h: 330, f: 1, pose: P.walk(walkPh(nx - 900, 330)), expr: 'sad', lookY: .8, light: LT.coolL, opacity: c.t > 2.7 ? 1 - at(c, 2.7, 3.0) : 1 }), fg: A(c, { who: 'eli', headAt: [300, 560], h: 1300, f: 1, front: true, back: true, pose: P.controller(c.T), light: LT.coolL }) + PR.screwdriver(560, 1000, 1.1, 6, '#4aa3ff'), fb: 14, cam: CAM.move([1100, 560, 1.08], [1200, 560, .98])(c.p), grade: { tint: '#6a5aa0', op: .18 } });
     } },
 ] });
 // ---------- B26 empty workspace time-lapse ----------
-addBeat({ id: 'B26', minShot: 3.5, lines: ['L048', { id: 'L049', gap: .3 }, { id: 'L050', gap: .4 }], pre: 2.0, post: .8, music: { name: 'sad_piano', vol: .4, at: 0, fade: 2 }, shots: [
+addBeat({ id: 'B26', minShot: 3.5, lines: ['L048', { id: 'L049', gap: .3 }, { id: 'L050', gap: .4 }], pre: 1.5, post: .8, music: { name: 'sad_piano', vol: .4, at: 0, fade: 2 }, shots: [
   { id: 'S068', type: 'WS-timelapse', hold: true, desc: 'One fixed wide over several afternoons: sunlight sweeps across the workshop again and again; Eli alone works faster, the robot gets more polished; Noah\'s bench stays empty (his screwdriver still lying there); the photo of the two friends sits on Eli\'s bench.', w: 1.6, sfx: [[0, 'clock_tick_loop', .3]],
     draw: c => { const tod = (c.t / 2.2) % 1; const r = workshop(c, { tod, toolOnBench: true }); return scene(c, { back: r.back, bb: 1, mid: A(c, { who: 'eli', x: 700 + 40 * Math.sin(c.t * 3), y: 1000, h: 330, f: 1, pose: P.controller(c.T * 3), expr: 'busy', lookY: 1, light: { dx: -1, dy: -.3, color: mixc(PAL.rim, PAL.rimCool, tod) } }) + label(1380, 640, `DAY ${1 + Math.floor(c.t / 2.2)}`, { size: 36, k: 1, op: .7 }), cam: CAM.push(1000, 640, 1.0, 1.15, 'lin')(c.p), grade: { tint: mixc('#ffb070', '#4a5aff', tod), op: .25 } }); } },
   { id: 'S069', type: 'CU', on: 'L050', desc: 'Close-up: Eli glances at the empty stool, then back to work. Cool light.', w: 1,
@@ -116,16 +118,17 @@ addBeat({ id: 'B27', lines: ['L051'], pre: .5, post: .3, music: { name: 'tension
     draw: c => {
       const r = arena(c, { noahBeam: c.t >= c.d * .6 });
       const card = S.g({}, S.rect(-160, -50, 320, 90, '#d9c9ab', { rx: 6 }), S.text(0, 10, 'TEAM: ELI & NOAH', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 36, fill: '#2a1f2a', 'text-anchor': 'middle' }));
-      if (c.t < c.d * .6) return scene(c, { back: r.back, bb: 9, mid: A(c, { who: 'eli', x: 860, y: 1080, h: 640, f: 1, pose: P.controller(c.T), expr: 'busy', light: LT.floodL }) + S.rect(500, 860, 900, 300, '#24304a') + S.g({ transform: 'translate(1150,920)' }, card) + PR.stool(1350, 1100, 1, '#4a5a7a'), cam: CAM.drift(960, 620, 1.0, .03, 30)(c.p) });
-      return scene(c, { back: r.back, bb: 0, cam: { x: 1280, y: 480, z: 3.2 + .1 * c.p } });
+      return scene(c, { back: r.back, bb: 9, mid: A(c, { who: 'eli', x: 860, y: 1080, h: 640, f: 1, pose: P.controller(c.T), expr: 'busy', light: LT.floodL }) + S.rect(500, 860, 900, 300, '#24304a') + S.g({ transform: 'translate(1150,920)' }, card) + PR.stool(1350, 1100, 1, '#4a5a7a'), cam: CAM.drift(960, 620, 1.0, .03, 30)(c.p) });
     } },
+  { id: 'S071b', type: 'TELE', w: .7, desc: 'Telephoto: Noah, arms crossed, sitting in the crowd under a pale beam — he came, but not as part of the team.',
+    draw: c => { const r = arena(c, { noahBeam: true }); return scene(c, { back: r.back, bb: 0, cam: { x: 1280, y: 480, z: 3.0 + .2 * c.p } }); } },
 ] });
 function topRun(c, route, k, o = {}) {
   const [x, y, a] = pathAt(route, k);
   return courseTop({ route: ROUTE_OK, routeOp: o.routeOp ?? .35, hiBar: o.hiBar, hiK: o.hiK, bad: o.bad }) + PR.robotTop(x, y, a, 1, { ledMain: o.ledMain, ledBackup: o.ledBackup });
 }
 addBeat({ id: 'B28', lines: ['L052', { id: 'L053', gap: .3 }, { id: 'L054', gap: .3 }], pre: .2, post: .6, minShot: 1.6, shots: [
-  { id: 'S072', type: 'LOW', desc: 'Low tracking shot beside the robot racing along the table: table seams and blurred foreground posts whip past, speed lines behind it.', w: 1, sfx: [[0, 'motor_whir', .7]],
+  { id: 'S072', type: 'LOW', w: .6, desc: 'Low tracking shot beside the robot racing along the table: table seams and blurred foreground posts whip past, speed lines behind it.', w: 1, sfx: [[0, 'motor_whir', .7]],
     draw: c => {
       const r = arena(c, { cheer: .4 }); const x = lerp(300, 1600, c.p);
       let seams = ''; for (let i = -10; i < 30; i++) seams += S.line(i * 160, 770, i * 160 - 60, 1100, '#3a4a6a', 4);
@@ -133,6 +136,8 @@ addBeat({ id: 'B28', lines: ['L052', { id: 'L053', gap: .3 }, { id: 'L054', gap:
       const posts = [0, 1, 2, 3, 4, 5].map(i => S.rect(i * 700 - 200, 500, 70, 900, '#0b0810')).join('');
       return scene(c, { back: r.back, bb: 10, mid: S.rect(-600, 760, 3200, 400, '#24304a') + seams + speed + PR.robot(x, 820 + noise1(c.t * 30) * 2, { s: 1.6, wheelRot: c.t * 720 }) + ghosts(dt => PR.robot(x + dt * 900, 820, { s: 1.6 }), 3, .03, .25), fg: posts, fp: 1.6, fb: 14, cam: { x: x + 100, y: 640, z: 1.0 } });
     } },
+  { id: 'S072b', type: 'TOP', w: .5, tin: 'whip', desc: 'Whip to overhead: the robot zips through the course corners at speed, motion-blurred.', sfx: [[0, 'whoosh', .4]],
+    draw: c => scene(c, { mid: S.rect(-200, -200, 2400, 1500, '#120e20') + ghosts(dt => PR.robotTop(...pathAt(ROUTE_OK, ((c.t + dt) * .35) % 1).slice(0, 2), pathAt(ROUTE_OK, ((c.t + dt) * .35) % 1)[2], 1), 4, .03, .3) + courseTop({ route: ROUTE_OK, routeOp: .2 }) + PR.robotTop(...pathAt(ROUTE_OK, (c.t * .35) % 1), 1), cam: { x: 960, y: 540, z: 1.25, r: lerp(-6, 0, c.p) } }) },
   { id: 'S073', type: 'TOP', on: 'L053', desc: 'Overhead course: the robot weaves around the barriers along the dotted route and finishes — ROUND 1 ✓, then ROUND 2 ✓.', w: 1, sfx: [[0, 'timer_beep', .6], [1.6, 'crowd_cheer', .5]],
     draw: c => scene(c, { mid: S.rect(-200, -200, 2400, 1500, '#120e20') + topRun(c, ROUTE_OK, ((c.t / (c.d * .48)) % 1)), cam: CAM.push(960, 540, .98, 1.05)(c.p), overlay: label(960, 120, c.t < c.d * .5 ? 'ROUND 1' : 'ROUND 2', { size: 54, k: 1, fill: PAL.gold }) + (c.t > c.d * .45 ? tick(1700, 120, 1.4) : '') + (c.t > c.d * .93 ? tick(1780, 120, 1.4) : '') }) },
   { id: 'S074', type: 'MS', on: 'L054', desc: 'Announcer with headset mic, arm thrown out to the side (face clear): "And Eli\'s team advances to the final!" Crowd cheers.', w: 1, sfx: [[.2, 'crowd_cheer', .8]],
@@ -146,7 +151,7 @@ addBeat({ id: 'B29', lines: ['L055', { id: 'L056', gap: .3 }], pre: .3, post: .2
   { id: 'S077', type: 'TOP', w: .8, desc: 'Overhead: the robot suddenly veers the wrong way and bumps the barrier; red wrong-route line; clock running.', sfx: [[.6, 'robot_bump', .9], [.8, 'crowd_gasp', .7]],
     draw: c => scene(c, { mid: S.rect(-200, -200, 2400, 1500, '#120e20') + topRun(c, ROUTE_FAIL, atE(c, 0, .7, 'lin'), { hiBar: 1, hiK: at(c, .6, .9), ledMain: Math.floor(c.t * 14) % 2 ? 'off' : 'on', bad: c.t > .5 ? [[900, 700], [1080, 650]] : null }), cam: { x: 960, y: 560, z: 1.0 + .15 * at(c, .6, 1) }, shake: c.t > .6 && c.t < .9 ? 8 : 0, overlay: finalTimer(c) }) },
 ] });
-addBeat({ id: 'B30', lines: ['L057', { id: 'L058', gap: .3 }], pre: .1, post: .2, shots: [
+addBeat({ id: 'B30', minShot: 1.5, lines: ['L057', { id: 'L058', gap: .3 }], pre: .1, post: .2, shots: [
   { id: 'S078', type: 'CU', desc: 'Eli panics, hands on his head: "No, no, no. WHAT?!"', w: 1, sfx: [[0, 'heartbeat_muffled', .5]],
     draw: c => { const r = arena(c); return scene(c, { back: r.back, bb: 12, mid: A(c, { who: 'eli', headAt: [960, 460], h: 1000, f: 1, front: true, pose: poseAt(c.t, [[0, P.stand()], [.15, { ...P.stand(), lean: -6 }], [.4, P.panic(), 'outBack']]), expr: 'panic', light: LT.floodL }), cam: CAM.drift(960, 540, 1, .03)(c.p), shake: 3, overlay: finalTimer(c) }); } },
   { id: 'S079', type: 'INSERT', on: 'L058', desc: 'Diagnostic laptop: SOFTWARE ✓ OK, MOTORS ✓ OK — nothing wrong found; the timer keeps falling.', w: 1, sfx: [[.4, 'ui_tick', .6], [2.0, 'ui_tick', .6]],
@@ -169,11 +174,13 @@ addBeat({ id: 'B32', lines: ['L061', { id: 'L062', gap: .15 }, { id: 'L063', gap
   { id: 'S083', type: 'CU', desc: 'Eli shouts across the hall: "NOAH!"', w: 1,
     draw: c => { const r = arena(c); return scene(c, { back: r.back, bb: 12, mid: A(c, { who: 'eli', headAt: [700, 460], h: 1000, f: 1, pose: poseAt(c.t, [[0, { ...P.stand(), lean: -6 }], [.15, P.shout(), 'outBack']]), expr: 'shout', light: LT.floodR }), cam: CAM.drift(800, 540, 1, .03)(c.p), shake: c.t < .3 ? 4 : 0, overlay: finalTimer(c) }); } },
   { id: 'S084', type: 'WS-geo', on: 'L062', desc: 'Geography wide from behind Eli at the station: across the hall, Noah stands up in the bleachers: "What?!"', w: 1,
-    draw: c => { const r = arena(c, { noahPose: mixPose(P.crossArms(), P.shout(), atE(c, 0, .4, 'outBack')), noahExpr: 'shock', noahBeam: true }); return scene(c, { back: r.back, bb: 2, mid: arenaTable(c), fg: A(c, { who: 'eli', headAt: [460, 520], h: 900, front: true, back: true, pose: P.shout(), light: LT.floodL }), fb: 8, fp: 1.1, cam: { x: 1100, y: 540, z: 1.25 }, overlay: finalTimer(c) }); } },
+    draw: c => { const r = arena(c, { noahPose: mixPose(P.crossArms(), P.shout(), atE(c, 0, .4, 'outBack')), noahExpr: 'shock', noahBeam: true }); return scene(c, { back: r.back, bb: 2, mid: arenaTable(c), fg: A(c, { who: 'eli', headAt: [460, 520], h: 900, front: true, back: true, pose: P.shout(), light: LT.floodL }), fb: 8, fp: 1.1, cam: { x: lerp(1060, 1140, c.p), y: 540, z: lerp(1.2, 1.3, c.p) }, overlay: finalTimer(c) }); } },
   { id: 'S085', type: 'OTS-high', on: 'L063', desc: 'High angle over Noah\'s shoulder down to Eli at the station: "Remember that sensor setup...? Why did you want to change it?"', w: 1,
-    draw: c => { const r = arena(c, { noahCrowd: false }); return scene(c, { back: r.back, bb: 10, mid: A(c, { who: 'eli', x: 980, y: 1080, h: 560, f: 1, pose: P.point(), expr: 'worried', lookY: -1, light: LT.floodL }) + S.rect(560, 960, 900, 300, '#24304a'), fg: A(c, { who: 'noah', headAt: [1560, 360], h: 1300, front: true, back: true, pose: P.stand(), light: LT.floodR }), fb: 16, cam: { x: 1000, y: 620, z: 1, r: -3 }, overlay: finalTimer(c) }); } },
+    draw: c => { const r = arena(c, { noahCrowd: false }); return scene(c, { back: r.back, bb: 10, mid: A(c, { who: 'eli', x: 980, y: 1080, h: 560, f: 1, pose: P.point(), expr: 'worried', lookY: -1, light: LT.floodL }) + S.rect(560, 960, 900, 300, '#24304a'), fg: A(c, { who: 'noah', headAt: [1560, 360], h: 1300, front: true, back: true, pose: P.stand(), light: LT.floodR }), fb: 16, cam: { x: 1000, y: lerp(560, 640, c.p), z: lerp(1.0, 1.08, c.p), r: -3 }, overlay: finalTimer(c) }); } },
   { id: 'S086', type: 'CU', on: 'L064', desc: 'Noah close-up, frustrated: "Because the metal barriers mess with the readings! I told you that three weeks ago!"', w: 1,
     draw: c => { const r = arena(c, { noahCrowd: false }); return scene(c, { back: r.back, bb: 12, mid: A(c, { who: 'noah', headAt: [1200, 460], h: 1050, f: -1, pose: P.shout(), expr: 'shout', light: LT.floodR }), cam: CAM.drift(1100, 540, 1, .03)(c.p), overlay: finalTimer(c) }); } },
+  { id: 'S086b', type: 'INSERT', on: 'L064', off: 2.4, min: 1.2, desc: 'Cutaway under Noah\'s line: the robot still jammed against the metal barrier, wheels spinning, orange LED flickering.', sfx: [[0, 'motor_whir', .4]],
+    draw: c => { const r = arena(c); const fl = Math.floor(c.t * 12) % 2; return scene(c, { back: r.back, bb: 12, mid: S.rect(-600, 760, 3200, 400, '#24304a') + PR.barrier(1180, 790, 160, 140, { glint: true }) + PR.robot(900, 880, { s: 1.8, wheelRot: c.t * 900, ledMain: fl ? 'off' : 'on' }), cam: CAM.push(1000, 680, 1.1, 1.2)(c.p), overlay: finalTimer(c) }); } },
 ] });
 // ---------- B33 payoff of the plant (flashback; no narration — the picture carries it) ----------
 addBeat({ id: 'B33', lines: [], min: 3.8, shots: [
@@ -184,7 +191,7 @@ addBeat({ id: 'B33', lines: [], min: 3.8, shots: [
 ] });
 addBeat({ id: 'B34', lines: ['L066', { id: 'L067', gap: .15 }], pre: .1, post: .2, minShot: 1.3, shots: [
   { id: 'S089', type: 'LOW', desc: 'Low angle on Eli, the timer large in the foreground: "Okay! What do I do?!"', w: 1,
-    draw: c => { const r = arena(c); return scene(c, { back: r.back, bb: 10, mid: A(c, { who: 'eli', x: 900, y: 1300, h: 900, f: 1, pose: P.shrug(), expr: 'panic', light: LT.floodL }), cam: { x: 900, y: 600, z: 1, r: 4 }, overlay: finalTimer(c, 1500, 900) }); } },
+    draw: c => { const r = arena(c); return scene(c, { back: r.back, bb: 10, mid: A(c, { who: 'eli', x: 900, y: 1300, h: 900, f: 1, pose: P.shrug(), expr: 'panic', light: LT.floodL }), cam: { x: 900, y: lerp(640, 580, c.p), z: lerp(1, 1.06, c.p), r: 4 }, overlay: finalTimer(c, 1500, 900) }); } },
   { id: 'S090', type: 'TELE', on: 'L067', desc: 'Telephoto push on Noah in the bleachers, pointing hard to his left: "Switch to the backup sensor! LEFT SIDE!"', w: 1,
     draw: c => { const r = arena(c, { noahCrowd: false, cheer: .3 }); return scene(c, { back: r.back, bb: 8, mid: A(c, { who: 'noah', x: 1000, y: 1150, h: 720, f: -1, pose: P.point(), expr: 'shout', light: LT.floodR }), cam: CAM.push(1000, 560, 1, 1.15, 'out')(c.p), overlay: finalTimer(c) }); } },
 ] });
@@ -239,7 +246,7 @@ addBeat({ id: 'B37', lines: ['L071', { id: 'L072', gap: .5 }, { id: 'L073', gap:
       const k = poseAt(c.t, [[0, { v: 0 }], [.6, { v: -.25 }], [.8, { v: 1 }, 'out'], [1.2, { v: .85 }]]).v;
       const hit = c.t > .75 && c.t < 1.2 ? 25 * Math.sin((c.t - .75) / .45 * Math.PI) : 0;
       let crowd = ''; [[200, 1], [1700, -1]].forEach(([x, f], i) => crowd += A(c, { who: 'extra', x, y: 1250, h: 900, f, pose: P.cheerBounce(c.T, i), expr: 'happy', light: LT.goldL }));
-      return scene(c, { back: r.back, bb: 9, mid: A(c, { who: 'eli', x: 820 - hit, y: 1080, h: 600, f: 1, pose: P.stand(), rot: -hit * .3, expr: 'happy', headTilt: c.t > 1 ? -8 : 0, light: LT.goldL }) + A(c, { who: 'noah', x: lerp(1160, 1000, Math.max(0, k)), y: 1080, h: 580, f: -1, pose: P.stand(), expr: 'happy', light: LT.goldR, rot: -6 * k }), fg: crowd, fb: 14, cam: { x: 960, y: 660, z: 1.05, r: 0 }, grade: WARM });
+      return scene(c, { back: r.back, bb: 9, mid: A(c, { who: 'eli', x: 820 - hit, y: 1080, h: 600, f: 1, pose: P.stand(), rot: -hit * .3, expr: 'happy', headTilt: c.t > 1 ? -8 : 0, light: LT.goldL }) + A(c, { who: 'noah', x: lerp(1160, 1000, Math.max(0, k)), y: 1080, h: 580, f: -1, pose: P.stand(), expr: 'happy', light: LT.goldR, rot: -6 * k }), fg: crowd, fb: 14, cam: { x: lerp(920, 1000, c.p), y: 660, z: lerp(1.02, 1.08, c.p), r: 0 }, grade: WARM });
     } },
 ] });
 addBeat({ id: 'B38', minShot: 3.5, lines: [{ id: 'L077', gap: .5 }], pre: .8, post: 1.0, music: { name: 'ending_light', vol: .35, at: 0, fade: 2 }, shots: [

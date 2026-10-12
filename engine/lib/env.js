@@ -187,6 +187,20 @@ ENV.workshop = (o = {}) => {
   back += dust(t, 40, 0, 150, 1500, 600, 61, warm, .4);
   return { back, fy, warm };
 };
+// reverse angle of the workshop: door (right), metal shelving, whiteboard, cool high window
+ENV.workshopRev = (o = {}) => {
+  const t = o.t || 0, fy = 800, door = o.door ?? 0;
+  let back = wallGrad('#241c26', '#2e2430', -300, fy) + floorGrad(fy, 600, '#231a1e', '#120b0e');
+  back += S.rect(80, 80, 360, 150, '#141026') + rectGrad(80, 80, 360, 150, [[0, '#5a6aa8', 1], [1, '#2a2a55', 1]]) + S.rect(250, 80, 10, 150, '#141016') + glow(260, 155, 300, '#8f9cff', .35) + shaft([[80, 230], [440, 230], [900, fy + 250], [300, fy + 250]], '#8f9cff', .12);
+  back += S.rect(560, 220, 420, 260, '#d9d4cc') + S.rect(560, 220, 420, 260, 'none', { stroke: '#3a3440', 'stroke-width': 10 }) + S.path('M600,400 q60,-80 120,-10 t140,-30', 'none', { stroke: '#3b7bd2', 'stroke-width': 5 }) + S.rect(620, 270, 120, 60, 'none', { stroke: '#d7383a', 'stroke-width': 5 }) + S.text(800, 300, 'v2 sensor?', { 'font-family': 'Inter', 'font-weight': 700, 'font-size': 26, fill: '#3b7bd2' });
+  for (let i = 0; i < 4; i++) back += S.rect(1040, 160 + i * 140, 280, 12, '#4a4a58') + [0, 1, 2].map(k => S.rect(1050 + k * 90, 100 + i * 140, 76, 60, ['#6a4a3a', '#4a5a6a', '#7a6a3a', '#5a3a4a'][(i + k) % 4], { rx: 4 })).join('');
+  back += S.rect(1036, 100, 10, 700, '#3a3a48') + S.rect(1314, 100, 10, 700, '#3a3a48');
+  // door
+  back += S.rect(1440, 230, 300, 570, '#140c10') + S.rect(1452, 242, 276, 558, '#ffcf8a', { opacity: .55 * door + .05 }) + glow(1590, 520, 300, '#ffcf8a', .35 * door) + S.g({ transform: `translate(1452,242) scale(${1 - .85 * door},1)` }, S.rect(0, 0, 276, 558, '#4a3430'), S.circle(240, 290, 10, '#c9a65a')) + S.rect(1430, 220, 320, 20, '#2a1c20');
+  back += S.text(1590, 200, 'EXIT', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 34, fill: '#5fe07a', 'text-anchor': 'middle' }) + glow(1590, 190, 80, '#5fe07a', .3);
+  back += dust(t, 25, 0, 150, 1800, 600, 63, '#bfc8ff', .3);
+  return { back, fy };
+};
 // workbench (front-ish 3/4). o: {tools, owner, photo, drawing, used}
 function workbench(x, y, w = 520, o = {}) {
   let s = S.rect(x - w / 2, y - 190, w, 26, '#6a4a3a', { rx: 4 }) + S.rect(x - w / 2, y - 190, w, 6, PAL.rim, { opacity: .5 }) + S.rect(x - w / 2 + 14, y - 164, 20, 164, '#3a2620') + S.rect(x + w / 2 - 34, y - 164, 20, 164, '#3a2620') + S.rect(x - w / 2 + 30, y - 80, w - 60, 14, '#3a2620');

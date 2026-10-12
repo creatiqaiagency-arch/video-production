@@ -95,7 +95,7 @@ function classroomWide(c, o = {}) {
   return { e, back, mid };
 }
 function e2(r) { return r.e.back + r.back; }
-addBeat({ id: 'B05', lines: ['L006', { id: 'L007', gap: .5 }, { id: 'L008', gap: .2 }], pre: .3, post: 1.8, music: { name: 'comedy_light', vol: .35, at: 2.0 }, shots: [
+addBeat({ id: 'B05', minShot: 1.5, lines: ['L006', { id: 'L007', gap: .5 }, { id: 'L008', gap: .2 }], pre: .3, post: 1.8, music: { name: 'comedy_light', vol: .35, at: 2.0 }, shots: [
   { id: 'S008', type: 'WS', desc: 'Flat awkward classroom wide: teacher at the ENGLISH board points at Eli: "Eli. The answer?"', w: 1,
     draw: c => { const r = classroomWide(c, { tPose: P.point(), tExpr: 'unimpressed', eExpr: 'shock' }); return scene(c, { back: e2(r), bb: 2, mid: r.mid, cam: CAM.drift(960, 600, 1.02, .02)(c.p) }); } },
   { id: 'S009', type: 'MS', on: 'L007', desc: 'Eli medium shot, hand half-raised, confidently wrong: "Uh... thirty-seven?"', w: 1,
@@ -121,7 +121,7 @@ addBeat({ id: 'B05', lines: ['L006', { id: 'L007', gap: .5 }, { id: 'L008', gap:
 ] });
 
 // ---------- B06 not a genius + ordinary failures ----------
-addBeat({ id: 'B06', lines: ['L009', { id: 'L010', gap: .3 }], pre: .1, post: .5, shots: [
+addBeat({ id: 'B06', minShot: 1.5, lines: ['L009', { id: 'L010', gap: .3 }], pre: .1, post: .5, shots: [
   { id: 'S012', type: 'CU', desc: 'Close-up Eli, deflated, chin on desk.', w: 1,
     draw: c => { const e = ENV.classroom({ t: c.T }); return scene(c, { back: e.back, bb: 12, mid: A(c, { who: 'eli', headAt: [1180, 600], h: 1100, f: 1, pose: P.slump(), expr: 'unimpressed', light: LT.warmL }) + PR.desk(1000, 1500, 1800, { h: 200 }), cam: CAM.drift(1100, 560, 1.0, .03)(c.p) }); } },
   { id: 'S013', type: 'WS', on: 'L010', off: -.1, desc: 'Football field: Eli winds up (anticipation), swings, whiffs just over the ball, lands flat on his back with a thud; the ball dribbles away toward the goal.', w: 1.2, sfx: [[.5, 'whoosh', .35], [.72, 'body_fall', 1]],
@@ -248,6 +248,8 @@ addBeat({ id: 'B11', lines: ['L020', { id: 'L021', gap: .4 }], pre: .2, post: .5
         (c.t > 2.4 ? S.g({ transform: `translate(1162,281) rotate(-12) scale(${stamp * 1.55})` }, S.circle(0, 0, 52, 'none', { stroke: '#2fa24d', 'stroke-width': 7 }), S.text(0, 22, '6/7', { 'font-family': 'Lilita One', 'font-size': 50, fill: '#2fa24d', 'text-anchor': 'middle' })) : '');
       return scene(c, { mid, vignette: .75, grade: INSERT_GRADE, cam: CAM.drift(960, 540, 1.02, .05)(c.p), shake: c.t > 2.4 && c.t < 2.55 ? 5 : 0 });
     } },
+  { id: 'S027b', type: 'ECU', w: .5, min: 1.3, desc: 'Extreme close-up: Eli stares at the result, a slow grin spreading.', sfx: [[.2, 'sparkle', .4]],
+    draw: c => { const r = bedroomDesk(c); return scene(c, { back: r.e.back, bb: 14, mid: A(c, { who: 'eli', headAt: [1180, 560], h: 2200, f: -1, front: true, pose: P.stand(), expr: c.t < .5 ? 'shock' : 'happy', light: LT.lampR, hideMouth: c.t < .5 }), cam: CAM.push(1100, 540, 1, 1.06)(c.p) }); } },
   { id: 'S028', type: 'GFX', on: 'L021', desc: 'The rule card: "LEARNS 10× FASTER FROM PRACTICE" with crossed-out myths: instant knowledge, superhuman body, perfect judgment. Eli thinking beside it.', w: 1.4, sfx: [[.2, 'ui_pop', .6], [1.4, 'ui_tick', .5], [1.8, 'ui_tick', .5], [2.2, 'ui_tick', .5]],
     draw: c => {
       const e = ENV.void({ t: c.T });
