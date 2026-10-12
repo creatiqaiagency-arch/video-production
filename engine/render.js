@@ -33,6 +33,9 @@ async function main() {
   const browser = await chromium.launch({ executablePath: EXE, args: ['--disable-gpu', '--force-color-profile=srgb', '--disable-lcd-text'] });
   const { page, total } = await openPage(browser);
   console.error(`timeline total ${total.toFixed(2)}s`);
+  if (!Object.keys(vo.dur || {}).length) throw new Error('VO durations missing: refusing to build a placeholder-timed video (pass --vo vo_data.json)');
+  const nDefault = await page.evaluate(() => TL.lines.filter(l => !(window.VO && window.VO.dur && window.VO.dur[l.id])).length);
+  if (nDefault) throw new Error(`${nDefault} VO lines have no real duration — timeline would use placeholders`);
   if (args.timeline) {
     const tl = await page.evaluate(() => ({ total: TL.total, lines: TL.lines, sfx: TL.sfx, music: TL.music, beats: TL.beats.map(b => ({ id: b.id, start: b.start, end: b.end })), shots: TL.shots.map(s => ({ id: s.id, beat: s.beat, start: s.start, end: s.end, dur: s.dur, hold: s.hold, type: s.type, desc: s.def.desc || '' })) }));
     fs.mkdirSync(path.dirname(path.resolve(args.timeline)), { recursive: true }); fs.writeFileSync(args.timeline, JSON.stringify(tl, null, 1));

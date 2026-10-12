@@ -1,0 +1,124 @@
+{
+  "auditor": "Lighting & Cinematography",
+  "version": "V1",
+  "score": 5.5,
+  "summary": "Acts I-III mostly have the Ifverse look. Shots are warm golden-hour interiors with window light on a consistent side, the rim light usually sits on the correct side, DOF blur on close-ups is good, and the 60 px letterbox and grain are present. The warm-to-cool shift in S053/S054 and the cool-tinted S069 tell the emotion well. The film falls apart in the tournament, though. S070-S102 is about 33 shots and roughly a third of the runtime, and it is one flat blue-violet exposure. Measured p95-p5 luminance range is 0.14-0.34, against 0.5-0.6 for the workshop and classroom. Under 1% of pixels are highlights and red-blue balance is negative everywhere. The floodlight fixtures sit under the letterbox, so there is no visible key source. The crowd is a saturated multicolour polka-dot texture that competes with the actors. The overhead LT.flood rim makes only a hairline on the top of the head. The arena never warms for the victory or the reconciliation, so the payoff plays in the same cold light as the panic. The S087 'sepia flashback' is just a warm-tinted full-colour workshop and does not read as a flashback. The paper and test inserts (S004, S021, S022, S024) are 80-93% near-white, which is high-key and breaks the low-key look. The football field shots (S013, S036-S040, S045) are the brightest and most saturated frames in the film, with almost no shadow. The night bedroom is muddy: a grey-violet haze, a lamp glow with no visible lamp, and few true blacks. Against the reference, our rims are about half as thick, the vignette is too weak (corner/centre luminance is above 1.0 in many shots), there is no real bloom, haze or god-ray layer in the competition spaces, and close-ups are almost always dead-centre instead of composed on thirds.",
+  "strengths": [
+    "Rim direction is motivated and consistent in most interiors: classroom and workshop windows on the left use LT.warmL, the field and school sun on the right use LT.hotR, the bedroom lamp on the right uses LT.lampR.",
+    "Good emotional colour arcs in places: S053 to S054 warm-to-cool montage, S068 tod sweep with a cooling grade, S069 cool close-up after Noah leaves.",
+    "Depth of field in close-ups and OTS shots (S017, S018, S062, S100, S101) matches the reference: blurred background, big blurred foreground shoulder.",
+    "The post stack exists and is applied everywhere: letterbox 60 px, overlay grain, purple-lifted blacks, vignette, dust particles in interiors.",
+    "The hallway hero shot S007 and the classroom/music-room window shafts give real god-ray depth, the closest we get to the reference.",
+    "Black heads almost always read, because most interiors place the head over a mid-value wall or a window."
+  ],
+  "issues": [
+    {
+      "shot": "S070-S102 (arena, all)",
+      "severity": "high",
+      "problem": "The whole climax is one flat, muddy exposure. Tonal range is 0.14-0.34 and there are no highlights. The floodlight fixtures are drawn at y=40-90, under the 60 px letterbox, so the key light source is invisible and the shafts are only 7% opacity. The reference stadium has bright flood clusters with bloom and flare, visible beams through haze, and dark stands.",
+      "fix": "ENV.arena: move the flood clusters to y≈120-170 (and to y≈90 in shots with z>1). Raise the glow to glow(fx, y, 380, '#eef2ff', .75) and add a second hot core glow(fx, y, 90, '#fff', .9). Raise shaft opacity from .07 to .16. Add a haze band: rectGrad(-600, 150, W+1200, 500, [[0,'#8a90c0',.18],[1,'#8a90c0',0]]) with mix-blend screen. Add one large radial glow behind the course table: glow(960, 700, 700, '#bfc8ff', .25). Darken the floor to #120f1e under a lit table top."
+    },
+    {
+      "shot": "S070-S102 (arena crowd)",
+      "severity": "high",
+      "problem": "The crowd is a saturated multicolour polka-dot wall. Six shirt hues at full value, evenly lit, become confetti noise once blurred and pull the eye from the actors. The reference crowd is near-monochrome lavender stickmen, darker at the top rows and hazed.",
+      "fix": "ENV.arena crowd loop: shirt = mixc(shirtHue, '#2a2440', .6), and darken by row: mixc(shirt, '#0e0b1c', (5-row)/5*.6) so the top rows fall into darkness. Head colour stays #0e0a12. Add a per-row haze overlay that gets lighter toward the floodlights, and drop the bleacher plank contrast."
+    },
+    {
+      "shot": "S096-S102",
+      "severity": "high",
+      "problem": "The victory and reconciliation play in the same cold blue light as the panic beats (S078-S081). The film's emotional payoff gets no warm or hope colour shift. Measured r-b is still negative.",
+      "fix": "arena(): add an o.warm param. In S096-S102 pass warm: 1. Swap the flood colour to '#ffd9a0', add grade {tint:'#ffb070', op:.22}, and add glow(eliX, 500, 600, PAL.winHot, .35) behind Eli. Switch the characters to LT.hotL/LT.hotR (rimW 6) instead of LT.flood. S099-S102 can be a softer 'house lights coming up' warmth."
+    },
+    {
+      "shot": "S078-S090 (arena characters)",
+      "severity": "high",
+      "problem": "LT.flood is {dx:0, dy:-1}, so the rim is only a 4 px top crescent that is nearly invisible (S088, S085, S089). S081 instead uses a cool left rim with no left-side source. Silhouettes lose their edge against the mid-blue crowd.",
+      "fix": "common.js LT: replace flood with floodL {dx:-.7, dy:-.7, color:'#dfe6ff'} and floodR. Pick the side matching the nearest flood cluster in frame. Raise the default rimW for arena CUs/MSs to 7-9. For S081 use floodL with rimW 10 and keep the cool grade."
+    },
+    {
+      "shot": "S087",
+      "severity": "high",
+      "problem": "The 'sepia flashback' is not sepia. It is the normal workshop with a warm soft-light tint (.55), and the diagram keeps full blue, orange and red. It is visually indistinguishable from S059/S060, so the flashback doesn't read. Reference 25 is a desaturated, paper-toned, high-grain frame.",
+      "fix": "post.js composeFrame: add grade.sat, implemented as a full-frame filter group: <filter id='desat'><feColorMatrix type='saturate' values='0.1'/></filter> wrapping the layers. Then add a multiply rect '#c8a878' at .45, raise grain to .12, set vignette .8, and add a soft edge burn. S087: grade {sat:.1, sepia:true}. Add a 2-frame white flash at the cut in and out."
+    },
+    {
+      "shot": "S082 / S071b / S075",
+      "severity": "high",
+      "problem": "Silhouette lost: Noah's black head and small yellow cap sit among hundreds of identical black heads. The telephoto 'isolate Noah' beat fails visually. S075 enlarges the crowd into giant coloured blobs that read as a pattern, not people.",
+      "fix": "S082/S071 telephoto: draw the crowd layer with blur 6 and Noah on a separate sharp layer. Put a pale beam behind him (shaft from the flood cluster through his seat at .2) and darken the neighbouring seats in a radius of about 250 px (radial multiply). S075: keep the crowd at bb 14 and op .5 so the scoreboard is the only bright thing, and add a red glow spill from the scoreboard."
+    },
+    {
+      "shot": "S004, S021, S022, S024, S015, S027, S047, S057",
+      "severity": "med",
+      "problem": "The paper inserts are high-key: 80-93% of pixels have luminance above 0.7 in S021/S022/S024. They are flat cream sheets with no light falloff, which breaks the 'low-key, highlights only on practicals' rule. The reference inserts are dimmer and lit by a pool of lamp light.",
+      "fix": "props testPaper/notebook: base paper '#d8c8aa' instead of near-white. In these shots add a lamp pool: overlay radGrad centred on the active area (0: transparent, .6: '#1a0f1a' .35, 1: '#0b0709' .7) and raise vignette to .7. Grade tint '#ffb070' .15 in lamp-lit (bedroom) inserts and '#8f9cff' .1 in daylight ones."
+    },
+    {
+      "shot": "S013, S036-S040, S045 (field)",
+      "severity": "med",
+      "problem": "The field shots are the brightest (mean luma 0.41) and most saturated (0.47) frames in the film, with about 1% dark pixels. The green fills 60% of the frame at constant value, so they look flat and high-key next to the rest. Reference sunset fields (3:28-3:52) are desaturated olive with haze toward the sun, dark foreground grass and long shadows.",
+      "fix": "ENV.field: field colours '#2a6a44'/'#317a4f' → '#24503a'/'#2a5c40'. Add a foreground darkening gradient (bottom 300 px to #10140f at .6). Add a long character shadow ellipse cast away from the sun (toward -x). Increase the sun-side haze (rectGrad at hy, h 220, '#ffcf8a' .5). Use vignette .65 for field shots."
+    },
+    {
+      "shot": "S020, S023, S025, S026, S029, S043, S044 (bedroom night)",
+      "severity": "med",
+      "problem": "Muddy night interior. The lamp glow (radius 420, plus a second at 300) washes the whole wall into an even grey-violet haze, and the lamp fixture itself is never visible because bb 7-12 blurs it out or it is off-frame. The light is unmotivated, there are few blacks (S029 range 0.33), and the book and calendar float in the haze. Reference 16 and 28 have dark indigo walls, a crisp moon shaft and a small, intense practical.",
+      "fix": "ENV.bedroom: shrink the lamp glow to glow(.., 260, PAL.lamp, .45) plus a hot core glow(.., 70, '#fff3d0', .8), and darken the wall gradient to '#120f24'/'#1a1530'. Raise the moon shaft opacity from .08 to .14. In CU/OTS shots, keep the lamp shade in frame (or put it in the sharp mid layer) so the warm rim has a visible source."
+    },
+    {
+      "shot": "S007",
+      "severity": "med",
+      "problem": "The hero backlight shot uses LT.top, so the rim appears only on top of the head and shoulders. With a blinding door directly behind, the reference hero look (frame 06) has a thick rim wrapping both sides of the silhouette plus a flare.",
+      "fix": "rig.js character(): support light.both, which draws the rim copy twice at (+rimW,-rimW*.4) and (-rimW,-rimW*.4). Use it in S007 with rimW 10 and color '#fff1d6'. Add an anamorphic flare streak: an ellipse rx 900, ry 6, '#fff' .5, screen blend, at the door centre."
+    },
+    {
+      "shot": "S064-S067",
+      "severity": "med",
+      "problem": "Noah's hurt/exit beat (music drops out) uses the same warm tod .35 golden light as the happy S055 high-five, so the lighting does not support the emotional turn.",
+      "fix": "act3.js: call workshop(c, {tod: .6}) for S064 and S065, and tod .75 for S066 and S067 with grade {tint:'#6a5aa0', op:.18}. That leaves the window warm but low, and lengthens the shafts. S066: lower the lamp to .5 so Noah's face sits in shadow with only a rim."
+    },
+    {
+      "shot": "ALL (post stack)",
+      "severity": "med",
+      "problem": "The vignette is too weak. It starts at radius .55 at .5 strength, and the corner/centre luminance ratio is above 1.0 in about 40 shots (S031 1.48, S079 1.56, S100 1.43) because windows and screens sit at the frame edges. The reference keeps corners 35-50% darker on every shot.",
+      "fix": "post.js composeFrame: default vignette .65 with stops [[0,'#000',0],[.4,'#000',0],[1,'#000',vs]] and r .7. Add an optional elliptical top/bottom burn (rectGrad, 120 px, #000 .35) under the letterbox to match the reference's darker top edge."
+    },
+    {
+      "shot": "ALL (bloom)",
+      "severity": "med",
+      "problem": "There is no real bloom. glow() blobs exist only where they were placed by hand, so many light sources clip flat: S006 school windows, S019 sun disc, S070 scoreboard, S057 poster, robot LEDs in S072/S093. The reference blooms every practical.",
+      "fix": "post.js: add a bloom pass. Duplicate the layer stack inside a <g filter='url(#bloom)'> where bloom = feColorMatrix (luminance threshold: values that zero out anything below about .75) → feGaussianBlur 18 → feComponentTransfer (slope .6), composited with mix-blend-mode:screen. If that is too slow, add glow() automatically in windowPane(), PR.robot LEDs, the scoreboard and the sun."
+    },
+    {
+      "shot": "S010, S023, S026, S048, S064, S066, S081, S088, S107, S108 (close-ups)",
+      "severity": "med",
+      "problem": "Close-ups are almost all dead-centre (headAt x≈960, eyes at frame centre) with flat backgrounds behind. Reference CUs (05, 12, 28, 32) put the head on a third, look into open space, keep eyes on the upper third, and often add a blurred foreground element.",
+      "fix": "Move headAt to x≈700 or 1220, on the side opposite the look direction, and y≈430, so the eyes land around y 400. Put the brightest background element (window, flood, lamp) in the open third behind the head. Examples: S081 headAt [760,470] with the flood bloom at the upper right; S088 headAt [1180,470] with Noah blurred in the left foreground; S108 headAt [1150,480] with the arched window behind the left third."
+    },
+    {
+      "shot": "ALL (rim thickness)",
+      "severity": "med",
+      "problem": "The rim reads thin. The default rimW is 4.2, only 7-9 in CUs, and it is divided by scale. The reference rim is about 6 px on wide shots and 12-16 px on close-ups (frames 05 and 28), and it is the signature of the look.",
+      "fix": "rig.js: rimW default 5.5, and auto-scale for close-ups: rimW = max(o.rimW ?? 5.5, h/90) when h>800. Use the hotter colour PAL.rimHot for heads in warm scenes."
+    },
+    {
+      "shot": "S072, S093, S095 (robot on table)",
+      "severity": "low",
+      "problem": "The course table and floor are flat '#24304a' slabs with no light pool. The robot reads only because of its LEDs, so there is no sense of speed or drama.",
+      "fix": "Add a lit table top: rectGrad over the table with '#5a6a9a' .5 → 0 toward the camera. Add a reflective streak under the robot (ellipse '#dfe6ff' .15). Add LED light spill: glow at the backup LED, '#4aa3ff' .4, r 120 in S093 so the 'blue LED lights up' beat pops. Add motion streak lights in the background."
+    },
+    {
+      "shot": "S006, S103",
+      "severity": "low",
+      "problem": "The school exterior lit windows are flat orange tiles with only a small glow. The characters are tiny and centred on dark ground, which doesn't match the reference establishing look (cafe frame 01: lit windows bloom, warm spill on the pavement).",
+      "fix": "ENV.school: use a glow radius of 140 at .35 per lit window and add a warm spill polygon from the door onto the ground ('#ffcf8a' .18). In S103 put the walkers inside the door spill so they read as silhouettes against light."
+    },
+    {
+      "shot": "S002, S032, S035, S105 (top-down keys)",
+      "severity": "low",
+      "problem": "These frames are extreme hard contrast: 65% near-black and 25% pure-white keys, with no falloff. The keys look like a UI graphic, not a lit object.",
+      "fix": "PR.keysTop: white keys '#e8dccb'. Add a lamp pool radGrad centred on the hands, plus vignette .7 and a slight warm grade. Pressed keys get glow(..., PAL.gold, .5) bloom."
+    }
+  ]
+}

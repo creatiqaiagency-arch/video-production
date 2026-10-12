@@ -5,6 +5,8 @@ function blurDefs() {
   return BLUR_LEVELS.slice(1).map(b => `<filter id="b${b}" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="${b}"/></filter>`).join('') +
     `<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="18"/></filter>` +
     `<filter id="txtGlow" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur in="SourceAlpha" stdDeviation="14" result="b"/><feFlood flood-color="${PAL.glow}" flood-opacity=".55"/><feComposite in2="b" operator="in" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>` +
+    `<filter id="desat" color-interpolation-filters="sRGB"><feColorMatrix type="saturate" values="0.12"/></filter>` +
+    `<filter id="bloom" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 1 0" result="l"/><feComponentTransfer in="SourceGraphic" result="hi"><feFuncR type="linear" slope="2.6" intercept="-1.55"/><feFuncG type="linear" slope="2.6" intercept="-1.55"/><feFuncB type="linear" slope="2.6" intercept="-1.55"/></feComponentTransfer><feGaussianBlur in="hi" stdDeviation="28"/></filter>` +
     `<filter id="whip" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="40 0"/></filter>`;
 }
 function nearestBlur(b) { if (b <= .5) return 0; let best = BLUR_LEVELS[1]; for (const l of BLUR_LEVELS) if (Math.abs(l - b) < Math.abs(best - b)) best = l; return best; }
@@ -19,7 +21,7 @@ function camTransform(cam, par = 1) {
 // Camera motion presets ------------------------------------------------------
 const CAM = {
   still: (x = W / 2, y = H / 2, z = 1) => () => ({ x, y, z }),
-  drift: (x = W / 2, y = H / 2, z = 1, dz = .04, dx = 18) => p => ({ x: x + dx * (p - .5) * 2, y, z: z + dz * E.sine(p) }),
+  drift: (x = W / 2, y = H / 2, z = 1, dz = .05, dx = 30) => p => ({ x: x + dx * (p - .5) * 2, y, z: z + dz * E.sine(p) }),
   push: (x, y, z0, z1, ease = 'inOut') => p => ({ x, y, z: lerp(z0, z1, E[ease](p)) }),
   move: (a, b, ease = 'inOut') => p => { const k = E[ease](p); return { x: lerp(a[0], b[0], k), y: lerp(a[1], b[1], k), z: lerp(a[2], b[2], k), r: lerp(a[3] || 0, b[3] || 0, k) }; },
   keys: keys => p => kf(p, keys.map(([t, v, e]) => [t, { x: v[0], y: v[1], z: v[2], r: v[3] || 0 }, e])),
@@ -45,24 +47,34 @@ function composeFrame(spec, T) {
   if (spec.shake) { const s = shake(T, spec.shake); cam.x += s.x; cam.y += s.y; }
   let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"><defs>${blurDefs()}</defs>`;
   s += S.rect(0, 0, W, H, spec.bg || '#000');
+  const gr0 = spec.grade || {};
+  s += `<g${gr0.sat !== undefined ? ' filter="url(#desat)"' : ''}><g${spec.whip > 0 ? ' filter="url(#whip)"' : ''}>`;
+  let bloomSrc = '';
   for (const L of spec.layers) {
     if (!L || !L.svg) continue;
     const b = nearestBlur((L.blur || 0) * (spec.blurScale ?? 1));
-    s += `<g transform="${camTransform(cam, L.p ?? 1)}"${L.op !== undefined ? ` opacity="${L.op}"` : ''}>${b ? `<g filter="url(#b${b})">` : '<g>'}${L.svg}</g></g>`;
+    const lg = `<g transform="${camTransform(cam, L.p ?? 1)}"${L.op !== undefined ? ` opacity="${L.op}"` : ''}>${b ? `<g filter="url(#b${b})">` : '<g>'}${L.svg}</g></g>`;
+    s += lg;
+    if (L === spec.layers[0]) bloomSrc = lg;
   }
+  // bloom: blurred highlights of the background layer, screen-blended
+  if ((spec.bloom ?? .55) > 0 && bloomSrc) s += `<g filter="url(#bloom)" opacity="${spec.bloom ?? .55}" style="mix-blend-mode:screen">${bloomSrc}</g>`;
+  s += '</g></g>';
   // colour grade: multiply tint + lifted blacks
   const gr = spec.grade || {};
+  if (gr.sepia) s += S.rect(0, 0, W, H, gr.sepia, { opacity: .55, style: 'mix-blend-mode:multiply' });
   if (gr.tint) s += S.rect(0, 0, W, H, gr.tint, { opacity: gr.op ?? .12, style: 'mix-blend-mode:soft-light' });
   if (gr.warm !== false) s += S.rect(0, 0, W, H, '#1a0f1a', { opacity: .10, style: 'mix-blend-mode:lighten' });
   if (spec.overlay) s += spec.overlay;
   // vignette
-  const vs = spec.vignette ?? .5;
-  if (vs > 0) { const v = radGrad([[0, '#000', 0], [.55, '#000', 0], [1, '#000', vs]], .5, .5, .75); s += `<defs>${v.def}</defs>` + S.rect(0, 0, W, H, v.url); }
+  const vs = spec.vignette ?? .65;
+  if (vs > 0) { const v = radGrad([[0, '#000', 0], [.45, '#000', 0], [1, '#000', vs]], .5, .5, .72); s += `<defs>${v.def}</defs>` + S.rect(0, 0, W, H, v.url); }
   // grain
   if ((spec.grain ?? .05) > 0 && GRAIN.length) {
     const k = Math.floor(T * 24) % GRAIN.length, ox = Math.floor(hash(T * 24) * 256), oy = Math.floor(hash(T * 24 + 7) * 256);
     s += `<defs><pattern id="gr" patternUnits="userSpaceOnUse" width="256" height="256" x="${ox}" y="${oy}"><image href="${GRAIN[k]}" width="256" height="256"/></pattern></defs>` + S.rect(0, 0, W, H, 'url(#gr)', { opacity: spec.grain ?? .05, style: 'mix-blend-mode:overlay' });
   }
+  if ((spec.burn ?? .35) > 0) s += rectGrad(0, 0, W, 200, [[0, '#000', spec.burn ?? .35], [1, '#000', 0]]) + rectGrad(0, H - 200, W, 200, [[0, '#000', 0], [1, '#000', (spec.burn ?? .35) * .8]]);
   if (spec.flash) s += S.rect(0, 0, W, H, spec.flashColor || '#fff', { opacity: clamp(spec.flash) });
   if (spec.fade) s += S.rect(0, 0, W, H, '#000', { opacity: clamp(spec.fade) });
   // letterbox

@@ -24,6 +24,9 @@ const P = {
   sitType: (t = 0) => ({ fa: [58 + 3 * Math.sin(t * 25), 48 + 4 * Math.sin(t * 31)], ba: [54 + 3 * Math.cos(t * 23), 50], fl: [88, 92], bl: [84, 88], lean: 10, sit: true }),
   sitPiano: (t = 0, intensity = 1) => ({ fa: [60 + 5 * intensity * Math.sin(t * 13), 32], ba: [57 + 5 * intensity * Math.sin(t * 11 + 1), 34], fl: [86, 90], bl: [82, 86], lean: 6, sit: true }),
   sitSlump: () => ({ fa: [15, 20], ba: [10, 20], fl: [88, 92], bl: [84, 88], lean: 24, sit: true, headDrop: 10 }),
+  sitFacepalm: () => ({ fa: [40, 150], ba: [55, 70], fl: [88, 92], bl: [84, 88], lean: 18, sit: true, headDrop: 8 }),
+  sitLaugh: t => ({ fa: [30 + 10 * Math.sin(t * 10), 60], ba: [25, 50], fl: [88, 92], bl: [84, 88], lean: -6 + 5 * Math.sin(t * 10), sit: true }),
+  cheerBounce: (t, ph = 0) => ({ fa: [158 + 15 * Math.sin(t * 18 + ph), -10], ba: [150 + 15 * Math.sin(t * 18 + ph + 1), -10], fl: [8, 0], bl: [-8, 0], lean: -4, bob: 5 * Math.abs(Math.sin(t * 9 + ph)) }),
   point: () => ({ fa: [92, 0], ba: [-4, 10], fl: [3, 0], bl: [-3, 0], lean: 2 }),
   raiseHand: () => ({ fa: [168, 8], ba: [-4, 10], fl: [3, 0], bl: [-3, 0], lean: 0 }),
   cheer: () => ({ fa: [158, -10], ba: [150, -10], fl: [8, 0], bl: [-8, 0], lean: -4 }),
@@ -44,6 +47,8 @@ const P = {
   slump: () => ({ fa: [4, 6], ba: [-4, 6], fl: [3, 0], bl: [-3, 0], lean: 14, headDrop: 12 }),
   placeTool: k => ({ fa: [lerp(62, 40, k), lerp(60, 20, k)], ba: [-4, 10], fl: [3, 0], bl: [-3, 0], lean: lerp(4, 12, k) }),
 };
+const walkPh = (dist, h) => dist / (0.63 * h);
+const runPh = (dist, h) => dist / (1.1 * h);
 function mixPose(a, b, t) {
   const o = {};
   for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) {
@@ -84,11 +89,13 @@ function face(o, R, mono) {
     case 'unimpressed': case 'bewildered': xs.forEach(x => { s += S.path(`M${x - .12 * R},${ey - .01 * R} L${x + .12 * R},${ey - .01 * R} L${x + .1 * R},${ey + .06 * R} Q${x},${ey + .1 * R} ${x - .1 * R},${ey + .06 * R}Z`, ink); }); break;
     case 'smug': xs.forEach(x => s += S.path(`M${x - .11 * R},${ey} L${x + .11 * R},${ey - .03 * R} Q${x + .1 * R},${ey + .1 * R} ${x},${ey + .1 * R} Q${x - .1 * R},${ey + .09 * R} ${x - .11 * R},${ey}Z`, ink)); break;
     case 'sad': xs.forEach(x => s += oval(x, .09 * R, .12 * R)); break;
+    case 'busy': xs.forEach(x => s += S.ellipse(x, ey + .03 * R, .09 * R, .09 * R * blink, ink)); break;
     default: xs.forEach(x => s += oval(x, .095 * R, .145 * R));
   }
   // brows
   const brow = (x, a, dy = -.25) => S.line(x - .12 * R, ey + dy * R + a * R, x + .12 * R, ey + dy * R - a * R, ink, sw * .9);
-  if (['determined', 'focused', 'shout', 'smug'].includes(e)) { s += brow(xs[0], -.06) + brow(xs[1], .06); }
+  if (['shout'].includes(e)) { s += brow(xs[0], -.06) + brow(xs[1], .06); }
+  if (['determined', 'focused', 'smug'].includes(e)) { s += brow(xs[0], -.035) + brow(xs[1], .035); }
   if (['worried', 'sad', 'panic'].includes(e)) { s += brow(xs[0], .06) + brow(xs[1], -.06); }
   // mouth
   const mx = ex + lx * .5, my = .36 * R, talk = clamp(o.talk || 0);
@@ -99,6 +106,7 @@ function face(o, R, mono) {
   else if (talk > .08) s += S.path(`M${mx - mw * .9},${my} Q${mx},${my - .03 * R} ${mx + mw * .9},${my} Q${mx},${my + (.05 + talk * .2) * R} ${mx - mw * .9},${my}Z`, ink);
   else if (e === 'happy' || e === 'smug') s += S.path(`M${mx - mw},${my - .03 * R} Q${mx + (e === 'smug' ? .05 * R : 0)},${my + .14 * R} ${mx + mw},${my - (e === 'smug' ? .08 : .03) * R}`, 'none', { stroke: ink, 'stroke-width': sw, 'stroke-linecap': 'round' });
   else if (e === 'sad' || e === 'worried') s += S.path(`M${mx - mw * .8},${my + .06 * R} Q${mx},${my - .06 * R} ${mx + mw * .8},${my + .06 * R}`, 'none', { stroke: ink, 'stroke-width': sw, 'stroke-linecap': 'round' });
+  else if (e === 'busy') s += S.line(mx - mw * .5, my + .03 * R, mx + mw * .5, my + .03 * R, ink, sw * .9);
   else if (e === 'neutral' && o.smile !== false) s += S.path(`M${mx - mw * .7},${my} Q${mx},${my + .07 * R} ${mx + mw * .7},${my}`, 'none', { stroke: ink, 'stroke-width': sw, 'stroke-linecap': 'round' });
   else s += S.line(mx - mw * .7, my + .02 * R, mx + mw * .7, my + .02 * R, ink, sw);
   if (e === 'panic' && !mono) s += S.path(`M${-.55 * R},${-.45 * R} q${.06 * R},${.14 * R} 0,${.2 * R} q${-.06 * R},${-.06 * R} 0,${-.2 * R}Z`, '#bfe6ff');
@@ -125,7 +133,7 @@ function drawFigure(o, pose, mono) {
   if (pose.sit) hipY = 0;
   else hipY = -Math.max(legs.fl[1][1], legs.bl[1][1]) + (pose.bob || 0) * 0;
   hipY += -(pose.bob || 0) + (pose.drop || 0);
-  const breath = 1 + .012 * Math.sin((o.t || 0) * TAU * .3 + (o.seed || 0));
+  const breath = 1 + .022 * Math.sin((o.t || 0) * TAU * .3 + (o.seed || 0));
   const lean = pose.lean || 0;
   let s = '';
   const legSvg = k => { const [kn, ft] = legs[k]; return S.pl([[hx(k), hipY], [kn[0], kn[1] + hipY], [ft[0], ft[1] + hipY]], c(k === 'bl' && !mono ? '#120c10' : PAL.skin), lw * 1.05) + S.ellipse(ft[0] + (front ? 0 : 7), ft[1] + hipY - 2, front ? 11 : 13, 7, c(PAL.skin)); };
@@ -175,11 +183,13 @@ function drawFigure(o, pose, mono) {
   let fc = '';
   if (!mono || mono) {
     const fo = { ...o.face, talk: o.talk, blink: o.blink };
-    fc = S.g({ transform: `translate(0,${headY}) rotate(${(o.headTilt || 0)})` }, face(fo, R, mono ? null : null));
+    fc = S.g({ transform: `translate(0,${headY})` }, face(fo, R, null));
     if (mono) fc = '';
-    if (out.glasses && !mono) { const turn = o.face?.turn ?? .45, ex = turn * .4 * R, sp = .25 * R * (1 - .45 * turn); fc += S.g({ transform: `translate(0,${headY})` }, S.circle(ex - sp, -.06 * R, .19 * R, 'none', { stroke: '#e9e4dc', 'stroke-width': 3.2 }), S.circle(ex + sp, -.06 * R, .19 * R, 'none', { stroke: '#e9e4dc', 'stroke-width': 3.2 }), S.line(ex - sp + .19 * R, -.06 * R, ex + sp - .19 * R, -.06 * R, '#e9e4dc', 3)); }
+    if (out.glasses && !mono && !o.noGlasses) { const turn = o.face?.turn ?? .45, ex = turn * .4 * R, sp = .25 * R * (1 - .45 * turn); fc += S.g({ transform: `translate(0,${headY})` }, S.circle(ex - sp, -.06 * R, .19 * R, 'none', { stroke: '#e9e4dc', 'stroke-width': 3.2 }), S.circle(ex + sp, -.06 * R, .19 * R, 'none', { stroke: '#e9e4dc', 'stroke-width': 3.2 }), S.line(ex - sp + .19 * R, -.06 * R, ex + sp - .19 * R, -.06 * R, '#e9e4dc', 3)); }
   }
-  const upperBody = S.g({ transform: `translate(0,${hipY}) rotate(${lean})` }, bArm.svg, hood, body, head, fc, o.holdSvg ? S.g({ transform: `translate(${fArm.hand[0]},${fArm.hand[1]}) rotate(${-lean})` }, o.holdSvg) : '', fArm.svg);
+  const tilt = o.headTilt || 0, nod = o.nod || 0;
+  const headG = S.g({ transform: `translate(0,${nod}) rotate(${tilt},0,${headY})` }, head, fc);
+  const upperBody = S.g({ transform: `translate(0,${hipY}) rotate(${lean})` }, bArm.svg, hood, body, headG, o.holdSvg ? S.g({ transform: `translate(${fArm.hand[0]},${fArm.hand[1]}) rotate(${-lean})` }, o.holdSvg) : '', fArm.svg);
   s += legSvg('bl') + upperBody + legSvg('fl');
   // joints for props (local, before world transform)
   const rot = (p) => { const r = rad(lean); return [p[0] * Math.cos(r) - p[1] * Math.sin(r), p[0] * Math.sin(r) + p[1] * Math.cos(r) + hipY]; };
@@ -194,18 +204,22 @@ function character(o) {
   const h = (o.h || 300) * (out.scale || 1), sc = h / 300, f = o.f || 1;
   const pose = o.pose || P.stand();
   const t = o.t || 0;
-  const blink = o.blink ?? (((t + (o.seed || 0) * 1.7) % 3.1) < .09);
+  const blink = o.blink ?? (() => { const tt = t + (o.seed || 0) * 1.7; let acc = 0, i = 0; while (acc < tt && i < 400) { const gap = 2 + 2 * hash(i * 7.1 + (o.seed || 0)); if (tt - acc < gap) { const ph = tt - acc; return ph < .12 || (hash(i * 3.3) > .8 && ph > .25 && ph < .37); } acc += gap; i++; } return false; })();
   const light = o.light || { dx: -1, dy: -.4, color: PAL.rim };
+  const tk = o.talk || 0, sd = (o.seed || 0) * 7.3;
+  if (o.headTilt === undefined) o.headTilt = noise1(t * .45 + sd) * 2.2 + (tk > .05 ? noise1(t * 2.6 + sd) * 4.5 : 0);
+  if (o.nod === undefined) o.nod = tk > .05 ? -Math.abs(noise1(t * 5 + sd)) * 4 * tk : 0;
   const litSide = Math.sign(light.dx * f) || 1;
   const fo = { ...o, blink, litSide, face: { expr: o.expr, turn: o.turn ?? (o.front ? 0 : undefined), lookX: o.lookX, lookY: o.lookY, hideMouth: o.hideMouth, back: o.back } };
   let main = drawFigure(fo, pose, null);
   if (o.headAt) { const hp = main.j.head; o = { ...o, x: o.headAt[0] - hp[0] * f * sc, y: o.headAt[1] - hp[1] * sc }; }
-  const rimW = (o.rimW ?? 4.2) / sc;
+  const rimW = Math.max(o.rimW ?? 6.5, h * .011) / sc;
   const lx = light.dx * f * rimW, ly = light.dy * rimW;
   const rimCol = light.color || PAL.rim;
   const rim = drawFigure(fo, pose, rimCol);
   const tf = `translate(${o.x},${o.y}) rotate(${o.rot || 0}) scale(${f * sc},${sc})`;
-  const svg = S.g({ transform: tf, opacity: o.opacity }, light.none ? '' : S.g({ transform: `translate(${lx.toFixed(2)},${ly.toFixed(2)})`, opacity: light.op ?? 1 }, rim.svg), main.svg);
+  const rimG = (dx, dy) => S.g({ transform: `translate(${dx.toFixed(2)},${dy.toFixed(2)})`, opacity: light.op ?? 1 }, rim.svg);
+  const svg = S.g({ transform: tf, opacity: o.opacity }, light.none ? '' : light.both ? rimG(rimW, -rimW * .4) + rimG(-rimW, -rimW * .4) : rimG(lx, ly), main.svg);
   const w = p => { const r = rad(o.rot || 0), px = p[0] * f * sc, py = p[1] * sc; return [o.x + px * Math.cos(r) - py * Math.sin(r), o.y + px * Math.sin(r) + py * Math.cos(r)]; };
   return { svg, handF: w(main.j.handF), handB: w(main.j.handB), head: w(main.j.head), headR: RIG.R * sc, hip: w(main.j.hip) };
 }
@@ -216,6 +230,6 @@ function bigHand(x, y, s, ang, sleeve, o = {}) {
   const ink = PAL.skin, rimc = o.rim || PAL.rim;
   const fingers = o.point ? [[0, -14, 64, 15], [0, 4, 30, 15], [0, 18, 28, 14], [0, 30, 24, 13]] : [[0, -18, 50, 14], [0, -2, 54, 15], [0, 14, 50, 14], [0, 28, 42, 13]];
   const shape = (col) => S.rect(-70, -26, 72, 64, col, { rx: 26 }) + fingers.map(([fx, fy, L, w]) => S.line(fx, fy, fx + L, fy + (o.curl ? 10 : 0), col, w * 1.05)).join('') + S.line(-10, 30, 20, 50, col, 16);
-  const sl = sleeve ? S.rect(-260, -36, 210, 84, sleeve, { rx: 14 }) + S.rect(-80, -40, 26, 92, shade(sleeve, .75), { rx: 10 }) : '';
-  return S.g({ transform: S.tr(x, y, s, ang) }, S.g({ transform: 'translate(-4,-5)' }, shape(rimc), sleeve ? S.rect(-260, -36, 210, 84, rimc, { rx: 14 }) : ''), sl, shape(ink));
+  const sl = sleeve ? S.rect(-1100, -36, 1050, 84, sleeve, { rx: 14 }) + S.rect(-80, -40, 26, 92, shade(sleeve, .75), { rx: 10 }) : '';
+  return S.g({ transform: S.tr(x, y, s, ang) }, S.g({ transform: 'translate(-4,-5)' }, shape(rimc), sleeve ? S.rect(-1100, -36, 1050, 84, rimc, { rx: 14 }) : ''), sl, shape(ink));
 }

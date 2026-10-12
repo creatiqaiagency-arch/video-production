@@ -28,8 +28,14 @@ def place(buf, a, t, gain=1.0):
 def rms(a): return float(np.sqrt(np.mean(a ** 2)) + 1e-9)
 
 voice = np.zeros((N, 2), np.float32)
-for L in tl['lines']:
-    a = load(os.path.join(prod, 'vo', L['id'] + '.mp3'))
+lines_sorted = sorted(tl['lines'], key=lambda l: l['start'])
+for k, L in enumerate(lines_sorted):
+    a = load(os.path.join(prod, 'vo', L['id'] + '.mp3')).copy()
+    if k + 1 < len(lines_sorted) and lines_sorted[k + 1]['start'] < L['end']:  # interrupted line: quick fade at the cut-in
+        cut = int((lines_sorted[k + 1]['start'] - L['start'] + lead.get(L['id'], 0)) * SR)
+        f = int(.08 * SR)
+        if 0 < cut < len(a):
+            a[cut:cut + f] *= np.linspace(1, 0, len(a[cut:cut + f]))[:, None]; a[cut + f:] = 0
     g = 0.10 / rms(a[np.abs(a).max(axis=1) > 0.01] if (np.abs(a).max(axis=1) > 0.01).any() else a)  # loudness-match lines
     place(voice, a, L['start'] - lead.get(L['id'], 0), min(g, 4.0) * L.get('vol', 1))
 

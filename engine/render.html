@@ -20,7 +20,7 @@ html, body { margin: 0; padding: 0; background: #000; overflow: hidden; }
 window.ready = (async () => {
   await document.fonts.load('80px "Lilita One"'); await document.fonts.load('600 40px Oswald');
   initGrain();
-  window.TL = buildTimeline(BEATS, window.VO_DUR || {});
+  window.TL = buildTimeline(BEATS, window.VO || {});
   return TL.total;
 })();
 window.renderAt = (T) => {

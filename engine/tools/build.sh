@@ -11,6 +11,15 @@ VO=$PROD/vo/vo_data.json
 mkdir -p $OUT/stills
 python3 tools/vo_data.py $PROD/vo $PROD/vo_lines.json $VO
 node render.js --shots $SHOTS --vo $VO --timeline $OUT/timeline.json --stills shots --outdir $OUT/stills > /dev/null
+python3 - $OUT/timeline.json <<'PY'
+import json,sys
+t=json.load(open(sys.argv[1])); T=t['total']
+L=sorted(t['lines'],key=lambda l:l['start'])
+ov=[(a['id'],b['id']) for a,b in zip(L,L[1:]) if b['start']<a['end']-.3]
+print(f"runtime {T:.1f}s, shots {len(t['shots'])}, overlaps {ov}")
+assert 300<=T<=380, 'runtime out of range'
+assert len(set(l['spk'] for l in t['lines']))>3, 'speakers missing'
+PY
 python3 tools/sheet.py $OUT/stills $OUT/contact_sheet.jpg 4 28 > /dev/null
 node render.js --shots $SHOTS --vo $VO --video $OUT/video_noaudio.mp4 --res $RES --workers 4 --crf 24
 python3 tools/mix.py $OUT/timeline.json $VO $PROD $OUT/mix.wav

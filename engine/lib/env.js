@@ -103,15 +103,16 @@ ENV.hallway = (o = {}) => {
 // -------- BEDROOM (night, lamp) --------
 ENV.bedroom = (o = {}) => {
   const t = o.t || 0, fy = 820, lamp = o.lamp ?? 1;
-  let back = wallGrad('#1a1630', '#231c38', -300, fy) + floorGrad(fy, 600, '#1a1426', '#0f0b18');
+  let back = wallGrad(o.dawn ? '#1e1530' : '#120f24', o.dawn ? '#2c1e36' : '#1a1530', -300, fy) + floorGrad(fy, 600, '#15101f', '#0b0814');
   // window with moon + city
   const wx = 1250, wy = 160, ww = 460, wh = 400;
-  back += S.rect(wx, wy, ww, wh, '#141032') + rectGrad(wx, wy, ww, wh, [[0, '#2a2860', 1], [1, '#5a3a70', 1]]) + S.circle(wx + 330, wy + 100, 44, '#f4efe0') + glow(wx + 330, wy + 100, 140, '#bfc8ff', .35);
+  const dawn = !!o.dawn;
+  back += S.rect(wx, wy, ww, wh, '#141032') + (dawn ? rectGrad(wx, wy, ww, wh, [[0, '#4a3a7a', 1], [.6, '#c8789a', 1], [1, '#ffb38a', 1]]) + S.circle(wx + 330, wy + 330, 50, PAL.sun) + glow(wx + 330, wy + 330, 220, '#ffcf8a', .6) : rectGrad(wx, wy, ww, wh, [[0, '#2a2860', 1], [1, '#5a3a70', 1]]) + S.circle(wx + 330, wy + 100, 44, '#f4efe0') + glow(wx + 330, wy + 100, 140, '#bfc8ff', .35));
   back += S.g({}, `<clipPath id="wclip"><rect x="${wx}" y="${wy}" width="${ww}" height="${wh}"/></clipPath>`, S.g({ 'clip-path': 'url(#wclip)' }, skyline(wy + wh + 10, 9, '#120f2a', wx - 50, wx + ww + 50, 200, .5)));
   back += S.rect(wx + ww / 2 - 5, wy, 10, wh, '#0c0a1a') + S.rect(wx, wy + wh / 2 - 5, ww, 10, '#0c0a1a') + S.rect(wx - 14, wy - 14, ww + 28, 16, '#0c0a1a') + S.rect(wx - 20, wy + wh, ww + 40, 22, '#0c0a1a');
   back += S.path(`M${wx - 60},${wy - 30} L${wx + 40},${wy - 30} Q${wx + 10},${wy + 200} ${wx + 40},${wy + wh + 40} L${wx - 60},${wy + wh + 40}Z`, '#3a2448') + S.path(`M${wx + ww + 60},${wy - 30} L${wx + ww - 40},${wy - 30} Q${wx + ww - 10},${wy + 200} ${wx + ww - 40},${wy + wh + 40} L${wx + ww + 60},${wy + wh + 40}Z`, '#3a2448');
   // moon shaft
-  back += shaft([[wx, wy + wh], [wx + ww, wy + wh], [wx + ww - 260, fy + 300], [wx - 500, fy + 300]], '#8f9cff', .08);
+  back += shaft([[wx, wy + wh], [wx + ww, wy + wh], [wx + ww - 260, fy + 300], [wx - 500, fy + 300]], dawn ? '#ffb38a' : '#8f9cff', dawn ? .16 : .14);
   // posters + shelf
   back += S.rect(240, 180, 170, 230, '#3a2a4a') + S.circle(325, 270, 50, '#d7383a', { opacity: .6 }) + S.rect(450, 220, 140, 180, '#2a3a5a') + S.path('M470,380 L520,250 L570,380Z', '#5fd16a', { opacity: .5 });
   back += S.rect(640, 330, 320, 14, '#3a2a30') + PR.book(680, 330, 22, 70, '#6a3a4a', { r: 0 }) + PR.book(706, 330, 22, 64, '#3a5a6a') + PR.book(732, 330, 22, 74, '#7a6a3a') + PR.trophy(860, 330, .35);
@@ -120,7 +121,7 @@ ENV.bedroom = (o = {}) => {
   // desk with lamp (centre)
   back += S.rect(660, fy - 230, 520, 22, '#4a3540') + S.rect(680, fy - 208, 16, 208, '#2a1e26') + S.rect(1140, fy - 208, 16, 208, '#2a1e26') + S.rect(980, fy - 208, 170, 150, '#3a2832');
   back += PR.lamp(1080, fy - 230, 1.1, lamp);
-  if (lamp) back += glow(1050, fy - 300, 420, PAL.lamp, .35 * lamp, 1.3) + glow(950, fy - 228, 300, PAL.lamp, .25 * lamp, 2);
+  if (lamp) back += glow(1100, fy - 340, 300, PAL.lamp, .45 * lamp, 1.2) + glow(1100, fy - 340, 70, '#fff3d0', .8 * lamp) + glow(950, fy - 228, 300, PAL.lamp, .28 * lamp, 2);
   back += dust(t, 25, 600, 200, 700, 500, 31, '#ffe0a8', .3 * lamp);
   return { back, fy, deskY: fy - 230, deskX: 920 };
 };
@@ -156,8 +157,9 @@ ENV.field = (o = {}) => {
   back += S.rect(-600, hy - 30, W + 1200, 30, '#2a1a30', { opacity: .6 });
   for (let x = -600; x < W + 600; x += 40) back += S.line(x, hy - 30, x, hy, '#2a1a30', 3);
   // field stripes in perspective
-  back += S.rect(-600, hy, W + 1200, 800, '#2a6a44');
-  for (let i = 0; i < 9; i++) { const y0 = hy + Math.pow(i / 9, 1.7) * 600, y1 = hy + Math.pow((i + 1) / 9, 1.7) * 600; if (i % 2) back += S.rect(-600, y0, W + 1200, y1 - y0, '#317a4f'); }
+  back += S.rect(-600, hy, W + 1200, 800, '#24503a');
+  for (let i = 0; i < 9; i++) { const y0 = hy + Math.pow(i / 9, 1.7) * 600, y1 = hy + Math.pow((i + 1) / 9, 1.7) * 600; if (i % 2) back += S.rect(-600, y0, W + 1200, y1 - y0, '#2a5c40'); }
+  back += rectGrad(-600, hy, W + 1200, 220, [[0, '#ffcf8a', .45], [1, '#ffcf8a', 0]]) + rectGrad(-600, 780, W + 1200, 500, [[0, '#10140f', 0], [1, '#10140f', .6]]);
   back += rectGrad(-600, hy, W + 1200, 160, [[0, '#ffcf8a', .35], [1, '#ffcf8a', 0]]);
   back += S.line(-600, hy + 40, W + 600, hy + 40, PAL.line, 3, { opacity: .5 }) + S.line(o.lineX ?? 900, hy + 40, (o.lineX ?? 900) - 120, 1200, PAL.line, 5, { opacity: .45 });
   back += dust(t, 30, 0, 200, W, 500, 51, '#ffe2b0', .35);
@@ -196,31 +198,35 @@ function workbench(x, y, w = 520, o = {}) {
 
 // -------- ARENA (tournament hall) --------
 ENV.arena = (o = {}) => {
-  const t = o.t || 0, cheer = o.cheer || 0, fy = 820;
-  let back = rectGrad(-600, -300, W + 1200, 1400, [[0, '#0e0b1c', 1], [.6, '#1a1530', 1], [1, '#120e20', 1]]);
-  // floodlight clusters
-  for (const fx of [260, 960, 1660]) back += S.rect(fx - 90, 40, 180, 50, '#1e1a2c', { rx: 6 }) + [0, 1, 2, 3, 4].map(i => S.rect(fx - 80 + i * 34, 50, 26, 30, PAL.flood, { rx: 3 })).join('') + glow(fx, 66, 260, '#dfe6ff', .4) + shaft([[fx - 90, 90], [fx + 90, 90], [fx + 300, fy + 200], [fx - 300, fy + 200]], '#dfe6ff', .07);
+  const t = o.t || 0, cheer = o.cheer || 0, fy = 820, warm = o.warm || 0;
+  const flood = mixc('#dfe6ff', '#ffd79a', warm);
+  let back = rectGrad(-600, -300, W + 1200, 1400, [[0, mixc('#0c0a1a', '#1a0f14', warm), 1], [.6, mixc('#191530', '#2a1a20', warm), 1], [1, '#110d1c', 1]]);
+  // haze band + floodlight cones
+  back += rectGrad(-600, 160, W + 1200, 520, [[0, flood, 0], [.5, flood, .07], [1, flood, 0]]);
+  for (const fx of [200, 960, 1720]) back += shaft([[fx - 80, 175], [fx + 80, 175], [fx + 420, fy + 260], [fx - 420, fy + 260]], flood, .16);
   // banners
-  back += S.rect(560, 120, 800, 90, '#2a1f4a') + S.text(960, 185, 'ROBOTICS CUP', { 'font-family': 'Lilita One', 'font-size': 64, fill: PAL.gold, 'text-anchor': 'middle', 'letter-spacing': 6 });
-  // bleachers + crowd
+  back += S.rect(560, 210, 800, 84, mixc('#2a1f4a', '#4a2a2a', warm)) + S.text(960, 272, 'ROBOTICS CUP', { 'font-family': 'Lilita One', 'font-size': 60, fill: PAL.gold, 'text-anchor': 'middle', 'letter-spacing': 6 });
+  // bleachers + desaturated crowd (top rows darker)
   const r = rng(o.seed || 91);
   for (let row = 0; row < 6; row++) {
-    const y = 300 + row * 62;
-    back += S.rect(-600, y + 26, W + 1200, 36, mixc('#241d38', '#2e2648', row / 6));
+    const y = 330 + row * 58, dark = .75 - row * .09;
+    back += S.rect(-600, y + 26, W + 1200, 34, mixc('#1c1730', '#2a2442', row / 6));
     for (let x = -560 + (row % 2) * 22; x < W + 560; x += 44) {
       if (r() < .12) continue;
       const bob = Math.sin(t * 9 + x * .05 + row) * 6 * cheer * (r() < .7 ? 1 : 0);
-      const shirt = ['#5a4a7a', '#7a4a5a', '#4a6a7a', '#6a6a4a', '#3a3a5a', '#8a5a3a'][Math.floor(r() * 6)];
+      const shirt = mixc(['#5a4a7a', '#7a4a5a', '#4a6a7a', '#6a6a4a', '#3a3a5a', '#8a5a3a'][Math.floor(r() * 6)], '#221c34', dark);
       const arm = cheer > .3 && r() < .5;
-      back += S.rect(x - 10, y - 4 + bob, 20, 30, shirt, { rx: 6 }) + S.circle(x, y - 16 + bob, 12, '#0e0a12') + (arm ? S.line(x + 8, y + bob, x + 16, y - 30 + bob, '#0e0a12', 6) : '');
+      back += S.rect(x - 10, y - 4 + bob, 20, 30, shirt, { rx: 6 }) + S.circle(x, y - 16 + bob, 12, '#0b0810') + S.path(`M${x - 9},${y - 24 + bob} a12,12 0 0 1 18,0`, 'none', { stroke: flood, 'stroke-width': 2, opacity: .35 }) + (arm ? S.line(x + 8, y + bob, x + 16, y - 30 + bob, '#0b0810', 6) : '');
     }
   }
-  back += rectGrad(-600, 640, W + 1200, 200, [[0, '#120e20', 0], [1, '#120e20', 1]]);
+  back += rectGrad(-600, 600, W + 1200, 240, [[0, '#110d1c', 0], [1, '#110d1c', 1]]);
+  // floodlight clusters (below the letterbox) with bloom
+  for (const fx of [200, 960, 1720]) back += S.rect(fx - 90, 120, 180, 54, '#16121f', { rx: 6 }) + [0, 1, 2, 3, 4].map(i => S.rect(fx - 80 + i * 34, 130, 26, 32, '#fbfcff', { rx: 3 })).join('') + glow(fx, 146, 300, flood, .55) + glow(fx, 146, 90, '#ffffff', .6);
   // scoreboard
-  if (o.board !== false) back += S.rect(1440, 230, 340, 160, '#0a0810', { rx: 10, stroke: '#3a3350', 'stroke-width': 6 }) + S.text(1610, 290, o.roundTxt || 'ROUND 1', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 36, fill: PAL.gold, 'text-anchor': 'middle' }) + S.text(1610, 368, o.clock || '1:00', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 70, fill: o.clockCol || PAL.red, 'text-anchor': 'middle' }) + glow(1610, 330, 200, PAL.red, .15);
-  // floor
-  back += S.rect(-600, fy - 80, W + 1200, 900, '#1e1a2e') + rectGrad(-600, fy - 80, W + 1200, 300, [[0, '#3a3456', .6], [1, '#3a3456', 0]]);
-  back += dust(t, 30, 0, 100, W, 700, 71, '#dfe6ff', .25);
+  if (o.board !== false) back += S.rect(1440, 300, 340, 160, '#0a0810', { rx: 10, stroke: '#3a3350', 'stroke-width': 6 }) + S.text(1610, 360, o.roundTxt || 'ROUND 1', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 36, fill: PAL.gold, 'text-anchor': 'middle' }) + S.text(1610, 438, o.clock || '1:00', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 70, fill: o.clockCol || PAL.red, 'text-anchor': 'middle' }) + glow(1610, 400, 200, o.clockCol || PAL.red, .2);
+  // floor with pool of light behind the course
+  back += S.rect(-600, fy - 80, W + 1200, 900, '#1a1628') + glow(960, fy, 700, flood, .28, 2.2) + rectGrad(-600, fy - 80, W + 1200, 300, [[0, '#4a4266', .5], [1, '#4a4266', 0]]);
+  back += dust(t, 40, 0, 100, W, 700, 71, flood, .35);
   return { back, fy };
 };
 // course table in 3/4 side view: table top from x0 to x1 at height y
@@ -254,7 +260,7 @@ ENV.school = (o = {}) => {
   back += S.rect(260, 280, 1400, 560, '#3a2230') + S.rect(260, 280, 1400, 20, '#5a3a45') + S.poly([[760, 280], [960, 160], [1160, 280]], '#33202c');
   if (o.sign !== false) back += S.text(960, 250, 'WESTBROOK HIGH', { 'font-family': 'Lilita One', 'font-size': 38, fill: '#e6c79a', 'text-anchor': 'middle', 'letter-spacing': 4 });
   for (let r = 0; r < 3; r++) for (let c = 0; c < 10; c++) { const lit = hash(r * 10 + c + 3) > .35; back += S.rect(320 + c * 135, 330 + r * 150, 80, 100, lit ? PAL.win : '#2a1820') + (lit ? glow(360 + c * 135, 380 + r * 150, 80, PAL.win, .25) : ''); }
-  back += S.rect(890, 690, 140, 150, '#24141c') + S.rect(900, 700, 120, 140, '#ffcf8a', { opacity: .75 });
+  back += S.rect(890, 690, 140, 150, '#24141c') + S.rect(900, 700, 120, 140, '#ffcf8a', { opacity: .75 }) + S.poly([[900, 840], [1020, 840], [1180, 1100], [740, 1100]], '#ffcf8a', { opacity: .18 });
   back += treeLine(fy, 33, '#24141c', -600, 300, 1.8) + treeLine(fy, 34, '#24141c', 1650, W + 600, 1.8);
   back += S.rect(-600, fy, W + 1200, 400, '#1e1218') + S.rect(-600, fy, W + 1200, 10, '#3a2230');
   for (const lx of [200, 1720]) back += S.line(lx, fy, lx, 560, '#140b10', 8) + S.circle(lx, 556, 14, PAL.lamp) + glow(lx, 560, 160, PAL.lamp, .4);

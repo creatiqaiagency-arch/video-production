@@ -1,0 +1,436 @@
+{
+  "version": "V1",
+  "overall_score": 4.0,
+  "auditor_scores": {
+    "shot_rhythm": 4.5,
+    "logic_sense": 4.0,
+    "lighting": 5.5,
+    "animation": 3.5,
+    "story_flow": 4.0,
+    "mean": 4.3
+  },
+  "verdict": "4/10. In stills V1 already looks like Ifverse: the palette, black-head stickmen, letterbox, grain, window god-rays, and a well-planted script. As a video it can't ship. A pipeline bug (placeholder 2.5 s VO, every speaker NAR) put about 58 s of narration on top of itself, left every mouth shut, desynced every line-anchored cut and cut the runtime to 4:50. On top of that, the climax lies to the viewer: two clocks disagree, the robot passes through the barrier, and triumph music plays before anything is solved. The tournament (a third of the film) is lit flat and cold, and the characters move like posed paper dolls. Compared with the reference: our rims are half as thick, close-ups sit dead centre instead of on thirds, OTS shots show faces instead of the backs of heads, and the arena has no visible key light. V2 is a re-render with the bug fixed plus a focused clarity pass on Act 3. The script does not need rewriting.",
+  "keep": [
+    "Art direction and post stack: purple-lifted blacks, 60 px letterbox, grain, warm window god-rays (S007 hallway hero, classroom, music room). The working-tree lib upgrades (bloom, burn, vignette .65, arena haze and visible floods, desaturated crowd, dawn bedroom, darker field, thicker rims, head tilt/nod, softened 'determined' brows) are V2 groundwork, so commit them and don't revert them.",
+    "Shape match cuts: S002 keys -> S003 keyboard -> S004 page -> S005 board, and the B06 failure chain. Deliberate mirrors: S046 = S008 classroom angle with the same quadratic as S022, S105 overhead keys with a blue sleeve calling back S002/S032.",
+    "The plant/payoff chain: the backup sensor is visible on the robot (S056, S060 'BACKUP SENSOR · LEFT SIDE', S072, S093, S095, S104), the S060 diagram, and the S077/S094 overhead map that resumes from the same barrier. Don't redesign it, only clarify it.",
+    "The S028 rule card with explicit limits (instant knowledge, superhuman body and perfect judgment all crossed out; still needs practice, sleep and time), shown again in S044/S045. 'Perfect judgment ✗' quietly sets up the moral.",
+    "Wardrobe and prop continuity: Eli's red hoodie, Noah's light-blue shirt and yellow cap (absent from the workshop after he leaves), the friends' photo from S055 to the S104 payoff, the red+blue stripe, the TEAM: ELI & NOAH card.",
+    "Time-compression devices that already work: S034 clock and practice bar, S037 rep counter with a tightening trajectory, S068 fixed time-lapse with the empty bench, the S053->S054 warm-to-cool montage, the S069 cool CU.",
+    "DOF on CUs and OTS shots (S017, S018, S062, S100, S101): blurred BG plus a big blurred FG shoulder, as in the reference.",
+    "Screen direction in the hall shout: Eli points screen-right (S085), Noah screen-left (S090). Keep it when re-blocking with wides and OTS shots.",
+    "The beat/anchor timeline architecture (on/off/at/w) and the broad shot vocabulary (26 types). Fix the inputs, not the system.",
+    "The comic ending: the 'ten hours' reversal and the piano-room callback."
+  ],
+  "fixes": [
+    {
+      "id": "F01",
+      "priority": "P0",
+      "shots": "ALL",
+      "fix": "VO-injection bug. render.html now calls buildTimeline(BEATS, window.VO || {}), and render.js throws if VO durations are missing or any line falls back to the placeholder. Timeline is 345 s, no overlaps, real speakers, so lip sync (speakAmp/c.speak) works. Still to do: commit, re-render V2, and in tools/build.sh assert that timeline.json lines have varied dur, spk in {NAR,ELI,NOA,TEA,STU,ANN} and start[i+1] >= end[i]-0.05 (except the deliberate L042->L043, see F29). Spot-check mouths on S009, S010, S017, S083, S099.",
+      "raised_by": [
+        "shot_rhythm",
+        "logic_sense",
+        "lighting",
+        "animation",
+        "story_flow"
+      ],
+      "status": "done (code) — verify on V2 render"
+    },
+    {
+      "id": "F02",
+      "priority": "P0",
+      "shots": "S001, S043, S053/S054, S103, S104 + every on:'Lxxx' cut",
+      "fix": "Retime pass after F01. New unmarked >6 s shots: S043 (6.33): add S043b CU Eli reacting on the second half of L031 (on:'L031', off:+2.5), or w .6 plus a gold-ball INSERT. S103 (6.50): hold:true + CAM.move pan 8%. S104 (6.67): split into stripes INSERT (3 s) + photo push-in INSERT (3 s), or hold:true with push 1->1.12. S053/S054 locked-off: cap each at 2.5 s (B20 pre/post 1.2/1.4 -> .4/.6) or add z +.03. S001: see F16. Then scrub every line-anchored cut against the new VO and check that dialogue cuts land on line starts (e.g. S064 off:-.4 so the cut lands on Noah's breath before 'Dude'). Build guard: fail if total is outside 330-360 s.",
+      "raised_by": [
+        "shot_rhythm"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F03",
+      "priority": "P0",
+      "shots": "S074-S102 (arena scoreboard + overlay timer)",
+      "fix": "One clock. act3.js: finalClock(T) = max(0, 60 - (T - tFinalStart)*k) from S075's start, tuned to read 0:03 at S094 and 0:01 at S095. Pass ENV.arena({roundTxt:'FINAL', clock: fmtClock(finalClock(c.T)), clockCol: PAL.red}) in every shot S075-S096 (the arena() default is 'ROUND 1 / 1:00', which is wrong). Keep the small corner timer overlay in S082-S090, and show it in S087 as a desaturated ghost. After S095 freeze at 0:01 and show 'WINNER' (S096-S102). S074 shows 'ROUND 2 ✓'. Remove the 0:57 -> 0:31 jump.",
+      "raised_by": [
+        "logic_sense",
+        "story_flow"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F04",
+      "priority": "P0",
+      "shots": "S093 (+S091 LED)",
+      "fix": "The payoff must read as a swerve, not a pass-through. act3.js S093: put the barrier in the near lane, drawn in a fg layer in front of the robot once it passes the midpoint. Robot arcs into depth: y up, scale 1.5->1.6 as it comes back toward camera, rot 0->-12°->0 (yaw), then returns to the lane. The blue backup LED flashes on just BEFORE the swerve (glow '#4aa3ff' .4 r120) so cause precedes effect. Mount the blue box on the rear-left corner in both the props.js side and top views so 'LEFT' is true from every angle.",
+      "raised_by": [
+        "logic_sense",
+        "animation",
+        "lighting"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F05",
+      "priority": "P0",
+      "shots": "S051",
+      "fix": "act2.js S051: add Eli seated at the desk screen-left (back three-quarter, looking up at the student). Draw the desk after the student's legs (he stands behind it), and keep his eyeline and point on Eli. Right now he challenges an empty desk.",
+      "raised_by": [
+        "logic_sense"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F06",
+      "priority": "P1",
+      "shots": "B23-B26, B30-B37 (music map)",
+      "fix": "act3.js: B23 remove music:{name:'stop'} and keep curious_open (or a warm workshop bed at 0.3) under S059-S065. B24 'stop' at the start of L046 with a 0.3 s fade, so the silence hits on the hurt. Keep sad_piano entering at S068. B34: delete the triumph_resolve cue. Add tension_competition at 0.2 from S080 and stop it hard on the S091 switch zap, leave 0.4 s of silence, then start triumph_resolve on S093 when the robot turns. B37: 'duck' -> 'stop' (fade 1.5) and enter a soft piano bed (sad_piano .25 or the piano motif) under S099-S102.",
+      "raised_by": [
+        "story_flow"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F07",
+      "priority": "P1",
+      "shots": "S065/S087-S088 (L065), S103-S104 (L076/L077), S068-S069 (L048-L050)",
+      "fix": "Narration trims (see conflicts): cut L065 and let S087 -> S088 play on sparkle, tool click and the guilty face (S088 ~1.5 s, no VO). Cut L076 and keep L077 over S103/S104. B26: pre 2.8 so the first S068 sweeps play on sad_piano alone. Move L050 off S068 onto S069. Push S068 ~15% so the photo on Eli's bench and Noah's empty stool read.",
+      "raised_by": [
+        "story_flow"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F08",
+      "priority": "P1",
+      "shots": "S070-S102 (arena look)",
+      "fix": "The lib relight is partly done in the working tree (env.js ENV.arena: floods at y 120-175 under bloom, shafts .16, haze band, desaturated crowd darker toward the top rows, warm param; common.js LT.flood/floodL/floodR/goldL/goldR). Wire it per shot. Use floodL/floodR matching the nearest cluster, with rimW 7-9 on CU/MS (S081 floodL rimW 10). S096-S102: arena({warm:1}), LT.goldL/goldR rimW 6, grade {tint:'#ffb070', op:.22}, glow(eliX,500,600,PAL.winHot,.35). S082/S071 'isolate Noah': crowd layer blur 6, Noah sharp on his own layer, pale beam through his seat (.2), radial darkening of neighbours r≈250. S075: crowd bb 14 op .5, red spill from the scoreboard. Course table (S072/S093/S095): lit top rectGrad '#5a6a9a' .5->0 and a reflective streak under the robot.",
+      "raised_by": [
+        "lighting"
+      ],
+      "status": "partial — lib in working tree, shots not wired"
+    },
+    {
+      "id": "F09",
+      "priority": "P1",
+      "shots": "S058-S069 (workshop)",
+      "fix": "Re-block and re-angle together. S059: Noah turns to his bench and points at or holds up HIS diagram, not Eli's chest. S061/S063/S065: Eli seated at his bench facing the robot or laptop (profile or back three-quarter), P.sitType, expr 'busy'/'focused' (the 'busy' expr and softer 'determined' brows are now in rig.js), speaking over his shoulder. Strong emotion stays on Noah only. New angles: S061 reverse from the pegboard toward the door with Eli FG. S063 TOP over the workbench with Eli's hands typing and Noah's hand entering frame. S065 OTS over Noah's shoulder onto Eli's turned back. S067 shot from the doorway outward (Noah exits toward camera, Eli small in the BG, still working, head down). Noah exits through the door frame (clip, no pop). Light: workshop({tod:.6}) for S064/S065, tod .75 + grade {tint:'#6a5aa0', op:.18} for S066/S067. Optional: a 1.2 s INSERT of Noah's sensor drawing pushed aside between S063 and S064.",
+      "raised_by": [
+        "shot_rhythm",
+        "logic_sense",
+        "story_flow",
+        "lighting"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F10",
+      "priority": "P1",
+      "shots": "S066, S067 (+S068)",
+      "fix": "The key emotional hold. B24 post 3.2->5.0 and S066 at:-3.0->-5.0, CAM.push 1.0->1.08 'sine'. B25 min 3.2->5.5, S067 CAM.push(1350,600,1.0,1.06) following Noah. Screwdriver at hand size (~0.35×). Noah's bench top in the FG at y≈900. Attach the tool at character(...).handF, lower it with E.inOut, add a 6-frame hesitation before release, ease onto the bench over 6 frames with a 4°->0° settle on the click (sfx tool_place), and leave it there (no swap). Head drop 0->8 and one slow blink after. Lamp .5 so Noah's face is in shadow with only a rim. S067/S068: the screwdriver lies on Noah's empty bench next to the blue tray.",
+      "raised_by": [
+        "shot_rhythm",
+        "logic_sense",
+        "animation",
+        "lighting"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F11",
+      "priority": "P1",
+      "shots": "B35 S091-S095, B28 S072, B29 S076-S077",
+      "fix": "Climax cutting and speed. B35 minShot 1.2, 7 shots at ~1.3-1.8 s. Add flash cuts (tin:'flash', dur .7-.9): S091b ECU blue backup LED igniting, S094b ECU timer 0:01. S092 -> 1.0 s. S095: robot crosses with E.out and ~40 px overshoot, 3-frame nose-dip settle (rot 3°->0), wheelRot tied to dx (not c.t). Ramp to 0.4× for the last 0.6 s before the line, heartbeat-only audio for 0.5 s, then horn + flash + crowd, with the timer at 0:01 in frame. S072: split into a LOW track (2.5 s) + S072b TOP whip (1.5 s). Add floor stripes every 160 px in the mid layer, a blurred FG post at fp 1.6 that whips past, 3-5 speed lines (120-300 px, op .5) and 2 px chassis jitter (noise1(t*30)). B29: S076 POV dur 1.4, S077 w .8.",
+      "raised_by": [
+        "shot_rhythm",
+        "animation",
+        "story_flow"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F12",
+      "priority": "P1",
+      "shots": "S080-S090 (hall shout exchange)",
+      "fix": "Geography and stakes. S084 -> WS from behind Eli across the hall to Noah standing in the bleachers. S085 -> high-angle OTS over Noah's shoulder down to Eli. S089 -> LOW on Eli with the timer in the FG. S090 -> TELE push on Noah pointing (S082 cam z 2.6->3.4). Keep S086 CU. Add two 1.2 s robot-stuck INSERTs (between S084/S085 and S086/S087): reuse the S077 overhead with the red pulse, wheels spinning against the barrier, orange LED flicker, timer visible. Performance: 4-frame anticipation (lean -6, headDrop +4) -> outBack hit (lean +12) -> 10-frame hold with ±1.5 lean at 18 Hz. S084 Noah rises P.sit->P.shout over 0.4 s. shake(c.t,4) for 6 frames on 'NOAH!'.",
+      "raised_by": [
+        "shot_rhythm",
+        "story_flow",
+        "animation"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F13",
+      "priority": "P1",
+      "shots": "S087 (+S060 diagram)",
+      "fix": "Make the flashback read as memory. Reuse the exact S059 two-shot framing and props (Eli left, Noah right with the diagram on his bench, or the S060 insert). Grade {sat:.1, sepia:'#c8a878'}: post.js now has the 'desat' filter and the gr.sepia multiply in the working tree. Add grain .12, vignette .8 and a 2-frame white flash at the cut in and out. Fix the clue text: move the grey METAL tag up to the barrier line (y-40) so it stops covering 'CON' in 'METAL CAN CONFUSE IT!' (S060 and S087).",
+      "raised_by": [
+        "logic_sense",
+        "lighting",
+        "story_flow"
+      ],
+      "status": "partial — post.js desat/sepia ready"
+    },
+    {
+      "id": "F14",
+      "priority": "P1",
+      "shots": "ALL dialogue CUs + S009, S013, S014, S016, S020, S023, S026, S036-S038",
+      "fix": "Character life. (a) After F01, verify mouths move on all 34 character lines. (b) Head tilt/nod while talking and idle sway now exist in rig.js character() (working tree). Verify they're visible in CUs (S010, S017, S064, S083, S100, S108) and add lean += 1.5*noise1(t*.5+seed). (c) Expression changes get a 2-frame blink between them, plus a 'take' helper: head 1->1.08->1 outBack 6 frames, brows up. Use it on S023 @0.4 s and S026 @line start, hold shock 12 frames. S014: wince on note-hit sfx times, not 4 Hz hash. (d) Pose pops: S020 mixPose(P.sitWrite, P.sitFacepalm (now in rig.js), atE(c,1.3,1.6,'outBack')) and back out over 1.0 s. S036/S037/S038: replace the ternaries with poseAt keyframes (stand -> kickWind .12 -> kick .2 'out' -> stand .45 'inOut'). S038: follow-through hold, then cheer 'outBack' with a 2-frame bounce. S036: ball bounce peak at the shin x≈900 with leg recoil and a flinch. S016: walk->sit blend over 0.35 s with a drop+settle. (e) S013: ball at x≈980 so the foot whiffs just over it. kickWind 0-.45 s 'out', kick .45-.55 with ghosts() on the leg, body rot overshoots -85° and settles at -75° (outBack). Land flat on his back with shake(c.t,8) for 6 frames and a dust puff. Ball rolls 300 px ease-out. Hold 12-16 frames, then a leg twitch and blink.",
+      "raised_by": [
+        "animation",
+        "logic_sense"
+      ],
+      "status": "partial — rig head tilt/nod, sitFacepalm, breathing 2.2% in working tree"
+    },
+    {
+      "id": "F15",
+      "priority": "P1",
+      "shots": "S006, S016, S053/S054 extras, S098, S103",
+      "fix": "Stride-locked walks: drive P.walk phase from actual displacement with the new walkPh(dist,h) helper (rig.js working tree). x moves linearly inside the walk, easing only on the start and stop steps. S006: lerp x 760->1060 with h >= 110, or drop the walkers. S098: stop the 2× skate. S103: put the walkers inside the door light spill so they read as silhouettes.",
+      "raised_by": [
+        "animation",
+        "lighting"
+      ],
+      "status": "partial — walkPh helper in working tree"
+    },
+    {
+      "id": "F16",
+      "priority": "P1",
+      "shots": "S001 (hook)",
+      "fix": "The hook must show '1 hour = 10 hours' in the first 6 s. act1.js S001: push in so the figures are ~2× larger (CAM.push 1.0->1.15, drift dx 30). Both halves reach the same end state at the same moment (left calendar hits DAY 10, right clock completes 1 HOUR), both pianos emit identical gold notes, and a big '=' wipes between the labels '10 HOURS' | '1 HOUR'. Re-time the panel collapse to 2.4-3.4 s. Cap at ≤6 s, using S001b CU as overflow (see conflicts).",
+      "raised_by": [
+        "story_flow",
+        "shot_rhythm"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F17",
+      "priority": "P1",
+      "shots": "S025, S027",
+      "fix": "Make the proof complete on screen. S025: MM:SS timer that hits exactly 06:00 by 80% of the shot, NOW bar stops at 10% of BEFORE, pop '6 MIN vs 60 MIN' (ui_pop @3.2 s). S027: the red sleeve enters from the bottom-right frame edge. All ticks flip within 70% of the shot, then a full-size green '6/7' stamp replaces the F (paper slap + success chime), held ≥0.8 s.",
+      "raised_by": [
+        "story_flow",
+        "logic_sense"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F18",
+      "priority": "P1",
+      "shots": "S019-S029 (time of day), S020/S044 (desk scale)",
+      "fix": "VO says 'one morning', but V1 shows a moonlit room. ENV.bedroom now accepts o.dawn (working tree). Pass bedroomDesk(c,{dawn:true}) for every B08-B12 shot (S020-S029) and keep night for S041-S044 (2:00 AM). bedroomDesk(): raise Eli and the stool ~120 px (or lower the desk top) so his elbows rest on the desk and the book sits in front of his chest. S044: head ON the open book (head y = desk top - head R).",
+      "raised_by": [
+        "logic_sense",
+        "lighting"
+      ],
+      "status": "partial — ENV.bedroom dawn option in working tree"
+    },
+    {
+      "id": "F19",
+      "priority": "P1",
+      "shots": "S074, S097, S027, S056, S091, S002/S003/S032/S035/S105",
+      "fix": "Body and prop errors. S074 announcer: raise the far arm (f:-1 or 3/4 turn) abducted ~135° so the hand clears the head, draw the headset mic, keep expr 'shout'/'happy' visible. S097: an official's arm (sleeve off-frame) grips the trophy, or put it on a podium. Eli's eyes go screen-right toward Noah. Insert arms: sleeves continue past the nearest frame edge (start ≥150 px outside; bigHand sleeve already lengthened to 1050 px in the working tree, so verify placement). Piano and keyboard inserts: palms down, fingertips on the keys, fingers pointing away from camera.",
+      "raised_by": [
+        "logic_sense"
+      ],
+      "status": "partial — bigHand sleeve length in working tree"
+    },
+    {
+      "id": "F20",
+      "priority": "P1",
+      "shots": "S017, S018, S062, S100, S101 (OTS); S010, S023, S026, S048, S064, S066, S081, S088, S107, S108 (CUs)",
+      "fix": "Ifverse framing grammar. OTS: render the FG actor from behind or three-quarter-back (no face features, hood or cap from behind) facing the speaker, and turn the speaker's head 15-20° toward the FG shoulder. CUs on thirds: headAt x≈700 or 1220 opposite the look direction, y≈430, with the brightest BG element in the open third (S081 [760,470] with the flood bloom at upper right; S088 [1180,470] with Noah blurred FG left; S026 and S108 share [1150,480]). Rim: the rig default is now max(6.5, h*.011) (working tree). Check CU rims read at 12-16 px like reference frames 05/28, and use PAL.rimHot in warm scenes.",
+      "raised_by": [
+        "logic_sense",
+        "lighting"
+      ],
+      "status": "partial — rim width in working tree"
+    },
+    {
+      "id": "F21",
+      "priority": "P1",
+      "shots": "S098-S102 (apology)",
+      "fix": "Give the reconciliation room. B37: L072 gap .5, L073 gap .9, minShot 3.5 so the S100/S101 CUs run 3.5-4 s with slow pushes. Start S099 tighter (z≈1.25) with a push. Add a 1 s soft reaction CU of Noah before L074. S102 becomes a low WS profile two-shot with applause blur in the FG: Noah's bump gets a 4-frame lean-away anticipation and 3-frame contact, Eli is displaced 25 px with outBack recovery, then both laugh with head-back tilt. Listener nods and a weight shift (lean ±3 over 2 s) in S099. S098: expr 'worried'/'sad', not 'determined'.",
+      "raised_by": [
+        "shot_rhythm",
+        "story_flow",
+        "animation",
+        "logic_sense"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F22",
+      "priority": "P1",
+      "shots": "S106-S108 (ending)",
+      "fix": "S106: replace the hop with walk-in, turn and a lower-hips sit over ~0.6 s, feet staying on the floor. S107/S108 seated (P.sit) with the piano edge in frame. S108: start 3/4 (turn .45), 6-frame snap to front with S026's wide-eyed face and identical headAt/h, droop to deadpan on 'Oh my God', 0.6 s of silence, sting, hard cut to black. Title 'WHAT IF YOU COULD LEARN ANYTHING 10x FASTER?' on black for 3.5 s, not over his face. Beat post ~4.0.",
+      "raised_by": [
+        "story_flow",
+        "logic_sense",
+        "animation"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F23",
+      "priority": "P1",
+      "shots": "GLOBAL pacing (timeline.js minShot)",
+      "fix": "Break the 2-3 s metronome. Action beats B13, B14, B28, B29, B35: minShot 1.3 with varied w (.6/.8/1.4). Emotional beats B24-B26, B37, B38: minShot 3.5-4. Montage beats B02, B16, B20: minShot 1.4. Target ≥15 shots under 1.8 s and ≥10 shots of 5-9 s (moving or hold:true), against the reference's 25% under 1.5 s.",
+      "raised_by": [
+        "shot_rhythm"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F24",
+      "priority": "P2",
+      "shots": "Post/light polish: S004, S015, S021, S022, S024, S027, S047, S057; S002/S032/S035/S105; S013, S036-S040, S045; S020-S044; S007; S006/S103",
+      "fix": "The working tree already has: vignette .65 r.72, top/bottom burn, bloom pass, paper '#d9c9ab', keysTop '#e3d6c3' + pressed-key glow, field '#24503a'/'#2a5c40' + FG darkening, bedroom lamp shrink + hot core, school door spill, light.both in rig. Remaining: a per-shot lamp-pool radGrad on paper and key inserts (vignette .7, tint '#ffb070' .15 lamp-lit / '#8f9cff' .1 daylight). Field: long character shadow cast away from the sun, vignette .65. Bedroom CUs: keep the lamp shade in frame. S007: light {both:true}, rimW 10, '#fff1d6', plus an anamorphic streak (ellipse rx 900 ry 6, #fff .5, screen). School: window glow r140 .35. Check bloom render time, and fall back to auto glow() on windowPane/LEDs/scoreboard/sun if it's too slow.",
+      "raised_by": [
+        "lighting"
+      ],
+      "status": "partial — lib in working tree"
+    },
+    {
+      "id": "F25",
+      "priority": "P2",
+      "shots": "S037, S053, S054, S073, S092, S094, S095 + global drift",
+      "fix": "No locked-off shots over 2.5 s. post.js CAM.drift default dx 18->30, dz .03->.05, and any shot over 4 s gets CAM.move/push with ≥8% travel. S037 CAM.drift(960,640,1.05,.04,30). S073 CAM.push(960,540,.98,1.06). S092 CAM.push(960,560,1,1.05). S094 CAM.drift(960,560,1,.04). S095 CAM.push(960,640,1,1.12,'out').",
+      "raised_by": [
+        "shot_rhythm"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F26",
+      "priority": "P2",
+      "shots": "S036, S038, S047, S070, S095, S096",
+      "fix": "Transitions: tin:'flash' (2-4 frames) on S038 goal, S047 A+, S095 finish, S096. Whip-pan smear (post.js 'whip' filter exists) into S036 (to football) and S070 (to tournament).",
+      "raised_by": [
+        "shot_rhythm"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F27",
+      "priority": "P2",
+      "shots": "S050, S053-S054 (+S054b), S058",
+      "fix": "S050: draw real props (guitar on a locker, chess flyer, hoop poster) with a friend pointing at each, labels under the props, and drop the washed-out 'RUBIK'S CUBE?' label. Expressions 'happy'/'focused' (eager), not a scowl. obsession(): outgoing object 1->0.6 with 3 smear ghosts and a whoosh, incoming 0.6->1.08->1 outBack over 6 frames. A different working pose per object (cube twist with elbows at 6 Hz, chess reach, page turn, soldering lean), with lean and headDrop increasing over k. Optional S054b (2.5 s, no VO): Eli alone in the cool light ignoring a 'hey, want to hang out?' bubble. S058: P.sitType(c.T*4) or a P.typeFast with ±25° forearms at 12 Hz, arm-only ghosts (4 copies, dt .025, op .35) and speed ticks. Noah turns a page every 1.2 s.",
+      "raised_by": [
+        "logic_sense",
+        "animation",
+        "story_flow"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F28",
+      "priority": "P2",
+      "shots": "S035 (B13), S106",
+      "fix": "Give the piano song its moment: B13 post ≈3.0 so S035 becomes a ~4.5 s VO-free performance (piano_melody_good .9, gold notes, a satisfied-face cut-in). In S106 Eli plays the first two bars (0.8 s) before 'Yeah.', so the callback pays off. +3 s runtime: only if the total stays ≤360 s.",
+      "raised_by": [
+        "story_flow"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F29",
+      "priority": "P2",
+      "shots": "S061 (L042->L043)",
+      "fix": "Make it a real interruption: L043 gap -0.25 and mix.py fades L042 over 80 ms at L043.start. 'backup on the left' must stay fully audible. Whitelist this pair in the F01 overlap assert.",
+      "raised_by": [
+        "story_flow",
+        "logic_sense"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F30",
+      "priority": "P2",
+      "shots": "S002-S005, S027-S028, S056-S057, S062-S065",
+      "fix": "Information-shot variety: keep S002-S004 TOP match cuts. S005 becomes a GFX pull-out (CAM.move z 1.25->.95) revealing the board on a wall. S027/S028: add a w .6 ECU of Eli between them. S057: split into the poster INSERT (2.5 s) and a calendar-crossing INSERT (3 s) with flash page flips.",
+      "raised_by": [
+        "shot_rhythm"
+      ],
+      "status": "todo"
+    },
+    {
+      "id": "F31",
+      "priority": "P2",
+      "shots": "S011, S096, S098 crowds; ALL blinks",
+      "fix": "Crowd life: P.cheerBounce(t, ph) (now in rig.js) with per-extra phase in S096/S098. S011 laughers lean ±6° with a head-back tilt at 5 Hz. Blinks: hash-driven gaps of 2-4 s, a 3-frame close-squash-open and occasional doubles, replacing the fixed 3.1 s period.",
+      "raised_by": [
+        "animation"
+      ],
+      "status": "partial — cheerBounce in working tree"
+    },
+    {
+      "id": "F32",
+      "priority": "P2",
+      "shots": "S048, S006 title hold",
+      "fix": "S048 teacher: draw the glasses as a layer independent of expr, and slide them down 25 px over 0.4 s with shock eyes above the rims. S006: 1 s music-only hold before L004 (title move deferred to V3, see conflicts).",
+      "raised_by": [
+        "logic_sense",
+        "story_flow"
+      ],
+      "status": "todo"
+    }
+  ],
+  "conflicts_resolved": [
+    {
+      "topic": "Narration cuts vs runtime >= 5:30 (story: cut L065 and L076/L077; brief: 5:30-6:00)",
+      "decision": "Cut L065 and L076, keep L077, and keep L050 but move it onto S069.",
+      "why": "With real VO the edit is 345 s. Cutting L065 (~5.4 s) and L076 (~6 s) and shortening S092 (-1 s) removes ~12 s. The P0/P1 holds and inserts add ~17 s (S066/S067 +4, robot-stuck inserts +2.5, apology pauses +2, end title on black +2.5, S068 silent sweeps +2.5, climax flash cuts +1.5, S088 silent beat +1.5, S095 slow-mo +0.6), so V2 lands at ~350 s (5:50), inside the window. L064 'I told you that three weeks ago!' plus the S087 flashback already explain the realisation, so L065 is redundant. L077 is the emotional line, and L076 restates the premise the rule card already showed. Add a build guard: fail if the total is outside 330-360 s."
+    },
+    {
+      "topic": "S001 hook: split into S001 + S001b CU (rhythm) vs keep one split-screen shot showing the equal outcome (story)",
+      "decision": "Story's content in a single shot, capped at 6 s.",
+      "why": "The first 6 s have to sell '1 hour = 10 hours'. One shot that pushes 1.0->1.15 and ends on the '=' wipe does that better than a cut to an Eli CU. If the retimed shot exceeds 6.0 s, add S001b (Eli smiling CU, CAM.push 1->1.1) as overflow, not as a design goal."
+    },
+    {
+      "topic": "S026/S108 callback face: logic says make S026 'bewildered' to match S108; story says make S108 open on S026's wide-eyed shock face",
+      "decision": "Keep S026 as wide-eyed shock. S108 opens on the identical face and framing, then droops to deadpan on 'Oh my God'.",
+      "why": "The shock take is the more readable and funnier beat in Act 1. The callback works by repeating it, then subverting it. Both shots share headAt and h, placed on the right third (this also satisfies lighting's thirds rule)."
+    },
+    {
+      "topic": "S027 grade stamp: '9/10' (story) vs '6/7' (logic)",
+      "decision": "'6/7'.",
+      "why": "The test sheet has 7 visible questions. VO L020 only says 'almost every answer was right', so 6/7 is consistent with what's on screen."
+    },
+    {
+      "topic": "S092 sensor GFX: shorten to 1.4 s (rhythm), 1.0 s or PiP over S091 (story)",
+      "decision": "Keep it as its own shot at 1.0 s with a flash-in.",
+      "why": "A PiP is new compositing work. At 1.0 s the cause/effect beat stays without stalling the climax."
+    },
+    {
+      "topic": "Workshop: rhythm wants new angles (reverse, TOP, OTS, doorway); logic and story want re-blocking (Eli seated, working, not facing Noah)",
+      "decision": "Do both in one pass. They're compatible.",
+      "why": "Eli seated at his bench in profile or back three-quarter gives the TOP-over-the-workbench and OTS-over-Noah angles a natural reason, and it fixes the 'hostile glare' misread at the same time."
+    },
+    {
+      "topic": "L042->L043 interruption: negative gap (story) vs fade L042 at L043.start (logic)",
+      "decision": "L043 gap -0.25, plus mix.py fading L042 over 80 ms at L043.start.",
+      "why": "This makes it a real interruption while 'backup on the left' (mid-line) stays fully audible. Check the mix by ear."
+    },
+    {
+      "topic": "Title placement: move S006 after B07 (story, option A) vs keep at ~16 s",
+      "decision": "Keep it for V2 with a 1 s music-only hold before L004. Reconsider for V3.",
+      "why": "Moving the title is a restructure with retiming risk. After the VO fix the title lands at ~16 s, which is acceptable. V2 effort goes to Act 3 comprehension."
+    },
+    {
+      "topic": "Climax lighting cold (lighting) vs tension continuity",
+      "decision": "Keep cold flood light through S095, then switch to warm (o.warm:1) from S096 to S102.",
+      "why": "The colour change becomes the emotional payoff. If the warmth started earlier, it would dilute the panic."
+    }
+  ],
+  "predicted_v2_score": 7.0,
+  "predicted_v2_rationale": "F01 on its own (real VO timing, no overlaps, lip sync, 5:45 runtime) lifts story, rhythm and animation ~1.5 points each. The P0 logic fixes plus F06-F13 make Act 3 readable and emotionally timed (logic ~7, story ~7.5). The arena relight and framing grammar bring lighting to ~7. Animation stays the ceiling (~5.5-6): the rig still reads as paper dolls next to Ifverse's acting. Expected range 6.5-7.5, and 8+ needs the P2 polish plus a real acting pass in V3.",
+  "runtime_plan_v2": {
+    "after_F01": "345 s",
+    "cuts": "L065 -5.4, L076 ~-6, S092 -1",
+    "adds_P0_P1": "~+17 (S066/S067 +4, stuck inserts +2.5, apology +2, end title +2.5, S068 +2.5, flash cuts +1.5, S088 +1.5, S095 +0.6)",
+    "target": "~350 s (5:50); build fails outside 330-360 s"
+  }
+}

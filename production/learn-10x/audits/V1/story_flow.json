@@ -1,0 +1,131 @@
+{
+  "auditor": "story_flow",
+  "version": "V1",
+  "score": 4.0,
+  "summary": "The script structure is strong and close to the Ifverse template: the power is shown first, then one rule with explicit limits (S028), escalation from personal tests to public status to a competition, a clear plant (S059/S060 BACKUP · LEFT diagram plus label) paid off by a matching flashback (S087), and a piano callback ending. But the V1 film as a viewer experiences it is badly damaged by a pipeline bug. render.html builds the timeline from window.VO_DUR, while render.js injects window.VO. Every line is therefore timed at the 2.5 s fallback and tagged speaker 'NAR'. Real clips run 1.3–8.4 s, so 35 of 81 lines overlap the next line by up to 3.7 s (L001/L002 in the hook, L020/L021 rule proof, L031–L033 limits, L042/L043 interruption, L059/L060 climax, L076/L077 moral). Also, no character's mouth moves on dialogue, because speakAmp() matches spk and every line is 'NAR'. This bug is also the whole runtime gap: with the real durations the same edit times out at 345 s (5:45), inside the 5:30–6:00 target, and the title lands at ~16 s. Story-level problems that remain after the fix: (1) the background arena scoreboard reads 'ROUND 1 1:00' through the final, and the timer jumps or vanishes, which undercuts clock pressure. (2) Music stops 20 s before the emotional hold, and triumph music starts before the problem is solved and plays under the apology. (3) Eli's angry brows in the workshop make him read as hostile rather than obliviously obsessed. (4) The piano song that the ending calls back is never given a real musical moment. (5) The moral is narrated twice (L065, L076+L077) on top of images that already say it. (6) The end title is crammed over Eli's face for about 1.5 s.",
+  "strengths": [
+    "Clear three-act escalation: personal tests (S030–S043) → public status (S046–S052, deliberate repeat of the S008 classroom angle with MATH/A+) → competition with stakes (S057 'WINNER QUALIFIES FOR STATE').",
+    "The fictional rule is proven with measurable proof (S025 timer bar, S027 test re-take) and the limits are made explicit in S028 (LEARNS 10× FASTER FROM PRACTICE; ✗ instant knowledge / superhuman body / perfect judgment; STILL NEEDS practice · sleep · time) and shown in S044/S045. 'Perfect judgment ✗' quietly sets up the moral.",
+    "The plant is excellent and readable: S059 Noah pointing, S060 diagram (BACKUP · LEFT, METAL CAN CONFUSE IT!) then the real robot labelled 'BACKUP SENSOR · LEFT SIDE'. S087 restages the same diagram and gesture, and S091/S092 pay it off.",
+    "The emotional turn has real room: S066 hold on Noah plus isolated tool click, S067 walk-out, S068 5.8 s fixed time-lapse with the empty bench, and the S056/S104 red-and-blue stripe and friends' photo used as objects.",
+    "Course geography is clear: the S073/S077/S094 overhead map with START/FINISH, three barriers, a dotted route and a red wrong-route line, plus the S076 'METAL BARRIER' POV.",
+    "The ending returns to the ordinary world with an object callback (S105 overhead keys mirror S002/S032) and a comic reversal ('ten hours')."
+  ],
+  "issues": [
+    {
+      "shot": "ALL (B01–B39)",
+      "severity": "high",
+      "problem": "Pipeline bug wrecks story comprehension. render.html calls buildTimeline(BEATS, window.VO_DUR || {}), but render.js injects window.VO via addInitScript. All line durations fall back to 2.5 s and every speaker becomes 'NAR'. Real VO clips sum to 277.6 s, so 35/81 lines talk over each other: the hook L001 overlaps L002 by 2.3 s, rule proof L020/L021 by 2.6 s, limits L032/L033 by 3.2 s, Noah's plant L042 is buried under 'Already fixed it' by 2.85 s, and the climax L059 overlaps L060 by 3.7 s. No character mouth moves on dialogue (speakAmp filters by spk), so the viewer cannot tell who speaks. This is also why runtime is 4:50: with real durations the identical edit is 345 s = 5:45 (verified by dumping the timeline from a scratch copy with the fix).",
+      "fix": "engine/render.html line 23: buildTimeline(BEATS, window.VO || {}) (or set window.VO_DUR = vo in render.js addInitScript). Re-run tools/build.sh V2 and verify timeline.json lines show real dur and spk TEA/ELI/NOA/STU/ANN. Add an assert in render.js that fails the build when TL.lines.every(l => l.dur === 2.5)."
+    },
+    {
+      "shot": "S075–S096 (act3.js arena scene(), line ~21)",
+      "severity": "high",
+      "problem": "Clock pressure leaks. The background arena scoreboard defaults to roundTxt 'ROUND 1' and clock '1:00' in every final-round shot (S076, S078, S080–S090, S093, S097–S102), sitting next to a foreground timer that reads 0:17 or 0:09. The visible timer also jumps from 0:57 (S075) to 0:31 (S079), then disappears during the whole S082–S088 exchange and flashback, the 13 s where tension should peak.",
+      "fix": "act3.js: compute one finalClock(T) = max(0, 60 - (T - tFinalStart) * k) from the S075 start, tuned to hit 0:03 at S094 and 0:01 at S095. Pass { round: 'FINAL', clock: fmt(finalClock(c.T)), clockCol: red } to ENV.arena in every shot from S075 to S096. Add the small corner timer overlay to S082–S090, and to S087 as a desaturated ghost. After S096 show 'WINNER'."
+    },
+    {
+      "shot": "S080–S090",
+      "severity": "high",
+      "problem": "Stakes go invisible during the dialogue rescue. After S077 we never see the robot again until S093, so the viewer doesn't know whether it is stuck, spinning or still burning time while Eli and Noah shout across the hall.",
+      "fix": "Insert a 1.2 s INSERT between S084 and S085 and another between S086 and S087 (act3.js B32): the robot jammed against the barrier, wheels spinning, orange LED flickering, timer visible. Reuse the S077 overhead with the red pulse. These cost about 2.5 s and keep the 'clock running' promise alive."
+    },
+    {
+      "shot": "B23–B26 music (S059–S068)",
+      "severity": "high",
+      "problem": "The emotional turn isn't supported by music contrast. The bed stops at 147.6 s, on S059 when Noah is still happily pitching his idea. So the 'music is gone' silence of S066 (designed in the desc) isn't a contrast, because the whole 20 s argument already plays dry. Then sad_piano enters on S068.",
+      "fix": "act3.js B23: remove music:{name:'stop'} and keep curious_open (or a warm workshop bed at 0.3) under S059–S065. Move the 'stop' cue to B24 at the start of L046 ('can I at least do something?') with a 0.3 s fade, so the silence hits on the hurt. Keep the sad_piano entry at S068."
+    },
+    {
+      "shot": "B34 / B37 music (S089–S102)",
+      "severity": "med",
+      "problem": "triumph_resolve starts on L066 'Okay! What do I do?!', before anything is solved, which spoils the outcome. Then it is merely ducked to 0.15 under the apology, so a victory theme plays under 'I'm sorry'.",
+      "fix": "act3.js B34: delete the music cue. Instead add a low tension pulse from S080 (tension_competition at 0.2), stop it hard at the S091 switch zap, leave 0.4 s of silence, and start triumph_resolve on S093 when the robot turns. B37: replace 'duck' with 'stop' (fade 1.5) and enter a soft piano bed (sad_piano at 0.25, or the piano melody motif) under S099–S102, so the apology sounds intimate and tees up the piano callback."
+    },
+    {
+      "shot": "S058, S061, S063, S065",
+      "severity": "med",
+      "problem": "Eli reads as hostile, not obsessed. In the workshop he has angry brows and looks straight at Noah ('Already fixed it', 'Fixed that too'). The VO says 'Eli didn't notice it at first', so the audience should see oblivious focus they can still forgive, not a glare. The S063 desc ('back half-turned, still typing') isn't what renders: he faces camera.",
+      "fix": "act3.js S061/S063/S065: switch expr to a focused/neutral face (half-lidded, small mouth), aim his head and eyes at the laptop or robot rather than at Noah, and actually turn his body 3/4 away in S063. Keep the only strong emotion on Noah (S064 hurt, S066 hold). In S098 also swap the angry walking face for 'sheepish/determined-soft'."
+    },
+    {
+      "shot": "S034–S035 (B13) and S106",
+      "severity": "med",
+      "problem": "The piano song is the ending's callback object ('teach me that piano song') but is never given a moment. S035 is a 2 s dolly with the melody under VO L025, which in V1 overlaps L026. The montage tells us he learned it rather than letting us enjoy it, which weakens the 'want the ability' feeling.",
+      "fix": "act2.js B13: add post ≈ 3.0 so S035 becomes a ~4.5 s VO-free music moment of Eli playing the full melody (piano_melody_good at 0.9, gold notes, a small satisfied face cut-in). At S106, after Noah's line, let Eli play the first two bars of the same melody (0.8 s) before 'Yeah.', which ties the callback together."
+    },
+    {
+      "shot": "S065 / L065 (B33), S103–S104 / L076–L077 (B38)",
+      "severity": "med",
+      "problem": "The moral is over-narrated. L065 ('He remembered. Noah had noticed the problem before. Eli just never listened.') repeats exactly what the S087 flashback plus S088 guilty face show. L076+L077 (12.7 s) then narrate the moral again over S103/S104, after the apology dialogue has already delivered it.",
+      "fix": "Cut L065 entirely and let S087 → S088 play on the sparkle, tool-click and the guilty face (extend S088 to ~1.5 s with no VO). Trim the ending to L077 only ('And the one thing he needed most that day…'), or keep L076 and drop L077, not both. Saves ~10 s, which you reinvest in holds (see below)."
+    },
+    {
+      "shot": "S108 (act3.js line ~207)",
+      "severity": "med",
+      "problem": "The final button and title are rushed. The sting fires 1.4 s into the shot, then the title fades in on top of Eli's head ('ANYTHING 10x FASTER' crosses his face) and the video ends about 1.5 s later. The desc's 'bewildered look' callback to S026 isn't used either: Eli is half-lidded deadpan, so the visual rhyme with 'Wait… what?' is lost.",
+      "fix": "act3.js S108: use the same wide-eyed expression and framing as S026 for the first 0.6 s, then slowly droop to the deadpan on 'Oh my God'. Hold 0.6 s of silence, then fire the sting, then a hard cut to black. Render the title on black (or over a wide of both friends at the piano) for 3.5 s. Set the beat post to ~4.0."
+    },
+    {
+      "shot": "S001 (act1.js line 5)",
+      "severity": "med",
+      "problem": "The hook doesn't land the 10× idea in the first 6 s. Both halves show an identical small figure at an identical piano. The only difference is a calendar (left) versus a clock (right), so there is no visible equal outcome. The viewer sees two kids practising, not '1 hour = 10 hours'. In V1, L001 is also buried by L002.",
+      "fix": "act1.js S001: push in so the figures are ~2× larger. Over the shot, both halves reach the same end state at the same moment: the left calendar hits DAY 10 and the right clock completes 1 hour, then both pianos emit the same gold notes and a big '=' wipes between them with labels '10 HOURS' vs '1 HOUR'. Give S001 w ≈ 1.6 so it lasts ~5.5 s with the fixed VO."
+    },
+    {
+      "shot": "S025, S027 (act1.js lines ~204, 218)",
+      "severity": "med",
+      "problem": "The measurable proof under-delivers. The S025 timer reads 00:01:14 → 00:03:22 and the shot cuts before reaching 06:00, and the 'NOW' bar barely moves, so the 6-vs-60 comparison never completes on screen. S027 cuts after 2–3 ticks, and the promised grade change ('9/10') never appears, though VO says 'Almost every answer was right.'",
+      "fix": "S025: use MM:SS format, animate to exactly 06:00 by 80% of the shot, have the NOW bar stop at 10% of the BEFORE bar, and pop '6 MIN vs 60 MIN' (ui_pop already at 3.2 s). S027: run all flips within 70% of the shot, then stamp a big '9/10' over the F (paper slap sfx), held ≥0.8 s."
+    },
+    {
+      "shot": "S006 title placement (B03)",
+      "severity": "low",
+      "problem": "Once the VO bug is fixed the title lands at ~16 s, before we meet Eli. That is acceptable, but the RAG principle (title around 0:30–0:40, after the hook has sold both the power and the person) suggests it could hit harder later. The S007 'superhero reveal' to S008 deflation gag also works better as the character hook before the title.",
+      "fix": "Option A (preferred): move the S006 beat (with L004 'But what would actually happen…') to after B07 (S018 'You think?'). The cold open becomes power demo → meet the loser → title at ~0:45 on a music hit, then 'But one morning…'. Option B: keep its position but give it 1 s of music-only hold before L004."
+    },
+    {
+      "shot": "S053–S054 (B20)",
+      "severity": "low",
+      "problem": "The obsession montage (friends walking away, light cooling) is only 5 s, and its VO (L038 'for a while, it was incredible… until competitions') is about competitions, so the image of isolation and the words don't line up. The first sign of the flaw passes unnoticed.",
+      "fix": "act2.js B20: add a third panel (S054b, 2.5 s, no VO) where Eli is alone in the cool light and a friend's 'hey, want to hang out?' text bubble is ignored. Or start L038 only on S055. Raise b.min so the montage lasts ~7.5 s."
+    },
+    {
+      "shot": "S068 (B26)",
+      "severity": "low",
+      "problem": "The time-lapse is the 'show absence' moment, but L048–L050 run over it continuously. In particular L050 'And eventually, Noah stopped coming over' narrates exactly what the empty bench shows (principle 9). Eli is also tiny in the frame, so the photo plant on his bench is barely visible.",
+      "fix": "act3.js B26: delay L048 by ~2.5 s (pre: 2.8) so the first sweeps play on sad_piano alone. Drop L050, or move it to S069. Push the camera in ~15% on S068 so the photo on Eli's bench and the empty stool both read."
+    },
+    {
+      "shot": "S092 (B35)",
+      "severity": "low",
+      "problem": "The sensor-waveform GFX arrives after the switch, pausing the climax for 2 s just as momentum should surge.",
+      "fix": "Either cut S092 to 1.0 s, or move it to sit as a picture-in-picture over S091 (the jagged red line flattening to the clean blue as the switch flips), so S091 cuts straight to S093."
+    },
+    {
+      "shot": "S094–S095",
+      "severity": "low",
+      "problem": "The finish has no suspense beat: the robot crosses on a straight cut, so 'just before the timer ran out' isn't felt.",
+      "fix": "act3.js S095: ramp to 0.4× speed for the last 0.6 s before the wheel crosses, drop all audio except a heartbeat for 0.5 s, then horn + flash + crowd. Show the timer at 0:01 in frame."
+    },
+    {
+      "shot": "S099–S102 (B37)",
+      "severity": "low",
+      "problem": "The apology plays with tight gaps (0.2 s) and the two-shot S099 is a small static wide for 5.6 s. The key line 'Thinking I didn't need you.' has no pause before Noah's reply, so the emotional beat gets no room.",
+      "fix": "act3.js B37: give L073 gap 0.9 and L072 gap 0.5. Start S099 a bit tighter (z ≈ 1.25) with a slow push. Add a 1 s reaction CU of Noah (soft, unreadable) before L074 so his tease lands as forgiveness."
+    },
+    {
+      "shot": "S042/L042 → S061/L043 (B23)",
+      "severity": "low",
+      "problem": "The interruption is the key plant line. Once timing is fixed, gap 0.05 means Noah finishes his whole sentence before Eli speaks, so the scripted cut-off ('change the—') won't feel like an interruption.",
+      "fix": "act3.js B23: give L043 a negative gap (-0.25), or trim the L042 clip to end on 'change the—', so 'Already fixed it.' cuts in over his last syllable. Make sure 'backup on the left' stays fully clear."
+    }
+  ],
+  "runtime_plan": {
+    "current": "290.4 s (V1, caused by the VO-duration bug)",
+    "after_bug_fix_only": "≈345 s (5:45), verified by dumping the timeline with real VO durations",
+    "add": "S001 hook +2 s, S035 piano music moment +3 s, S054b isolation panel +2.5 s, S068 silent sweeps +2.5 s, robot-stuck inserts +2.5 s, S095 finish suspense +0.6 s, apology pauses +2 s, end title +2.5 s ≈ +17.6 s",
+    "cut": "L065 (-5.4 s), one of L076/L077 (-6 s), S092 shortened (-1 s), L050 (-2.7 s) ≈ -15 s",
+    "target": "≈5:48, inside the 5:30–6:00 window, with the time moved from narration into holds and music"
+  }
+}

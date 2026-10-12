@@ -6,7 +6,7 @@ const LT = {
   hotL: { dx: -1, dy: -.3, color: PAL.rimHot }, hotR: { dx: 1, dy: -.3, color: PAL.rimHot }, top: { dx: 0, dy: -1, color: PAL.rimHot },
   lampR: { dx: 1, dy: -.4, color: PAL.lamp }, lampL: { dx: -1, dy: -.4, color: PAL.lamp },
   coolL: { dx: -1, dy: -.3, color: PAL.rimCool }, coolR: { dx: 1, dy: -.3, color: PAL.rimCool },
-  flood: { dx: 0, dy: -1, color: '#dfe6ff' }, sepia: { dx: -1, dy: -.3, color: '#e8c89a' },
+  flood: { dx: -.7, dy: -.7, color: '#e6ecff' }, floodL: { dx: -1, dy: -.5, color: '#e6ecff' }, floodR: { dx: 1, dy: -.5, color: '#e6ecff' }, goldL: { dx: -1, dy: -.5, color: '#ffd79a' }, goldR: { dx: 1, dy: -.5, color: '#ffd79a' }, sepia: { dx: -1, dy: -.3, color: '#e8c89a' },
 };
 function actor(c, o) { const who = o.who; return character({ t: c.T, seed: (who || '').length * 1.3, talk: o.talk ?? (SPK[who] ? c.speak(SPK[who]) : 0), ...o }); }
 const A = (c, o) => actor(c, o).svg;

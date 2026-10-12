@@ -39,7 +39,7 @@ function buildTimeline(BEATS, VO) {
         const need = fixed + group.reduce((s, x) => s + (x.dur ? 0 : (x.min ?? b.minShot ?? 2.2)), 0);
         if (a1 - a0 < need - 1e-3) {
           const short = need - (a1 - a0);
-          if (j < b.shots.length && b.shots[j].on) { extra[b.shots[j].on] = (extra[b.shots[j].on] || 0) + short; changed = true; break; }
+          if (j < b.shots.length && b.shots[j].on && iter < 11) { extra[b.shots[j].on] = (extra[b.shots[j].on] || 0) + short; changed = true; break; }
           else if (j >= b.shots.length) { bd += short; }
         }
         const free = Math.max(0, (j < b.shots.length ? anchors[j] : bd) - a0 - fixed);
@@ -57,7 +57,8 @@ function buildTimeline(BEATS, VO) {
       shots.push(rec);
       (s.sfx || []).forEach(([tt, name, vol = 1, opt = {}]) => sfx.push({ t: s0 + (tt < 0 ? rec.dur + tt : tt), name, vol, ...opt, shot: s.id }));
     });
-    if (b.music) (Array.isArray(b.music) ? b.music : [b.music]).forEach(m => music.push({ t: start + (m.at || 0), ...m, beat: b.id }));
+    if (b.music) (Array.isArray(b.music) ? b.music : [b.music]).forEach(m => music.push({ ...m, t: m.onLine ? lt[m.onLine].start + (m.off || 0) : start + (m.at || 0), beat: b.id }));
+    b.shots.forEach((s, k) => { if (s.music) music.push({ ...s.music, t: start + starts[k] + (s.music.at || 0), beat: b.id }); });
     (b.sfx || []).forEach(([tt, name, vol = 1, opt = {}]) => sfx.push({ t: start + tt, name, vol, ...opt, beat: b.id }));
     beats.push({ id: b.id, start, end: start + bd, lt });
     cur += bd;
@@ -96,6 +97,7 @@ function frameSpec(TL, T) {
   // global entry transitions
   const tr = sh.def.tin;
   if (tr === 'flash') spec.flash = Math.max(spec.flash || 0, 1 - t / .18);
+  if (tr === 'whip') spec.whip = Math.max(0, 1 - t / .22);
   if (tr === 'fade') spec.fade = Math.max(spec.fade || 0, 1 - t / .5);
   if (sh.def.tout === 'fade') spec.fade = Math.max(spec.fade || 0, 1 - (d - t) / .5);
   return spec;

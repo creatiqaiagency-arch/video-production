@@ -15,7 +15,7 @@ PR.stool = (x, y, s = 1, col = PAL.metal) => S.g({ transform: `translate(${x},${
 PR.book = (x, y, w = 90, h = 18, col = '#7a3b48', o = {}) => S.g({ transform: `translate(${x},${y}) rotate(${o.r || 0})` }, S.rect(-w / 2, -h, w, h, col, { rx: 2 }), S.rect(-w / 2 + 4, -h + 3, w - 8, h - 7, '#efe3cf'), S.rect(-w / 2, -h, w, 4, shade(col, 1.25)));
 PR.openBook = (x, y, w = 260, o = {}) => {
   const h = w * .62, k = o.lines ?? 7;
-  let s = S.path(`M${x - w / 2},${y} L${x - w / 2 + 8},${y - h} Q${x - w / 4},${y - h - 14} ${x},${y - h + 4} Q${x + w / 4},${y - h - 14} ${x + w / 2 - 8},${y - h} L${x + w / 2},${y} Q${x + w / 4},${y - 12} ${x},${y + 4} Q${x - w / 4},${y - 12} ${x - w / 2},${y}Z`, '#efe3cf');
+  let s = S.path(`M${x - w / 2},${y} L${x - w / 2 + 8},${y - h} Q${x - w / 4},${y - h - 14} ${x},${y - h + 4} Q${x + w / 4},${y - h - 14} ${x + w / 2 - 8},${y - h} L${x + w / 2},${y} Q${x + w / 4},${y - 12} ${x},${y + 4} Q${x - w / 4},${y - 12} ${x - w / 2},${y}Z`, '#d9c9ab');
   for (let i = 0; i < k; i++) { const yy = y - h + 26 + i * (h - 44) / k; s += S.line(x - w / 2 + 22, yy, x - 18, yy, '#8a7f74', 3, { opacity: .6 }) + S.line(x + 18, yy, x + w / 2 - 22 - (i % 3) * 18, yy, '#8a7f74', 3, { opacity: .6 }); }
   return s + S.line(x, y - h + 4, x, y + 4, '#b9ab98', 3);
 };
@@ -31,7 +31,7 @@ PR.testPaper = (x, y, s = 1, o = {}) => {
   }
   return S.g({ transform: `translate(${x},${y}) rotate(${o.r || 0}) scale(${s})` },
     S.rect(-196, -236, 400, 500, '#000', { opacity: .25, rx: 4, transform: 'translate(10,12)' }),
-    S.rect(-200, -240, 400, 500, '#f3eadb', { rx: 4 }), S.text(-170, -196, o.title || 'MATH TEST', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 34, fill: '#3a302a' }),
+    S.rect(-200, -240, 400, 500, '#d9c9ab', { rx: 4 }), S.text(-170, -196, o.title || 'MATH TEST', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 34, fill: '#3a302a' }),
     S.line(-170, -184, 40, -184, '#3a302a', 2), k,
     o.showGrade === false ? '' : S.g({ transform: `translate(130,-180) rotate(-12) scale(${o.gradeK ?? 1})` }, S.circle(0, 0, 52, 'none', { stroke: gc, 'stroke-width': 7 }), S.text(0, 24, grade, { 'font-family': 'Lilita One', 'font-size': grade.length > 1 ? 52 : 70, fill: gc, 'text-anchor': 'middle' })));
 };
@@ -75,7 +75,7 @@ PR.piano = (x, y, s = 1, o = {}) => S.g({ transform: `translate(${x},${y}) scale
 PR.keysTop = (x, y, w, n = 21, pressed = {}, o = {}) => {
   const kw = w / n, kh = kw * 5.2;
   let s = S.rect(x - 20, y - 60, w + 40, kh + 90, o.body || '#21151a', { rx: 10 });
-  for (let i = 0; i < n; i++) { const pr = pressed[i] || 0; s += S.rect(x + i * kw + 2, y, kw - 4, kh, mixc('#f1ebe0', o.hit || '#ffcf8a', pr), { rx: 4 }); }
+  for (let i = 0; i < n; i++) { const pr = pressed[i] || 0; s += S.rect(x + i * kw + 2, y, kw - 4, kh, mixc('#e3d6c3', o.hit || '#ffcf8a', pr), { rx: 4 }) + (pr > .5 ? glow(x + i * kw + kw / 2, y + kh * .7, kw * 1.5, o.hit || PAL.gold, .45) : ''); }
   for (let i = 0; i < n - 1; i++) { if ([2, 6].includes(i % 7)) continue; const pr = pressed[100 + i] || 0; s += S.rect(x + (i + 1) * kw - kw * .32, y, kw * .64, kh * .6, mixc('#141014', '#ff8a4a', pr), { rx: 3 }); }
   return s;
 };
