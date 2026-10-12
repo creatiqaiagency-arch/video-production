@@ -55,10 +55,9 @@ function composeFrame(spec, T) {
     const b = nearestBlur((L.blur || 0) * (spec.blurScale ?? 1));
     const lg = `<g transform="${camTransform(cam, L.p ?? 1)}"${L.op !== undefined ? ` opacity="${L.op}"` : ''}>${b ? `<g filter="url(#b${b})">` : '<g>'}${L.svg}</g></g>`;
     s += lg;
-    if (L === spec.layers[0]) bloomSrc = lg;
+    // bloom: blurred highlights of the background layer, screen-blended UNDER the characters (never over them)
+    if (L === spec.layers[0] && (spec.bloom ?? .55) > 0) s += `<g filter="url(#bloom)" opacity="${spec.bloom ?? .55}" style="mix-blend-mode:screen">${lg}</g>`;
   }
-  // bloom: blurred highlights of the background layer, screen-blended
-  if ((spec.bloom ?? .55) > 0 && bloomSrc) s += `<g filter="url(#bloom)" opacity="${spec.bloom ?? .55}" style="mix-blend-mode:screen">${bloomSrc}</g>`;
   s += '</g></g>';
   // colour grade: multiply tint + lifted blacks
   const gr = spec.grade || {};

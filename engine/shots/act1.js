@@ -79,9 +79,10 @@ addBeat({ id: 'B04', lines: ['L005'], pre: .3, post: .2, sfx: [[0, 'epic_rise_cu
   { id: 'S007', type: 'LOW', desc: 'Heroic low angle: Eli in the hallway, blinding backlight, rim light on both edges, lens flare; camera spins in like a superhero reveal.', w: 1,
     draw: c => {
       const e = ENV.hallway({ t: c.T });
-      const mid = A(c, { who: 'eli', x: 960, y: 1060, h: 720, front: true, pose: P.stand(), expr: 'smug', light: { both: true, color: '#fff1d6' }, rimW: 10 }) + glow(960, 300, 300, '#fff', .25);
-      const flare = S.g({ style: 'mix-blend-mode:screen' }, S.ellipse(960, 420, 900, 6, '#fff', { opacity: .5 }), S.ellipse(960, 420, 400, 3, '#ffd6a6', { opacity: .7 }));
-      return scene(c, { back: e.back, bb: 2, mid, cam: { x: 960, y: 620, z: lerp(1.25, 1.02, E.out(c.p)), r: lerp(-10, 0, E.out(c.p)) }, overlay: flare + labelsIn(c, [[960, 960, 'ELI · AGE 16', .9, null, { size: 44, fill: PAL.cream }]]) });
+      const mid = A(c, { who: 'eli', x: 960, y: 1060, h: 720, front: true, pose: P.stand(), expr: 'smug', light: { both: true, color: '#fff1d6' }, rimW: 10 });
+      const fy = 235, fw = lerp(500, 1000, E.out(c.p));
+      const flare = S.g({ style: 'mix-blend-mode:screen' }, S.ellipse(960, fy, fw, 6, '#fff', { opacity: .55 }), S.ellipse(960, fy, fw * .45, 3, '#ffd6a6', { opacity: .8 }), glow(960, fy, 90, '#fff', .5));
+      return scene(c, { back: e.back + glow(960, 300, 300, '#fff', .3), bb: 2, mid, cam: { x: 960, y: 620, z: lerp(1.25, 1.02, E.out(c.p)), r: lerp(-10, 0, E.out(c.p)) }, overlay: flare + labelsIn(c, [[960, 960, 'ELI · AGE 16', .9, null, { size: 44, fill: PAL.cream }]]) });
     } },
 ] });
 
@@ -176,7 +177,7 @@ addBeat({ id: 'B07', lines: ['L011', { id: 'L012', gap: .3 }, { id: 'L013', gap:
 // ---------- B08 one morning (DAWN bedroom), discovery ----------
 function bedroomDesk(c, o = {}) {
   const e = ENV.bedroom({ t: c.T, lamp: o.lamp ?? 1, dawn: o.dawn ?? true });
-  const mid = PR.chair(880, 820, -1, 1.6) + A(c, { who: 'eli', x: 880, y: 712, h: 360, f: 1, pose: o.pose || P.sitWrite(c.T), expr: o.expr || 'busy', light: LT.lampR, lookY: .6 }) + PR.openBook(1000, 592, 150) + PR.book(1140, 592, 80, 30, '#3a5a8a');
+  const mid = PR.chair(880, 820, -1, 1.6) + A(c, { who: 'eli', x: 880, y: 712, h: 360, f: 1, pose: o.pose || P.sitWrite(c.T), expr: o.expr || 'busy', light: LT.lampR, lookY: .6 }) + PR.openBook(1090, 592, 140) + PR.book(1220, 592, 80, 30, '#3a5a8a');
   return { e, mid };
 }
 addBeat({ id: 'B08', lines: ['L014', { id: 'L015', gap: .4 }], pre: .3, post: .4, music: { name: 'discovery', vol: .4, at: .2, fade: 2 }, shots: [
@@ -197,7 +198,7 @@ addBeat({ id: 'B08', lines: ['L014', { id: 'L015', gap: .4 }], pre: .3, post: .4
       let mid = S.rect(-200, -200, 2400, 1500, '#1a1426') + PR.openBook(960, 980, 1500, { lines: 0 }) + glow(700, 400, 700, PAL.lamp, .25);
       const r = rng(4); for (let i = 0; i < 9; i++) mid += S.path(`M${300 + r() * 500},${330 + i * 55} q40,-20 80,0 t80,0 t${60 + r() * 120},0`, 'none', { stroke: '#4a3f6a', 'stroke-width': 6, opacity: .8 }) + (r() > .5 ? S.line(290 + r() * 400, 320 + i * 55, 600 + r() * 300, 340 + i * 55, '#c0392b', 5) : '');
       mid += S.text(1350, 640, '?', { 'font-family': 'Lilita One', 'font-size': 260, fill: '#c0392b', opacity: .8 });
-      return scene(c, { mid, vignette: .78, grade: INSERT_GRADE, cam: CAM.drift(960, 540, 1.05, .05)(c.p) });
+      return scene(c, { mid, vignette: .85, overlay: S.rect(0, 0, W, H, '#1a0f1a', { opacity: .22 }), grade: INSERT_GRADE, cam: CAM.drift(960, 540, 1.05, .05)(c.p) });
     } },
 ] });
 addBeat({ id: 'B09', lines: ['L016', { id: 'L017', gap: .3 }], pre: .2, post: .3, shots: [
@@ -212,7 +213,7 @@ addBeat({ id: 'B09', lines: ['L016', { id: 'L017', gap: .3 }], pre: .2, post: .3
       }
       if (k > .95) mid += S.rect(500, 820, 300, 90, 'none', { stroke: PAL.green, 'stroke-width': 8, rx: 12 });
       mid += PR.pencil(1350 + 60 * Math.sin(c.t * 12), 820 + 10 * Math.cos(c.t * 9), 2.2, -40);
-      return scene(c, { mid, vignette: .78, grade: INSERT_GRADE, cam: CAM.drift(900, 560, 1.05, .05)(c.p) });
+      return scene(c, { mid, vignette: .85, overlay: S.rect(0, 0, W, H, '#1a0f1a', { opacity: .22 }), grade: INSERT_GRADE, cam: CAM.drift(900, 560, 1.05, .05)(c.p) });
     } },
   { id: 'S023', type: 'CU', desc: 'Close-up: Eli\'s eyes widen — a double-take in the dawn light.', w: .8,
     draw: c => { const r = bedroomDesk(c); const take = c.t > .4 ? 1 + .08 * Math.sin(Math.PI * clamp((c.t - .4) / .25)) : 1; return scene(c, { back: r.e.back, bb: 12, mid: S.g({ transform: `translate(760,430) scale(${take}) translate(-760,-430)` }, A(c, { who: 'eli', headAt: [760, 430], h: 1150, f: 1, pose: P.sit(), expr: c.t > .4 ? 'shock' : 'busy', blink: c.t > .36 && c.t < .42, light: LT.lampR })), cam: CAM.push(800, 500, 1, 1.08)(c.p) }); } },
@@ -220,7 +221,7 @@ addBeat({ id: 'B09', lines: ['L016', { id: 'L017', gap: .3 }], pre: .2, post: .3
     draw: c => {
       let mid = S.rect(-200, -200, 2400, 1500, '#d9c9ab') + glow(800, 500, 900, '#fff3df', .3);
       for (let i = 0; i < 5; i++) { mid += S.text(300, 240 + i * 150, `${i + 2}.  ${['2x + 6 = 14', 'x² = 49', '5(x − 2) = 15', '√x = 9', 'x/4 + 1 = 3'][i]}`, { 'font-family': 'Inter', 'font-weight': 700, 'font-size': 56, fill: '#2a2440' }); if (c.t > .3 + i * .5) mid += tick(1300, 220 + i * 150, 1.6 * E.outBack(clamp((c.t - .3 - i * .5) / .2))); }
-      return scene(c, { mid, vignette: .78, grade: INSERT_GRADE, cam: { x: 960, y: lerp(450, 650, c.p), z: 1.05 } });
+      return scene(c, { mid, vignette: .85, overlay: S.rect(0, 0, W, H, '#1a0f1a', { opacity: .22 }), grade: INSERT_GRADE, cam: { x: 960, y: lerp(450, 650, c.p), z: 1.05 } });
     } },
 ] });
 // ---------- B10 the 10x proof ----------
@@ -236,7 +237,7 @@ addBeat({ id: 'B10', lines: ['L018', { id: 'L019', gap: 1.0 }], pre: .2, post: .
       return scene(c, { back: r.e.back, bb: 8, mid: r.mid, mb: 4, cam: CAM.drift(960, 540, 1.2, .03)(c.p), overlay: ov });
     } },
   { id: 'S026', type: 'CU', on: 'L019', off: -.6, desc: 'Beat of silence, then Eli close-up facing camera with the BEWILDERED look (callback face for the ending): "Wait... what?"', w: 1,
-    draw: c => { const r = bedroomDesk(c); return scene(c, { back: r.e.back, bb: 12, mid: A(c, { who: 'eli', ...BEWILDERED_FRAME, f: 1, front: true, pose: P.stand(), expr: c.t < .5 ? 'shock' : 'bewildered', light: LT.lampR }), cam: CAM.push(860, 500, 1, 1.06)(c.p) }); } },
+    draw: c => { const r = bedroomDesk(c); return scene(c, { back: r.e.back, bb: 12, mid: A(c, { who: 'eli', ...BEWILDERED_FRAME, f: 1, front: true, pose: P.stand(), expr: c.t < 1.6 ? 'shock' : 'bewildered', blink: c.t > 1.55 && c.t < 1.66, light: LT.lampR }), cam: CAM.push(860, 500, 1, 1.06)(c.p) }); } },
 ] });
 addBeat({ id: 'B11', lines: ['L020', { id: 'L021', gap: .4 }], pre: .2, post: .5, shots: [
   { id: 'S027', type: 'TOP', desc: 'Overhead: Eli\'s old F math test; his hand (sleeve entering from frame edge) re-does it; red crosses flip to green ticks one by one, then a big green 6/7 stamp lands over the F.', w: 1.2, sfx: [[.4, 'pencil_scratch', .4], [1.0, 'ui_tick', .6], [1.4, 'ui_tick', .6], [1.8, 'ui_tick', .6], [2.4, 'paper_flip', .7], [2.45, 'success_chime', .5]],

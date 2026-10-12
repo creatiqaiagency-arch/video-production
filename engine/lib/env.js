@@ -162,7 +162,7 @@ ENV.field = (o = {}) => {
   back += rectGrad(-600, hy, W + 1200, 220, [[0, '#ffcf8a', .45], [1, '#ffcf8a', 0]]) + rectGrad(-600, 780, W + 1200, 500, [[0, '#10140f', 0], [1, '#10140f', .6]]);
   back += rectGrad(-600, hy, W + 1200, 160, [[0, '#ffcf8a', .35], [1, '#ffcf8a', 0]]);
   back += S.line(-600, hy + 40, W + 600, hy + 40, PAL.line, 3, { opacity: .5 }) + S.line(o.lineX ?? 900, hy + 40, (o.lineX ?? 900) - 120, 1200, PAL.line, 5, { opacity: .45 });
-  back += dust(t, 30, 0, 200, W, 500, 51, '#ffe2b0', .35);
+  back += dust(t, 30, 0, 200, W, 500, 51, '#ffe2b0', .35) + S.rect(-600, -300, W + 1200, H + 600, '#1a0f1a', { opacity: .14 });
   return { back, fy: 900, hy };
 };
 
@@ -222,6 +222,7 @@ ENV.arena = (o = {}) => {
   back += S.rect(560, 210, 800, 84, mixc('#2a1f4a', '#4a2a2a', warm)) + S.text(960, 272, 'ROBOTICS CUP', { 'font-family': 'Lilita One', 'font-size': 60, fill: PAL.gold, 'text-anchor': 'middle', 'letter-spacing': 6 });
   // bleachers + desaturated crowd (top rows darker)
   const r = rng(o.seed || 91);
+  const backBefore = back; back = '';
   for (let row = 0; row < 6; row++) {
     const y = 330 + row * 58, dark = .75 - row * .09;
     back += S.rect(-600, y + 26, W + 1200, 34, mixc('#1c1730', '#2a2442', row / 6));
@@ -233,13 +234,15 @@ ENV.arena = (o = {}) => {
       back += S.rect(x - 10, y - 4 + bob, 20, 30, shirt, { rx: 6 }) + S.circle(x, y - 16 + bob, 12, '#0b0810') + S.path(`M${x - 9},${y - 24 + bob} a12,12 0 0 1 18,0`, 'none', { stroke: flood, 'stroke-width': 2, opacity: .35 }) + (arm ? S.line(x + 8, y + bob, x + 16, y - 30 + bob, '#0b0810', 6) : '');
     }
   }
+  back = backBefore + (o.crowdBlur ? `<g filter="url(#b${o.crowdBlur})">${back}</g>` : back);
+  if (o.spot) back += `<defs>${radGrad([[0, '#000', 0], [.25, '#000', 0], [1, '#000', .55]], .5, .5, .5).def}</defs>`.replace(/id="(rg\d+)"/, 'id="spotg"') + S.rect(o.spot[0] - 700, o.spot[1] - 400, 1400, 800, 'url(#spotg)');
   back += rectGrad(-600, 600, W + 1200, 240, [[0, '#110d1c', 0], [1, '#110d1c', 1]]);
   // floodlight clusters (below the letterbox) with bloom
-  for (const fx of [200, 960, 1720]) back += S.rect(fx - 90, 120, 180, 54, '#16121f', { rx: 6 }) + [0, 1, 2, 3, 4].map(i => S.rect(fx - 80 + i * 34, 130, 26, 32, '#fbfcff', { rx: 3 })).join('') + glow(fx, 146, 300, flood, .55) + glow(fx, 146, 90, '#ffffff', .6);
+  for (const fx of [200, 960, 1720]) back += S.rect(fx - 90, 120, 180, 54, '#16121f', { rx: 6 }) + [0, 1, 2, 3, 4].map(i => S.rect(fx - 80 + i * 34, 130, 26, 32, '#fbfcff', { rx: 3 })).join('') + glow(fx, 146, 300, flood, .55) + glow(fx, 146, 140, '#ffffff', .85) + S.ellipse(fx, 146, 420, 4, '#ffffff', { opacity: .45, style: 'mix-blend-mode:screen' });
   // scoreboard
-  if (o.board !== false) back += S.rect(1440, 300, 340, 160, '#0a0810', { rx: 10, stroke: '#3a3350', 'stroke-width': 6 }) + S.text(1610, 360, o.roundTxt || 'ROUND 1', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 36, fill: PAL.gold, 'text-anchor': 'middle' }) + S.text(1610, 438, o.clock || '1:00', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 70, fill: o.clockCol || PAL.red, 'text-anchor': 'middle' }) + glow(1610, 400, 200, o.clockCol || PAL.red, .2);
+  if (o.board !== false) back += S.rect(1440, 300, 340, 160, '#0a0810', { rx: 10, stroke: '#3a3350', 'stroke-width': 6 }) + S.text(1610, 360, o.roundTxt || 'ROUND 1', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 36, fill: PAL.gold, 'text-anchor': 'middle' }) + S.text(1610, 438, o.clock || '1:00', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 70, fill: o.clockCol || PAL.red, 'text-anchor': 'middle' }) + glow(1610, 400, o.redSpill ? 520 : 200, o.clockCol || PAL.red, o.redSpill ? .35 : .2);
   // floor with pool of light behind the course
-  back += S.rect(-600, fy - 80, W + 1200, 900, '#1a1628') + glow(960, fy, 700, flood, .28, 2.2) + rectGrad(-600, fy - 80, W + 1200, 300, [[0, '#4a4266', .5], [1, '#4a4266', 0]]);
+  back += S.rect(-600, fy - 80, W + 1200, 900, '#141120') + glow(960, fy, 700, flood, .16, 2.2) + rectGrad(-600, fy - 80, W + 1200, 300, [[0, '#3a3456', .35], [1, '#3a3456', 0]]);
   back += dust(t, 40, 0, 100, W, 700, 71, flood, .35);
   return { back, fy };
 };

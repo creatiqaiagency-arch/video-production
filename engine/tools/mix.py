@@ -44,6 +44,8 @@ for s in tl['sfx']:
     f = os.path.join(prod, 'sfx', s['name'] + '.mp3')
     if not os.path.exists(f): print('missing sfx', s['name']); continue
     a = load(f)
+    if s.get('dur'):
+        n = int(s['dur'] * SR); a = a[:n].copy(); fo = min(len(a), int(.25 * SR)); a[-fo:] *= np.linspace(1, 0, fo)[:, None]
     pk = np.abs(a).max() + 1e-9
     place(sfx, a, s['t'], (0.5 / pk) * s.get('vol', 1))
 

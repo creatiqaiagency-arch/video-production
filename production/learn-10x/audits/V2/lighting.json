@@ -1,0 +1,151 @@
+{
+  "auditor": "Lighting & Cinematography",
+  "version": "V2",
+  "score": 7.0,
+  "summary": "V2 is clearly better lit than V1. The arena now has a visible key: flood clusters at y 120-175 with bloom, .16 shafts and a haze band. Its median tonal range rose from about .20 to .30, which matches the reference stadium frames 29 and 33 (.30-.37). Rims are motivated per side (floodL/floodR), and the payoff from S096 is clearly warm (r-b went from -.05 to +.08). The S087 flashback now reads as memory: saturation .23, sepia multiply, vignette .85, grain .12, white flash in. Shots with corners brighter than the centre fell from 36 to 7. Most close-ups now sit on thirds. Rims auto-scale, S064-S067 cool down with the story, and the bedroom has a dawn grade. Five problems keep it from an 8. (1) S007, the hero shot, regressed: a white glow is drawn on top of Eli, so his head is grey (mean RGB 170/156/133) instead of a black silhouette, and the static flare streak runs across his eyes for the whole shot. (2) The arena is still a lifted, low-highlight exposure (highlights 0.7%) with a lavender floor, and in the telephoto and insert shots (S075, S082) the crowd is still giant multicoloured polka dots in sharp focus. (3) The golden payoff reads as a brown tint, not light. Nothing glows behind the leads, there are no true blacks (p1 luma 20), and in S099 the two rims point outward. (4) S091b, the 'blue LED ignites' cause beat, is a flat, saturated blue card that reads as UI rather than emitted light. (5) The paper inserts (S021/S022/S024, mean .63-.71) and the field (mean .35) are still the brightest frames in a low-key film.",
+  "strengths": [
+    "Arena key light now exists. ENV.arena draws three visible flood clusters with a hot core plus a 300 px bloom, cone shafts at .16 and a haze band. Median arena range is .30 and dark pixels are 4-10%, close to reference frames 29, 30 and 33.",
+    "Warm payoff from S096: floods mix to #ffd79a, the WARM grade is applied, and LT.goldL/goldR are used. The colour arc is now cold panic, then sepia memory, then warm resolution, which is the emotional shape the reference uses.",
+    "The S087 flashback is unmistakable: desat filter, #c8a878 multiply, vignette .85, grain .12, white flash on the cut in. It shares S059's framing, so the callback lands.",
+    "Post stack: vignette .65 at r .72 plus a top/bottom burn brought the corner/centre ratio under 1.0 in 109 of 116 shots (V1: 72 of 108). The bloom pass makes windows, floods and the sun glow without hand-placed blobs.",
+    "Framing grammar: headAt is on thirds in nearly every CU and OTS (S010 1220, S012 1180, S081 760, S083 700, S086 1200, S088 1180, S100 760, S100b/S101 1160), with the brightest background element in the open third.",
+    "Rims auto-scale (max(6.5, h*.011)), so they now read on every wide and medium shot. Arena rim side follows the nearest flood. S069 keeps the coolL close-up and S066/S067 get tod .75, lamp .5 and a #6a5aa0 grade, so the light supports Noah's exit.",
+    "S103: the walkers are inside the door spill and read as clean silhouettes. S104 is a warm, well-composed insert."
+  ],
+  "v1_followup": [
+    {"v1_issue": "S070-S102 arena flat, invisible key, no highlights", "status": "partial", "note": "Floods are visible at y 120-175 with bloom, shafts .16 and haze. Median range went from about .20 to .30 and mean from .15 to .20, but highlights are still 0.7%. Most of the gain comes from lifted mids (haze plus a lavender floor) rather than brighter highlights. In CUs at bb 12-16 the floods blur to grey smudges and the lower half is a flat grey-lavender floor band (S080, S081, S088)."},
+    {"v1_issue": "Arena crowd saturated polka-dot", "status": "partial", "note": "Shirts are now mixed toward #221c34 by .30-.75 per row, which works in wide shots. In S075 (z 3.0, bb 0) and S082 (z 2.6-3.4, bb 0) the crowd is still sharp 6-hue blobs 60-100 px wide, the noisiest frames in Act 3."},
+    {"v1_issue": "S096-S102 no warm payoff", "status": "partial", "note": "The hue is fixed (r-b +.08, gold rims, WARM grade). It still reads as a brown tint rather than golden light. The suggested glow(eliX,500,600,PAL.winHot,.35) behind the leads was not added, highlights are only 1.8%, and S096 has no blacks (p1 luma 20). S099 rims point outward (Eli goldL, Noah goldR), which means two sources."},
+    {"v1_issue": "LT.flood top-only hairline rim", "status": "fixed", "note": "floodL/floodR are used and match the nearest cluster, and rims read clearly. The h*.011 auto-scale overshoots on the ECU, though: about 26 px of solid #e6ecff on S081, which looks like a sticker outline (see new issue)."},
+    {"v1_issue": "S087 sepia flashback not sepia", "status": "fixed", "note": "Saturation is .23 (V1 .46), with sepia multiply, vignette .85 and grain .12. There is a white flash in but none on the cut out (low)."},
+    {"v1_issue": "S082/S071b/S075 Noah silhouette lost in crowd", "status": "partial", "note": "The noahBeam shaft (.25) and Noah's floodR rim make him readable in S082. The crowd blur 6, radial darkening of neighbours (r≈250) and S075 crowd bb 14 / op .5 / red spill were not done."},
+    {"v1_issue": "Paper inserts high-key", "status": "partial", "note": "Paper is #d9c9ab and the vignette is stronger, so share of pixels above .7 fell from .79-.93 to .55-.57. At mean .63-.71, S021/S022/S024 are still the brightest frames in the film (the reference maximum is .42) and full-bleed. There is no lamp pool radGrad."},
+    {"v1_issue": "Field shots brightest and most saturated", "status": "partial", "note": "The darker field and FG gradient brought mean luma from .41 to .35 and saturation from .47 to .44. Dark pixels are still only 1-2%, there is still no cast character shadow, and the green still fills 60% of the frame at constant value."},
+    {"v1_issue": "Night bedroom muddy, lamp unmotivated", "status": "partial", "note": "The wall is darker, the lamp glow shrinks to 300 px with a 70 px hot core, and the dawn variant works through the window. In S020, S023, S026 and S029 the light is still a floating orb: the lamp shade never reads, because PR.lamp is dark on a dark wall and blurred at bb 7-12."},
+    {"v1_issue": "S007 hero rim top-only", "status": "regressed", "note": "light.both, rimW 10 and the flare were added, but the glow(960,300,300,'#fff',.25) is appended to mid AFTER the character, so it paints over Eli. His head is now mid-grey (RGB ≈170/156/133) against the door, which destroys the film's signature silhouette. The flare ellipse sits at y=420, on his eyes, for the whole shot."},
+    {"v1_issue": "S064-S067 same warm light as the happy beat", "status": "fixed", "note": "S064/S065 use tod .6; S066/S067 use tod .75, lamp .5 and grade #6a5aa0 .18. r-b dropped to about +.05."},
+    {"v1_issue": "Vignette too weak", "status": "partial", "note": "Shots with corner/centre above 1.0 fell from 36 to 7 and shots above .9 from 40 to 13. Still above 1.1: S079 1.52, S031 1.22, S081 1.16, S065 1.16, S063 1.14."},
+    {"v1_issue": "No bloom", "status": "partial", "note": "The bloom pass exists and works on layers[0]. Practicals drawn in mid (robot LEDs, laptop screens, PR.timer in S094b, the S091b LED) never bloom, and scene() does not forward spec.bloom/burn, so shots can't adjust them."},
+    {"v1_issue": "Close-ups dead centre", "status": "fixed", "note": "Almost all CUs are on thirds. Exceptions: S078 headAt [960,460], and S066 [960,470] (defensible as a centred hold)."},
+    {"v1_issue": "Rim thin", "status": "fixed", "note": "rimW = max(6.5, h*.011)/sc reads well from WS to CU. It needs a cap for ECUs."},
+    {"v1_issue": "S072/S093/S095 course table no light pool", "status": "partial", "note": "S093 has the backup LED glow. The S072 lane is still a flat #24304a slab with no lit top, no reflection streak and no background streak lights. The S095 floor is flat."},
+    {"v1_issue": "S006/S103 school windows flat", "status": "partial", "note": "The door spill polygon is in, and the S103 walkers sit in it. Window glow is still r 80 at .25, so the 30 tiles read as flat orange cards."},
+    {"v1_issue": "S002/S032/S035/S105 top-down keys hard contrast", "status": "partial", "note": "keysTop is now cream #e3d6c3 with a pressed-key glow, but there is no lamp pool: still 22-24% of pixels above .7 and 28-40% near-black, range .84-.86."}
+  ],
+  "issues": [
+    {
+      "shot": "S007",
+      "severity": "high",
+      "problem": "Regression on the title-sequence hero shot. The added glow(960,300,300,'#fff',.25) is concatenated after A(...) in mid, so it is painted over Eli's head and torso. The head is mid-grey (mean RGB 170/156/133), not black, so the silhouette against the blinding door, which is the film's signature image, is gone for all 3.7 s. The anamorphic streak is fixed at y=420 and cuts across his eyes for the whole shot.",
+      "fix": "act1.js S007: move the glow into the back layer behind the actor: back: e.back + glow(960, 300, 340, '#fff', .35), and keep mid = A(...) alone. Move the flare to the door's light source, above the head (S.ellipse(960, 250, 900, 6) in world space, so it scales with the cam spin, or overlay y≈200), and animate it: opacity lerp(.2,.6,E.out(c.p)), rx lerp(500,1000,c.p). Check that head luma is under 25 in the rendered still."
+    },
+    {
+      "shot": "S091b",
+      "severity": "high",
+      "problem": "The causal beat of the climax ('the blue backup LED ignites') is a flat, saturated #3b7bd2 rounded rectangle filling half the frame with a light-blue dot (mean .27, r-b -.19). It reads as a UI card or app icon rather than light being emitted, and the LED glow can't bloom because the panel behind it is already bright mid-blue.",
+      "fix": "act3.js S091b: make the panel the dark robot chassis: S.rect(500,300,900,500,'#1c2233',{rx:40}) + S.rect(500,300,900,10,'#3a4a6a') (top edge rim), with a small blue housing S.rect(880,490,160,120,'#22324a',{rx:16}). LED off: '#1f3b5a', r 46. LED on: '#e8f6ff' core r 30 + '#6fd0ff' ring r 50 + glow(960,550,420,'#4aa3ff',.85) + glow(960,550,120,'#fff',.9), plus a blue spill rectGrad on the chassis around it (op .35). Add flash:.6 on the ignite frame (c.t≈.15). The shot then also matches the S093 LED."
+    },
+    {
+      "shot": "S070-S095 (arena exposure)",
+      "severity": "high",
+      "problem": "The key is now visible, but the arena still plays as one lifted, low-highlight exposure: median range .30, highlights 0.7%, mean .20. The floor (#1a1628 + glow .28 + #4a4266 at .5) and the haze lift the lower half to a flat grey-lavender. In every CU at bb 12-16 (S078, S080, S081, S083, S088, S089) the bottom 40% of frame is an even grey band and the floods blur to dull smudges. The reference stadium (29/30/33) keeps dark stands and a bright, contained light pool.",
+      "fix": "env.js ENV.arena: (a) Floor: drop the #4a4266 rectGrad to .25, and shrink the floor pool glow(960,fy,700,flood,.28) to glow(960,fy,520,flood,.22), so the floor falls off to #110d1c at the frame edges. (b) Highlights: glow(fx,146,90,'#fff',.6) → glow(fx,146,140,'#fff',.85), and add a horizontal flare per cluster: S.ellipse(fx,146,260,4,'#fff',{opacity:.35}). (c) Raise the haze band peak .07 → .12, but only between y 160 and 420 (the beams), not over the floor. (d) For CUs with bb ≥ 12, pass scene bloom .8 so the blurred floods still read as light sources. Target: arena p95 ≥ .45, highlights ≥ 2%."
+    },
+    {
+      "shot": "S075, S082 (and S071 tele half)",
+      "severity": "high",
+      "problem": "At z 2.6-3.4 with bb 0, the crowd is rendered as sharp 60-100 px rounded rects in six hues. They are the noisiest frames in Act 3 and compete with the scoreboard (S075) and with Noah (S082). The 'isolate Noah' telephoto works only because of his white rim. Nothing in the depth or light isolates him.",
+      "fix": "ENV.arena: return the crowd rows as a separate e.crowd string (and e.back without them), so shots can blur the crowd independently. S082: layers [{svg:e.back,blur:4},{svg:e.crowd,blur:8},{svg:noah+beam,blur:0}] and add a radial multiply centred on Noah: radGrad([[0,'#000',0],[.35,'#000',0],[1,'#0b0810',.55]]) at (1280,545) r≈300. S075: crowd blur 14 and opacity .5, plus a red spill glow(1610,400,520,PAL.red,.25) onto the surroundings. For colour, shirt = mixc(mixc(hue,'#5a5078',.6),'#221c34',dark) to get the reference's near-monochrome lavender crowd."
+    },
+    {
+      "shot": "S096-S102 (warm payoff)",
+      "severity": "med",
+      "problem": "The hue shift works, but the light does not. WARM soft-light .22 over a dark, hazy scene produces a brown, sepia-like cast (S096 has no blacks, p1 luma 20; highlights 1.8%). The payoff lands closer to the S087 flashback palette than to triumphant golden light. Nothing in frame emits the warmth. The V1 fix (glow behind Eli) was not applied.",
+      "fix": "act3.js: in S097-S101 add to the back layer glow(leadX, 480, 600, PAL.winHot, .4) + glow(leadX, 480, 160, '#fff3d0', .5) behind the speaking character's head (Eli 760/1250, Noah 1160). In S099 put one between them at x 970. In ENV.arena with warm=1, raise the flood core glow to .9 and the shafts to .22, and drop WARM op to .15 so the warmth comes from emitted light, not a wash. In S096, pass grade {tint:'#ffb070', op:.15} with gr.warm:false so the blacks stay at about #0b0709."
+    },
+    {
+      "shot": "S099",
+      "severity": "med",
+      "problem": "The rims sit on opposite outer sides. Eli (x 760) uses LT.goldL and Noah (x 1180) uses LT.goldR, so the two-shot looks lit by two sources from outside the pair. The centre flood (x 960) sits between them in the background, so each rim should face inward.",
+      "fix": "act3.js S099: Eli light: LT.goldR, Noah light: LT.goldL, so both are rim-lit by the centre flood, and add the glow(970,460,520,PAL.winHot,.35) between them in back. The S102 two-shot uses the same logic: Eli goldR, Noah goldL."
+    },
+    {
+      "shot": "S054b",
+      "severity": "med",
+      "problem": "'Alone in the cold light', but the classroom windows behind Eli still glow warm orange, and his rim is cool blue (#86c9ff) coming from the warm-window side. The phone that should light him is a flat blue rectangle with no glow. The light contradicts both the beat and itself.",
+      "fix": "act2.js S054b: pass a dusk/night variant for the classroom windows (ENV.classroom({night:true}) or grade {tint:'#5a6ab0', op:.25}), and make the phone the motivated key. When it lights up, draw glow(phoneX, phoneY-60, 260, '#9fd4ff', .5) and switch Eli to light: LT.coolR (phone side). When he flips it face-down, fade the glow to 0 over 4 frames so the room drops darker."
+    },
+    {
+      "shot": "S061",
+      "severity": "med",
+      "problem": "The reverse angle is the muddiest frame in the workshop: range .29 (neighbours .42-.55), mean .16, and no practical or window in frame. The background is an even brown-violet murk, and Eli's warm rim has no visible source, because the windows are now behind the camera.",
+      "fix": "act3.js S061: since the window is behind camera, use the hanging lamp as the visible source. Put a glow(1000,170,300,PAL.lamp,.5) + glow(1000,170,70,'#fff3d0',.8) into the reverse background (or at least keep the shade in frame top-centre). Switch Eli's rim to light: LT.lampR so it comes from that lamp, and add a warm window spill rectGrad on the right wall ('#ffcf8a' .18) to show where the window light lands."
+    },
+    {
+      "shot": "S021, S022, S024 (+S004, S015, S027, S047)",
+      "severity": "med",
+      "problem": "The paper is warmer (#d9c9ab) and the vignette stronger, but S021/S022/S024 are still full-bleed cream at mean .63-.71 with 55-57% of pixels above .7. They are by far the brightest frames in a low-key film (reference maximum .42), and they flash the eye on every cut from the dim dawn bedroom.",
+      "fix": "For these shots add a lamp-pool overlay: radGrad centred on the active line ([0,'#000',0],[.45,'#000',0],[1,'#0b0709',.65]), r .6, plus vignette .75 and a tint '#ffb070' .15 (dawn bedroom). Or pull the camera back so a dark desk edge frames the page (z .85). Target mean ≤ .45."
+    },
+    {
+      "shot": "S013, S036-S040, S045 (field)",
+      "severity": "med",
+      "problem": "Still the brightest scene block after the inserts (mean .34-.36, saturation .44), with 1-2% dark pixels. Sun-side haze reads well, but there are no cast shadows and the grass is one constant value, so it looks flat next to the reference sunset fields.",
+      "fix": "act1/act2 field shots: add a cast shadow per character: S.ellipse(x - h*.35, groundY+4, h*.45, h*.04, '#0b0f0a', {opacity:.45}), skewed away from sunX (-x). ENV.field: change the FG darkening from rectGrad(…780…,.6) to start at hy+120 with an end opacity of .75, and add a radial darkening on the side away from the sun (left 40% of frame, '#10140f' .35)."
+    },
+    {
+      "shot": "S020, S023, S026, S029, S043b (bedroom)",
+      "severity": "low",
+      "problem": "Dawn works through the window, but the desk lamp is still a floating orb with no visible fixture in every bedroom shot. In S023/S026 (bb 12) the warm rim on Eli has no visible source.",
+      "fix": "props.js PR.lamp: give the shade an emissive inner edge (shade '#3a2a30' plus a bottom ellipse '#ffe0a8' at .9) and a lit cone below it (poly '#ffe0a8' .12), so the shape survives the blur. In S023/S026 move the lamp into the mid layer (bb 4), or set back blur to 8 so it reads."
+    },
+    {
+      "shot": "S081 (ECU rims in general)",
+      "severity": "low",
+      "problem": "rimW = max(6.5, h*.011) gives about 26 px of solid #e6ecff on the h=2400 ECU. The rim reads as a sticker outline around the whole left side of the head and hood. Reference 05/28 ECU rims are 12-16 px.",
+      "fix": "rig.js line 216: const rimW = clamp(Math.max(o.rimW ?? 6.5, h * .011), 0, 16) / sc; and for flood/cool colours default light.op .85."
+    },
+    {
+      "shot": "S072, S080b, S093, S095 (course lane)",
+      "severity": "low",
+      "problem": "The lane under the robot is still a flat #24304a slab. The speed and drama come only from motion lines, with no lit table top or reflection.",
+      "fix": "Make the lane S.rect(...,'#1c2438') + rectGrad(lane, [[0,'#5a6a9a',.45],[1,'#5a6a9a',0]]) toward camera, add a reflection streak S.ellipse(robotX, laneY+10, 220, 8, '#dfe6ff', {opacity:.15}), and in S072 add 3-4 blurred streak-light ellipses in the back layer moving at 2× the robot speed."
+    },
+    {
+      "shot": "S073, S077, S094 (overhead course)",
+      "severity": "low",
+      "problem": "The top-down maps are flat navy UI slabs (saturation .50, r-b -.10) with no light falloff. Reference 17 (overhead table) sits in a pool of light with dark edges.",
+      "fix": "courseTop(): add a radial light pool over the course, radGrad([[0,'#bfc8ff',.18],[.6,'#000',0],[1,'#000',.5]]), with the floor outside the course #0b0810. Pass vignette .75 on these shots."
+    },
+    {
+      "shot": "S031, S063, S065, S079 (corners brighter than centre)",
+      "severity": "low",
+      "problem": "Corner/centre luminance is still above 1.1 (S079 1.52, S031 1.22, S065 1.16, S063 1.14), because bright windows or floods sit in the corners and the subject is in a darker centre.",
+      "fix": "Per shot, pass vignette .8. In S079, blur the back to bb 16 and lower the arena flood bloom by passing scene bloom .3. In S031/S065, reframe so the window falls on a third rather than the corner."
+    },
+    {
+      "shot": "post.js / common.js scene()",
+      "severity": "low",
+      "problem": "scene() does not forward spec.bloom or spec.burn, and bloom only samples layers[0]. No shot can tune bloom, and mid-layer practicals (robot LEDs, laptop screens, PR.timer, phone) never bloom.",
+      "fix": "common.js scene(): add bloom: o.bloom, burn: o.burn to the returned spec. post.js composeFrame: build bloomSrc from all layers whose L.bloom !== false (concatenate lg), or add an o.glowMid flag that includes the mid layer for insert shots."
+    },
+    {
+      "shot": "S078",
+      "severity": "low",
+      "problem": "This is the only remaining dead-centre arena CU (headAt [960,460]) during the panic.",
+      "fix": "act3.js S078: headAt [1180,470], f:-1, with the left flood cluster in the open left third."
+    },
+    {
+      "shot": "S087 (cut out)",
+      "severity": "low",
+      "problem": "There is a white flash into the flashback but a hard cut back to S088. That makes the memory frame asymmetric.",
+      "fix": "Set S088 tin:'flash' (or flash: 1 - seg(c.t,0,.08) for the first 2 frames)."
+    },
+    {
+      "shot": "S006, S016, S017, S018, S103 (school windows)",
+      "severity": "low",
+      "problem": "Lit windows are still flat #f2a65a cards with a small glow (r 80 at .25), so the building looks like a tiled graphic rather than lit rooms.",
+      "fix": "ENV.school window loop: glow(…, 140, PAL.win, .35), and add an inner gradient per lit window (rectGrad top '#ffcf8a' 1 → bottom '#d77a4a' 1) plus a random 30% of windows with a silhouette/blind bar ('#2a1820' .6) so they read as interiors."
+    }
+  ]
+}

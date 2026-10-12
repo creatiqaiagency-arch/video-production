@@ -59,7 +59,8 @@ function buildTimeline(BEATS, VO) {
     });
     if (b.music) (Array.isArray(b.music) ? b.music : [b.music]).forEach(m => music.push({ ...m, t: m.onLine ? lt[m.onLine].start + (m.off || 0) : start + (m.at || 0), beat: b.id }));
     b.shots.forEach((s, k) => { if (s.music) music.push({ ...s.music, t: start + starts[k] + (s.music.at || 0), beat: b.id }); });
-    (b.sfx || []).forEach(([tt, name, vol = 1, opt = {}]) => sfx.push({ t: start + tt, name, vol, ...opt, beat: b.id }));
+    const sfxT = tt => { if (typeof tt === 'string') { const m = tt.match(/^(L\d+)([+-][\d.]+)?$/); return lt[m[1]].start + (+m[2] || 0); } return start + tt; };
+    (b.sfx || []).forEach(([tt, name, vol = 1, opt = {}]) => sfx.push({ t: sfxT(tt), name, vol, ...opt, beat: b.id }));
     beats.push({ id: b.id, start, end: start + bd, lt });
     cur += bd;
   }
@@ -77,7 +78,10 @@ function speakAmp(TL, T, who) {
   for (const L of TL.lines) {
     if (L.spk !== who || T < L.start || T > L.end) continue;
     const env = (window.VO && window.VO.env && window.VO.env[L.id]) || null;
-    if (env) { const i = Math.floor((T - L.start) * 24); return clamp((env[i] || 0) * 1.6); }
+    if (env) {
+      if (!env._s) { const s = []; let v = 0; for (let i = 0; i < env.length; i++) { const x = env[i] || 0; v = x > v ? x : v * .62 + x * .38; s.push(v); } env._s = s; }
+      const i = Math.floor((T - L.start) * 24) + 1; return clamp((env._s[i] || 0) * 1.0);
+    }
     return .5 + .5 * Math.sin((T - L.start) * 40);
   }
   return 0;

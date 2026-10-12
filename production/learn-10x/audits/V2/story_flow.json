@@ -1,0 +1,126 @@
+{
+  "auditor": "story_flow",
+  "version": "V2",
+  "score": 7.0,
+  "summary": "V2 is now a story a first-time viewer can follow from start to finish. Real VO timing (79 lines, no overlaps, 353 s = 5:53) brings back the hook, the rule proof and the dialogue. The proof completes on screen: S025 runs 00:00 to 06:00 with 6 MIN vs 60 MIN and SAME UNDERSTANDING, and S027 lands a 6/7 stamp. The workshop turn breathes: music stops on L046, S066 holds 5.2 s on the screwdriver and one click, the S067 doorway exit has no VO, S068 opens with 2 s of sweeps and no VO, and L050 now sits on S069. One shared final clock counts down cleanly (0:58 > 0:30 > 0:15 > 0:09 > 0:01, then WINNER 0:01). The moral is no longer over-narrated: L065 and L076 are cut, and S087/S088 play 4.4 s with no VO. The ending holds 0.7 s of silence, fires the sting, cuts hard to black and puts the title on black. Four story problems keep it from 8+. (1) The S106 callback is broken: the fluent melody plays while Eli sits on his own stool away from the keys and Noah is the only one at the piano, so it reads as Noah playing well, which undercuts both the S105 bad note and the 'ten hours' punchline. (2) The finish suspense is talked over: L069 'And crossed the finish line just before the timer ran out' runs 302.61–306.03, so it announces the crossing before S095 shows it, and it plays under the slow-motion heartbeat together with triumph_resolve, which has been running since 299.6. (3) The plant payoff image is illegible: S091b is a flat blue rectangle with a dot, not the robot's left-side box, and S093's robot glides above and behind the barrier rather than visibly swerving. The robot is also absent from the S084 course table and unseen for about 27 s of the hall exchange. (4) Sound accidents at the emotional peaks. S066 (208.1–210.9 s) and S067 (213.3–216.7 s) are true digital silence (-180 dB), which reads as an audio dropout, not as a hush. The 60 s tension_competition cue is asked to cover 66.7 s, so its built-in fade-out lands on the S087 flashback and it restarts from bar 1 under S088.",
+  "strengths": [
+    "The hook now sells the equation: '=' and 'SAME SONG' pop at about 3.2 s between '10 HOURS OF PRACTICE' and '1 HOUR OF PRACTICE'. S001b and the S002 '1 HOUR = 10 HOURS' card reinforce it, and L001 is clean.",
+    "Rule proof is measurable and complete: the S025 timer hits 06:00 with the NOW bar at 10% and 'SAME UNDERSTANDING'. S027 ends on a green 6/7 stamp. The S028 rule card is followed by explicit limits (S044 STILL NEEDS SLEEP, S045 SKILL ✓ / SPEED · STRENGTH ✗).",
+    "Escalation reads cleanly: personal experiments with labels (EXPERIMENT 1 · PIANO, 3 · LANGUAGES, PRACTICE: WEEK 1–4 bars), then the deliberate S046 repeat of the S008 classroom with ALGEBRA II and A+, then crowds, the S050 dares, the S051 challenger (now with Eli seated), and the S057 stakes poster (WINNER QUALIFIES FOR STATE FINALS).",
+    "The character turn has room and is shown, not told. Eli is now seated and focused rather than glaring (S059/S061/S063/S065). In S063 he pushes Noah's diagram aside, and the music cuts on L046. S066 is a 5.2 s hold where Noah lowers the screwdriver to one click. S067 is a VO-free exit from the doorway. S068 opens with 2 s of sad_piano only, and S069's look at the empty stool carries L050.",
+    "The S054b ignored text ('Noah: hey, wanna hang out?') plants the drift before the workshop, and S071 'TEAM: ELI & NOAH' with Noah alone in the crowd under a pale beam (S071/S082) makes the absence visible.",
+    "One shared, monotonic countdown from S075 to S095 that is visible in nearly every hall shot. The S089 FG timer and the S094b 0:01 ECU make clock pressure concrete.",
+    "Hall exchange geography works: S084 is a wide from behind Eli across the table to Noah standing in the bleachers, and S085 is an OTS over Noah's back down to Eli. Screen direction is held (Eli points right, Noah points left in S090).",
+    "Plant/payoff chain is intact and visually rhymed: S059/S060 diagram, then the S086 'I told you three weeks ago!' line, then the sepia S087 restage with the returning tool click (VO-free), then S088 guilt, then S090 'LEFT SIDE!', then the S091 MAIN→BACKUP switch and the S092 sensor graph.",
+    "Music map now has contrast: workshop warmth to a hard stop on the hurt, sad_piano for the absence, tension from the tournament, a stop on the switch, triumph on the LED, a stop plus soft piano under 'I'm sorry', then ending_light.",
+    "The reconciliation has room: the S100b reaction CU and about 2.4 s between 'Thinking I didn't need you' and Noah's tease, with a warm grade only after the win.",
+    "The ending lands as a callback: the S105 overhead keys mirror S002, L077 alone carries the moral, S108 goes shock to deadpan on 'Oh my God', there is 0.7 s of silence, the sting, a hard cut, and the title on black for 3.8 s."
+  ],
+  "v1_followup": [
+    {"v1_issue": "ALL: VO-duration pipeline bug (overlaps, every speaker NAR, 4:50 runtime)", "status": "fixed", "note": "79 lines with real durations and speakers (NAR/TEA/ELI/NOA/STU/ANN). No unintended overlaps. Total 353.1 s (5:53)."},
+    {"v1_issue": "S075–S096 scoreboard 'ROUND 1 1:00' + jumping/vanishing timer", "status": "fixed", "note": "One clock: 0:58 (S075), 0:47 (S079), 0:34 (S082), 0:30 (S084), 0:22 (S086), 0:15 (S088), 0:09 (S091), 0:04 (S094), 0:01 (S094b/S095), then WINNER 0:01. Leftover: pre-final shots S070/S071/S072/S074 show a static '1:00' while rounds are racing (low)."},
+    {"v1_issue": "S080–S090 robot invisible during the dialogue rescue", "status": "partial", "note": "S080b stuck-robot insert added, but it sits before the exchange. The S084 geography wide shows the course table with barriers and no robot. From S081 (271.9) to S091b (299.2) the robot is never seen."},
+    {"v1_issue": "B23–B26 music: bed stopped too early, no contrast at the hurt", "status": "fixed", "note": "curious_open runs under S059–S065 and stops at 202.3 on L046. sad_piano enters at S068. New problem: the hush is digital zero (see issues)."},
+    {"v1_issue": "B34/B37 triumph before anything is solved; victory theme under the apology", "status": "partial", "note": "Apology fixed: a stop, then sad_piano at 0.25. Triumph now waits for the S091b LED (299.6). It still plays through the S095 slow motion, which was meant to be heartbeat only, and L069 runs over it too."},
+    {"v1_issue": "S058–S065 Eli reads hostile", "status": "fixed", "note": "Eli is seated, works with a neutral or busy face, doesn't look up in S061, and pushes the diagram aside in S063. S065 still shows him facing Noah frontally rather than with his back turned (desc), but it no longer reads as a glare."},
+    {"v1_issue": "Piano song never gets a moment; S106 callback", "status": "partial", "note": "S035 is now a 4.4 s melody moment with gold notes (L025's tail overlaps its first 1.0 s and montage_upbeat still plays underneath). The S106 half has regressed into a logic break: the melody sounds while Eli is not at the keys (see top issue)."},
+    {"v1_issue": "Moral over-narrated (L065, L076+L077)", "status": "fixed", "note": "L065 and L076 are cut. S087+S088 play 4.4 s with no VO. L077 sits alone over S103/S104."},
+    {"v1_issue": "S108 rushed button, title over Eli's face, no bewildered rhyme", "status": "fixed", "note": "Shock at 0.25–0.85 s, deadpan on 'Oh my God', sting 0.7 s after the line, hard cut, title on black 3.8 s. Remaining nit: the shock face lasts only 0.6 s, and S026's 'Wait... what?' is spoken on the same deadpan face (see issues)."},
+    {"v1_issue": "S001 hook doesn't land 1h = 10h in 6 s", "status": "partial", "note": "'=' and 'SAME SONG' appear at about 3.2 s and the labels carry it. The figures are still small, and the calendar and clock are cropped at the frame edges, so the DAY 1→10 versus 1-hour count can't be read."},
+    {"v1_issue": "S025/S027 measurable proof incomplete", "status": "fixed", "note": "06:00, 6 MIN, SAME UNDERSTANDING, and a 6/7 stamp held to the end of the shot."},
+    {"v1_issue": "S006 title placement", "status": "not_fixed", "note": "Deferred by showrunner decision. The title still lands at 16 s, with a 1.2 s hold before L004."},
+    {"v1_issue": "S053–S054 obsession montage too short; VO/image mismatch", "status": "partial", "note": "S054b ignored-text panel added, and the montage now runs 7 s. L038 ('until competitions') still plays over the isolation images. In S054b Eli never performs the ignore: the bubble and phone simply vanish with no glance and no flip."},
+    {"v1_issue": "S068 time-lapse over-narrated, L050 on the empty bench", "status": "fixed", "note": "2.0 s of picture plus sad_piano before L048. L050 moved to S069."},
+    {"v1_issue": "S092 GFX stalls the climax", "status": "fixed", "note": "1.0 s. However, L068 'The robot turned. Missed the barrier.' now narrates over S091b/S092, before S093 shows the turn (low)."},
+    {"v1_issue": "S094–S095 no finish suspense", "status": "partial", "note": "The slow-motion ECU, heartbeat, 0:01 ECU, horn and flash all exist, but VO L069 and triumph_resolve play over the whole slow motion, so the held breath never happens."},
+    {"v1_issue": "S099–S102 apology has no room", "status": "fixed", "note": "S100b soft reaction CU added and about 2.4 s before L074. L072's gap is still 0.22 s, but it reads acceptably."},
+    {"v1_issue": "L042→L043 interruption not felt", "status": "not_fixed", "note": "L042 ends at 194.82 and L043 starts at 195.04, a gap of +0.22 s. Noah finishes 'change the—' and then Eli speaks. mix.py's interrupt fade only fires on an overlap, so nothing happens."}
+  ],
+  "issues": [
+    {
+      "shot": "S106 (B39)",
+      "severity": "high",
+      "problem": "The callback's musical payoff contradicts the picture. piano_melody_good (6.0 s, 342.39–348.4) plays the fluent melody while Eli sits on his own stool at x=1240, about 240 px from the keyboard, hands in the air. Noah is the only character at the piano. Viewers will hear Noah playing perfectly, which breaks S105's bad-note gag and the 'It'll only take me ten hours' punchline. The melody also runs under L080 and almost up to L081/the sting, so the punchline has music walking over it.",
+      "fix": "act3.js S106: once Eli sits, put him ON the bench next to Noah at the keys (delete the second stool; Eli at x≈880, Noah slides right to x≈1080), or add a 1.2 s S106b TOP insert: a red sleeve plays the gold-note keys (reuse the S035 keysTop + notes) beside Noah's blue sleeve, which stays still. The red+blue stripes repeat as hands. Retime the sfx to start on that insert and fade it out at L080's start (trim to ~1.8 s, 2 bars), so 'ten hours' and 'Oh my God' play dry over ending_light only."
+    },
+    {
+      "shot": "S094–S095 (B35, L069)",
+      "severity": "high",
+      "problem": "The finish suspense is spoiled and talked over. L069 'And crossed the finish line just before the timer ran out' (302.61–306.03) tells the viewer the outcome over S094/S094b, and is still speaking during the S095 slow-motion creep. triumph_resolve (since 299.6) also plays under the 'heartbeat only' moment. Measured mix in S095 before the horn is -24.9 dB RMS (VO + music + heartbeat), so the held breath designed in the desc never happens.",
+      "fix": "act3.js B35: drop L069 from lines (the picture already shows 0:01 → crossing → horn → WINNER 0:01), or move it to B36 after the horn, ahead of L070. Add music:{name:'duck', vol:0} on S094b (304.03) so only clock ticks and then the heartbeat play. Re-enter triumph_resolve (cont) at full 0.45 on the horn (S095 sfx t=1.2). Result: about 2 s of heartbeat-only tension, then the release."
+    },
+    {
+      "shot": "S091b, S093 (plant payoff image)",
+      "severity": "high",
+      "problem": "The payoff of the film's main plant isn't legible. S091b draws a flat 900×500 blue rectangle with a cyan dot over the arena, which reads as an abstract card, not 'the backup box on the robot's LEFT side' from S060. In S093 the robot travels across the top of frame while the barrier sits below it in the near lane, so it reads as passing behind the barrier, not as swerving away because of the new sensor. L068 also says 'The robot turned. Missed the barrier.' over S091b/S092, before any turn is shown.",
+      "fix": "act3.js S091b: draw PR.robot at s≈4 cropped to its rear-left corner (red/blue chassis stripes in frame), with the same 'BACKUP SENSOR · LEFT SIDE' tag used in S060, and have the box LED ignite with glow. S093: keep the barrier in the near lane, but start the robot heading straight at it on the same y, then have it visibly bank away (y up 120, rot −12°) at about 40% of the shot and come back past it. Order: S091 → S091b → S093 → S092 (graph as the explanation after the action), so L068's 'The robot turned' lands on the turn."
+    },
+    {
+      "shot": "S084, S083–S090 (B32)",
+      "severity": "med",
+      "problem": "The robot disappears while the clock is the stakes. The S084 geography wide shows the course table with two barriers and the finish flag but no robot, which suggests the run ended or the robot is gone. After the S080b insert, the robot isn't seen again until S091b, about 27 s and 0:39→0:09 on the clock.",
+      "fix": "act3.js S084: add PR.robot (s≈.45) jammed against the second barrier on arenaTable with a pulsing red glow and the orange LED flicker. Add the planned second stuck insert (1.2 s, reuse S080b) between S086 and S087, timer visible, so the flashback is triggered from the stuck robot."
+    },
+    {
+      "shot": "B27–B33 music (tension_competition loop)",
+      "severity": "med",
+      "problem": "tension_competition.mp3 is 60.0 s but covers 231.6–298.3 (66.7 s). mix.py wraps it modulo its length, so the track's built-in fade-out (−12 dB to −60 dB over its last 3 s) lands at 289.6–291.6 under the S087 flashback, and the cue restarts from bar 1 under S088's guilty face. That's an accidental 'ending' in the middle of the climax.",
+      "fix": "Make it deliberate. act3.js B33: put music:{name:'stop'} on S087 at 0 (the sepia memory plays in near-silence with the sparkle and the click, mirroring the S066 hush). Then in B34 on S089 add music:{name:'tension_competition', vol:.35, fade:.1} so the cue restarts on 'Okay! What do I do?!' as a fresh surge. Alternative: start the cue on B29/S075 instead of B27, and put a quieter crowd-only bed under the easy rounds."
+    },
+    {
+      "shot": "S066–S067 (B24/B25)",
+      "severity": "med",
+      "problem": "The emotional hush is digital zero. The mix measures −180 dB from 208.1 to 210.9 s (before the click) and from 213.3 to 216.7 s (Noah's exit). Pure silence on a streaming platform reads as a dropout or a broken file, not as an empty room, and it weakens the click and the door close it is meant to isolate.",
+      "fix": "act3.js B24/B25: add a room-tone bed (workshop_ambience at 0.12–0.15, or night_room_tone at 0.2) under S066–S067 starting at L046. Have the click (211.0) and the door close (216.8) sit on top of it. Keep the music stopped."
+    },
+    {
+      "shot": "S026 (B10) ⇄ S108",
+      "severity": "med",
+      "problem": "The callback face is too brief to register. In S026, 'shock' lasts only c.t<.5 (about 0.6 s before the line). 'Wait... what?' is then delivered on the 'bewildered' expression, which renders as half-lidded deadpan, so the Act 1 beat reads as unimpressed rather than bewildered. S108 shows its wide-eyed face for 0.6 s (0.25–0.85). The rhyme rests on about half a second at each end. S108's body pose (seated, both arms stiff out sideways) doesn't match S026's standing silhouette either.",
+      "fix": "act1.js S026: expr 'shock' until c.t > 1.4 (through 'Wait... what?'), then a 2-frame blink into 'bewildered'. act3.js S108: hold 'shock' from .25 to 1.1 s (the line starts at 0.9), then droop. Use P.sit with arms resting on the knees, so the head and shoulders silhouette inside BEWILDERED_FRAME matches S026."
+    },
+    {
+      "shot": "S001 (hook)",
+      "severity": "low",
+      "problem": "The '=' and 'SAME SONG' land, but the time-compression props are cropped at the frame edges. The calendar (left half x≈560 under CAM) and the clock show only slivers, so 'DAY 1→10' versus '1 hour' can only be read from the labels. The figures are still small (h 330).",
+      "fix": "act1.js hookHalf: move PR.calendar/PR.clock to x≈820 (inside each half), scale .9. Raise the player h to 420 so the face reads. Keep the '=' pop at 2.6 s."
+    },
+    {
+      "shot": "S054b (B20)",
+      "severity": "low",
+      "problem": "The ignore is never performed. The text bubble and phone simply vanish while Eli keeps the same pose and gaze, so it can read as a UI glitch rather than a choice. L038 ('until Eli started entering competitions') still talks over the isolation montage.",
+      "fix": "act2.js S054b: the phone buzzes (2-frame shake plus a ui_pop already there), Eli's eyes flick down for 6 frames, then his hand flips the phone face-down (rot 180 over 6 frames, soft tap sfx) and his eyes go back to his work. Start L038 on S053 but end it before S054b (b.post +1.0), so S054b plays with no VO."
+    },
+    {
+      "shot": "S035 (B13)",
+      "severity": "low",
+      "problem": "The piano moment shares the soundtrack with the montage. montage_upbeat (0.35) keeps playing under piano_melody_good, so two pieces of music run at once, and L025's tail overlaps the first 1.0 s.",
+      "fix": "act2.js S035: add music:{name:'duck', vol:0} at 0 and restore 0.35 on S036. B13: L025 off or post +1.0, so the melody starts after the last word."
+    },
+    {
+      "shot": "S061 (B23, L042→L043)",
+      "severity": "low",
+      "problem": "Carryover: L043 starts 0.22 s after L042 ends, so 'Already fixed it.' doesn't cut Noah off. The scripted rudeness depends on the interruption.",
+      "fix": "act3.js B23: give L043 gap -0.3. mix.py already fades the interrupted line over 80 ms when the next line starts early, so this will work as soon as the overlap exists. Check that 'backup on the left' is still clear."
+    },
+    {
+      "shot": "S109 (B40)",
+      "severity": "low",
+      "problem": "The title on black plays over audio that fades from −42 dB to digital zero. ending_light (25.0 s) simply runs out under the title, so the final card has no musical button.",
+      "fix": "act3.js S109: add sfx piano_clean_chord (0.6) at 0.2 s as the title fades in (the S001 '=' chord, which closes the hook loop), and a stop at 3.0 as now."
+    },
+    {
+      "shot": "S070–S074",
+      "severity": "low",
+      "problem": "Before the final, the scoreboard reads a static 'ROUND 1 1:00' and then 'ROUND 2 1:00' while the robot is racing (S072/S073). This is a small inconsistency now that the final uses a live clock.",
+      "fix": "act3.js: pass arena({roundTxt:'ROUND 1', clock:'✓'}) during S072–S073 and 'ROUND 2 ✓' on S074, so the only running clock is the final's."
+    },
+    {
+      "shot": "S006 (title placement)",
+      "severity": "low",
+      "problem": "Still at 16 s, before we meet Eli (deferred in V1). That's acceptable, but the RAG target (around 0:30–0:40 after the character hook) would make the S007 hero → S008 deflation gag part of the cold open.",
+      "fix": "V3 option: move B03 after B07 (S018 'You think?'), so the title lands at about 0:45 with L004 'But what would actually happen…' leading into 'But one morning'. Check the B02 → B04 transition with a whip."
+    }
+  ],
+  "runtime": "353.1 s (5:53), inside 5:30–6:00. Net change from the suggested fixes is about −2 s (drop L069 −3.4, +1.2 s stuck insert, small holds), which stays inside the window."
+}

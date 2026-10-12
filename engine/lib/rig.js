@@ -52,6 +52,7 @@ const runPh = (dist, h) => dist / (1.1 * h);
 function mixPose(a, b, t) {
   const o = {};
   for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) {
+    if (k === 'sit') { o.sit = lerp(+(a.sit || 0), +(b.sit || 0), t); continue; }
     const va = a[k] ?? b[k], vb = b[k] ?? a[k];
     if (Array.isArray(va)) o[k] = va.map((x, i) => lerp(x, vb[i], t));
     else if (typeof va === 'number') o[k] = lerp(va, vb, t);
@@ -102,7 +103,7 @@ function face(o, R, mono) {
   const mw = .19 * R;
   if (o.hideMouth) return s;
   if (e === 'shock') s += S.ellipse(mx, my + .02 * R, .07 * R + talk * .03 * R, .1 * R + talk * .05 * R, ink);
-  else if (e === 'panic' || e === 'shout') s += S.path(`M${mx - mw},${my - .05 * R} Q${mx},${my - .1 * R} ${mx + mw},${my - .05 * R} Q${mx + mw * .6},${my + (.22 + talk * .1) * R} ${mx},${my + (.24 + talk * .1) * R} Q${mx - mw * .6},${my + (.22 + talk * .1) * R} ${mx - mw},${my - .05 * R}Z`, ink);
+  else if (e === 'panic' || e === 'shout') { const op = .35 + .65 * talk; s += S.path(`M${mx - mw * .8},${my + .08 * R} Q${mx - mw * .7},${my - .12 * R * op} ${mx},${my - .13 * R * op} Q${mx + mw * .7},${my - .12 * R * op} ${mx + mw * .8},${my + .08 * R} Q${mx},${my + (.06 + .22 * op) * R} ${mx - mw * .8},${my + .08 * R}Z`, ink); }
   else if (talk > .08) s += S.path(`M${mx - mw * .9},${my} Q${mx},${my - .03 * R} ${mx + mw * .9},${my} Q${mx},${my + (.05 + talk * .2) * R} ${mx - mw * .9},${my}Z`, ink);
   else if (e === 'happy' || e === 'smug') s += S.path(`M${mx - mw},${my - .03 * R} Q${mx + (e === 'smug' ? .05 * R : 0)},${my + .14 * R} ${mx + mw},${my - (e === 'smug' ? .08 : .03) * R}`, 'none', { stroke: ink, 'stroke-width': sw, 'stroke-linecap': 'round' });
   else if (e === 'sad' || e === 'worried') s += S.path(`M${mx - mw * .8},${my + .06 * R} Q${mx},${my - .06 * R} ${mx + mw * .8},${my + .06 * R}`, 'none', { stroke: ink, 'stroke-width': sw, 'stroke-linecap': 'round' });
@@ -129,9 +130,8 @@ function drawFigure(o, pose, mono) {
     const knee = fk(0, 0, thigh, ha), foot = fk(knee[0], knee[1], shin, ha - kb);
     legs[k] = [[hx(k) + knee[0] * mx(k), knee[1]], [hx(k) + foot[0] * mx(k), foot[1]]];
   }
-  let hipY;
-  if (pose.sit) hipY = 0;
-  else hipY = -Math.max(legs.fl[1][1], legs.bl[1][1]) + (pose.bob || 0) * 0;
+  const sitW = clamp(+(pose.sit || 0));
+  let hipY = lerp(-Math.max(legs.fl[1][1], legs.bl[1][1]), 0, sitW);
   hipY += -(pose.bob || 0) + (pose.drop || 0);
   const breath = 1 + .022 * Math.sin((o.t || 0) * TAU * .3 + (o.seed || 0));
   const lean = pose.lean || 0;
@@ -202,8 +202,9 @@ function character(o) {
   o = { ...o };
   const out = OUTFITS[o.who] || OUTFITS.plain;
   const h = (o.h || 300) * (out.scale || 1), sc = h / 300, f = o.f || 1;
-  const pose = o.pose || P.stand();
+  let pose = o.pose || P.stand();
   const t = o.t || 0;
+  if (!o.still) { const sd = (o.seed || 0) * 3.7; pose = { ...pose, lean: (pose.lean || 0) + 1.6 * noise1(t * .5 + sd), fa: pose.fa && [pose.fa[0] + 3 * noise1(t * .7 + sd + 1), pose.fa[1] + 4 * noise1(t * .6 + sd + 2)], ba: pose.ba && [pose.ba[0] + 3 * noise1(t * .65 + sd + 3), pose.ba[1] + 4 * noise1(t * .55 + sd + 4)] }; }
   const blink = o.blink ?? (() => { const tt = t + (o.seed || 0) * 1.7; let acc = 0, i = 0; while (acc < tt && i < 400) { const gap = 2 + 2 * hash(i * 7.1 + (o.seed || 0)); if (tt - acc < gap) { const ph = tt - acc; return ph < .12 || (hash(i * 3.3) > .8 && ph > .25 && ph < .37); } acc += gap; i++; } return false; })();
   const light = o.light || { dx: -1, dy: -.4, color: PAL.rim };
   const tk = o.talk || 0, sd = (o.seed || 0) * 7.3;
@@ -213,7 +214,7 @@ function character(o) {
   const fo = { ...o, blink, litSide, face: { expr: o.expr, turn: o.turn ?? (o.front ? 0 : undefined), lookX: o.lookX, lookY: o.lookY, hideMouth: o.hideMouth, back: o.back } };
   let main = drawFigure(fo, pose, null);
   if (o.headAt) { const hp = main.j.head; o = { ...o, x: o.headAt[0] - hp[0] * f * sc, y: o.headAt[1] - hp[1] * sc }; }
-  const rimW = Math.max(o.rimW ?? 6.5, h * .011) / sc;
+  const rimW = Math.min(16, Math.max(o.rimW ?? 6.5, h * .011)) / sc;
   const lx = light.dx * f * rimW, ly = light.dy * rimW;
   const rimCol = light.color || PAL.rim;
   const rim = drawFigure(fo, pose, rimCol);

@@ -46,8 +46,8 @@ addBeat({ id: 'B14', lines: ['L026', { id: 'L027', gap: .3 }], pre: .2, post: .3
   { id: 'S037', type: 'LOW', on: 'L027', desc: 'Extreme low angle beside the ball: Eli taps it up again and again; dotted trajectory lines get tighter and tidier each rep; REP counter climbs.', w: 1.1, sfx: [[.2, 'ball_kick', .5], [.8, 'ball_kick', .5], [1.4, 'ball_kick', .5], [2.0, 'ball_kick', .5], [2.6, 'ball_kick', .5]],
     draw: c => {
       const e = fieldScene(c); const rep = Math.floor(c.t / .6), ph = (c.t % .6) / .6, mess = Math.max(.1, 1 - rep * .25);
-      let traj = ''; for (let i = 0; i <= rep && i < 6; i++) { const m = Math.max(.1, 1 - i * .25); traj += S.path(`M${980},${860} Q${980 + 160 * m * (i % 2 ? 1 : -1)},${520 - 60 * m} ${980 + 30 * m},${860}`, 'none', { stroke: PAL.gold, 'stroke-width': 4, 'stroke-dasharray': '10 10', opacity: i === rep ? .9 : .25 }); }
-      const by = 860 - Math.sin(ph * Math.PI) * 340, bx = 980 + Math.sin(ph * Math.PI) * 160 * mess * (rep % 2 ? 1 : -1);
+      let traj = ''; for (let i = 0; i <= rep && i < 6; i++) { const m = Math.max(.1, 1 - i * .25); traj += S.path(`M${990},${930} Q${990 + 160 * m * (i % 2 ? 1 : -1)},${530 - 60 * m} ${990 + 30 * m},${930}`, 'none', { stroke: PAL.gold, 'stroke-width': 4, 'stroke-dasharray': '10 10', opacity: i === rep ? .9 : .25 }); }
+      const by = 930 - Math.sin(ph * Math.PI) * 400, bx = 990 + Math.sin(ph * Math.PI) * 160 * mess * (rep % 2 ? 1 : -1);
       return scene(c, { back: e.back, bb: 6, mid: traj + A(c, { who: 'eli', x: 760, y: 1120, h: 620, f: 1, pose: repPose(ph), expr: 'focused', light: LT.hotR }) + PR.ball(bx, by, 34, c.t * 400), cam: CAM.drift(960, 640, 1.05, .04, 30)(c.p), overlay: label(1650, 180, `REP ${rep * 7 + 1}`, { size: 54, k: 1, fill: PAL.gold }) });
     } },
   { id: 'S038', type: 'WS', tin: 'flash', desc: 'Wide: a clean skill move — Eli flicks the ball up and volleys it into the goal; the net bulges; he celebrates.', w: 1, sfx: [[.6, 'ball_kick', .9], [1.0, 'whoosh', .4]],
@@ -92,7 +92,7 @@ addBeat({ id: 'B17', lines: ['L032'], pre: .2, post: .5, music: { name: 'duck', 
   { id: 'S045', type: 'WS', desc: 'Limits #2: on the field Eli dribbles neatly, but a bigger kid simply out-sprints him to the ball. Labels SKILL ✓ / SPEED · STRENGTH ✗.', w: 1.2, sfx: [[.3, 'ball_kick', .5], [1.2, 'whoosh', .4]],
     draw: c => {
       const e = fieldScene(c); const k = c.t;
-      const ex = 700 + k * 110, bx = 1000 + k * 170, ox = 300 + k * 480;
+      const ex = 700 + k * 110, ox = 300 + k * 480, bx = Math.max(1000 + k * 170, ox + 70);
       return scene(c, { back: e.back, bb: 3, mid: A(c, { who: 'eli', x: ex, y: 880, h: 280, f: 1, pose: P.run(runPh(ex, 280)), expr: 'determined', light: LT.hotR }) + A(c, { who: 'extra', x: ox, y: 890, h: 360, f: 1, pose: P.run(runPh(ox, 360)), expr: 'smug', light: LT.hotR }) + PR.ball(bx, 862, 18, k * 600), cam: CAM.drift(1000, 640, 1.1, .03, 30)(c.p), overlay: label(560, 200, 'SKILL  ✓', { size: 52, k: appear(c.t, .3), fill: PAL.green }) + label(1360, 200, 'SPEED · STRENGTH  ✗', { size: 52, k: appear(c.t, 1.1), fill: PAL.red }) });
     } },
 ] });
@@ -147,9 +147,9 @@ addBeat({ id: 'B20', lines: ['L038'], pre: .4, post: .4, music: { name: 'obsessi
     draw: c => {
       const e = ENV.classroom({ t: c.T });
       const flip = atE(c, 1.6, 2.0);
-      const phone = S.g({ transform: `translate(1180,860) scale(${2.2},${2.2 * (1 - 2 * Math.min(.5, flip))})` }, S.rect(-30, -55, 60, 110, '#1b1820', { rx: 10 }), flip < .5 ? S.rect(-25, -48, 50, 92, '#3a5a9a', { rx: 4 }) : '');
+      const phone = S.g({ transform: `translate(1180,860) scale(${2.2},${2.2 * Math.max(.06, Math.abs(1 - 2 * flip))})` }, S.rect(-30, -55, 60, 110, flip < .5 ? '#1b1820' : '#2b2733', { rx: 10 }), flip < .5 ? S.rect(-25, -48, 50, 92, '#3a5a9a', { rx: 4 }) : S.rect(-12, -20, 24, 24, '#4a4555', { rx: 6 }));
       const bubble = flip < .4 ? S.g({ opacity: appear(c.t, .3) }, S.rect(1260, 640, 420, 110, '#efe3cf', { rx: 18 }), S.text(1290, 690, 'NOAH', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 26, fill: '#3b7bd2' }), S.text(1290, 730, 'hey, wanna hang out?', { 'font-family': 'Inter', 'font-weight': 600, 'font-size': 30, fill: '#2a2420' })) : '';
-      return scene(c, { back: e.back, bb: 14, mid: A(c, { who: 'eli', headAt: [700, 470], h: 1000, f: 1, pose: P.hold(), expr: 'busy', lookY: 1, light: LT.coolL }) + PR.desk(1000, 1300, 1600, { h: 300 }) + phone + bubble, cam: CAM.drift(900, 540, 1, .03)(c.p), grade: { tint: '#4a6aff', op: .35 } });
+      return scene(c, { back: e.back, bb: 14, mid: A(c, { who: 'eli', headAt: [700, 470], h: 1000, f: 1, pose: P.hold(), expr: 'busy', lookY: 1, light: LT.coolL }) + PR.desk(1000, 1300, 1600, { h: 300 }) + phone + bubble + (flip < .5 ? glow(1180, 860, 260, '#8fb0ff', .5) : ''), cam: CAM.drift(900, 540, 1, .03)(c.p), grade: { tint: '#3a5aff', op: .5 }, vignette: .8 });
     } },
 ] });
 function obsession(c, part) {
@@ -160,7 +160,7 @@ function obsession(c, part) {
   crowd.forEach(([x, f], i) => { const leave = clamp((k - i * .17) * 3); if (leave < 1) { const xx = x + (x < 960 ? -1 : 1) * leave * 700; back += A(c, { who: 'extra', x: xx, y: 900, h: 330, f: leave > 0 ? (x < 960 ? -1 : 1) : f, pose: leave > 0 ? P.walk(walkPh(Math.abs(xx - x), 330)) : P.crossArms(), expr: leave > 0 ? 'unimpressed' : 'neutral', light: LT.warmL }); } });
   const objs = [() => PR.cube(960, 920, 1.6, c.T), () => PR.chessboard(960, 920, 1.5), () => PR.openBook(960, 1000, 520), () => PR.circuitDiagram(960, 920, .9, {})];
   const q = k * 4, idx = Math.min(3, Math.floor(q)), f = q - idx;
-  const sIn = idx > 0 ? E.outBack(clamp(f / .12)) : 1, sOut = idx < 3 && f > .9 ? 1 - (f - .9) / .1 * .4 : 1;
+  const sIn = idx > 0 ? lerp(.6, 1, E.outBack(clamp(f / .12))) : 1, sOut = idx < 3 && f > .9 ? 1 - (f - .9) / .1 * .4 : 1;
   const obj = S.g({ transform: `translate(960,920) scale(${Math.min(sIn, sOut)}) translate(-960,-920)` }, objs[idx]());
   const workPose = [{ ...P.hold(), fa: [62 + 8 * Math.sin(c.T * 12), 60], ba: [56 - 8 * Math.sin(c.T * 12), 62] }, { ...P.hold(), fa: [80, 20] }, { ...P.hold(), fa: [60 + 10 * Math.sin(c.T * 3), 70] }, { ...P.hold(), lean: 12 }][idx];
   const mid = A(c, { who: 'eli', x: 960, y: 1100, h: 600, front: true, pose: workPose, expr: 'busy', light: { dx: 0, dy: -1, color: mixc(PAL.rimHot, PAL.rimCool, k) }, lookY: 1 }) + PR.desk(960, 1250, 900, { h: 200 }) + obj;

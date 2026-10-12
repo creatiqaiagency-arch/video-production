@@ -115,7 +115,7 @@ PR.circuitDiagram = (x, y, s = 1, o = {}) => {
   d += S.rect(110, -60, 70, 44, '#f08a2a', { rx: 4, opacity: .9 }) + S.text(145, -32, 'SENSOR', { 'font-family': 'Oswald', 'font-size': 14, fill: '#2a1a10', 'text-anchor': 'middle' });
   if (o.backup) d += S.rect(-200, 10, 76, 44, '#4aa3ff', { rx: 4 }) + S.text(-162, 38, 'BACKUP', { 'font-family': 'Oswald', 'font-size': 14, fill: '#0e2240', 'text-anchor': 'middle' }) + S.text(-162, 72, 'LEFT', { 'font-family': 'Oswald', 'font-size': 14, fill: '#2a64b8', 'text-anchor': 'middle' });
   if (o.note) d += S.text(-10, 132, o.note, { 'font-family': 'Inter', 'font-weight': 700, 'font-size': 20, fill: '#c0392b', 'text-anchor': 'middle' }) + S.path('M90,120 Q130,100 140,-10', 'none', { stroke: '#c0392b', 'stroke-width': 3, 'marker-end': '' });
-  if (o.metal) d += S.rect(-30, 100, 60, 26, '#8a8a99', { rx: 3 }) + S.text(0, 118, 'METAL', { 'font-family': 'Oswald', 'font-size': 13, fill: '#222', 'text-anchor': 'middle' });
+  if (o.metal) d += S.rect(-30, 56, 60, 26, '#8a8a99', { rx: 3 }) + S.text(0, 74, 'METAL', { 'font-family': 'Oswald', 'font-size': 13, fill: '#222', 'text-anchor': 'middle' });
   return S.g({ transform: `translate(${x},${y}) rotate(${o.r || 0}) scale(${s})` }, S.rect(-214, -142, 440, 300, '#000', { opacity: .3, rx: 6, transform: 'translate(8,10)' }), d);
 };
 PR.wrench = (x, y, s = 1, r = 0) => S.g({ transform: `translate(${x},${y}) rotate(${r}) scale(${s})` }, S.rect(-60, -7, 120, 14, '#9aa0b0', { rx: 7 }), S.path('M60,-18 a20,20 0 1 1 0,36 l-6,-12 l10,0 l0,-12 l-10,0Z', '#9aa0b0'), S.rect(-60, -7, 120, 4, '#fff', { opacity: .4 }));
