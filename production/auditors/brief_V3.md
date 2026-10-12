@@ -13,7 +13,7 @@ Do NOT praise generically. Every problem needs a concrete fix the animator can i
 - Style bible for the reference look: /home/user/video-production/style_rag/ (start with README.md, 01, 04, 05, 10, 11)
 - Reference frames from the original video: /home/user/video-production/style_rag/reference_frames/contact_sheets/sheet_0.jpg … sheet_6.jpg
 - THIS VERSION's contact sheets (3 frames per shot: start / middle / end, labelled with shot id, start time, duration, VO clip ids):
-  /home/user/video-production/production/build/review/V3/sheet_00.jpg … sheet_14.jpg
+  /home/user/video-production/production/build/review/V3/sheet_00.jpg … sheet_15.jpg
 - Shot list with each shot's INTENT and the exact line spoken during it: /home/user/video-production/production/build/review/V3/shotlist.md
 - PREVIOUS ROUND: /home/user/video-production/production/auditors/V2/scorecard.md (V1 average 4.7, V2 average 5.7, and the merged V3 fix plan).
   For each of YOUR V2 problems (see the V2 scorecard), judge whether V3 fixed it; then list what is still wrong or newly broken. Score V3 on its own merits.
