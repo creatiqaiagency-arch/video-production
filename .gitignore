@@ -2,3 +2,5 @@ production/renders/
 production/build/frames/
 node_modules/
 *.tmp
+production/audio/vo/
+production/build/
