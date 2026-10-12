@@ -1,130 +1,624 @@
 {
-  "model_id": "eleven_v3",
-  "cast": {
-    "narrator":    {"voice_id": "62mRUMxDCTeADkhmzW2D", "voice": "Michael"},
-    "noah":        {"voice_id": "GoGUcAZovo4MFeLxJdZd", "voice": "Noah - YA Audiobooks Narrator"},
-    "leo":         {"voice_id": "unWb9iRIK7Xxf4A5Hfis", "voice": "VALF - Anime Protagonist"},
-    "maya":        {"voice_id": "b8JMPeNuVrqqWExQc8e9", "voice": "Ayla"},
-    "barista":     {"voice_id": "d8WcCpplp8meHt10UhL8", "voice": "Emily - Bright & Energetic"},
-    "teacher":     {"voice_id": "MJw0jtAmgm4D71m0HUJU", "voice": "Olivia"},
-    "businessman": {"voice_id": "NDsBvNJwUGAB0BjPzGIb", "voice": "Russell"},
-    "woman":       {"voice_id": "EeGlQ7rGlJ6UeTzX4f1H", "voice": "Tiffany"},
-    "man":         {"voice_id": "3xMy7cgC9vbdbPrSrXTt", "voice": "Mark"},
-    "crowd_a":     {"voice_id": "PoqlHoqJoAfdQ0g8bLK3", "voice": "Rick"},
-    "crowd_b":     {"voice_id": "o9B86nZP8mMLaT5FBEzP", "voice": "Kathie"},
-    "crowd_c":     {"voice_id": "Cx1u6YPIa1SPiAbYj3gJ", "voice": "Cavendish"},
-    "crowd_d":     {"voice_id": "2t3wubVNRseKNVjtlWx1", "voice": "Quinn"},
-    "crowd_e":     {"voice_id": "MkTSSXNgnBULS6ek4pon", "voice": "Tilly"}
+ "model_id": "eleven_v3",
+ "cast": {
+  "narrator": {
+   "voice_id": "62mRUMxDCTeADkhmzW2D",
+   "voice": "Michael"
   },
-  "lines": [
-    {"id":"s01_vo1","speaker":"narrator","kind":"vo","text":"[curious] What if you could hear what EVERYONE was thinking? Every secret. Every lie. [mischievously] Even what your crush ACTUALLY thinks about you.","existing_flow":{"flow_id":"FTkn2vkA3iTd7qjtT4IX","session_ids":["9lEp6nYksFwFFx0Q2oKL","DMoHzJvvksRjWbEXcNmg","9h4Ae7o9MdTQtpH9yj7s","zySYBVXKUMU8Qa79HR9U"]}},
-    {"id":"s01_vo2","speaker":"narrator","kind":"vo","text":"[warmly] Well... one morning, Noah woke up with exactly that power."},
-    {"id":"s01_barista_say","speaker":"barista","kind":"spoken","text":"[cheerfully] Here you go! Have a great day!"},
-    {"id":"s01_barista_th1","speaker":"barista","kind":"thought","text":"[nervous] [softly] Please don't spill it. Please don't spill it."},
-    {"id":"s01_noah1","speaker":"noah","kind":"spoken","text":"[shocked] WHAT THE—"},
-    {"id":"s01_barista_th2","speaker":"barista","kind":"thought","text":"[panicked] [softly] I'm getting fired."},
-
-    {"id":"s02_vo1","speaker":"narrator","kind":"vo","text":"At first, he thought he was losing his mind. [pause] But when he walked outside... he realized he could hear EVERY single person around him."},
-    {"id":"s02_biz_say","speaker":"businessman","kind":"spoken","text":"[casually] Yes, boss. Almost at the office."},
-    {"id":"s02_biz_th","speaker":"businessman","kind":"thought","text":"[stressed] [softly] I'm still twenty minutes away."},
-    {"id":"s02_woman_th","speaker":"woman","kind":"thought","text":"[worried] [softly] Did I leave the oven on?"},
-    {"id":"s02_man_th","speaker":"man","kind":"thought","text":"[suspicious] [softly] Why is that kid staring at me?"},
-    {"id":"s02_noah1","speaker":"noah","kind":"spoken","text":"[breathless] [amazed] Oh my god. This is actually real."},
-
-    {"id":"s03_vo1","speaker":"narrator","kind":"vo","text":"[excited] And once Noah figured out how it worked, he realized something even crazier. He could use it to get basically ANYTHING he wanted."},
-    {"id":"s03_teacher1","speaker":"teacher","kind":"spoken","text":"Noah. What's the answer to question seven?"},
-    {"id":"s03_noah1","speaker":"noah","kind":"spoken","text":"[nervous] Uh..."},
-    {"id":"s03_teacher_th","speaker":"teacher","kind":"thought","text":"[exasperated] [softly] Please don't say C again. It's B."},
-    {"id":"s03_noah2","speaker":"noah","kind":"spoken","text":"[confidently] B!"},
-    {"id":"s03_teacher2","speaker":"teacher","kind":"spoken","text":"[surprised] ...Correct."},
-    {"id":"s03_vo2","speaker":"narrator","kind":"vo","text":"[playfully] Suddenly, school wasn't so difficult anymore."},
-
-    {"id":"s04_vo1","speaker":"narrator","kind":"vo","text":"[softly] But there was one person Noah wanted to read more than anyone. [pause] Maya. The girl he'd been too scared to talk to for almost a year."},
-    {"id":"s04_maya_th1","speaker":"maya","kind":"thought","text":"[softly] [curious] Wait... Noah actually looks kinda cute today."},
-    {"id":"s04_noah1","speaker":"noah","kind":"spoken","text":"[whispers] No way."},
-    {"id":"s04_maya_th2","speaker":"maya","kind":"thought","text":"[softly] [confused] Why is he smiling like that?"},
-    {"id":"s04_noah2","speaker":"noah","kind":"spoken","text":"[embarrassed] Oh."},
-
-    {"id":"s05_vo1","speaker":"narrator","kind":"vo","text":"For the first few hours, Noah thought he'd become the luckiest person alive. [pause] [ominously] Until he walked into the school cafeteria."},
-    {"id":"s05_noah1","speaker":"noah","kind":"spoken","text":"[nervous] Wait. Wait, hold on—"},
-
-    {"id":"s06_vo1","speaker":"narrator","kind":"vo","text":"You see, hearing one person's thoughts was amazing. [pause] Hearing TWO HUNDRED people's thoughts at once? [pause] [deadpan] Not so much."},
-    {"id":"s06_c1","speaker":"crowd_a","kind":"thought","text":"[softly] I'm starving."},
-    {"id":"s06_c2","speaker":"crowd_b","kind":"thought","text":"[softly] [annoyed] Why did she leave me on read?"},
-    {"id":"s06_c3","speaker":"crowd_c","kind":"thought","text":"[softly] [tired] I hate Mondays."},
-    {"id":"s06_c4","speaker":"crowd_d","kind":"thought","text":"[softly] [anxious] Did I fail chemistry?"},
-    {"id":"s06_c5","speaker":"crowd_e","kind":"thought","text":"[softly] [sad] Does anyone even like me?"},
-    {"id":"s06_c6","speaker":"woman","kind":"thought","text":"[softly] Is my hair weird today?"},
-    {"id":"s06_c7","speaker":"businessman","kind":"thought","text":"[softly] Two more periods. Just two more."},
-    {"id":"s06_c8","speaker":"man","kind":"thought","text":"[softly] I should have studied."},
-    {"id":"s06_vo2","speaker":"narrator","kind":"vo","text":"[seriously] Everyone was thinking something different. And Noah couldn't turn ANY of it off."},
-
-    {"id":"s07_vo1","speaker":"narrator","kind":"vo","text":"He tried covering his ears. [pause] Nothing. [pause] He tried headphones. [pause] Still nothing. [pause] He even locked himself in an empty bathroom."},
-    {"id":"s07_noah1","speaker":"noah","kind":"spoken","text":"[frustrated] [shouting] ARE YOU KIDDING ME?"},
-
-    {"id":"s08_vo1","speaker":"narrator","kind":"vo","text":"[seriously] But the worst thing Noah heard that day wasn't from a stranger. [pause] It came from Leo. His best friend since they were kids."},
-    {"id":"s08_leo_say1","speaker":"leo","kind":"spoken","text":"[casually] Yo, you coming over Friday?"},
-    {"id":"s08_leo_th1","speaker":"leo","kind":"thought","text":"[softly] [sad] I can't keep doing this."},
-    {"id":"s08_noah1","speaker":"noah","kind":"spoken","text":"[confused] [softly] ...Doing what?"},
-    {"id":"s08_leo_say2","speaker":"leo","kind":"spoken","text":"[confused] What?"},
-    {"id":"s08_leo_th2","speaker":"leo","kind":"thought","text":"[softly] [anxious] I have to tell him. He's gonna hate me."},
-
-    {"id":"s09_vo1","speaker":"narrator","kind":"vo","text":"Noah couldn't stop thinking about what he'd heard. [pause] Was Leo planning to ditch him? Had he been lying this whole time? [pause] And the more Noah listened... the worse it got."},
-    {"id":"s09_leo_th1","speaker":"leo","kind":"thought","text":"[softly] [frustrated] I wish he'd stop asking."},
-    {"id":"s09_leo_th2","speaker":"leo","kind":"thought","text":"[softly] [determined] Friday. I have to do it Friday."},
-    {"id":"s09_vo2","speaker":"narrator","kind":"vo","text":"[ominously] By the end of the day, Noah was convinced his best friend was hiding something terrible."},
-
-    {"id":"s10_maya_say1","speaker":"maya","kind":"spoken","text":"[gently] Hey, Noah. You okay?"},
-    {"id":"s10_maya_th1","speaker":"maya","kind":"thought","text":"[softly] [worried] He seems really upset."},
-    {"id":"s10_noah1","speaker":"noah","kind":"spoken","text":"[curtly] I'm fine."},
-    {"id":"s10_maya_th2","speaker":"maya","kind":"thought","text":"[softly] [hesitant] I want to help, but I don't know what to say."},
-    {"id":"s10_noah2","speaker":"noah","kind":"spoken","text":"[angry] [shouting] Then don't say ANYTHING!"},
-    {"id":"s10_maya_say2","speaker":"maya","kind":"spoken","text":"[hurt] [quietly] ...What?"},
-    {"id":"s10_vo1","speaker":"narrator","kind":"vo","text":"[softly] And that's when Noah realized something. [pause] Just because he could HEAR a thought... didn't mean he understood it."},
-
-    {"id":"s11_vo1","speaker":"narrator","kind":"vo","text":"But there was still one question he couldn't get out of his head. [pause] What was Leo planning to tell him on Friday?"},
-    {"id":"s11_leo_th","speaker":"leo","kind":"thought","text":"[softly] [nervous] Tomorrow's going to change everything."},
-
-    {"id":"s12_vo1","speaker":"narrator","kind":"vo","text":"Friday finally came. [pause] And Noah wasn't going to wait around for Leo to tell him."},
-    {"id":"s12_noah1","speaker":"noah","kind":"spoken","text":"[coldly] So. What were you gonna tell me?"},
-    {"id":"s12_leo1","speaker":"leo","kind":"spoken","text":"[surprised] What?"},
-    {"id":"s12_noah2","speaker":"noah","kind":"spoken","text":"[bitter] Don't act like you don't know."},
-    {"id":"s12_leo_th","speaker":"leo","kind":"thought","text":"[softly] [panicked] Oh no. Not like this."},
-
-    {"id":"s13_noah1","speaker":"noah","kind":"spoken","text":"[hurt] You've been hiding something from me all week."},
-    {"id":"s13_leo1","speaker":"leo","kind":"spoken","text":"[pleading] Noah, just let me explain."},
-    {"id":"s13_leo_th","speaker":"leo","kind":"thought","text":"[softly] [worried] He's gonna think I'm abandoning him."},
-    {"id":"s13_noah2","speaker":"noah","kind":"spoken","text":"[angry] So you ARE abandoning me?"},
-    {"id":"s13_leo2","speaker":"leo","kind":"spoken","text":"[shocked] How did you—"},
-    {"id":"s13_noah3","speaker":"noah","kind":"spoken","text":"[shouting] I KNOW what you're thinking, Leo!"},
-
-    {"id":"s14_leo1","speaker":"leo","kind":"spoken","text":"[hesitant] I got accepted into a school overseas."},
-    {"id":"s14_noah1","speaker":"noah","kind":"spoken","text":"[stunned] [quietly] ...What?"},
-    {"id":"s14_leo2","speaker":"leo","kind":"spoken","text":"Full scholarship. My mom's already sorting everything out."},
-    {"id":"s14_noah2","speaker":"noah","kind":"spoken","text":"[hurt] And you were just gonna leave without telling me?"},
-    {"id":"s14_leo3","speaker":"leo","kind":"spoken","text":"[earnest] No! I was trying to figure out HOW to tell you."},
-    {"id":"s14_leo_th","speaker":"leo","kind":"thought","text":"[softly] [hopeful] Please just be happy for me."},
-
-    {"id":"s15_noah1","speaker":"noah","kind":"spoken","text":"[quietly] You said you couldn't keep doing this."},
-    {"id":"s15_leo1","speaker":"leo","kind":"spoken","text":"[sadly] Yeah. Pretending everything was normal... while I knew I was leaving."},
-    {"id":"s15_noah2","speaker":"noah","kind":"spoken","text":"[softly] And you thought I'd hate you?"},
-    {"id":"s15_leo2","speaker":"leo","kind":"spoken","text":"[trembling voice] I was scared you'd think I chose a new life over being your friend."},
-    {"id":"s15_leo3","speaker":"leo","kind":"spoken","text":"[softly] [sincere] I wanted you to be the first person I told."},
-
-    {"id":"s16_vo1","speaker":"narrator","kind":"vo","text":"[softly] And suddenly... Noah understood. [pause] All day, he'd been hearing people's thoughts. But he'd been treating every passing fear, every unfinished sentence, and every private worry... like it was the whole truth. [pause] He could hear what people were thinking. [long pause] He still didn't know what they meant."},
-
-    {"id":"s17_noah1","speaker":"noah","kind":"spoken","text":"[amazed] Dude. You're actually getting a FULL scholarship?"},
-    {"id":"s17_leo1","speaker":"leo","kind":"spoken","text":"[shy] Yeah."},
-    {"id":"s17_noah2","speaker":"noah","kind":"spoken","text":"[excited] That's insane! Why didn't you just tell me?"},
-    {"id":"s17_leo2","speaker":"leo","kind":"spoken","text":"[laughs] I was TRYING to."},
-    {"id":"s17_noah3","speaker":"noah","kind":"spoken","text":"[warmly] ...I'm happy for you, man."},
-    {"id":"s17_leo_th","speaker":"leo","kind":"thought","text":"[softly] [relieved] Thank god."},
-    {"id":"s17_laugh_noah","speaker":"noah","kind":"spoken","text":"[laughs] [laughs harder]"},
-    {"id":"s17_laugh_leo","speaker":"leo","kind":"spoken","text":"[laughs] Ha... [laughs]"},
-
-    {"id":"s18_vo1","speaker":"narrator","kind":"vo","text":"[playfully] Of course, Noah still had one person he was too scared to ask about."},
-    {"id":"s18_maya1","speaker":"maya","kind":"spoken","text":"[shyly] Hey. You want to walk home together?"},
-    {"id":"s18_maya_th","speaker":"maya","kind":"thought","text":"[softly] [nervous] Please say yes."},
-    {"id":"s18_noah1","speaker":"noah","kind":"spoken","text":"[warmly] Yeah. I'd like that."}
-  ]
+  "noah": {
+   "voice_id": "GoGUcAZovo4MFeLxJdZd",
+   "voice": "Noah - YA Audiobooks Narrator"
+  },
+  "leo": {
+   "voice_id": "unWb9iRIK7Xxf4A5Hfis",
+   "voice": "VALF - Anime Protagonist"
+  },
+  "maya": {
+   "voice_id": "b8JMPeNuVrqqWExQc8e9",
+   "voice": "Ayla"
+  },
+  "barista": {
+   "voice_id": "d8WcCpplp8meHt10UhL8",
+   "voice": "Emily - Bright & Energetic"
+  },
+  "teacher": {
+   "voice_id": "MJw0jtAmgm4D71m0HUJU",
+   "voice": "Olivia"
+  },
+  "businessman": {
+   "voice_id": "NDsBvNJwUGAB0BjPzGIb",
+   "voice": "Russell"
+  },
+  "woman": {
+   "voice_id": "EeGlQ7rGlJ6UeTzX4f1H",
+   "voice": "Tiffany"
+  },
+  "man": {
+   "voice_id": "3xMy7cgC9vbdbPrSrXTt",
+   "voice": "Mark"
+  },
+  "crowd_a": {
+   "voice_id": "PoqlHoqJoAfdQ0g8bLK3",
+   "voice": "Rick"
+  },
+  "crowd_b": {
+   "voice_id": "o9B86nZP8mMLaT5FBEzP",
+   "voice": "Kathie"
+  },
+  "crowd_c": {
+   "voice_id": "Cx1u6YPIa1SPiAbYj3gJ",
+   "voice": "Cavendish"
+  },
+  "crowd_d": {
+   "voice_id": "2t3wubVNRseKNVjtlWx1",
+   "voice": "Quinn"
+  },
+  "crowd_e": {
+   "voice_id": "MkTSSXNgnBULS6ek4pon",
+   "voice": "Tilly"
+  }
+ },
+ "lines": [
+  {
+   "id": "s01_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "[curious] What if you could hear what EVERYONE was thinking? Every secret. Every lie. [mischievously] Even what your crush ACTUALLY thinks about you.",
+   "existing_flow": {
+    "flow_id": "FTkn2vkA3iTd7qjtT4IX",
+    "session_ids": [
+     "9lEp6nYksFwFFx0Q2oKL",
+     "DMoHzJvvksRjWbEXcNmg",
+     "9h4Ae7o9MdTQtpH9yj7s",
+     "zySYBVXKUMU8Qa79HR9U"
+    ]
+   }
+  },
+  {
+   "id": "s01_vo2",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "[warmly] Well... one morning, Noah woke up with exactly that power."
+  },
+  {
+   "id": "s01_barista_say",
+   "speaker": "barista",
+   "kind": "spoken",
+   "text": "[cheerfully] Here you go! Have a great day!"
+  },
+  {
+   "id": "s01_barista_th1",
+   "speaker": "barista",
+   "kind": "thought",
+   "text": "[nervous] [softly] Please don't spill it. Please don't spill it."
+  },
+  {
+   "id": "s01_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[shocked] WHAT THE—"
+  },
+  {
+   "id": "s01_barista_th2",
+   "speaker": "barista",
+   "kind": "thought",
+   "text": "[panicked] [softly] I'm getting fired."
+  },
+  {
+   "id": "s02_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "At first, he thought he was losing his mind. [pause] But when he walked outside... he realized he could hear EVERY single person around him."
+  },
+  {
+   "id": "s02_biz_say",
+   "speaker": "businessman",
+   "kind": "spoken",
+   "text": "[casually] Yes, boss. Almost at the office."
+  },
+  {
+   "id": "s02_biz_th",
+   "speaker": "businessman",
+   "kind": "thought",
+   "text": "[stressed] [softly] I'm still twenty minutes away."
+  },
+  {
+   "id": "s02_woman_th",
+   "speaker": "woman",
+   "kind": "thought",
+   "text": "[worried] [softly] Did I leave the oven on?"
+  },
+  {
+   "id": "s02_man_th",
+   "speaker": "man",
+   "kind": "thought",
+   "text": "[suspicious] [softly] Why is that kid staring at me?"
+  },
+  {
+   "id": "s02_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[breathless] [amazed] Oh my god. This is actually real."
+  },
+  {
+   "id": "s03_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "[excited] And once Noah figured out how it worked, he realized something even crazier. He could use it to get basically ANYTHING he wanted."
+  },
+  {
+   "id": "s03_teacher1",
+   "speaker": "teacher",
+   "kind": "spoken",
+   "text": "Noah. What's the answer to question seven?"
+  },
+  {
+   "id": "s03_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[nervous] Uh..."
+  },
+  {
+   "id": "s03_teacher_th",
+   "speaker": "teacher",
+   "kind": "thought",
+   "text": "[exasperated] [softly] Please don't say C again. It's B."
+  },
+  {
+   "id": "s03_noah2",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[confidently] B!"
+  },
+  {
+   "id": "s03_teacher2",
+   "speaker": "teacher",
+   "kind": "spoken",
+   "text": "[surprised] ...Correct."
+  },
+  {
+   "id": "s03_vo2",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "[playfully] Suddenly, school wasn't so difficult anymore."
+  },
+  {
+   "id": "s04_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "[softly] But there was one person Noah wanted to read more than anyone. [pause] Maya. The girl he'd been too scared to talk to for almost a year."
+  },
+  {
+   "id": "s04_maya_th1",
+   "speaker": "maya",
+   "kind": "thought",
+   "text": "[softly] [curious] Wait... Noah actually looks kinda cute today."
+  },
+  {
+   "id": "s04_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[whispers] No way."
+  },
+  {
+   "id": "s04_maya_th2",
+   "speaker": "maya",
+   "kind": "thought",
+   "text": "[softly] [confused] Why is he smiling like that?"
+  },
+  {
+   "id": "s04_noah2",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[embarrassed] Oh."
+  },
+  {
+   "id": "s05_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "For the first few hours, Noah thought he'd become the luckiest person alive. [pause] [ominously] Until he walked into the school cafeteria."
+  },
+  {
+   "id": "s05_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[nervous] Wait. Wait, hold on—"
+  },
+  {
+   "id": "s06_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "You see, hearing one person's thoughts was amazing. [pause] Hearing TWO HUNDRED people's thoughts at once? [pause] [deadpan] Not so much."
+  },
+  {
+   "id": "s06_c1",
+   "speaker": "crowd_a",
+   "kind": "thought",
+   "text": "[softly] I'm starving."
+  },
+  {
+   "id": "s06_c2",
+   "speaker": "crowd_b",
+   "kind": "thought",
+   "text": "[softly] [annoyed] Why did she leave me on read?"
+  },
+  {
+   "id": "s06_c3",
+   "speaker": "crowd_c",
+   "kind": "thought",
+   "text": "[softly] [tired] I hate Mondays."
+  },
+  {
+   "id": "s06_c4",
+   "speaker": "crowd_d",
+   "kind": "thought",
+   "text": "[softly] [anxious] Did I fail chemistry?"
+  },
+  {
+   "id": "s06_c5",
+   "speaker": "crowd_e",
+   "kind": "thought",
+   "text": "[softly] [sad] Does anyone even like me?"
+  },
+  {
+   "id": "s06_c6",
+   "speaker": "woman",
+   "kind": "thought",
+   "text": "[softly] Is my hair weird today?"
+  },
+  {
+   "id": "s06_c7",
+   "speaker": "businessman",
+   "kind": "thought",
+   "text": "[softly] Two more periods. Just two more."
+  },
+  {
+   "id": "s06_c8",
+   "speaker": "man",
+   "kind": "thought",
+   "text": "[softly] I should have studied."
+  },
+  {
+   "id": "s06_vo2",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "[seriously] Everyone was thinking something different. And Noah couldn't turn ANY of it off."
+  },
+  {
+   "id": "s07_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "He tried covering his ears. [pause] Nothing. [pause] He tried headphones. [pause] Still nothing. [pause] He even locked himself in an empty bathroom."
+  },
+  {
+   "id": "s07_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[frustrated] [shouting] ARE YOU KIDDING ME?"
+  },
+  {
+   "id": "s08_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "[seriously] But the worst thing Noah heard that day wasn't from a stranger. [pause] It came from Leo. His best friend since they were kids."
+  },
+  {
+   "id": "s08_leo_say1",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[casually] Yo, you coming over Friday?"
+  },
+  {
+   "id": "s08_leo_th1",
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "[softly] [sad] I can't keep doing this."
+  },
+  {
+   "id": "s08_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[confused] [softly] ...Doing what?"
+  },
+  {
+   "id": "s08_leo_say2",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[confused] What?"
+  },
+  {
+   "id": "s08_leo_th2",
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "[softly] [anxious] I have to tell him. He's gonna hate me."
+  },
+  {
+   "id": "s09_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "Noah couldn't stop thinking about what he'd heard. [pause] Was Leo planning to ditch him? Had he been lying this whole time? [pause] And the more Noah listened... the worse it got."
+  },
+  {
+   "id": "s09_leo_th1",
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "[softly] [frustrated] I wish he'd stop asking."
+  },
+  {
+   "id": "s09_leo_th2",
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "[softly] [determined] Friday. I have to do it Friday."
+  },
+  {
+   "id": "s09_vo2",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "[ominously] By the end of the day, Noah was convinced his best friend was hiding something terrible."
+  },
+  {
+   "id": "s10_maya_say1",
+   "speaker": "maya",
+   "kind": "spoken",
+   "text": "[gently] Hey, Noah. You okay?"
+  },
+  {
+   "id": "s10_maya_th1",
+   "speaker": "maya",
+   "kind": "thought",
+   "text": "[softly] [worried] He seems really upset."
+  },
+  {
+   "id": "s10_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[curtly] I'm fine."
+  },
+  {
+   "id": "s10_maya_th2",
+   "speaker": "maya",
+   "kind": "thought",
+   "text": "[softly] [hesitant] I want to help, but I don't know what to say."
+  },
+  {
+   "id": "s10_noah2",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[angry] [shouting] Then don't say ANYTHING!"
+  },
+  {
+   "id": "s10_maya_say2",
+   "speaker": "maya",
+   "kind": "spoken",
+   "text": "[hurt] [quietly] ...What?"
+  },
+  {
+   "id": "s10_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "[softly] And that's when Noah realized something. [pause] Just because he could HEAR a thought... didn't mean he understood it."
+  },
+  {
+   "id": "s11_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "But there was still one question he couldn't get out of his head. [pause] What was Leo planning to tell him on Friday?"
+  },
+  {
+   "id": "s11_leo_th",
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "[softly] [nervous] Tomorrow's going to change everything."
+  },
+  {
+   "id": "s12_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "Friday finally came. [pause] And Noah wasn't going to wait around for Leo to tell him."
+  },
+  {
+   "id": "s12_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[coldly] So. What were you gonna tell me?"
+  },
+  {
+   "id": "s12_leo1",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[surprised] What?"
+  },
+  {
+   "id": "s12_noah2",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[bitter] Don't act like you don't know."
+  },
+  {
+   "id": "s12_leo_th",
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "[softly] [panicked] Oh no. Not like this."
+  },
+  {
+   "id": "s13_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[hurt] You've been hiding something from me all week."
+  },
+  {
+   "id": "s13_leo1",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[pleading] Noah, just let me explain."
+  },
+  {
+   "id": "s13_leo_th",
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "[softly] [worried] He's gonna think I'm abandoning him."
+  },
+  {
+   "id": "s13_noah2",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[angry] So you ARE abandoning me?"
+  },
+  {
+   "id": "s13_leo2",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[shocked] How did you—"
+  },
+  {
+   "id": "s13_noah3",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[shouting] I KNOW what you're thinking, Leo!"
+  },
+  {
+   "id": "s14_leo1",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[hesitant] I got accepted into a school overseas."
+  },
+  {
+   "id": "s14_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[stunned] [quietly] ...What?"
+  },
+  {
+   "id": "s14_leo2",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "Full scholarship. My mom's already sorting everything out."
+  },
+  {
+   "id": "s14_noah2",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[hurt] And you were just gonna leave without telling me?"
+  },
+  {
+   "id": "s14_leo3",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[earnest] No! I was trying to figure out HOW to tell you."
+  },
+  {
+   "id": "s14_leo_th",
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "[softly] [hopeful] Please just be happy for me."
+  },
+  {
+   "id": "s15_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[quietly] You said you couldn't keep doing this."
+  },
+  {
+   "id": "s15_leo1",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[sadly] Yeah. Pretending everything was normal... while I knew I was leaving."
+  },
+  {
+   "id": "s15_noah2",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[softly] And you thought I'd hate you?"
+  },
+  {
+   "id": "s15_leo2",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[trembling voice] I was scared you'd think I chose a new life over being your friend."
+  },
+  {
+   "id": "s15_leo3",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[softly] [sincere] I wanted you to be the first person I told."
+  },
+  {
+   "id": "s16_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "[softly] And suddenly... Noah understood. [pause] All day, he'd been hearing people's thoughts. But he'd been treating every passing fear, every unfinished sentence, and every private worry... like it was the whole truth. [pause] He could hear what people were thinking. [long pause] He still didn't know what they meant."
+  },
+  {
+   "id": "s17_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[amazed] Dude. You're actually getting a FULL scholarship?"
+  },
+  {
+   "id": "s17_leo1",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[shy] Yeah."
+  },
+  {
+   "id": "s17_noah2",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[excited] That's insane! Why didn't you just tell me?"
+  },
+  {
+   "id": "s17_leo2",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[laughs] I was TRYING to."
+  },
+  {
+   "id": "s17_noah3",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[warmly] ...I'm happy for you, man."
+  },
+  {
+   "id": "s17_leo_th",
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "[softly] [relieved] Thank god."
+  },
+  {
+   "id": "s17_laugh_noah",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[laughs] Ha! [laughs harder] Haha..."
+  },
+  {
+   "id": "s17_laugh_leo",
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "[laughs] Ha... [laughs]"
+  },
+  {
+   "id": "s18_vo1",
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "[playfully] Of course, Noah still had one person he was too scared to ask about."
+  },
+  {
+   "id": "s18_maya1",
+   "speaker": "maya",
+   "kind": "spoken",
+   "text": "[shyly] Hey. You want to walk home together?"
+  },
+  {
+   "id": "s18_maya_th",
+   "speaker": "maya",
+   "kind": "thought",
+   "text": "[softly] [nervous] Please say yes."
+  },
+  {
+   "id": "s18_noah1",
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "[warmly] Yeah. I'd like that."
+  }
+ ]
 }

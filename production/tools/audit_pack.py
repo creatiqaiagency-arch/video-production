@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+"""Build the review package auditors look at for a version.
+
+usage: audit_pack.py V1 path/to/video.mp4
+Creates production/audits/<V>/pack/:
+  sheet_XX.jpg        2 labelled stills per shot (25 % / 75 %), 4×4 grid
+  motion_XX.jpg       8-frame strips across selected shots (animation review)
+  shots.md            shot list: id, type, start, duration, description, VO lines inside the shot
+  cadence.md          automatic shot-length statistics vs the 3–5 s rule
+"""
+import json, os, subprocess, sys, statistics
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+V, video = sys.argv[1], sys.argv[2]
+out = os.path.join(ROOT, 'audits', V, 'pack'); os.makedirs(out, exist_ok=True)
+tl = json.load(open(os.path.join(ROOT, 'build', 'timeline.json')))
+shots = json.load(open(os.path.join(ROOT, 'build', 'shotlist.json')))
+lines = sorted(tl['lines'].items(), key=lambda kv: kv[1]['start'])
+
+# shots.md
+with open(os.path.join(out, 'shots.md'), 'w') as f:
+    f.write(f'# {V} shot list — {len(shots)} shots, {tl["total"]:.1f}s\n\n| # | shot | type | start | dur | what we see | audio in shot |\n|---|---|---|---|---|---|---|\n')
+    for i, s in enumerate(shots):
+        inside = [f"{l['speaker']}{' (thought)' if l['kind'] == 'thought' else ''}: \"{l['text']}\"" for k, l in lines if l['start'] < s['t1'] and l['end'] > s['t0']]
+        f.write(f"| {i + 1} | {s['id']} | {s['type']} | {s['t0']:.2f} | {s['dur']:.2f} | {s['desc']} | {' / '.join(inside)} |\n")
+
+# cadence.md
+d = [s['dur'] for s in shots]
+bad_short = [s for s in shots if s['dur'] < 3.0]
+bad_long = [s for s in shots if s['dur'] > 5.0]
+in_rule = len(shots) - len(bad_short) - len(bad_long)
+types = [s['type'] for s in shots]
+repeats = [(shots[i]['id'], shots[i + 1]['id']) for i in range(len(shots) - 1) if types[i] == types[i + 1] and types[i] in ('CU', 'ECU')]
+with open(os.path.join(out, 'cadence.md'), 'w') as f:
+    f.write(f'# {V} cadence report\n\nshots {len(shots)} · mean {statistics.mean(d):.2f}s · median {statistics.median(d):.2f}s · min {min(d):.2f}s · max {max(d):.2f}s\n\n')
+    f.write(f'within 3–5 s: **{in_rule}/{len(shots)} ({100 * in_rule / len(shots):.0f}%)**\n\n')
+    f.write('## shorter than 3 s\n' + ''.join(f"- {s['id']} {s['dur']:.2f}s ({s['type']})\n" for s in bad_short))
+    f.write('\n## longer than 5 s\n' + ''.join(f"- {s['id']} {s['dur']:.2f}s ({s['type']})\n" for s in bad_long))
+    f.write('\n## consecutive close-ups (same type back-to-back)\n' + ''.join(f'- {a} → {b}\n' for a, b in repeats))
+
+# stills from the actual rendered video, with burned-in labels
+tmp = os.path.join(out, 'frames'); os.makedirs(tmp, exist_ok=True)
+for f_ in os.listdir(tmp): os.remove(os.path.join(tmp, f_))
+k = 0
+for s in shots:
+    for frac in (0.25, 0.75):
+        t = s['t0'] + s['dur'] * frac
+        label = f"{s['id']}  {t:.1f}s  ({s['dur']:.1f}s shot)".replace(':', '\\:')
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', f'{t:.3f}', '-i', video, '-frames:v', '1', '-vf',
+                        f"scale=640:-2,drawtext=text='{label}':x=8:y=8:fontsize=18:fontcolor=yellow:box=1:boxcolor=black@0.7", os.path.join(tmp, f'{k:04d}.jpg')], check=True)
+        k += 1
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-pattern_type', 'glob', '-i', os.path.join(tmp, '*.jpg'), '-vf', 'tile=4x4:padding=4', os.path.join(out, 'sheet_%02d.jpg')], check=True)
+
+# motion strips: 8 frames across a spread of shots (every ~8th shot)
+sel = shots[::max(1, len(shots) // 12)][:12]
+for j, s in enumerate(sel):
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', f"{s['t0']:.3f}", '-t', f"{s['dur']:.3f}", '-i', video, '-vf',
+                    f"fps={8 / max(0.5, s['dur']):.3f},scale=400:-2,tile=8x1:padding=2,drawtext=text='{s['id']}':x=6:y=6:fontsize=16:fontcolor=yellow:box=1:boxcolor=black@0.7",
+                    '-frames:v', '1', os.path.join(out, f'motion_{j:02d}.jpg')], check=True)
+print('pack ->', out, 'sheets:', len([x for x in os.listdir(out) if x.startswith('sheet')]))
