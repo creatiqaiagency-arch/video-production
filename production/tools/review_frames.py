@@ -11,10 +11,17 @@ for s in tl['shots']:
     d = (s['f1'] - s['f0']) / 24
     pts = [round(d * .5, 2)] if mode == 'mid' else [0.1, round(d * .5, 2), round(max(d - .12, .1), 2)]
     specs += [f"{s['id']}:{p}" for p in pts]
-# render in 4 parallel chunks
-chunks = [specs[i::4] for i in range(4)]
-procs = [subprocess.Popen(['node', os.path.join(ROOT, 'tools', 'render.cjs'), '--stills', ','.join(c), '--dir', out]) for c in chunks if c]
-for p in procs: p.wait()
+video = sys.argv[3] if len(sys.argv) > 3 else None
+if video:  # extract keyframes from the rendered film (exactly what the viewer sees)
+    for s in tl['shots']:
+        d = (s['f1'] - s['f0']) / 24
+        pts = [round(d * .5, 2)] if mode == 'mid' else [0.1, round(d * .5, 2), round(max(d - .12, .1), 2)]
+        for p in pts:
+            subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', f"{s['f0'] / 24 + p:.3f}", '-i', video, '-frames:v', '1', '-vf', 'scale=960:-1', '-q:v', '4', os.path.join(out, f"{s['id']}_{p}.jpg")], check=True)
+else:
+    chunks = [specs[i::4] for i in range(4)]
+    procs = [subprocess.Popen(['node', os.path.join(ROOT, 'tools', 'render.cjs'), '--stills', ','.join(c), '--dir', out]) for c in chunks if c]
+    for p in procs: p.wait()
 font = ImageFont.truetype('/usr/share/fonts/opentype/inter/Inter-Bold.otf', 22)
 vo = tl['vo']
 def vo_at(t0, t1): return ' '.join(v['clip'] for v in vo if v['t0'] < t1 and v['t1'] > t0)
