@@ -5,7 +5,7 @@
   const S = (E.SET = {});
   const P = {
     skyTop: '#85618f', skyMid: '#bb80a0', hor: '#e8a070', bldg: '#3a2433', bldgD: '#2a1826', far: '#6a4a66', street: '#593736',
-    win: '#d1966a', winHi: '#f2c184', awn: '#9a3a44', awnS: '#e8d2bc',
+    win: '#d8743a', winHi: '#ffc87a', awn: '#9a3a44', awnS: '#e8d2bc',
   };
   E.PAL = P;
 
@@ -15,7 +15,7 @@
     const lit = o.lit === undefined ? 1 : o.lit;
     if (lit > 0) {
       E.vgrad(ctx, x, y, w, h, [[0, E.mix(o.hi || P.winHi, o.lo || P.win, 0, 1)], [1, o.lo || P.win]]);
-      if (o.glow !== false) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; E.glow(ctx, x + w / 2, y + h * 0.4, Math.max(w, h) * 0.9, o.hi || P.winHi, 0.18 * lit); ctx.restore(); }
+      if (o.glow !== false) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; E.glow(ctx, x + w / 2, y + h * 0.4, Math.max(w, h) * 0.9, o.hi || P.winHi, 0.12 * lit); ctx.restore(); }
     } else rect(ctx, x, y, w, h, o.dark || '#241521');
     ctx.fillStyle = o.frame || '#2b1a26'; const cols = o.cols || 2, rows = o.rows || 2, fw = o.fw || Math.max(3, w * 0.035);
     for (let i = 1; i < cols; i++) ctx.fillRect(x + (w * i) / cols - fw / 2, y, fw, h);
@@ -128,7 +128,7 @@
       E.vgrad(c, -1200, -400, 4400, 1500, [[0, '#5b3a3e'], [1, '#4a3238']]);
       rect(c, -1200, 700, 4400, 30, '#35232a'); // wainscot
       // windows on the left wall area with light
-      for (let i = 0; i < 3; i++) { win(c, -1000 + i * 330, 160, 240, 420, { cols: 2, rows: 3, hi: '#ffe6b8', lo: '#f0b97a' }); }
+      for (let i = 0; i < 3; i++) { win(c, -1000 + i * 330, 160, 240, 420, { cols: 2, rows: 3, hi: '#ffd08a', lo: '#e0864a' }); }
       // chalkboard
       rect(c, 300, 180, 1320, 460, '#2f3f37'); c.strokeStyle = '#6b4a3a'; c.lineWidth = 18; c.strokeRect(300, 180, 1320, 460); rect(c, 300, 640, 1320, 16, '#6b4a3a');
       c.strokeStyle = 'rgba(230,240,230,0.55)'; c.lineWidth = 4; c.font = '600 40px Caveat'; c.fillStyle = 'rgba(235,240,230,0.7)'; c.textAlign = 'left';
@@ -148,7 +148,7 @@
 
   // ---------- HALLWAY side view (lockers + windows) ----------
   S.hallway = (t, o = {}) => [
-    { d: 0.1, draw: (c) => { E.vgrad(c, -2000, -400, 7000, 1500, [[0, '#5d3d44'], [1, '#4a3038']]); for (let i = 0; i < 8; i++) { win(c, -1600 + i * 700, 120, 300, 300, { cols: 2, rows: 2, hi: o.night ? '#7a6ab0' : '#ffe2b0', lo: o.night ? '#4a3a7a' : '#efa877' }); } } },
+    { d: 0.1, draw: (c) => { E.vgrad(c, -2000, -400, 7000, 1500, [[0, '#5d3d44'], [1, '#4a3038']]); for (let i = 0; i < 8; i++) { win(c, -1600 + i * 700, 120, 300, 300, { cols: 2, rows: 2, hi: o.night ? '#7a6ab0' : '#ffd08a', lo: o.night ? '#4a3a7a' : '#d8743a' }); } } },
     { d: 0.6, draw: (c) => {
       for (let i = 0; i < 60; i++) { const x = -2400 + i * 110; const col = i % 2 ? '#3d5a73' : '#365069'; rect(c, x, 470, 104, 420, col); rect(c, x + 8, 480, 88, 8, 'rgba(0,0,0,0.25)'); for (let k = 0; k < 4; k++) rect(c, x + 22, 500 + k * 10, 60, 4, 'rgba(0,0,0,0.3)'); rect(c, x + 78, 660, 8, 40, '#c9c0c8'); }
       rect(c, -2400, 460, 7000, 14, '#2a1826');
@@ -164,7 +164,7 @@
       const vx = 960, vy = 470;
       E.vgrad(c, -1000, -500, 4000, 2000, [[0, '#5d3d44'], [1, '#3a262c']]);
       // far end window
-      win(c, vx - 160, vy - 210, 320, 330, { cols: 3, rows: 3, hi: '#fff0c8', lo: '#f3b56f' }); E.glow(c, vx, vy - 40, 520, '#ffd59a', 0.35);
+      win(c, vx - 160, vy - 210, 320, 330, { cols: 3, rows: 3, hi: '#ffd896', lo: '#e8904a' }); E.glow(c, vx, vy - 40, 520, '#ffd59a', 0.35);
       // floor + ceiling planes
       c.fillStyle = '#4a3036'; c.beginPath(); c.moveTo(-1000, 1400); c.lineTo(vx - 180, vy + 140); c.lineTo(vx + 180, vy + 140); c.lineTo(2900, 1400); c.fill();
       c.fillStyle = '#4e343c'; c.beginPath(); c.moveTo(-1000, -500); c.lineTo(vx - 180, vy - 230); c.lineTo(vx + 180, vy - 230); c.lineTo(2900, -500); c.fill();
@@ -184,7 +184,7 @@
 
   // ---------- CAFETERIA (side view) ----------
   S.cafeteria = (t, o = {}) => [
-    { d: 0.1, draw: (c) => { E.vgrad(c, -2000, -500, 7000, 1600, [[0, '#5a4048'], [1, '#463038']]); for (let i = 0; i < 7; i++) win(c, -1500 + i * 620, 100, 380, 360, { cols: 3, rows: 3, hi: '#ffe6b8', lo: '#f0b97a' }); rect(c, -2000, 640, 7000, 26, '#33222a'); for (let i = 0; i < 7; i++) E.cone(c, -1310 + i * 620, 460, 380, 900, 700, '#ffd59a', 0.05, 0.3); } },
+    { d: 0.1, draw: (c) => { E.vgrad(c, -2000, -500, 7000, 1600, [[0, '#5a4048'], [1, '#463038']]); for (let i = 0; i < 7; i++) win(c, -1500 + i * 620, 100, 380, 360, { cols: 3, rows: 3, hi: '#ffd08a', lo: '#e0864a' }); rect(c, -2000, 640, 7000, 26, '#33222a'); for (let i = 0; i < 7; i++) E.cone(c, -1310 + i * 620, 460, 380, 900, 700, '#ffd59a', 0.05, 0.3); } },
     { d: 0.4, draw: (c) => { for (let i = 0; i < 8; i++) pendant(c, -1300 + i * 560, -100, 150, t, 0.8); } },
     { d: 0.8, draw: (c) => { E.vgrad(c, -2600, 840, 7600, 600, [[0, '#6a4a48'], [1, '#3a2629']]); } },
   ];
@@ -196,7 +196,7 @@
     { d: 0.15, draw: (c) => {
       const vx = 960, vy = 430;
       E.vgrad(c, -1200, -500, 4400, 2000, [[0, '#5a4048'], [1, '#3e2a32']]);
-      for (let i = 0; i < 5; i++) win(c, 360 + i * 250, 170, 190, 220, { cols: 2, rows: 2, hi: '#ffe6b8', lo: '#f0b97a' });
+      for (let i = 0; i < 5; i++) win(c, 360 + i * 250, 170, 190, 220, { cols: 2, rows: 2, hi: '#ffd08a', lo: '#e0864a' });
       c.fillStyle = '#54383c'; c.beginPath(); c.moveTo(-1200, 1500); c.lineTo(vx - 700, vy + 60); c.lineTo(vx + 700, vy + 60); c.lineTo(3100, 1500); c.fill();
       for (let k = 0; k < 6; k++) { const z = Math.pow(0.68, k); const y = vy + 60 + 700 * z * 0.75; const w = 1400 * z + 400; for (const sd of [-1, 1]) { c.fillStyle = '#7a5040'; c.fillRect(vx + sd * (120 + 200 * z) - (sd < 0 ? w * 0.55 : 0), y, w * 0.55, 18 * z + 4); } }
       for (let k = 0; k < 6; k++) { const z = Math.pow(0.7, k); E.glow(c, vx + (k % 2 ? -1 : 1) * 260 * z, vy - 120 - 300 * z, 120 * z + 30, '#ffd59a', 0.45); }
@@ -247,7 +247,7 @@
       { d: 0.05, draw: (c) => { E.sky(c, top, mid, hor, -600, 700, -2000, 6000); E.sun(c, o.sunX || 1500, 420, 60, t); E.rays(c, o.sunX || 1500, 420, 1700, 18, '#ffe2b0', 0.1 + 0.05 * g, t); clouds(c, t, 100, 8, E.mixHex('#c993b3', '#f0b8a0', g)); } },
       { d: 0.3, draw: (c) => { // school building in back
         rect(c, -1400, 220, 4800, 480, '#5a3a46'); rect(c, -1400, 205, 4800, 22, '#3a2430');
-        for (let i = 0; i < 16; i++) for (let j = 0; j < 2; j++) win(c, -1300 + i * 300, 280 + j * 190, 150, 130, { cols: 2, rows: 2, lit: (i + j) % 3 ? 0.9 : 0, hi: '#ffe6b8', lo: '#f0b97a' });
+        for (let i = 0; i < 16; i++) for (let j = 0; j < 2; j++) win(c, -1300 + i * 300, 280 + j * 190, 150, 130, { cols: 2, rows: 2, lit: (i + j) % 3 ? 0.9 : 0, hi: '#ffd08a', lo: '#e0864a' });
         rect(c, 860, 470, 200, 230, '#2a1826'); win(c, 880, 490, 160, 180, { cols: 2, rows: 1 });
         treeLine(c, 720, '#3c2a3a', 12, -1600, 3600, 0.7);
       } },
@@ -276,7 +276,7 @@
     { d: 0.05, draw: (c) => { E.sky(c, '#7a5a90', '#e8988a', '#ffc27a', -600, 760, -2000, 6000); E.sun(c, 1500, 520, 70, t); E.rays(c, 1500, 520, 1800, 18, '#ffe6b8', 0.14, t); clouds(c, t, 120, 9, '#f2a8a0'); } },
     { d: 0.3, draw: (c) => { skyline(c, 760, '#8a5a70', 13, -2000, 5000); } },
     { d: 0.6, draw: (c) => {
-      rect(c, -900, 180, 1500, 620, '#5a3446'); for (let i = 0; i < 5; i++) for (let j = 0; j < 2; j++) win(c, -820 + i * 290, 240 + j * 220, 160, 150, { cols: 2, rows: 2, hi: '#ffe6b8', lo: '#f0b97a' });
+      rect(c, -900, 180, 1500, 620, '#5a3446'); for (let i = 0; i < 5; i++) for (let j = 0; j < 2; j++) win(c, -820 + i * 290, 240 + j * 220, 160, 150, { cols: 2, rows: 2, hi: '#ffd08a', lo: '#e0864a' });
       rect(c, 250, 470, 260, 330, '#2a1826'); win(c, 280, 500, 200, 200, { cols: 2, rows: 1 }); c.fillStyle = '#efe6dc'; c.font = '900 34px Nunito'; c.textAlign = 'center'; c.fillText('NORTHVIEW HIGH', 380, 450);
       for (let i = 0; i < 5; i++) rect(c, 200 - i * 20, 800 + i * 16, 360 + i * 40, 16, i % 2 ? '#6b4a48' : '#7a5452');
       // gate railings

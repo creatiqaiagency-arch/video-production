@@ -17,7 +17,7 @@
   // cut: define a shot that starts at t0; t1 is filled from the next cut at boot
   E.cut = (id, t0, draw, meta = {}) => E.shot(Object.assign({ id, t0, draw }, meta));
   // thought-window visibility for a line: pops slightly before its audio, lingers after
-  E.tv = (id, t, pre = 0.12, post = 0.9) => {
+  E.tv = (id, t, pre = 0.12, post = 1.3) => {
     const l = E.TL.lines[id]; if (!l) return { s: 0, a: 0, words: 0, text: '' };
     const s = E.pop(t, l.start - pre, 0.35);
     const a = E.clamp(Math.min((t - (l.start - pre)) / 0.2, (l.end + post - t) / 0.35));
@@ -45,4 +45,29 @@
     }
   };
   E.CROWD_TEXT = ["I'm starving.", 'Why did she leave me on read?', 'I hate Mondays.', 'Did I fail chemistry?', 'Does anyone even like me?', 'Is my hair weird today?', 'Two more periods.', 'I should have studied.', 'Pizza again?', 'He looked at me!', 'So tired...', 'What time is it?', 'I forgot my homework', 'Is she mad at me?', 'Need more coffee', 'Did I lock my bike?', 'That test though...', 'Why is it so loud?'];
+})();
+// V2 helpers --------------------------------------------------------------
+(function () {
+  const E = globalThis.E;
+  // absolute start / end of phrase k of a line (clamped to available phrases)
+  E.sg = (id, k) => { const l = E.L(id); const s = l.segs && l.segs.length ? l.segs : [[l.start, l.end]]; return s[Math.min(k, s.length - 1)][0]; };
+  E.sgE = (id, k) => { const l = E.L(id); const s = l.segs && l.segs.length ? l.segs : [[l.start, l.end]]; return s[Math.min(k, s.length - 1)][1]; };
+  // key-light presets per location (rim direction + colour)
+  E.KEY = {
+    dusk: { dx: 1, dy: -0.4, color: '#ffb070' }, morningL: { dx: -1, dy: -0.4, color: '#ffd89a' }, morningR: { dx: 1, dy: -0.4, color: '#ffd89a' },
+    classL: { dx: -1, dy: -0.35, color: '#ffd08a' }, hallR: { dx: 1, dy: -0.35, color: '#ffc87a' }, hallCool: { dx: 1, dy: -0.35, color: '#c9b8e8' },
+    violet: { dx: 1, dy: -0.5, color: '#c79bff' }, bath: { dx: 0, dy: -1, color: '#9fc4ff' }, moon: { dx: 1, dy: -0.5, color: '#9fc4ff' },
+    yardConf: { dx: 1, dy: -0.5, color: '#c9b8e8' }, yardWarmR: { dx: 1, dy: -0.4, color: '#ffc27a' }, yardWarmL: { dx: -1, dy: -0.4, color: '#ffc27a' }, sunset: { dx: 1, dy: -0.4, color: '#ffb46a' },
+  };
+  // day chip (corner date label)
+  E.dayChip = (ctx, txt, a = 1) => { if (a <= 0) return; ctx.save(); ctx.globalAlpha = a; ctx.fillStyle = 'rgba(14,8,22,0.72)'; ctx.beginPath(); ctx.roundRect(1560, 96, 250, 76, 16); ctx.fill(); ctx.strokeStyle = 'rgba(255,220,180,0.55)'; ctx.lineWidth = 2; ctx.stroke(); E.textGlow(ctx, txt, 1685, 135, { font: '900 40px Nunito', spacing: '5px', glowBlur: 14 }); ctx.restore(); };
+  // front-facing desk (covers a seated student's legs)
+  E.deskFront = (c, x, y, w, h, col = '#6b4436') => { c.fillStyle = col; c.fillRect(x - w / 2, y - h, w, h * 0.16); c.fillStyle = E.mixHex(col, '#000000', 0.35); c.fillRect(x - w / 2 + w * 0.04, y - h * 0.84, w * 0.92, h * 0.84); };
+  // a stool/chair silhouette (side view)
+  E.chairS = (c, x, y, s, dir = 1) => { c.strokeStyle = '#1e1218'; c.lineWidth = 6 * s; c.lineCap = 'round'; c.beginPath(); c.moveTo(x - dir * 24 * s, y - 120 * s); c.lineTo(x - dir * 24 * s, y); c.moveTo(x + dir * 24 * s, y - 52 * s); c.lineTo(x + dir * 24 * s, y); c.moveTo(x - dir * 28 * s, y - 52 * s); c.lineTo(x + dir * 28 * s, y - 52 * s); c.stroke(); };
+})();
+// cadence exceptions (see E.retime): impact/montage beats and moving Act-3 holds
+(function () { const E = globalThis.E;
+  E.BEATS = new Set(['s01h_eyes', 's01i_slowmo', 's01j_crash', 's03d_uh', 's03f_Bshout', 's03h_montage', 's04c_hide', 's06c_notsomuch', 's06g_peak', 's11a_days', 's13d_howdid', 's15e_memory', 's04h_oh']);
+  E.HOLDS = new Set(['s12a_ews', 's13b_projected', 's15d_scared', 's16a_face', 's17e_choose', 's17f_hug', 's19_endcard', 's16f_wide', 's15g_silence']);
 })();

@@ -56,6 +56,18 @@
   "crowd_e": {
    "voice_id": "MkTSSXNgnBULS6ek4pon",
    "voice": "Tilly"
+  },
+  "crowd_f": {
+   "voice_id": "013RUoHuuxLHdDYBqZol",
+   "voice": "Sammi"
+  },
+  "crowd_g": {
+   "voice_id": "o1ZSIomr9w78BxAZ8ED7",
+   "voice": "Yaz"
+  },
+  "crowd_h": {
+   "voice_id": "RGPjVF1MbsFytGJEldTj",
+   "voice": "Thirafi"
   }
  },
  "lines": [
@@ -262,19 +274,19 @@
   },
   {
    "id": "s06_c6",
-   "speaker": "woman",
+   "speaker": "crowd_f",
    "kind": "thought",
    "text": "[softly] Is my hair weird today?"
   },
   {
    "id": "s06_c7",
-   "speaker": "businessman",
+   "speaker": "crowd_g",
    "kind": "thought",
-   "text": "[softly] Two more periods. Just two more."
+   "text": "[softly] [tired] Two more periods. Just two more."
   },
   {
    "id": "s06_c8",
-   "speaker": "man",
+   "speaker": "crowd_h",
    "kind": "thought",
    "text": "[softly] I should have studied."
   },

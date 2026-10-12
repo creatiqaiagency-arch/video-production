@@ -104,3 +104,31 @@
   E.shot = (s) => { E.SHOTS.push(s); return s; };
   E.findShot = (t) => { for (let i = E.SHOTS.length - 1; i >= 0; i--) if (t >= E.SHOTS[i].t0) return E.SHOTS[i]; return E.SHOTS[0]; };
 })();
+// ---------- cadence optimiser ----------
+// Shift every cut by up to ±0.7 s (an L/J-cut) so that shots land inside 3–5 s.
+// Shots with meta.beat (impact/montage) only need ≥0.8 s; meta.hold (moving Act-3 holds) may run to 7 s.
+(function () {
+  const E = globalThis.E;
+  E.retime = (shots, total) => {
+    const n = shots.length; if (n < 2) return;
+    const OFF = []; for (let o = -0.7; o <= 0.7001; o += 0.05) OFF.push(+o.toFixed(2));
+    const lim = (s) => (s.beat || (E.BEATS && E.BEATS.has(s.id)) ? [0.8, 3.2] : s.hold || (E.HOLDS && E.HOLDS.has(s.id)) ? [3, 7] : [3, 5]);
+    const cost = (s, d) => { const [a, b] = lim(s); if (d < 0.5) return 1e6; return d < a ? (a - d) ** 2 * 40 : d > b ? (d - b) ** 2 * 20 : 0; };
+    const base = shots.map((s) => s.t0);
+    // dp[i][k]: best cost for cuts 1..i with cut i shifted by OFF[k]
+    let prev = OFF.map((o, k) => (o === 0 ? 0 : 1e9)); // cut 0 fixed at its time
+    const back = [];
+    for (let i = 1; i < n; i++) {
+      const cur = new Array(OFF.length).fill(1e12), bk = new Array(OFF.length).fill(0);
+      for (let k = 0; k < OFF.length; k++) {
+        const ti = base[i] + OFF[k];
+        for (let j = 0; j < OFF.length; j++) { if (prev[j] >= 1e9 && i > 1) continue; if (i === 1 && OFF[j] !== 0) continue; const tj = base[i - 1] + OFF[j]; const c = prev[j] + cost(shots[i - 1], ti - tj) + Math.abs(OFF[k]) * 0.6; if (c < cur[k]) { cur[k] = c; bk[k] = j; } }
+      }
+      back.push(bk); prev = cur;
+    }
+    // last shot ends at total
+    let bestK = 0, best = 1e15; for (let k = 0; k < OFF.length; k++) { const c = prev[k] + cost(shots[n - 1], total - (base[n - 1] + OFF[k])); if (c < best) { best = c; bestK = k; } }
+    const ks = new Array(n).fill(0); ks[n - 1] = bestK; for (let i = n - 1; i >= 1; i--) ks[i - 1] = back[i - 1][ks[i]];
+    for (let i = 1; i < n; i++) shots[i].t0 = base[i] + OFF[ks[i]];
+  };
+})();

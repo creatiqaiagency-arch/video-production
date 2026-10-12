@@ -1,0 +1,89 @@
+[
+  {
+    "id": "s06_c6",
+    "speaker": "crowd_f",
+    "flow_id": "zR1s7wRMxAUogT7HEHxk",
+    "model_id": "eleven_v3",
+    "takes": [
+      {
+        "file": "s06_c6_t1.mp3",
+        "duration": 2.847347,
+        "generation_id": "0qKsD1BiLHq7hfiiTQvm"
+      },
+      {
+        "file": "s06_c6_t2.mp3",
+        "duration": 2.272653,
+        "generation_id": "u0IXXXHBXEgVPQsrV9gr"
+      },
+      {
+        "file": "s06_c6_t3.mp3",
+        "duration": 3.317551,
+        "generation_id": "evfiQsRR5IK2LdMurfac"
+      },
+      {
+        "file": "s06_c6_t4.mp3",
+        "duration": 1.959184,
+        "generation_id": "whToJ8pzHk9HHZfSc3LF"
+      }
+    ],
+    "error": null
+  },
+  {
+    "id": "s06_c7",
+    "speaker": "crowd_g",
+    "flow_id": "HG2csDxZ7jVDrlkMSoPm",
+    "model_id": "eleven_v3",
+    "takes": [
+      {
+        "file": "s06_c7_t1.mp3",
+        "duration": 2.76898,
+        "generation_id": "sI1Ho8cP2OHkS99o7VOb"
+      },
+      {
+        "file": "s06_c7_t2.mp3",
+        "duration": 3.970612,
+        "generation_id": "K5xUVsHTMcFXbCw2xt85"
+      },
+      {
+        "file": "s06_c7_t3.mp3",
+        "duration": 2.925714,
+        "generation_id": "MfLOHbi8cOzGFysz5CGB"
+      },
+      {
+        "file": "s06_c7_t4.mp3",
+        "duration": 3.395918,
+        "generation_id": "DWjHJ3UtT6Hlt1xoY7tT"
+      }
+    ],
+    "error": null
+  },
+  {
+    "id": "s06_c8",
+    "speaker": "crowd_h",
+    "flow_id": "8nq3p3HyVBvBmSN7foGT",
+    "model_id": "eleven_v3",
+    "takes": [
+      {
+        "file": "s06_c8_t1.mp3",
+        "duration": 2.586122,
+        "generation_id": "iZPrfwlk7ntfB4P9H16D"
+      },
+      {
+        "file": "s06_c8_t2.mp3",
+        "duration": 1.880816,
+        "generation_id": "DjlcYjhDNWZS5PoynAXL"
+      },
+      {
+        "file": "s06_c8_t3.mp3",
+        "duration": 2.115918,
+        "generation_id": "luq5MIMYFl4KS5U8xu8q"
+      },
+      {
+        "file": "s06_c8_t4.mp3",
+        "duration": 1.802449,
+        "generation_id": "y0yVEeoxmuB3MWM4OJ1A"
+      }
+    ],
+    "error": null
+  }
+]

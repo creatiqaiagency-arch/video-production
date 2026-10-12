@@ -13,6 +13,7 @@ canvas{display:block}
 <script src="character.js"></script>
 <script src="fx.js"></script>
 <script src="sets.js"></script>
+<script src="sets2.js"></script>
 <script>
   window.ENGINE_FILES_LOADED = true;
   window.boot = async (tl, env, shotFiles) => {
@@ -20,7 +21,7 @@ canvas{display:block}
     for (const f of shotFiles) {
       await new Promise((res, rej) => { const s = document.createElement('script'); s.src = f; s.onload = res; s.onerror = () => rej(new Error('load ' + f)); document.body.appendChild(s); });
     }
-    E.SHOTS = E.SHOTS.filter(s => !s.test || E.TL.test); E.SHOTS.sort((a, b) => a.t0 - b.t0); E.SHOTS.forEach((s, i) => { s.t1 = i + 1 < E.SHOTS.length ? E.SHOTS[i + 1].t0 : E.TL.total; });
+    E.SHOTS = E.SHOTS.filter(s => !s.test || E.TL.test); E.SHOTS.sort((a, b) => a.t0 - b.t0); if (E.retime && !E.TL.noRetime) E.retime(E.SHOTS, E.TL.total); E.SHOTS.forEach((s, i) => { s.t1 = i + 1 < E.SHOTS.length ? E.SHOTS[i + 1].t0 : E.TL.total; });
     await document.fonts.load('900 40px Nunito'); await document.fonts.load('700 40px Caveat'); await document.fonts.load('600 40px Nunito');
     return E.SHOTS.map(s => ({ id: s.id, t0: +s.t0.toFixed(3), t1: +s.t1.toFixed(3), dur: +(s.t1 - s.t0).toFixed(3), type: s.type || '', desc: s.desc || '' }));
   };

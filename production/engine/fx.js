@@ -7,7 +7,7 @@
   E.wordsShown = (text, id, t, lead = 0.12) => {
     const l = E.TL.lines[id]; const words = text.split(' ');
     if (!l) return words.length;
-    const p = E.clamp((t - l.start + lead) / Math.max(0.3, l.dur * 0.9));
+    const p = E.clamp((t - l.start + lead) / Math.max(0.3, l.dur * 0.62));
     return Math.ceil(p * words.length);
   };
   // pop-in scale for an element appearing at time ta
@@ -30,6 +30,12 @@
   E.thought = (ctx, o, t = 0) => {
     const s = o.s === undefined ? 1 : o.s; if (s <= 0.01) return;
     const a = o.a === undefined ? 1 : o.a; if (a <= 0.01) return;
+    o = Object.assign({}, o);
+    // grow height so wrapped text always fits
+    if (o.text && !o.inner) { const sz = o.size || 48; ctx.save(); ctx.font = `700 ${sz}px Caveat`; const n = E.wrapLines(ctx, o.text, o.w - 44).length; ctx.restore(); o.h = Math.max(o.h, n * sz * 1.05 + 34); }
+    // keep the window inside the title-safe area (screen space)
+    if (!o.noClamp) { const m = ctx.getTransform(); const sc = Math.hypot(m.a, m.b) || 1; const sx = m.a * o.x + m.c * o.y + m.e, sy = m.b * o.x + m.d * o.y + m.f; const hw = (o.w / 2) * s * sc, hh = (o.h / 2) * s * sc + 12 * sc;
+      const nx = E.clamp(sx, 90 + hw, 1830 - hw), ny = E.clamp(sy, 92 + hh, 990 - hh); o.x += (nx - sx) / sc; o.y += (ny - sy) / sc; }
     const kind = o.kind || 'thought';
     const col = kind === 'spec' ? '#8d8597' : kind === 'pink' ? '#ff9ccf' : kind === 'warm' ? '#ffc98a' : o.color || VIOLET;
     const glow = kind === 'spec' ? '#bdb6c4' : kind === 'pink' ? '#ffd2ea' : kind === 'warm' ? '#ffe2bd' : GLOW;
@@ -47,6 +53,8 @@
     }
     ctx.translate(o.x, o.y + fy); ctx.scale(s, s);
     const w = o.w, h = o.h;
+    // darken what is behind the panel so it always reads
+    if (o.text && kind !== 'spec') { ctx.save(); ctx.shadowBlur = 0; const dg = ctx.createRadialGradient(0, 0, Math.min(w, h) * 0.3, 0, 0, w * 0.75); dg.addColorStop(0, 'rgba(12,6,20,0.45)'); dg.addColorStop(1, 'rgba(12,6,20,0)'); ctx.fillStyle = dg; ctx.fillRect(-w, -h * 1.4, w * 2, h * 2.8); ctx.restore(); }
     ctx.shadowColor = glow; ctx.shadowBlur = kind === 'spec' ? 4 : 28;
     if (kind === 'spec') { // torn jagged frame, grey, grainy
       const r = E.rng(o.seed || 3); ctx.beginPath();
@@ -56,7 +64,9 @@
       ctx.fillStyle = E.rgba('#2a2630', 0.82); ctx.fill(); ctx.strokeStyle = E.rgba(glow, 0.5); ctx.lineWidth = 2; ctx.stroke();
     } else {
       ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, 22);
-      const g = ctx.createLinearGradient(0, -h / 2, 0, h / 2); g.addColorStop(0, E.rgba(col, 0.32)); g.addColorStop(1, E.rgba(col, 0.14));
+      ctx.fillStyle = o.backing === false ? 'rgba(0,0,0,0)' : 'rgba(26,12,42,0.74)'; ctx.fill();
+      ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, 22);
+      const g = ctx.createLinearGradient(0, -h / 2, 0, h / 2); g.addColorStop(0, E.rgba(col, 0.34)); g.addColorStop(1, E.rgba(col, 0.16));
       ctx.fillStyle = g; ctx.fill(); ctx.strokeStyle = E.rgba(glow, 0.95); ctx.lineWidth = 2.5; ctx.stroke();
       ctx.shadowBlur = 0; ctx.strokeStyle = E.rgba('#ffffff', 0.18); ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect(-w / 2 + 7, -h / 2 + 7, w - 14, h - 14, 16); ctx.stroke();
     }
@@ -67,9 +77,10 @@
       for (let i = 0; i < 260; i++) { ctx.fillStyle = `rgba(255,255,255,${r() * 0.12})`; ctx.fillRect(-w / 2 + r() * w, -h / 2 + r() * h, 2, 2); }
       ctx.restore();
     }
-    if (o.text) E.thoughtText(ctx, o.text, 0, o.inner ? h / 2 - 34 : 0, { size: o.size || 48, words: o.words, color: kind === 'spec' ? '#e7e2ea' : kind === 'pink' ? '#fff0f8' : TXT, glow, maxW: w - 40 });
+    if (o.text) E.thoughtText(ctx, o.text, 0, o.inner ? h / 2 - 34 : 0, { size: o.size || 48, words: o.words, color: kind === 'spec' ? '#e7e2ea' : kind === 'pink' ? '#fff3fa' : '#ffffff', glow, maxW: w - 44 });
     ctx.restore();
   };
+  E.wrapLines = (ctx, text, maxW) => { const lines = []; let cur = ''; for (const wd of text.split(' ')) { const t2 = cur ? cur + ' ' + wd : wd; if (maxW && ctx.measureText(t2).width > maxW && cur) { lines.push(cur); cur = wd; } else cur = t2; } lines.push(cur); return lines; };
   E.thoughtText = (ctx, text, x, y, o = {}) => {
     const size = o.size || 48; ctx.save();
     ctx.font = `700 ${size}px Caveat`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';

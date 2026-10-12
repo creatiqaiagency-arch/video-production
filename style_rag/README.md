@@ -21,6 +21,7 @@ before making decisions. If a choice is not covered here, decide it, then **add 
 | `11_story_structure.md` | Why the format works: hook → demo → character → escalation → return |
 | `12_thought_visual_language.md` | Project-specific rules for *Hear Everyone's Thoughts* |
 | `13_production_pipeline.md` | How the film is made in code, and the auditor loop |
+| `14_lessons_from_audits.md` | Binding rules learned from the V1→V2 auditor feedback |
 | `reference_frames/` | Contact sheets (1 frame / 3 s, timestamped) + full-res key frames |
 | `reference_shot_log.csv` | Hard-cut timestamps detected in the reference |
 

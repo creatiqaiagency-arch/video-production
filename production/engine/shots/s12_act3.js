@@ -1,314 +1,372 @@
-// ACT 3 — S12 Friday · S13 exposure · S14 real reason · S15 low point · S16 realization · S17 choice · S18 sting + end card.
+// ACT 3 (V2) — two camera axes, three lighting states (conf → reveal → warm), the lesson shown through action.
 (function () {
   const E = globalThis.E;
-  const GOLD = { dx: 6, dy: -3, color: '#ffc98a' };   // sun from the right
-  const GOLDL = { dx: -6, dy: -3, color: '#ffc98a' };
-  const yard = (t, o = {}) => E.SET.courtyard(t, Object.assign({ gold: 0.6 }, o));
-  const bgYard = (t, o = {}) => { const L = yard(t, Object.assign({ noTree: true }, o)); L[1].d = 0.2; L[2].d = 0.3; return L; };
+  const K = E.KEY;
+  const RC = { dx: 1, dy: -0.5, color: '#c9b8e8' };        // confrontation key (cool, sun hidden)
+  const RN = { dx: 1, dy: -0.45, color: '#f0b088' };        // reveal (neutral warm)
+  const RW = { dx: 1, dy: -0.4, color: '#ffc27a' };         // reconciliation (gold) — sun on the right
+  const RWL = { dx: -1, dy: -0.4, color: '#ffc27a' };
+  const Y = (mood, view, o = {}) => (t) => E.SET.yard(t, Object.assign({ mood, view }, o));
+  const YB = (mood, view) => (t) => E.SET.yardBG(t, { mood, view });
+  const leoLetterPose = { front: 'in', aB: [0.6, 1.3], aF: [1.15, 0.3], lB: [0.04, 0], lF: [-0.04, 0] };
+  // a thought that starts to form but Noah chooses not to read: pops small, never resolves, fades
+  const unread = (c, t, ta, x, y, tail, kind) => { const lt = t - ta; if (lt < 0 || lt > 1.6) return; const s = E.pop(lt, 0, 0.3) * 0.75; const a = E.clamp(Math.min(lt / 0.2, (1.6 - lt) / 0.7)) * 0.7; E.thought(c, { x, y, w: 200, h: 60, s, a, text: '· · ·', size: 34, kind, tail, noClamp: true, backing: false }, t); };
 
-  // 12A — extreme wide, empty courtyard, Noah under the tree, Leo approaching from afar (held)
+  // ===== S12 Friday (confrontation light) =====
   E.cut('s12a_ews', E.M('S12'), (ctx, lt, t, s) => {
     const D = E.D(s);
-    const cam = E.cam({ z: E.lerp(0.78, 0.84, E.ease.sine(E.clamp(lt / D))), x: 980, y: 560, focus: 0.85, ap: 3 });
-    const L = yard(t, { gold: 0.45, treeX: 620 });
-    L.push({ d: 0.85, draw: (c) => { E.ch(c, 'noah', t, { x: 700, y: 900, h: 150, f: 0.8, pose: 'crossed', expr: 'angry', rim: GOLD }); E.ch(c, 'leo', t, { x: E.lerp(2300, 1500, E.seg(lt, 0, D, 'lin')), y: 900, h: 152, f: -0.8, pose: E.walkPose(lt * 1.3), expr: 'nervous', rim: GOLD }); } });
-    L.push(E.dustL(t, { d: 0.9, n: 25 }));
+    const cam = E.cam({ z: E.lerp(0.8, 0.88, E.ease.sine(E.clamp(lt / D))), x: 980, y: 560, focus: 0.85, ap: 3 });
+    const L = Y('conf', 'building', { treeX: 620 })(t);
+    L.push({ d: 0.85, draw: (c) => { E.ch(c, 'noah', t, { x: 700, y: 900, h: 150, f: 0.8, pose: 'crossed', expr: 'angry', rim: RC }); E.ch(c, 'leo', t, { x: E.lerp(2300, 1500, E.seg(lt, 0, D, 'lin')), y: 900, h: 152, f: -0.8, pose: E.walkPose(lt * 1.3), expr: 'nervous', rim: RC }); } });
+    L.push(E.dustL(t, { d: 0.9, n: 18, color: '#d9d0ff' }));
     E.layers(ctx, cam, L);
-  }, { type: 'EWS', desc: 'Extreme wide, nearly empty courtyard (Friday): Noah waits under a big tree, arms crossed; Leo approaches from far away. Held.', post: { bloom: 0.35 } });
-
-  // 12B — closer wide: Leo arrives; the two take opposite sides of frame
-  E.cut('s12b_arrive', E.ph('s12_vo1', 1, 2) - 0.1, (ctx, lt, t, s) => {
+    E.dayChip(ctx, 'FRIDAY', E.fadeIO(lt, 0.4, D, 0.3, 0.4));
+  }, { type: 'EWS', desc: 'FRIDAY. Extreme wide of a near-empty courtyard under a cool, overcast sky: Noah waits under the tree, arms crossed; Leo approaches from far away (slow push-in).', post: { bloom: 0.2, vignette: 0.6 } });
+  E.cut('s12b_arrive', E.sg('s12_vo1', 1) - 0.15, (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.push(lt, D, { z0: 1.15, z1: 1.3, x: 980, y: 640, focus: 0.9, ap: 5 });
-    const L = yard(t, { gold: 0.45, treeX: 560 });
-    L.push({ d: 0.9, draw: (c) => { E.ch(c, 'noah', t, { x: 700, y: 905, h: 240, f: 0.8, pose: 'crossed', expr: 'angry', rim: GOLD }); E.ch(c, 'leo', t, { x: E.lerp(1500, 1240, E.seg(lt, 0, D * 0.8, 'out')), y: 905, h: 242, f: -0.8, pose: lt < D * 0.8 ? E.walkPose(lt * 1.3) : 'pocket', expr: 'smile', rim: GOLD }); } });
+    const L = Y('conf', 'building', { treeX: 560 })(t);
+    L.push({ d: 0.9, draw: (c) => { E.ch(c, 'noah', t, { x: 700, y: 905, h: 240, f: 0.8, pose: 'crossed', expr: 'angry', rim: RC }); E.ch(c, 'leo', t, { x: E.lerp(1500, 1240, E.seg(lt, 0, D * 0.8, 'out')), y: 905, h: 242, f: -0.8, pose: lt < D * 0.8 ? E.walkPose(lt * 1.3) : 'pocket', expr: 'smile', rim: RC }); } });
     E.layers(ctx, cam, L);
-  }, { type: 'WS', desc: 'Camera creeps closer as Leo reaches Noah; the friends occupy opposite sides of the frame.' });
-
-  // 12C — two-shot: "So. What were you gonna tell me?" / "What?"
+  }, { type: 'WS', desc: 'The camera creeps closer as Leo reaches Noah; the friends take opposite sides of the frame.', post: { vignette: 0.55 } });
   E.cut('s12c_tell', E.st('s12_noah1') - 0.2, (ctx, lt, t, s) => {
     const D = E.D(s);
-    const cam = E.push(lt, D, { z0: 1.0, z1: 1.04, x: 960, focus: 1, ap: 10, drift: 1 });
-    const L = bgYard(t, { gold: 0.45 });
-    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: 560, y: 1150, h: 640, f: 0.8, pose: 'crossed', expr: 'angry', rim: GOLD }); E.ch(c, 'leo', t, { x: 1380, y: 1150, h: 650, f: -0.8, pose: 'pocket', expr: lt > D * 0.6 ? 'nervous' : 'smile', rim: GOLDL }); } });
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.04, focus: 1, ap: 10, drift: 1 });
+    const L = YB('conf', 'building')(t);
+    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: 560, y: 1150, h: 640, f: 0.8, pose: 'crossed', expr: 'angry', rim: RC }); E.ch(c, 'leo', t, { x: 1380, y: 1150, h: 650, f: -0.8, pose: lt > D * 0.6 ? 'shrug' : 'pocket', expr: lt > D * 0.6 ? 'nervous' : 'smile', rim: { dx: -1, dy: -0.5, color: '#c9b8e8' } }); E.pool(c, 960, 1120, 420, 60, '#2a1f3a', 0.0); } });
     E.layers(ctx, cam, L);
-  }, { type: 'MS', desc: 'Medium two-shot, wide gap between them: Noah — "So. What were you gonna tell me?" Leo — "What?"' });
-
-  // 12D — Noah "Don't act like you don't know."
+  }, { type: 'MS', desc: 'Medium two-shot with a cold band of shadow between them: Noah — "So. What were you gonna tell me?" Leo — "What?"', post: { vignette: 0.55 } });
   E.cut('s12d_dontact', E.st('s12_noah2') - 0.2, (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.push(lt, D, { z0: 1.0, z1: 1.06, focus: 1, ap: 14 });
-    const L = bgYard(t, { gold: 0.45 });
-    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 760, y: E.headAt(1100, 470), h: 1100, f: 0.4, pose: 'crossed', expr: 'angry', look: [0.6, 0], rim: GOLD }) });
-    L.push({ d: 1.5, draw: (c) => E.ch(c, 'leo', t, { x: 1720, y: 2000, h: 1800, f: -0.5, faceAlpha: 0, rim: GOLDL }) });
+    const L = YB('conf', 'building')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 760, y: E.headAt(1100, 470), h: 1100, f: 0.4, pose: E.poseAt(lt, [[0, 'crossed'], [0.9, 'point', 0.2]]), expr: 'angry', look: [0.6, 0], rim: RC, ground: false, shadow: false }) });
+    L.push({ d: 1.5, draw: (c) => E.ch(c, 'leo', t, { x: 1720, y: 2000, h: 1800, f: -0.5, faceAlpha: 0, rim: RC, ground: false, shadow: false }) });
     E.layers(ctx, cam, L);
-  }, { type: 'OTS', desc: 'Over Leo\'s shoulder: Noah, cold — "Don\'t act like you don\'t know."' });
-
-  // 12E — Leo; subdued violet thought behind him: "Oh no. Not like this."
+  }, { type: 'OTS', desc: 'Over Leo\'s shoulder (school building behind Noah): Noah, cold — "Don\'t act like you don\'t know."', post: { vignette: 0.55 } });
   E.cut('s12e_notlikethis', E.st('s12_leo_th') - 0.25, (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.push(lt, D, { z0: 1.0, z1: 1.06, focus: 1, ap: 14 });
-    const L = bgYard(t, { gold: 0.45 });
-    L.push({ d: 1, draw: (c) => { E.ch(c, 'leo', t, { x: 1120, y: E.headAt(1100, 470), h: 1100, f: -0.4, pose: 'pocket', expr: 'nervous', look: [-0.6, 0.2], rim: GOLDL }); E.th(c, 's12_leo_th', t, { x: 560, y: 320, w: 440, h: 120, tail: [960, 360], size: 46, a: 0.7 }); } });
-    L.push({ d: 1.5, draw: (c) => E.ch(c, 'noah', t, { x: 220, y: 2000, h: 1800, f: 0.5, faceAlpha: 0, rim: GOLD }) });
+    const L = YB('conf', 'tree')(t);
+    L.push({ d: 1, draw: (c) => { E.ch(c, 'leo', t, { x: 900, y: E.headAt(1100, 470), h: 1100, f: -0.4, pose: 'pocket', expr: 'nervous', look: [-0.6, 0.2], rim: { dx: -1, dy: -0.5, color: '#c9b8e8' }, ground: false, shadow: false }); E.th(c, 's12_leo_th', t, { x: 1420, y: 330, w: 440, h: 110, tail: [1060, 360], size: 46, a: 0.8 }); } });
+    L.push({ d: 1.5, draw: (c) => E.ch(c, 'noah', t, { x: 180, y: 2000, h: 1800, f: 0.5, faceAlpha: 0, rim: RC, ground: false, shadow: false }) });
     E.layers(ctx, cam, L);
-  }, { type: 'OTS', desc: 'Over Noah\'s shoulder: Leo panics silently; a subdued violet thought behind him — "Oh no. Not like this."' });
+  }, { type: 'OTS', desc: 'Reverse axis (tree and open courtyard behind Leo), over Noah\'s shoulder: Leo panics silently; his subdued violet thought sits on his side of frame — "Oh no. Not like this."', post: { vignette: 0.55 } });
 
-  // ===== SCENE 13 =====
-  // 13A — slow track around both: "You've been hiding..." / "Noah, just let me explain."
+  // ===== S13 =====
   E.cut('s13a_track', E.M('S13'), (ctx, lt, t, s) => {
     const D = E.D(s);
-    const k = E.ease.sine(E.clamp(lt / D));
-    const cam = E.cam({ x: E.lerp(820, 1120, k), y: 600, z: 1.35, focus: 1, ap: 9 });
-    const L = yard(t, { gold: 0.4, treeX: 300 });
-    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: 760, y: 905, h: 330, f: 0.8, pose: 'point', expr: 'angry', rim: GOLD }); E.ch(c, 'leo', t, { x: 1180, y: 905, h: 335, f: -0.8, pose: lt > D * 0.5 ? 'shrug' : 'pocket', expr: 'worried', rim: GOLDL }); } });
-    L.push({ d: 1.5, draw: (c) => { c.fillStyle = '#2a1620'; c.beginPath(); c.arc(1650 - k * 400, 400, 260, 0, Math.PI * 2); c.fill(); } });
+    const k = E.ease.io(E.clamp(lt / D));
+    const cam = E.cam({ x: E.lerp(760, 1160, k), y: 600, z: 1.35, rot: E.lerp(-0.02, 0.02, k), focus: 1, ap: 9 });
+    const L = Y('conf', 'building', { treeX: 300 })(t);
+    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: 760, y: 905, h: 330, f: 0.8, pose: E.poseAt(lt, [[0, 'crossed'], [1.0, 'point', 0.2], [2.2, 'shrug']]), expr: 'angry', rim: RC }); E.ch(c, 'leo', t, { x: 1180, y: 905, h: 335, f: -0.8, pose: lt > D * 0.5 ? 'shrug' : 'pocket', expr: 'worried', rim: { dx: -1, dy: -0.5, color: '#c9b8e8' } }); } });
     E.layers(ctx, cam, L);
-  }, { type: 'MS', desc: 'Camera tracks around the pair: Noah accuses ("You\'ve been hiding something from me all week"); Leo pleads ("just let me explain").' });
-
-  // 13B — sharp CU of Noah's eyes; Leo's thought projected across his face
+  }, { type: 'MS', desc: 'The camera tracks around the pair (real parallax): Noah accuses — "You\'ve been hiding something from me all week." Leo pleads — "Noah, just let me explain."', post: { vignette: 0.55 } });
+  E.cut('s13a2_explain', E.st('s13_leo1') - 0.25, (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.05, focus: 1, ap: 12 });
+    const L = YB('conf', 'tree')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'leo', t, { x: 1080, y: E.headAt(1050, 470), h: 1050, f: -0.35, pose: E.poseAt(lt, [[0, 'shrug'], [1.0, 'reach', 0.3]]), expr: 'worried', look: [-0.5, 0], rim: { dx: -1, dy: -0.5, color: '#c9b8e8' }, ground: false, shadow: false }) });
+    L.push({ d: 1.5, draw: (c) => E.ch(c, 'noah', t, { x: 220, y: 2050, h: 1800, f: 0.5, faceAlpha: 0, rim: RC, ground: false, shadow: false }) });
+    E.layers(ctx, cam, L);
+  }, { type: 'OTS', desc: 'Over Noah\'s shoulder onto Leo, hands out, pleading: "Noah, just let me explain."', post: { vignette: 0.55 } });
+  // 13B — ECU of Noah's eyes with the thought projected across, pulling back to a CU for "So you ARE abandoning me?"
   E.cut('s13b_projected', E.st('s13_leo_th') - 0.2, (ctx, lt, t, s) => {
     const D = E.D(s);
-    const cam = E.push(lt, D, { z0: 1.0, z1: 1.08, focus: 1, ap: 14 });
-    const L = bgYard(t, { gold: 0.3 });
-    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 960, y: E.headAt(3400, 820), h: 3400, f: 0, expr: 'angry', rim: GOLD }) });
-    E.layers(ctx, cam, L);
-    const v = E.tv('s13_leo_th', t, 0.1, 1.5);
-    ctx.save(); ctx.globalCompositeOperation = 'screen'; E.projected(ctx, v.text, 960, 560 + Math.sin(lt) * 6, v.a, 82); ctx.restore();
-    ctx.save(); ctx.globalAlpha = v.a * 0.6; E.projected(ctx, v.text, 960, 560, 1, 82); ctx.restore();
-  }, { type: 'ECU', desc: 'Sharp close-up of Noah\'s eyes; Leo\'s thought "He\'s gonna think I\'m abandoning him" is projected across his face.', post: { vignette: 0.75 } });
-
-  // 13C — Noah: "So you ARE abandoning me?"
-  E.cut('s13c_abandon', E.st('s13_noah2') - 0.15, (ctx, lt, t, s) => {
-    const D = E.D(s);
-    const cam = E.push(lt, D, { z0: 1.05, z1: 1.12, focus: 1, ap: 14, rot: -0.02 });
-    const L = bgYard(t, { gold: 0.35 });
-    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 820, y: E.headAt(1150, 470), h: 1150, f: 0.4, pose: 'shrug', expr: 'angry', rim: GOLD }) });
-    E.layers(ctx, cam, L);
-  }, { type: 'CU', desc: 'Noah, angry and hurt, repeats the private thought aloud: "So you ARE abandoning me?"' });
-
-  // 13D — ECU Leo: eyes widen, mouth opens slightly ("How did you—"), no SFX
+    const tp = E.st('s13_noah2') - s.t0;
+    const pull = E.seg(lt, tp - 0.3, tp + 0.5, 'io');
+    const L = YB('conf', 'building')(t);
+    const h = E.lerp(3400, 1150, pull);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: E.lerp(960, 820, pull), y: E.headAt(h, E.lerp(820, 470, pull)), h, f: E.lerp(0, 0.4, pull), pose: pull > 0.5 ? 'shrug' : 'stand', expr: 'angry', rim: RC, ground: false, shadow: false }) });
+    E.layers(ctx, E.cam({ focus: 1, ap: 14 }), L);
+    const v = E.tv('s13_leo_th', t, 0.1, 0.8); const ta = v.a * (1 - pull);
+    if (ta > 0) { ctx.save(); ctx.globalCompositeOperation = 'screen'; E.projected(ctx, v.text, 960, 560 + Math.sin(lt) * 6, ta, 74); ctx.restore(); ctx.save(); ctx.globalAlpha = ta * 0.6; E.projected(ctx, v.text, 960, 560, 1, 74); ctx.restore(); }
+  }, { type: 'ECU', desc: 'Extreme close-up on Noah\'s eyes with Leo\'s thought projected across his face ("He\'s gonna think I\'m abandoning him") — then a pull-back to a close-up as he says it aloud: "So you ARE abandoning me?"', post: { vignette: 0.7 } });
   E.cut('s13d_howdid', E.st('s13_leo2') - 0.1, (ctx, lt, t, s) => {
-    const D = E.D(s);
-    const cam = E.push(lt, D, { z0: 1.0, z1: 1.04, focus: 1, ap: 14, drift: 1 });
-    const L = bgYard(t, { gold: 0.35 });
-    L.push({ d: 1, draw: (c) => E.ch(c, 'leo', t, { x: 960, y: E.headAt(3000, 700), h: 3000, f: -0.1, expr: 'shock', rim: GOLDL }) });
+    const cam = E.push(lt, E.D(s), { z0: 1.0, z1: 1.04, focus: 1, ap: 14, drift: 1 });
+    const L = YB('conf', 'tree')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'leo', t, { x: 960, y: E.headAt(3000, 640), h: 3000, f: -0.1, expr: 'shock', rim: { dx: -1, dy: -0.5, color: '#c9b8e8' }, ground: false, shadow: false }) });
     E.layers(ctx, cam, L);
   }, { type: 'ECU', desc: 'Extreme close-up on Leo: his eyes widen, mouth falls open — "How did you—"' });
-
-  // 13E — Noah: "I KNOW what you're thinking, Leo!"
-  E.cut('s13e_iknow', E.st('s13_noah3') - 0.1, (ctx, lt, t, s) => {
-    const D = E.D(s);
-    const cam = E.cam({ z: 1.15 + E.seg(lt, 0, 0.2, 'out') * 0.08, focus: 1, ap: 14 });
-    const L = bgYard(t, { gold: 0.3 });
-    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 960, y: E.headAt(1300, 460), h: 1300, f: 0.05, pose: 'point', expr: 'angry', rim: GOLD }) });
+  E.cut('s13e_iknow', E.st('s13_noah3') - 0.15, (ctx, lt, t, s) => {
+    const cam = E.cam({ z: 1.12 + E.seg(lt, 0.1, 0.3, 'out') * 0.08, y: 600, rot: 0.03, focus: 1, ap: 14 });
+    const L = YB('conf', 'building')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 960, y: E.headAt(1300, 430), h: 1300, f: 0.05, pose: E.poseAt(lt, [[0, 'stand'], [0.1, { aB: [0.1, 0.1], aF: [0.6, 0.2], lB: [0.04, 0], lF: [-0.04, 0] }, 0.08], [0.35, 'point', 0.15], [1.4, 'relaxed', 0.4]]), lean: E.pulse(lt, 0, 0.2) * -0.1, expr: 'angry', rim: RC, ground: false, shadow: false }) });
     E.layers(ctx, cam, L);
-  }, { type: 'CU', desc: 'Noah blurts out his secret: "I KNOW what you\'re thinking, Leo!"' });
-
-  // 13F — pull back to wide; noticeable distance between them; silence
-  E.cut('s13f_distance', E.M('silence') - 0.1, (ctx, lt, t, s) => {
+  }, { type: 'LOW', desc: 'Low-angle medium close-up: Noah jabs a finger — "I KNOW what you\'re thinking, Leo!"' });
+  E.cut('s13f_distance', E.M('silence') - 0.05, (ctx, lt, t, s) => {
     const D = E.D(s);
-    const cam = E.cam({ z: E.lerp(1.4, 0.9, E.ease.out(E.clamp(lt / D))), x: 960, y: 580, focus: 0.9, ap: 4 });
-    const L = yard(t, { gold: 0.3, treeX: 420 });
-    L.push({ d: 0.9, draw: (c) => { E.ch(c, 'noah', t, { x: 620, y: 905, h: 220, f: 0.8, pose: 'relaxed', expr: 'shock', rim: GOLD }); E.ch(c, 'leo', t, { x: 1340, y: 905, h: 222, f: -0.8, pose: 'relaxed', expr: 'shock', rim: GOLDL }); } });
+    const cam = E.cam({ z: E.lerp(1.4, 0.88, E.ease.out(E.clamp(lt / D))), x: 960, y: 580, focus: 0.9, ap: 4 });
+    const L = Y('conf', 'building', { treeX: 420 })(t);
+    L.push({ d: 0.9, draw: (c) => { E.ch(c, 'noah', t, { x: 620, y: 905, h: 220, f: 0.8, pose: 'relaxed', expr: 'shock', rim: RC }); E.ch(c, 'leo', t, { x: 1340, y: 905, h: 222, f: -0.8, pose: 'relaxed', expr: 'shock', rim: { dx: -1, dy: -0.5, color: '#c9b8e8' } }); } });
     E.layers(ctx, cam, L);
-  }, { type: 'WS', desc: 'Silence. The camera pulls back to a wide: a big empty gap of courtyard between the two friends.', post: { bloom: 0.25 } });
+  }, { type: 'WS', desc: 'Silence. The camera pulls back to a wide: a big empty gap of courtyard between the two friends.', post: { bloom: 0.2, vignette: 0.6 } });
 
-  // ===== SCENE 14 =====
-  // 14A — Leo pulls a folded letter from his bag: "I got accepted into a school overseas."
+  // ===== S14 reveal (neutral light, sun edge appears) =====
   E.cut('s14a_accepted', E.st('s14_leo1') - 0.6, (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.push(lt, D, { z0: 1.0, z1: 1.05, focus: 1, ap: 12 });
-    const L = bgYard(t, { gold: 0.5 });
-    L.push({ d: 1, draw: (c) => E.ch(c, 'leo', t, { x: 1050, y: E.headAt(1000, 480), h: 1000, f: -0.4, pose: E.poseAt(lt, [[0, 'bag'], [0.9, 'holdOut']]), prop: lt > 0.7 ? E.PROP.folded : null, expr: 'sad', look: [0, 0.4], rim: GOLDL }) });
-    L.push({ d: 1.5, draw: (c) => E.ch(c, 'noah', t, { x: 240, y: 2050, h: 1800, f: 0.5, faceAlpha: 0, rim: GOLD }) });
+    const L = YB('reveal', 'tree')(t);
+    L.push({ d: 1, draw: (c) => { const out = E.seg(lt, 0.3, 1.1); E.ch(c, 'leo', t, { x: 1050, y: E.headAt(1000, 480), h: 1000, f: -0.4, pose: E.blendPose(E.POSE.bag, leoLetterPose, out), prop: out > 0.3 ? E.PROP.folded : null, expr: 'sad', look: [0, 0.4], rim: { dx: -1, dy: -0.45, color: '#f0b088' }, ground: false, shadow: false }); } });
+    L.push({ d: 1.5, draw: (c) => E.ch(c, 'noah', t, { x: 240, y: 2050, h: 1800, f: 0.5, faceAlpha: 0, rim: RN, ground: false, shadow: false }) });
     E.layers(ctx, cam, L);
-  }, { type: 'OTS', desc: 'Leo pulls a folded letter from his bag and holds it out: "I got accepted into a school overseas."' });
-
-  // 14B — Noah stunned "...What?"
-  E.cut('s14b_what', E.st('s14_noah1') - 0.2, (ctx, lt, t, s) => {
+  }, { type: 'OTS', desc: 'Over Noah\'s shoulder: Leo draws a folded letter out of his bag and holds it out — "I got accepted into a school overseas."' });
+  E.cut('s14b_what', E.st('s14_noah1') - 0.25, (ctx, lt, t, s) => {
     const D = E.D(s);
-    const cam = E.push(lt, D, { z0: 1.08, z1: 1.12, focus: 1, ap: 14 });
-    const L = bgYard(t, { gold: 0.55 });
-    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 860, y: E.headAt(1150, 470), h: 1150, f: 0.35, pose: 'relaxed', expr: 'shock', look: [0.5, 0.1], rim: GOLD }) });
+    const cam = E.push(lt, D, { z0: 1.06, z1: 1.12, focus: 1, ap: 14 });
+    const L = YB('reveal', 'building')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 860, y: E.headAt(1150, 470), h: 1150, f: 0.35, pose: E.poseAt(lt, [[0, 'crossed'], [0.9, 'relaxed', 0.6], [1.6, 'reach', 0.4]]), expr: lt < 1.0 ? 'shock' : 'sad', look: [0.5, 0.1], rim: RN, ground: false, shadow: false }) });
     E.layers(ctx, cam, L);
-  }, { type: 'CU', desc: 'Noah, all the anger draining away — "...What?"' });
-
-  // 14C — insert: the acceptance letter (real readable text)
-  E.cut('s14c_letter', E.M('letter') - 0.1, (ctx, lt, t, s) => {
+  }, { type: 'CU', desc: 'Noah — "...What?" — the anger drains out: his arms drop, his brows relax, and his hand rises to take the letter.' });
+  E.cut('s14c_letter', E.M('letter') - 0.15, (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.push(lt, D, { z0: 1.0, z1: 1.06, focus: 1, ap: 0, dy: -20 });
     ctx.save(); E.applyCam(ctx, cam, 1);
-    E.vgrad(ctx, -200, -200, 2400, 1500, [[0, '#a07058'], [1, '#5a3a3a']]);
+    E.vgrad(ctx, -200, -200, 2400, 1500, [[0, '#4a3036'], [1, '#2a1c22']]);
     ctx.save(); ctx.translate(960, 560); ctx.rotate(-0.025);
-    ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.fillRect(-500, -380, 1010, 780); ctx.fillStyle = '#f7f1e8'; ctx.fillRect(-510, -400, 1000, 780);
-    ctx.strokeStyle = 'rgba(160,140,120,0.35)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(-510, -140); ctx.lineTo(490, -140); ctx.moveTo(-510, 120); ctx.lineTo(490, 120); ctx.stroke();
-    ctx.fillStyle = '#2c3550'; ctx.beginPath(); ctx.arc(-410, -310, 46, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#ffd166'; ctx.font = '900 40px Nunito'; ctx.textAlign = 'center'; ctx.fillText('A', -410, -296);
-    ctx.textAlign = 'left'; ctx.fillStyle = '#2c3550'; ctx.font = '900 44px Nunito'; ctx.fillText('ASHFORD INTERNATIONAL ACADEMY', -340, -322); ctx.font = '600 26px Nunito'; ctx.fillStyle = '#6a6070'; ctx.fillText('London, United Kingdom', -340, -284);
-    ctx.fillStyle = '#2a2230'; ctx.font = '600 30px Nunito'; ctx.fillText('Dear Leo Martinez,', -440, -200);
-    ctx.fillText('We are delighted to offer you a place in our', -440, -150); ctx.fillText('International Scholars Programme with a', -440, -108);
-    const hi = E.seg(lt, 0.8, 1.6); ctx.fillStyle = E.rgba('#ffd166', 0.55 * hi); ctx.fillRect(-446, -88, 470 * hi, 50);
-    ctx.fillStyle = '#c8302f'; ctx.font = '900 40px Nunito'; ctx.fillText('FULL SCHOLARSHIP', -440, -50);
-    ctx.fillStyle = '#2a2230'; ctx.font = '600 30px Nunito'; ctx.fillText('covering tuition, boarding and travel.', -440, 0);
-    ctx.fillText('Departure date:', -440, 70); ctx.font = '900 34px Nunito'; ctx.fillText('Sunday, August 30', -200, 70);
-    ctx.font = '700 44px Caveat'; ctx.fillStyle = '#2c3550'; ctx.fillText('Congratulations!', -440, 180);
+    ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.fillRect(-500, -380, 1060, 790); ctx.fillStyle = '#efe4d2'; ctx.fillRect(-520, -400, 1060, 790);
+    const kg = ctx.createLinearGradient(-520, -400, 540, 390); kg.addColorStop(0, 'rgba(255,220,170,0.25)'); kg.addColorStop(1, 'rgba(60,30,40,0.25)'); ctx.fillStyle = kg; ctx.fillRect(-520, -400, 1060, 790);
+    ctx.strokeStyle = 'rgba(160,140,120,0.35)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(-520, -140); ctx.lineTo(540, -140); ctx.moveTo(-520, 120); ctx.lineTo(540, 120); ctx.stroke();
+    ctx.fillStyle = '#2c3550'; ctx.beginPath(); ctx.arc(-420, -310, 46, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#ffd166'; ctx.font = '900 40px Nunito'; ctx.textAlign = 'center'; ctx.fillText('A', -420, -296);
+    ctx.textAlign = 'left'; ctx.fillStyle = '#2c3550'; ctx.font = '900 38px Nunito'; ctx.fillText('ASHFORD INTERNATIONAL ACADEMY', -350, -322); ctx.font = '600 26px Nunito'; ctx.fillStyle = '#6a6070'; ctx.fillText('London, United Kingdom', -350, -284);
+    ctx.fillStyle = '#2a2230'; ctx.font = '600 30px Nunito'; ctx.fillText('Dear Leo Martinez,', -450, -200);
+    ctx.fillText('We are delighted to offer you a place in our', -450, -150); ctx.fillText('International Scholars Programme with a', -450, -108);
+    const hi = E.seg(lt, 0.6, 1.4); ctx.fillStyle = E.rgba('#ffd166', 0.55 * hi); ctx.fillRect(-456, -88, 470 * hi, 50);
+    ctx.fillStyle = '#c8302f'; ctx.font = '900 40px Nunito'; ctx.fillText('FULL SCHOLARSHIP', -450, -50);
+    ctx.fillStyle = '#2a2230'; ctx.font = '600 30px Nunito'; ctx.fillText('covering tuition, boarding and travel.', -450, 0);
+    ctx.fillText('Term begins:', -450, 70); ctx.font = '900 34px Nunito'; ctx.fillText('Monday, January 11', -250, 70);
+    ctx.font = '700 44px Caveat'; ctx.fillStyle = '#2c3550'; ctx.fillText('Congratulations!', -450, 180);
     ctx.restore();
-    // hands holding the letter edges
-    for (const sd of [-1, 1]) { ctx.fillStyle = '#f0a77e'; ctx.beginPath(); ctx.arc(960 + sd * 540 + 6, 620, 70, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#0a080d'; ctx.beginPath(); ctx.arc(960 + sd * 540, 625, 70, 0, Math.PI * 2); ctx.fill(); ctx.fillRect(960 + sd * 540 - 50, 640, 100, 800); }
+    for (const sd of [-1, 1]) { ctx.fillStyle = '#f0b088'; ctx.beginPath(); ctx.arc(960 + sd * 560 + 6, 620, 70, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#0a080d'; ctx.beginPath(); ctx.arc(960 + sd * 560, 625, 70, 0, Math.PI * 2); ctx.fill(); ctx.fillRect(960 + sd * 560 - 50, 640, 100, 800); }
     ctx.restore();
-  }, { type: 'INSERT', desc: 'Insert: the acceptance letter — "ASHFORD INTERNATIONAL ACADEMY, London · FULL SCHOLARSHIP · Departure: Sunday, August 30".', post: { bloom: 0.25 } });
-
-  // 14D — wide two-shot, the letter between them: "And you were just gonna leave without telling me?"
+  }, { type: 'INSERT', desc: 'Insert, in Noah\'s hands: "ASHFORD INTERNATIONAL ACADEMY, London · FULL SCHOLARSHIP (highlighted) · Term begins: Monday, January 11" — the same "A" crest from Leo\'s laptop.', post: { bloom: 0.15 } });
   E.cut('s14d_leave', E.st('s14_noah2') - 0.2, (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.push(lt, D, { z0: 1.55, z1: 1.6, x: 960, y: 640, focus: 1, ap: 7 });
-    const L = yard(t, { gold: 0.6, treeX: 300 });
-    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: 800, y: 905, h: 330, f: 0.8, pose: 'letter', prop: E.PROP.letter, expr: 'hurt', rim: GOLD }); E.ch(c, 'leo', t, { x: 1120, y: 905, h: 335, f: -0.8, pose: lt > D * 0.5 ? 'shrug' : 'pocket', expr: 'worried', rim: GOLDL }); } });
+    const L = Y('reveal', 'building', { treeX: 300 })(t);
+    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: 800, y: 905, h: 330, f: 0.8, pose: 'letter', prop: E.PROP.letter, expr: 'hurt', rim: RN }); E.ch(c, 'leo', t, { x: 1120, y: 905, h: 335, f: -0.8, pose: 'pocket', expr: 'worried', rim: { dx: -1, dy: -0.45, color: '#f0b088' } }); } });
     E.layers(ctx, cam, L);
-  }, { type: 'WS', desc: 'Wider two-shot with the letter between them: Noah — "And you were just gonna leave without telling me?" Leo — "No! I was trying to figure out HOW to tell you."' });
-
-  // 14E — Leo CU; thought fades: "Please just be happy for me."
+  }, { type: 'WS', desc: 'Wider two-shot with the letter in Noah\'s hands between them: "And you were just gonna leave without telling me?"' });
+  E.cut('s14d2_how', E.st('s14_leo3') - 0.2, (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.05, focus: 1, ap: 12 });
+    const L = YB('reveal', 'tree')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'leo', t, { x: 1080, y: E.headAt(1050, 470), h: 1050, f: -0.35, pose: E.poseAt(lt, [[0, 'shrug'], [1.2, 'clutch']]), expr: 'worried', look: [-0.5, 0], rim: { dx: -1, dy: -0.45, color: '#f0b088' }, ground: false, shadow: false }) });
+    L.push({ d: 1.5, draw: (c) => E.ch(c, 'noah', t, { x: 220, y: 2050, h: 1800, f: 0.5, faceAlpha: 0, rim: RN, ground: false, shadow: false }) });
+    E.layers(ctx, cam, L);
+  }, { type: 'OTS', desc: 'Over Noah\'s shoulder onto Leo (tree side): "No! I was trying to figure out HOW to tell you."' });
   E.cut('s14e_happy', E.st('s14_leo_th') - 0.3, (ctx, lt, t, s) => {
     const D = E.D(s);
-    const cam = E.push(lt, D, { z0: 1.0, z1: 1.06, focus: 1, ap: 14 });
-    const L = bgYard(t, { gold: 0.7 });
-    L.push({ d: 1, draw: (c) => { E.ch(c, 'leo', t, { x: 1080, y: E.headAt(1050, 470), h: 1050, f: -0.35, pose: 'clutch', expr: 'sad', look: [-0.4, 0], rim: GOLDL }); E.th(c, 's14_leo_th', t, { x: 520, y: 340, w: 520, h: 120, tail: [920, 360], size: 44, a: 0.55 * (1 - E.seg(lt, D * 0.6, D)) }); } });
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.08, focus: 1, ap: 14 });
+    const L = YB('reveal', 'tree')(t);
+    L.push({ d: 1, draw: (c) => { E.ch(c, 'leo', t, { x: 1080, y: E.headAt(1050, 470), h: 1050, f: -0.35, pose: 'clutch', expr: 'sad', look: [-0.4, 0], rim: { dx: -1, dy: -0.45, color: '#f0b088' }, ground: false, shadow: false }); E.th(c, 's14_leo_th', t, { x: 520, y: 340, w: 520, h: 110, tail: [920, 360], size: 46, a: 1 - E.seg(lt, D * 0.6, D) }); } });
     E.layers(ctx, cam, L);
-  }, { type: 'CU', desc: 'Leo, earnest and scared; his last thought glows faintly then fades away: "Please just be happy for me." (violet overlays fade out of the film here).' });
+  }, { type: 'CU', desc: 'Leo, earnest and scared; his last violet thought glows then fades away — "Please just be happy for me." (the violet overlays leave the film here).' });
 
-  // ===== SCENE 15 — restrained eye-level close-ups =====
-  const cuNoah = (expr, look = [0.5, 0.2], pose = 'relaxed', prop) => (ctx, lt, t, s) => { const D = E.D(s); const cam = E.push(lt, D, { z0: 1.06, z1: 1.09, focus: 1, ap: 14, drift: 2 }); const L = bgYard(t, { gold: 0.85 }); L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 820, y: E.headAt(1100, 470), h: 1100, f: 0.35, pose, prop, expr, look, rim: GOLD }) }); E.layers(ctx, cam, L); };
-  const cuLeo = (expr, look = [-0.5, 0.2]) => (ctx, lt, t, s) => { const D = E.D(s); const cam = E.push(lt, D, { z0: 1.06, z1: 1.09, focus: 1, ap: 14, drift: 2 }); const L = bgYard(t, { gold: 0.85 }); L.push({ d: 1, draw: (c) => E.ch(c, 'leo', t, { x: 1100, y: E.headAt(1100, 470), h: 1100, f: -0.35, pose: 'pocket', expr, look, rim: GOLDL }) }); E.layers(ctx, cam, L); };
-  E.cut('s15a_couldnt', E.st('s15_noah1') - 0.25, cuNoah('sad', [0.4, 0.3]), { type: 'CU', desc: 'Eye-level close-up, golden light: Noah, quietly — "You said you couldn\'t keep doing this."' });
-  E.cut('s15b_pretending', E.st('s15_leo1') - 0.2, cuLeo('sad', [-0.2, 0.5]), { type: 'CU', desc: 'Leo, embarrassed and sad: "Yeah. Pretending everything was normal… while I knew I was leaving."' });
-  E.cut('s15c_hate', E.st('s15_noah2') - 0.2, cuNoah('sad', [0.1, 1], 'letter', E.PROP.letter), { type: 'CU', desc: 'Noah looks down at the letter in his hands: "And you thought I\'d hate you?"' });
-  E.cut('s15d_scared', E.st('s15_leo2') - 0.2, cuLeo('hurt', [-0.3, 0.3]), { type: 'CU', desc: 'Leo, voice trembling: "I was scared you\'d think I chose a new life over being your friend."' });
-  // 15E — memory: young Noah & Leo playing football in a golden park
+  // ===== S15 the low point (golden light breaks out) =====
+  E.cut('s15a_couldnt', E.st('s15_noah1') - 0.3, (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const cam = E.push(lt, D, { z0: 1.55, z1: 1.62, x: 960, y: 620, focus: 1, ap: 6 });
+    const L = Y('warm', 'tree', {})(t);
+    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: 820, y: 905, h: 330, f: 0.8, pose: 'letter', prop: E.PROP.letter, expr: 'sad', look: [0, 0.6], rim: RW }); E.ch(c, 'leo', t, { x: 1100, y: 905, h: 335, f: -0.8, pose: 'pocket', expr: 'sad', look: [0, 0.6], rim: RWL }); } });
+    E.layers(ctx, cam, L);
+  }, { type: 'MS', desc: 'Profile two-shot against the low golden sun, the letter between them: Noah, quietly — "You said you couldn\'t keep doing this."' });
+  E.cut('s15b_pretending', E.st('s15_leo1') - 0.2, (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.06, focus: 1, ap: 14, drift: 2 });
+    const L = YB('warm', 'tree')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'leo', t, { x: 1080, y: E.headAt(1050, 470), h: 1050, f: -0.35, pose: E.poseAt(lt, [[0, 'pocket'], [1.6, 'clutch']]), expr: 'sad', look: E.lerp(0.9, 0, E.seg(lt, 2.8, 3.4)) > 0.5 ? [-0.2, 0.9] : [-0.5, 0], rim: RWL, ground: false, shadow: false }) });
+    L.push({ d: 1.5, draw: (c) => E.ch(c, 'noah', t, { x: 220, y: 2050, h: 1800, f: 0.5, faceAlpha: 0, rim: RW, ground: false, shadow: false }) });
+    E.layers(ctx, cam, L);
+  }, { type: 'OTS', desc: 'Over Noah\'s shoulder, sun behind Leo: "Yeah. Pretending everything was normal..." — he looks down, then up.' });
+  E.cut('s15c_reaction', E.sg('s15_leo1', 2) - 0.15, (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.06, focus: 1, ap: 14 });
+    const L = YB('warm', 'building')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 800, y: E.headAt(1100, 470), h: 1100, f: 0.85, pose: 'letter', prop: E.PROP.letter, expr: 'sad', look: lt < D * 0.5 ? [0.2, 0.9] : [0.6, 0], rim: RW, ground: false, shadow: false }) });
+    E.layers(ctx, cam, L);
+  }, { type: 'CU', desc: 'Profile on Noah looking down at the letter in his hands as Leo finishes ("...while I knew I was leaving"), then up at him: "And you thought I\'d hate you?"' });
+  E.cut('s15d_scared', E.st('s15_leo2') - 0.2, (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const k = E.ease.sine(E.clamp(lt / D));
+    const cam = E.cam({ z: E.lerp(1.0, 1.5, k), x: 1080, y: E.lerp(560, 420, k), rot: 0.02, focus: 1, ap: 14 });
+    const L = YB('warm', 'tree')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'leo', t, { x: 1080, y: E.headAt(1050, 470), h: 1050, f: -0.3, pose: 'crossed', expr: 'hurt', look: [-0.3, 0.3], tilt: Math.sin(lt * 37) * 0.004, rim: RWL, ground: false, shadow: false }) });
+    E.layers(ctx, cam, L);
+  }, { type: 'HIGH', desc: 'Slightly high angle, a slow push from close-up to extreme close-up on Leo, arms wrapped around himself, voice trembling: "I was scared you\'d think I chose a new life over being your friend."' });
+  // 15E — memory: young Noah & Leo in a golden park (nostalgic grade, kid scale), white flash in/out
   E.cut('s15e_memory', E.M('memory') + 0.1, (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.push(lt, D, { z0: 1.0, z1: 1.08, focus: 0.9, ap: 4 });
-    const L = E.SET.entrance(t); L[2].skip = true;
-    L.push({ d: 0.9, draw: (c) => { treeLineGold(c); const bx = 960 + Math.sin(lt * 2.4) * 160, by = 860 - Math.abs(Math.sin(lt * 4.8)) * 120;
-      E.ch(c, 'noah', t, { x: 760, y: 905, h: 210, f: 0.8, pose: E.walkPose(lt * 2), expr: 'laugh', rim: { dx: 4, color: '#fff1c9' }, talk: 0 }); E.ch(c, 'leo', t, { x: 1160, y: 905, h: 205, f: -0.8, pose: E.walkPose(lt * 2 + 0.5), expr: 'laugh', rim: { dx: 4, color: '#fff1c9' }, talk: 0 });
-      c.fillStyle = '#f4ede6'; c.beginPath(); c.arc(bx, by, 22, 0, Math.PI * 2); c.fill(); c.fillStyle = '#0a080d'; c.beginPath(); c.arc(bx, by, 8, 0, Math.PI * 2); c.fill(); } });
+    const L = [{ d: 0.05, draw: (c) => { E.sky(c, '#e8a070', '#f6c88a', '#ffe0a8', -600, 760, -2000, 6000); E.sun(c, 1400, 380, 60, t); E.rays(c, 1400, 380, 1600, 14, '#fff0c8', 0.14, t); } },
+      { d: 0.4, draw: (c) => { for (let i = 0; i < 8; i++) E.SET._.tree(c, -300 + i * 380, 800, 1.1 + (i % 3) * 0.2, '#8a5a4a'); c.fillStyle = '#9a8a50'; c.fillRect(-1500, 790, 5000, 700); } },
+      { d: 0.9, draw: (c) => { const bx = 960 + Math.sin(lt * 2.4) * 160, by = 860 - Math.abs(Math.sin(lt * 4.8)) * 120;
+        E.ch(c, 'noah', t, { x: 760, y: 905, h: 170, f: 0.8, pose: E.walkPose(lt * 2), expr: 'laugh', rim: { dx: 1, dy: -0.4, color: '#fff1c9' }, talk: 0 }); E.ch(c, 'leo', t, { x: 1160, y: 905, h: 165, f: -0.8, pose: E.walkPose(lt * 2 + 0.5), expr: 'laugh', rim: { dx: -1, dy: -0.4, color: '#fff1c9' }, talk: 0 });
+        c.fillStyle = '#f4ede6'; c.beginPath(); c.arc(bx, by, 20, 0, Math.PI * 2); c.fill(); c.fillStyle = '#0a080d'; c.beginPath(); c.arc(bx, by, 7, 0, Math.PI * 2); c.fill(); } }];
     E.layers(ctx, cam, L);
-    E.screenFill(ctx, '#ffd59a', 0.18, 'soft-light');
-  }, { type: 'WS', desc: 'Brief warm memory: young Noah and Leo (age 8) laughing, kicking a ball in a golden park.', post: { bloom: 0.55, vignette: 0.85, grain: 0.12 } });
-  const treeLineGold = (c) => { c.fillStyle = '#7a4a50'; for (let x = -600; x < 2600; x += 90) { c.beginPath(); c.arc(x, 800, 70, 0, Math.PI * 2); c.fill(); } c.fillStyle = '#8a6a4a'; c.fillRect(-1000, 860, 4000, 600); };
-  E.cut('s15f_first', E.st('s15_leo3') - 0.4, cuLeo('sad', [-0.6, 0]), { type: 'CU', desc: 'Back on Leo, a small sincere look: "I wanted you to be the first person I told." Music enters after the line.' });
-
-  // ===== SCENE 16 — realization =====
-  E.cut('s16a_face', E.M('S16'), cuNoah('neutral', [0.2, 0.1]), { type: 'CU', desc: 'Noah\'s face softens as he understands ("And suddenly, Noah understood.").' });
-  // revisit panels: full conversation + the thought, side by side
-  const revisit = (who, spoken, thought, costume, kind) => (ctx, lt, t, s) => {
+    E.screenFill(ctx, '#c08850', 0.35, 'soft-light'); E.screenFill(ctx, '#808080', 0.35, 'saturation');
+    ctx.save(); ctx.translate(Math.sin(lt * 30) * 2, Math.cos(lt * 27) * 1.5); ctx.restore();
+    const fl = Math.max(0, 1 - lt / 0.25, 1 - (D - lt) / 0.25); if (fl > 0) E.screenFill(ctx, '#fff6e6', fl * 0.9);
+  }, { type: 'WS', desc: 'A brief warm memory (sepia grade, heavy grain, white flash in and out): Noah and Leo aged 8, laughing, kicking a ball in a golden park.', post: { bloom: 0.5, vignette: 0.9, grain: 0.14 } });
+  E.cut('s15f_first', E.st('s15_leo3') - 0.4, (ctx, lt, t, s) => {
     const D = E.D(s);
-    const cam = E.push(lt, D, { z0: 1.0, z1: 1.05, focus: 1, ap: 8 });
-    const L = E.SET.void(t, { core: '#5a3a5a' });
-    L.push({ d: 1, draw: (c) => {
-      c.save(); c.fillStyle = 'rgba(255,240,220,0.07)'; c.strokeStyle = 'rgba(255,230,200,0.5)'; c.lineWidth = 3; c.beginPath(); c.roundRect(260, 170, 1400, 740, 30); c.fill(); c.stroke(); c.restore();
-      E.ch(c, who, t, { x: 620, y: 930, h: 560, f: 0.6, pose: 'relaxed', expr: 'worried', rim: { dx: 4, color: '#ffd8b8' }, talk: 0 });
-      const a1 = E.seg(lt, 0.2, 0.6), a2 = E.seg(lt, 0.9, 1.3);
-      E.caption(c, spoken, 1170, 380, a1, 46); c.save(); c.globalAlpha = a1; c.fillStyle = 'rgba(255,255,255,0.6)'; c.font = '700 24px Nunito'; c.textAlign = 'center'; c.fillText('SAID', 1170, 320); c.restore();
-      E.thought(c, { x: 1170, y: 600, w: 640, h: 140, s: E.pop(lt, 0.9), a: a2, text: thought, size: 44, kind }, t); c.save(); c.globalAlpha = a2; c.fillStyle = 'rgba(217,201,255,0.7)'; c.font = '700 24px Nunito'; c.textAlign = 'center'; c.fillText('THOUGHT', 1170, 505); c.restore();
-      const a3 = E.seg(lt, D * 0.55, D * 0.75); E.label(c, 'MEANT', 1170, 760, a3, 26); E.thoughtText(c, { maya: 'She cared about him.', teacher: 'She was rooting for him.', leo: 'He was scared of losing his best friend.' }[who], 1170, 820, { size: 50, a: a3, color: '#ffe6c8', glow: '#ffb070' });
-    } });
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.05, focus: 1, ap: 14 });
+    const L = YB('warm', 'tree')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'leo', t, { x: 1080, y: E.headAt(1050, 470), h: 1050, f: -0.35, pose: 'relaxed', expr: 'sad', look: [-0.6, 0], tilt: -0.08, rim: RWL, ground: false, shadow: false }) });
     E.layers(ctx, cam, L);
+  }, { type: 'CU', desc: 'Back on Leo, relaxed now, head tilted toward Noah, sincere: "I wanted you to be the first person I told."' });
+  E.cut('s15g_silence', E.en('s15_leo3') + 0.3, (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const cam = E.cam({ z: E.lerp(1.0, 1.12, E.ease.sine(E.clamp(lt / D))), focus: 1, ap: 14 });
+    const L = YB('warm', 'building')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 860, y: E.headAt(1150, 470), h: 1150, f: 0.35, pose: 'letter', prop: E.PROP.letter, expr: lt > D * 0.6 ? 'neutral' : 'sad', look: lt > D * 0.5 ? [0.5, 0] : [0.2, 0.8], blink: Math.abs(lt - D * 0.55) < 0.07, rim: RW, ground: false, shadow: false }) });
+    E.layers(ctx, cam, L);
+  }, { type: 'CU', desc: 'Silence; only the music. A slow push on Noah: he looks at the letter, blinks, and looks back up at Leo — something shifts.' });
+
+  // ===== S16 realization — in-world replays =====
+  const replay = (setFn, who, said, thought, o = {}) => (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.06, focus: 1, ap: 10 });
+    const L = setFn(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, who, t, Object.assign({ x: 1000, y: E.headAt(1000, 470), h: 1000, f: -0.3, pose: 'clutch', expr: 'worried', rim: { dx: -1, dy: -0.4, color: '#ffd8b8' }, talk: 0, ground: false, shadow: false }, o)) });
+    E.layers(ctx, cam, L);
+    E.screenFill(ctx, '#808080', 0.55, 'saturation'); E.screenFill(ctx, '#d8a070', 0.25, 'soft-light');
+    const a1 = E.seg(lt, 0.15, 0.45), a2 = E.seg(lt, 0.7, 1.0);
+    ctx.save(); ctx.globalAlpha = a1; ctx.fillStyle = 'rgba(10,6,14,0.6)'; ctx.beginPath(); ctx.roundRect(240, 820, 700, 110, 18); ctx.fill(); ctx.restore();
+    E.caption(ctx, `"${said}"`, 590, 875, a1, 38);
+    ctx.save(); ctx.globalAlpha = a2; ctx.fillStyle = 'rgba(40,20,70,0.7)'; ctx.beginPath(); ctx.roundRect(980, 820, 700, 110, 18); ctx.fill(); ctx.restore();
+    E.thoughtText(ctx, thought, 1330, 875, { size: 44, a: a2, color: '#efe6ff', glow: '#a98bff', maxW: 660 });
   };
-  E.cut('s16b_maya', E.ph('s16_vo1', 2, 6) - 0.2, revisit('maya', 'Hey, Noah. You okay?', "I want to help, but I don't know what to say.", 'maya', 'warm'), { type: 'INSERT', desc: 'Revisit: Maya — SAID "You okay?" + THOUGHT "I want to help…" → MEANT "She cared about him."' });
-  E.cut('s16c_teacher', E.ph('s16_vo1', 3, 6) - 0.2, revisit('teacher', "Noah. What's the answer?", "Please don't say C again.", 'teacher'), { type: 'INSERT', desc: 'Revisit: Teacher — SAID "What\'s the answer?" + THOUGHT "Please don\'t say C again." → MEANT "She was rooting for him."' });
-  E.cut('s16d_leo', E.ph('s16_vo1', 4, 6) - 0.2, revisit('leo', 'Yo, you coming over Friday?', "He's gonna hate me.", 'leo'), { type: 'INSERT', desc: 'Revisit: Leo — SAID "Coming over Friday?" + THOUGHT "He\'s gonna hate me." → MEANT "He was scared of losing his best friend."' });
-  E.cut('s16e_hear', E.ph('s16_vo1', 5, 6) - 0.2, cuNoah('sad', [0.3, 0.6], 'letter', E.PROP.letter), { type: 'CU', desc: 'Noah looks at the letter, then up ("He could hear what people were thinking…").' });
-  E.cut('s16f_wide', E.at('s16_vo1', 0.9), (ctx, lt, t, s) => {
+  E.cut('s16a_face', E.M('S16'), (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const k = E.ease.sine(E.clamp(lt / D));
+    const cam = E.cam({ z: E.lerp(1.0, 1.35, k), y: E.lerp(540, 460, k), focus: 1, ap: 14 });
+    const L = YB('warm', 'building')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 900, y: E.headAt(1150, 470), h: 1150, f: 0.3, pose: 'letter', prop: E.PROP.letter, expr: lt > D * 0.6 ? 'smile' : 'sad', look: lt > D * 0.4 ? [0.3, 0.7] : [0.5, 0], blink: Math.abs(lt - D * 0.6) < 0.07, rim: RW, ground: false, shadow: false }) });
+    E.layers(ctx, cam, L);
+  }, { type: 'CU', desc: 'A continuous push from close-up toward Noah\'s eyes; his face softens from sad to a small smile ("And suddenly... Noah understood. All day, he\'d been hearing people\'s thoughts.").' });
+  E.cut('s16b_fear', E.sg('s16_vo1', 4) - 0.2, replay((t) => E.SET.hall3q(t, { mood: 'afternoon', back: [300, 330, 600, 640] }), 'leo', 'Yo, you coming over Friday?', "He's gonna hate me.", { expr: 'sad', look: [-0.2, 0.8] }), { type: 'INSERT', desc: 'Replay, warm and desaturated, back in the hallway: Leo SAID "Yo, you coming over Friday?" while he THOUGHT "He\'s gonna hate me." ("every passing fear").' });
+  E.cut('s16c_unfinished', E.sg('s16_vo1', 5) - 0.2, replay((t) => E.SET.hall3q(t, { mood: 'cool', back: [1200, 360, 1500, 640] }), 'maya', 'Hey, Noah. You okay?', "I want to help, but I don't know what to say.", { x: 1000, f: -0.4, expr: 'worried' }), { type: 'INSERT', desc: 'Replay in the hallway: Maya SAID "Hey, Noah. You okay?" while she THOUGHT "I want to help, but I don\'t know what to say." ("every unfinished sentence").' });
+  E.cut('s16d_worry', E.sg('s16_vo1', 6) - 0.2, replay((t) => { const L = E.SET.classroom(t); L[0].d = 0.35; L[1].skip = true; return L; }, 'teacher', "Noah. What's the answer?", "Please don't say C again.", { x: 1000, f: 0.2, expr: 'worried', costume: Object.assign({}, E.COSTUME.teacher, { topC: '#d9d2e6' }) }), { type: 'INSERT', desc: 'Replay in the classroom: the teacher SAID "What\'s the answer?" while she THOUGHT "Please don\'t say C again." ("every private worry, like it was the whole truth").' });
+  E.cut('s16e_hear', E.sg('s16_vo1', 8) - 0.25, (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.08, focus: 1, ap: 14 });
+    const L = YB('warm', 'building')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 860, y: E.headAt(1150, 470), h: 1150, f: 0.35, pose: E.poseAt(lt, [[0, 'letter'], [1.4, 'relaxed', 0.5]]), prop: lt < 1.2 ? E.PROP.letter : null, expr: 'smile', look: [0.6, 0], rim: RW, ground: false, shadow: false }) });
+    E.layers(ctx, cam, L);
+  }, { type: 'CU', desc: 'Noah lowers the letter and looks up at Leo ("He could hear what people were thinking.").' });
+  E.cut('s16f_wide', E.sg('s16_vo1', 9) - 0.25, (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.cam({ z: E.lerp(0.95, 0.9, E.clamp(lt / D)), x: 960, y: 580, focus: 0.9, ap: 3 });
-    const L = yard(t, { gold: 0.95, treeX: 520 });
-    L.push({ d: 0.9, draw: (c) => { E.ch(c, 'noah', t, { x: 860, y: 905, h: 200, f: 0.8, pose: 'letter', prop: E.PROP.letter, expr: 'sad', rim: GOLD }); E.ch(c, 'leo', t, { x: 1080, y: 905, h: 202, f: -0.8, pose: 'pocket', expr: 'sad', rim: GOLDL }); } });
+    const L = Y('warm', 'building', { treeX: 520 })(t);
+    L.push({ d: 0.9, draw: (c) => { const turn = E.seg(lt, 0.5, 1.5); E.ch(c, 'noah', t, { x: 870, y: 905, h: 200, f: E.lerp(0.8, 0.5, turn), pose: 'relaxed', expr: 'smile', rim: RW }); E.ch(c, 'leo', t, { x: 1070, y: 905, h: 202, f: -0.8, pose: 'pocket', expr: 'sad', rim: RWL }); } });
     L.push(E.dustL(t, { d: 0.95, n: 30 }));
     E.layers(ctx, cam, L);
-  }, { type: 'EWS', desc: 'Wide, golden courtyard, no text on screen: the two friends standing closer now ("He still didn\'t know what they meant.").', post: { bloom: 0.45 } });
+  }, { type: 'EWS', desc: 'Wide, golden courtyard, no text on screen: the two friends now standing close ("He still didn\'t know what they meant.").', post: { bloom: 0.4 } });
 
-  // ===== SCENE 17 — choosing what to listen to =====
-  const faint = (c, t, seed) => E.panelField(c, t, { seed, n: 6, x: 0, y: 80, w: 1920, h: 500, t0: -50, spread: 1, a: 0.18, scale: 0.7 });
+  // ===== S17 choosing what to listen to =====
   E.cut('s17a_dude', E.M('S17'), (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.push(lt, D, { z0: 1.0, z1: 1.05, focus: 1, ap: 14 });
-    const L = bgYard(t, { gold: 1 });
-    L.push({ d: 0.35, draw: (c) => faint(c, t, 81) });
-    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 820, y: E.headAt(1100, 470), h: 1100, f: 0.35, pose: 'shrug', expr: lt > D * 0.4 ? 'happy' : 'amazed', look: [0.5, 0], rim: GOLD }) });
+    const L = YB('warm', 'building')(t);
+    L.push({ d: 0.35, draw: (c) => E.panelField(c, t, { seed: 81, n: 5, x: 0, y: 80, w: 1920, h: 500, t0: -50, spread: 1, a: 0.2, scale: 0.7 }) });
+    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 820, y: E.headAt(1100, 470), h: 1100, f: 0.35, pose: E.poseAt(lt, [[0, 'relaxed'], [1.2, 'shrug']]), expr: lt > D * 0.4 ? 'happy' : 'amazed', look: [0.5, 0], rim: RW, ground: false, shadow: false }) });
     E.layers(ctx, cam, L);
-  }, { type: 'CU', desc: 'Noah breaks into a grin: "Dude. You\'re actually getting a FULL scholarship?" Faint thought windows linger, blurred, in the background — he ignores them.' });
-  E.cut('s17b_yeah', E.st('s17_leo1') - 0.25, (ctx, lt, t, s) => { const D = E.D(s); const cam = E.push(lt, D, { z0: 1.05, z1: 1.08, focus: 1, ap: 14 }); const L = bgYard(t, { gold: 1 }); L.push({ d: 0.35, draw: (c) => faint(c, t, 82) }); L.push({ d: 1, draw: (c) => E.ch(c, 'leo', t, { x: 1100, y: E.headAt(1100, 470), h: 1100, f: -0.35, pose: 'pocket', expr: 'smile', look: [-0.4, 0.3], rim: GOLDL }) }); E.layers(ctx, cam, L); }, { type: 'CU', desc: 'Leo, shy smile: "Yeah."' });
-  E.cut('s17c_insane', E.st('s17_leo2') - 0.35, (ctx, lt, t, s) => {
-    const D = E.D(s);
-    const cam = E.push(lt, D, { z0: 1.5, z1: 1.56, x: 960, y: 620, focus: 1, ap: 7 });
-    const L = yard(t, { gold: 1, treeX: 300 });
-    L.push({ d: 0.5, draw: (c) => faint(c, t, 83) });
-    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: 860, y: 905, h: 330, f: 0.8, pose: lt < D * 0.5 ? 'shrug' : 'relaxed', expr: 'happy', rim: GOLD }); E.ch(c, 'leo', t, { x: 1080, y: 905, h: 335, f: -0.8, pose: lt > D * 0.5 ? 'shrug' : 'pocket', expr: lt > D * 0.5 ? 'laugh' : 'smile', rim: GOLDL }); } });
-    E.layers(ctx, cam, L);
-  }, { type: 'MS', desc: 'Two-shot, now standing close: "That\'s insane! Why didn\'t you just tell me?" — Leo laughs: "I was TRYING to."' });
-  E.cut('s17d_happy', E.st('s17_noah3') - 0.35, (ctx, lt, t, s) => { const D = E.D(s); const cam = E.push(lt, D, { z0: 1.06, z1: 1.1, focus: 1, ap: 14 }); const L = bgYard(t, { gold: 1 }); L.push({ d: 0.35, draw: (c) => faint(c, t, 84) }); L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 820, y: E.headAt(1100, 470), h: 1100, f: 0.35, pose: 'relaxed', expr: 'smile', look: [0.5, 0], rim: GOLD }) }); E.layers(ctx, cam, L); }, { type: 'CU', desc: 'Noah, sincere: "...I\'m happy for you, man."' });
-  E.cut('s17e_thankgod', E.st('s17_leo_th') - 0.2, (ctx, lt, t, s) => {
+  }, { type: 'CU', desc: 'Noah breaks into a grin: "Dude. You\'re actually getting a FULL scholarship?" — faint, blurred thought windows still drift in the background; he pays them no attention.' });
+  E.cut('s17b_yeah', E.st('s17_leo1') - 0.25, (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.push(lt, D, { z0: 1.05, z1: 1.08, focus: 1, ap: 14 });
-    const L = bgYard(t, { gold: 1 });
-    L.push({ d: 1, draw: (c) => { E.ch(c, 'leo', t, { x: 1080, y: E.headAt(1100, 470), h: 1100, f: -0.35, pose: 'pocket', expr: lt > D * 0.4 ? 'laugh' : 'happy', look: [-0.5, 0], rim: GOLDL }); E.th(c, 's17_leo_th', t, { x: 560, y: 330, w: 280, h: 90, tail: [900, 380], size: 36, a: 0.35, post: 0.3 }); } });
+    const L = YB('warm', 'tree')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'leo', t, { x: 1100, y: E.headAt(1100, 470), h: 1100, f: -0.35, pose: 'neck', expr: 'smile', look: [-0.4, 0.3], rim: RWL, ground: false, shadow: false }) });
     E.layers(ctx, cam, L);
-  }, { type: 'CU', desc: 'Leo relaxes into a laugh; a tiny, faint thought ("Thank god.") appears small and soft — Noah doesn\'t react to it.' });
+  }, { type: 'CU', desc: 'Leo, shy, hand behind his neck: "Yeah." (Noah, off-screen: "That\'s insane!")' });
+  E.cut('s17c_insane', E.sg('s17_noah2', 1) - 0.2, (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const cam = E.cam({ z: E.lerp(1.5, 1.68, E.ease.sine(E.clamp(lt / D))), x: 960, y: 620, focus: 1, ap: 7 });
+    const L = Y('warm', 'tree', {})(t);
+    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: 860, y: 905, h: 330, f: 0.8, pose: E.poseAt(lt, [[0, 'shrug'], [1.6, 'relaxed']]), expr: 'happy', rim: RW }); E.ch(c, 'leo', t, { x: 1070, y: 905, h: 335, f: -0.8, pose: E.poseAt(lt, [[0, 'neck'], [1.3, 'shrug']]), expr: lt > 1.2 ? 'laugh' : 'smile', rim: RWL }); } });
+    E.layers(ctx, cam, L);
+  }, { type: 'MS', desc: 'Two-shot, now standing close, with a slow push-in: "Why didn\'t you just tell me?" — Leo laughs: "I was TRYING to."' });
+  E.cut('s17d_happy', E.st('s17_noah3') - 0.3, (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const cam = E.push(lt, D, { z0: 1.05, z1: 1.1, focus: 1, ap: 14 });
+    const L = YB('warm', 'building')(t);
+    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 820, y: E.headAt(1100, 470), h: 1100, f: 0.35, pose: 'relaxed', expr: 'smile', look: [0.5, 0], rim: RW, ground: false, shadow: false, talkScale: 0.7 }) });
+    E.layers(ctx, cam, L);
+  }, { type: 'CU', desc: 'Noah, sincere, softly: "...I\'m happy for you, man."' });
+  // 17E — the lesson in action: a thought starts to form beside Leo; Noah's eyes flick to it, then back to Leo's face; it fades unread
+  E.cut('s17e_choose', E.st('s17_leo_th') - 0.35, (ctx, lt, t, s) => {
+    const D = E.D(s);
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.04, focus: 1, ap: 10 });
+    const L = YB('warm', 'tree')(t);
+    const ta = E.st('s17_leo_th') - 0.1;
+    const flick = t > ta + 0.15 && t < ta + 0.45;
+    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: 560, y: E.headAt(900, 500), h: 900, f: 0.7, pose: 'relaxed', expr: 'smile', look: flick ? [0.6, -0.8] : [1, 0], rim: RW, ground: false, shadow: false }); E.ch(c, 'leo', t, { x: 1250, y: E.headAt(910, 500), h: 910, f: -0.7, pose: lt > 1.0 ? 'shrug' : 'pocket', expr: lt > 0.6 ? 'laugh' : 'happy', rim: RWL, ground: false, shadow: false }); unread(c, t, ta, 1420, 250, [1270, 340]); } });
+    E.layers(ctx, cam, L);
+  }, { type: 'MS', desc: 'THE CHOICE: a small thought window starts to form beside Leo — Noah\'s eyes flick up to it for a split second, then he looks back at Leo\'s face and smiles; the window fades away unread as they both laugh.' });
   E.cut('s17f_hug', E.M('hug') - 0.4, (ctx, lt, t, s) => {
     const D = E.D(s);
-    const k = E.ease.io(E.clamp(lt / D));
-    const cam = E.cam({ z: E.lerp(1.55, 0.82, k), x: E.lerp(960, 980, k), y: E.lerp(640, 570, k), focus: 0.9, ap: E.lerp(6, 3, k) });
-    const L = yard(t, { gold: 1, treeX: 520 });
-    L.push({ d: 0.9, draw: (c) => { const hug = E.seg(lt, 0.3, 1.0); E.ch(c, 'noah', t, { x: E.lerp(890, 935, hug), y: 905, h: 300, f: 0.8, pose: hug > 0.5 ? 'hug' : 'relaxed', expr: 'happy', rim: GOLD, talk: 0 }); E.ch(c, 'leo', t, { x: E.lerp(1090, 1035, hug), y: 905, h: 305, f: -0.8, pose: hug > 0.5 ? 'hug' : 'pocket', expr: 'happy', rim: GOLDL, talk: 0 }); } });
+    const k = E.ease.io(E.seg(lt, D * 0.45, D));
+    const cam = E.cam({ z: E.lerp(1.9, 0.85, k), x: E.lerp(960, 980, k), y: E.lerp(600, 570, k), focus: 0.9, ap: E.lerp(6, 3, k) });
+    const L = Y('warm', 'building', { treeX: 520 })(t);
+    L.push({ d: 0.9, draw: (c) => { const hug = E.seg(lt, 0.2, 0.7), pat = hug > 0.9 ? Math.sin(lt * 25) * 0.15 * (1 - E.seg(lt, 1.6, 2.0)) : 0;
+      E.ch(c, 'leo', t, { x: E.lerp(1090, 1018, hug), y: 905, h: 305, f: -0.8, pose: E.blendPose(E.POSE.pocket, { aB: [1.3, 1.1], aF: [1.4 + pat, 1.2], lB: [0.05, 0], lF: [-0.08, 0] }, hug), expr: 'happy', rim: RWL, talk: 0 });
+      E.ch(c, 'noah', t, { x: E.lerp(870, 945, hug), y: 905, h: 300, f: 0.8, pose: E.blendPose(E.POSE.relaxed, E.POSE.hug, hug), expr: 'happy', rim: RW, talk: 0 }); } });
     L.push(E.dustL(t, { d: 0.95, n: 35 }));
     E.layers(ctx, cam, L);
-  }, { type: 'WS', desc: 'A small, slightly awkward hug; the camera slowly pulls out to the wide courtyard composition from the start of Act 3.', post: { bloom: 0.45 } });
+    if (lt > 0.6) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; E.glow(ctx, 1500, 380, 500, '#ffc27a', 0.18 * E.seg(lt, 0.6, 1.4)); ctx.restore(); }
+  }, { type: 'WS', desc: 'A small, slightly awkward hug with two back-pats, in medium shot; then the camera slowly pulls out to the wide golden courtyard from the start of Act 3.', post: { bloom: 0.42 } });
 
-  // ===== SCENE 18 — sting =====
+  // ===== S18 sting — sunset =====
   E.cut('s18a_steps', E.M('S18'), (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.push(lt, D, { z0: 1.0, z1: 1.08, x: 700, y: 560, focus: 1, ap: 5 });
-    const L = E.SET.entrance(t);
-    L.push({ d: 0.95, draw: (c) => E.ch(c, 'noah', t, { x: E.lerp(380, 560, E.clamp(lt / D)), y: E.lerp(820, 890, E.clamp(lt / D)), h: 240, f: 0.8, pose: E.walkPose(lt * 1.4), expr: 'smile', rim: { dx: 5, color: '#ffc27a' } }) });
+    const L = E.SET.entranceSet(t);
+    L.push({ d: 0.95, draw: (c) => E.ch(c, 'noah', t, { x: E.lerp(380, 560, E.clamp(lt / D)), y: E.lerp(820, 890, E.clamp(lt / D)), h: 240, f: 0.8, pose: E.walkPose(lt * 1.4), expr: 'smile', rim: K.sunset }) });
     E.layers(ctx, cam, L);
-  }, { type: 'WS', desc: 'School entrance in warm late-afternoon light: Noah walks down the steps ("one person he was too scared to ask about").' });
-  E.cut('s18b_walkhome', E.st('s18_maya1') - 0.5, (ctx, lt, t, s) => {
+  }, { type: 'WS', desc: 'Sunset at the school entrance: Noah walks down the steps ("one person he was too scared to ask about").' });
+  E.cut('s18b_sorry', E.M('sorry') - 0.3, (ctx, lt, t, s) => {
     const D = E.D(s);
     const cam = E.push(lt, D, { z0: 1.5, z1: 1.55, x: 760, y: 630, focus: 1, ap: 8 });
-    const L = E.SET.entrance(t);
-    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: 840, y: 900, h: 300, f: E.lerp(0.8, -0.8, E.seg(lt, 0.2, 0.6)), pose: 'relaxed', expr: 'shock', rim: { dx: 5, color: '#ffc27a' } }); E.ch(c, 'maya', t, { x: E.lerp(300, 600, E.seg(lt, 0, 0.8, 'out')), y: 900, h: 290, f: 0.8, pose: lt < 0.8 ? E.walkPose(lt * 1.5) : 'bag', expr: 'smile', rim: { dx: 5, color: '#ffc27a' } }); } });
+    const L = E.SET.entranceSet(t);
+    L.push({ d: 1, draw: (c) => { E.ch(c, 'noah', t, { x: E.lerp(980, 860, E.seg(lt, 0, 0.8)), y: 900, h: 300, f: -0.8, pose: E.poseAt(lt, [[0, E.walkPose(lt * 1.4)], [0.8, 'neck'], [1.6, 'wave']]), expr: lt > 1.0 ? 'awkward' : 'nervous', rim: K.sunset, talk: lt > 1.1 && lt < 1.7 ? 0.25 + 0.2 * Math.abs(Math.sin(lt * 14)) : 0 });
+      E.ch(c, 'maya', t, { x: 560, y: 900, h: 290, f: 0.8, pose: 'clutch', expr: lt > D * 0.7 ? 'smile' : 'neutral', rim: K.sunset }); } });
     E.layers(ctx, cam, L);
-  }, { type: 'MS', desc: 'Maya enters from the left; Noah turns to her — "Hey. You want to walk home together?"' });
-  E.cut('s18c_sayyes', E.st('s18_maya_th') - 0.2, (ctx, lt, t, s) => {
+  }, { type: 'MS', desc: 'Noah spots Maya first and walks over; a wordless apology — hand behind his neck, a sheepish half-wave, a silently mouthed "sorry" — and her small forgiving smile.' });
+  E.cut('s18c_walkhome', E.st('s18_maya1') - 0.2, (ctx, lt, t, s) => {
     const D = E.D(s);
-    const cam = E.push(lt, D, { z0: 1.0, z1: 1.05, focus: 1, ap: 14 });
-    const L = E.SET.entrance(t); L[2].d = 0.35;
-    L.push({ d: 1, draw: (c) => { E.ch(c, 'maya', t, { x: 760, y: E.headAt(1050, 470), h: 1050, f: 0.4, pose: 'bag', expr: 'smile', look: [0.5, 0], rim: { dx: 10, dy: -4, color: '#ffc27a' } }); E.th(c, 's18_maya_th', t, { x: 1080, y: 230, w: 240, h: 80, tail: [900, 300], size: 34, kind: 'pink', a: 0.6 }); } });
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.05, focus: 1, ap: 12 });
+    const L = E.SET.entranceSet(t); L[2].d = 0.35;
+    L.push({ d: 1, draw: (c) => { E.ch(c, 'maya', t, { x: 760, y: E.headAt(1050, 470), h: 1050, f: 0.4, pose: E.poseAt(lt, [[0, 'clutch'], [1.2, 'behind']]), expr: 'smile', look: [0.5, 0], rim: K.sunset, ground: false, shadow: false }); unread(c, t, E.st('s18_maya_th') - 0.1, 1100, 260, [900, 330], 'pink'); } });
+    L.push({ d: 1.5, draw: (c) => E.ch(c, 'noah', t, { x: 1720, y: 2100, h: 1800, f: -0.5, faceAlpha: 0, rim: K.sunset, ground: false, shadow: false }) });
     E.layers(ctx, cam, L);
-  }, { type: 'CU', desc: 'Maya, nervous smile; a small understated thought: "Please say yes."' });
-  E.cut('s18d_yes', E.st('s18_noah1') - 0.4, (ctx, lt, t, s) => {
+  }, { type: 'OTS', desc: 'Over Noah\'s shoulder: Maya, shy — "Hey. You want to walk home together?" A tiny pink thought starts to form… and fades unread.' });
+  E.cut('s18d_yes', E.st('s18_noah1') - 0.5, (ctx, lt, t, s) => {
     const D = E.D(s);
-    const cam = E.push(lt, D, { z0: 1.0, z1: 1.05, focus: 1, ap: 14 });
-    const L = E.SET.entrance(t); L[2].d = 0.35;
-    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 1100, y: E.headAt(1100, 470), h: 1100, f: -0.35, pose: 'pocket', expr: 'smile', look: [-0.5, 0], rim: { dx: 10, dy: -4, color: '#ffc27a' } }) });
+    const cam = E.push(lt, D, { z0: 1.0, z1: 1.06, focus: 1, ap: 14 });
+    const L = E.SET.entranceSet(t); L[2].d = 0.35;
+    L.push({ d: 1, draw: (c) => E.ch(c, 'noah', t, { x: 1100, y: E.headAt(1100, 470), h: 1100, f: -0.35, pose: 'pocket', expr: 'smile', look: [-0.5, 0], rim: K.sunset, ground: false, shadow: false }) });
     E.layers(ctx, cam, L);
-  }, { type: 'CU', desc: 'Hold on Noah\'s genuine smile — he answers what she SAID: "Yeah. I\'d like that."' });
-  E.cut('s18e_walkoff', E.M('walk_off') - 0.1, (ctx, lt, t, s) => {
+  }, { type: 'CU', desc: 'Held on Noah\'s genuine smile — looking at her face, not at any thought — he answers what she SAID: "Yeah. I\'d like that."' });
+  E.cut('s18e_walkoff', E.M('walk_off') + 0.1, (ctx, lt, t, s) => {
     const D = E.D(s);
-    const cam = E.cam({ z: E.lerp(1.1, 0.95, E.ease.sine(E.clamp(lt / D))), x: 1100, y: 560, focus: 0.9, ap: 4 });
-    const L = E.SET.entrance(t);
-    L.push({ d: 0.9, draw: (c) => { E.ch(c, 'noah', t, { x: 900 + lt * 95, y: 905, h: 230, f: 0.8, pose: E.walkPose(lt * 1.3), expr: 'happy', rim: { dx: 5, color: '#ffc27a' }, talk: 0 }); E.ch(c, 'maya', t, { x: 820 + lt * 95, y: 905, h: 220, f: 0.8, pose: E.walkPose(lt * 1.3 + 0.5), expr: 'happy', rim: { dx: 5, color: '#ffc27a' }, talk: 0 }); } });
+    const cam = E.cam({ z: E.lerp(1.1, 0.95, E.ease.sine(E.clamp(lt / D))), x: 1150, y: 560, focus: 0.9, ap: 4 });
+    const L = E.SET.entranceSet(t);
+    L.push({ d: 0.9, draw: (c) => { E.ch(c, 'noah', t, { x: 900 + lt * 110, y: 905, h: 230, f: 0.8, pose: E.walkPose(lt * 1.3), expr: 'happy', rim: K.sunset, talk: 0 }); E.ch(c, 'maya', t, { x: 815 + lt * 110, y: 905, h: 220, f: 0.8, pose: E.walkPose(lt * 1.3 + 0.5), expr: 'happy', rim: K.sunset, talk: 0 }); } });
     L.push(E.dustL(t, { d: 0.95, n: 35 }));
     E.layers(ctx, cam, L);
-  }, { type: 'EWS', desc: 'Wide sunset street: Noah and Maya walk off together.', post: { bloom: 0.5 } });
-  // END CARD
+  }, { type: 'EWS', desc: 'Wide sunset street: Noah and Maya walk off together toward the sun, silhouetted.', post: { bloom: 0.45 } });
+  // END CARD over the sunset street
   E.cut('s19_endcard', E.M('END'), (ctx, lt, t, s) => {
     const D = E.D(s);
-    const g = ctx.createRadialGradient(960, 900, 50, 960, 700, 1100); g.addColorStop(0, '#5a2a3a'); g.addColorStop(1, '#1a0c18'); ctx.fillStyle = g; ctx.fillRect(0, 0, 1920, 1080);
-    E.textGlow(ctx, 'What would YOU do if you could', 960, 250, { font: 'italic 800 60px Nunito', a: E.seg(lt, 0.2, 0.8) });
-    E.textGlow(ctx, "hear everyone's thoughts?", 960, 330, { font: 'italic 900 70px Nunito', color: '#ffd166', a: E.seg(lt, 0.5, 1.1) });
+    const cam = E.cam({ z: 1.0 + lt * 0.02, x: 1200, y: 560, focus: 0.9, ap: 6 });
+    const L = E.SET.entranceSet(t);
+    L.push({ d: 0.9, draw: (c) => { E.ch(c, 'noah', t, { x: 1500 + lt * 40, y: 905, h: 150, f: 0.8, pose: E.walkPose(lt * 1.3), expr: 'happy', rim: K.sunset, talk: 0 }); E.ch(c, 'maya', t, { x: 1440 + lt * 40, y: 905, h: 145, f: 0.8, pose: E.walkPose(lt * 1.3 + 0.5), expr: 'happy', rim: K.sunset, talk: 0 }); } });
+    E.layers(ctx, cam, L);
+    E.screenFill(ctx, '#1a0c18', 0.35);
+    E.textGlow(ctx, 'What would YOU do if you could', 960, 230, { font: 'italic 800 64px Nunito', a: E.seg(lt, 0.2, 0.8) });
+    E.textGlow(ctx, "hear everyone's thoughts?", 960, 320, { font: 'italic 900 80px Nunito', color: '#ffd166', a: E.seg(lt, 0.5, 1.1) });
     const cast = ['noah', 'leo', 'maya', 'teacher', 'barista', 'biz', 'woman', 'man'];
-    cast.forEach((k, i) => { const a = E.seg(lt, 0.8 + i * 0.12, 1.2 + i * 0.12); E.char(ctx, { x: 470 + i * 140, y: 900 + (1 - a) * 40, h: 240, f: 0, costume: k, pose: k === 'noah' ? 'wave' : 'stand', expr: 'smile', t, seed: i, alpha: a, rim: { dx: 0, dy: -4, color: '#ffc98a' } }); });
-    E.pool(ctx, 960, 910, 700, 60, '#ffb070', 0.25);
-  }, { type: 'END', desc: 'End card: "What would YOU do if you could hear everyone\'s thoughts?" with the cast line-up.' });
+    cast.forEach((k, i) => { const a = E.seg(lt, 0.8 + i * 0.1, 1.2 + i * 0.1); E.char(ctx, { x: 450 + i * 145, y: 950 + (1 - a) * 40, h: 290, f: 0, costume: k, pose: k === 'noah' ? 'wave' : 'stand', expr: 'smile', t, seed: i, alpha: a, rim: { dx: 0, dy: -1, color: '#ffc98a' } }); });
+  }, { type: 'END', desc: 'End card over the sunset street (Noah and Maya small in the distance): "What would YOU do if you could hear everyone\'s thoughts?" with the cast line-up.' });
 })();

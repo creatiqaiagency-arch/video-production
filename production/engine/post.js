@@ -18,15 +18,21 @@
   };
 
   // opts: {bloom, vignette, grain, grade:{color, a, op}, flash:{color,a}, lb:true, fade}
+  // tone curve: exposure + soft highlight roll-off (knee) applied per pixel through a LUT
+  const lutCache = {};
+  const toneLUT = (exp, knee) => { const k = exp + '_' + knee; if (lutCache[k]) return lutCache[k]; const L = new Uint8ClampedArray(256); const kv = knee / 255;
+    for (let i = 0; i < 256; i++) { let v = (i / 255) * exp; if (v > kv) v = kv + (1 - kv) * (1 - Math.exp(-(v - kv) / (1 - kv))); L[i] = Math.round(v * 255); } return (lutCache[k] = L); };
+  E.tone = (ctx, exp = 1, knee = 200) => { const img = ctx.getImageData(0, E.LB, E.W, E.H - 2 * E.LB); const d = img.data, L = toneLUT(exp, knee); for (let i = 0; i < d.length; i += 4) { d[i] = L[d[i]]; d[i + 1] = L[d[i + 1]]; d[i + 2] = L[d[i + 2]]; } ctx.putImageData(img, 0, E.LB); };
   E.post = (ctx, t, o = {}) => {
-    const bloom = o.bloom === undefined ? 0.32 : o.bloom;
+    const bloom = o.bloom === undefined ? 0.24 : o.bloom;
     if (bloom > 0) {
       const sm = E.getCanvas(480, 270); const s = sm.c.getContext('2d');
-      s.filter = `brightness(${o.bloomBright || 1.0}) contrast(${o.bloomContrast || 2.6}) saturate(1.3) blur(7px)`;
+      s.filter = `brightness(${o.bloomBright || 0.95}) contrast(${o.bloomContrast || 3.2}) saturate(1.1) blur(8px)`;
       s.drawImage(ctx.canvas, 0, 0, 480, 270);
       ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = bloom; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(sm.c, 0, 0, W, H); ctx.restore();
       E.release(sm);
     }
+    E.tone(ctx, o.exposure || 0.94, o.knee || 196);
     // grade: lift blacks toward plum, warm/cool tint
     ctx.save(); ctx.globalCompositeOperation = 'lighten'; ctx.fillStyle = o.lift || '#120a14'; ctx.fillRect(0, 0, W, H); ctx.restore();
     if (o.grade) { ctx.save(); ctx.globalCompositeOperation = o.grade.op || 'soft-light'; ctx.globalAlpha = o.grade.a; ctx.fillStyle = o.grade.color; ctx.fillRect(0, 0, W, H); ctx.restore(); }
@@ -57,7 +63,7 @@
     ctx.fillStyle = g; ctx.fillRect(x - r, y - r, r * 2, r * 2);
   };
   E.sun = (ctx, x, y, r, t = 0) => {
-    E.glow(ctx, x, y, r * 7, '#ffcf9a', 0.55);
+    E.glow(ctx, x, y, r * 6, '#ffb878', 0.42);
     E.glow(ctx, x, y, r * 2.4, '#fff1c9', 0.9);
     ctx.fillStyle = '#fff6df'; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
   };
