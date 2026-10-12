@@ -36,6 +36,8 @@
     // floor perspective lines
     c.strokeStyle = 'rgba(255,220,190,0.06)'; c.lineWidth = 2; for (let i = -8; i <= 8; i++) { c.beginPath(); c.moveTo(vx + i * (bx1 - bx0) / 8, by1); c.lineTo(vx + i * 520, B0); c.stroke(); }
     for (let i = 1; i < 10; i++) { const u = geo(i, 10, 0.75); const a = lerp2(WL.nb, WL.fb, u), b = lerp2(WR.nb, WR.fb, u); c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke(); }
+    if (o.tiles) { const n = 12; for (let i = 0; i < n; i++) { const u0 = geo(i, n, 0.8), u1 = geo(i + 1, n, 0.8); for (let j = -10; j < 10; j++) { if ((i + j) % 2 === 0) continue; const xa0 = lerp2(WL.nb, WL.fb, u0), xb0 = lerp2(WR.nb, WR.fb, u0), xa1 = lerp2(WL.nb, WL.fb, u1), xb1 = lerp2(WR.nb, WR.fb, u1);
+      const f0 = (j + 10) / 20, f1 = (j + 11) / 20; quad(c, [lerp2(xa0, xb0, f0), lerp2(xa0, xb0, f1), lerp2(xa1, xb1, f1), lerp2(xa1, xb1, f0)], o.tiles); } } }
     // wall features
     const feature = (w, f, side) => {
       if (!f) return;
@@ -141,12 +143,75 @@
 
   // MORNING variants ----------------------------------------------------------
   S.cafeIntAM = (t, o = {}) => { const L = S.cafeInt(t, o); L[0] = { d: 0.1, draw: (c) => { E.vgrad(c, -1000, -400, 4000, 1800, [[0, '#6a4a4a'], [1, '#4a3638']]);
-      E.sky(c, '#8fb0d8', '#e8c8b0', '#ffe0a8', 120, 640, 120, 1700); E.sun(c, 420, 300, 44, t); E.rays(c, 420, 300, 900, 12, '#fff0c8', 0.1, t); U.skyline(c, 640, '#8a7a90', 9, 120, 1820);
+      E.sky(c, '#5f8fd8', '#f0b8a8', '#ffc98a', 120, 640, 120, 1700); E.sun(c, 420, 300, 44, t); E.rays(c, 420, 300, 900, 12, '#fff0c8', 0.1, t); U.skyline(c, 640, '#8a7a90', 9, 120, 1820);
       c.fillStyle = '#2b1a26'; [120, 520, 920, 1320, 1720].forEach((x) => c.fillRect(x - 10, 120, 20, 520)); c.fillRect(110, 110, 1720, 24); c.fillRect(110, 630, 1720, 24);
       E.vgrad(c, -1000, 654, 4000, 600, [[0, '#4a2f36'], [1, '#33222b']]); for (let i = 0; i < 4; i++) E.cone(c, 320 + i * 400, 640, 300, 900, 600, '#fff0c8', 0.06, 0.35); } }; return L; };
-  S.streetAM = (t, o = {}) => { const L = S.street(t, o); L[0] = { d: 0.04, draw: (c) => { E.sky(c, '#7f9fd0', '#d8c0c8', '#ffd8a0', -600, 820, -2000, 9000); E.sun(c, 300, 300, 56, t); E.rays(c, 300, 300, 1600, 14, '#fff0c8', 0.08, t); U.clouds(c, t, 100, 6, '#f0d8e0'); } }; return L; };
-  S.cafeExtAM = (t, o = {}) => { const L = S.cafeExt(t, o); L[0] = { d: 0.05, draw: (c) => { E.sky(c, '#7f9fd0', '#d8c0c8', '#ffd8a0', -600, 760); E.sun(c, 520, 260, 60, t); E.rays(c, 520, 260, 1500, 16, '#fff0c8', 0.08, t); U.clouds(c, t, 80, 2, '#f0d8e0'); } }; return L; };
-  S.schoolAM = (t, o = {}) => { const L = S.entrance(t, o); L[0] = { d: 0.05, draw: (c) => { E.sky(c, '#7f9fd0', '#d8c0c8', '#ffd8a0', -600, 760, -2000, 6000); E.sun(c, 1500, 260, 60, t); E.rays(c, 1500, 260, 1700, 16, '#fff0c8', 0.08, t); U.clouds(c, t, 120, 9, '#f0d8e0'); } }; return L; };
+  S.streetAM = (t, o = {}) => { const L = S.street(t, o); L[0] = { d: 0.04, draw: (c) => { E.sky(c, '#5f8fd8', '#f0b8a8', '#ffc98a', -600, 820, -2000, 9000); E.sun(c, 300, 300, 56, t); E.rays(c, 300, 300, 1600, 14, '#fff0c8', 0.08, t); U.clouds(c, t, 100, 6, '#f0d8e0'); } }; return L; };
+  S.cafeExtAM = (t, o = {}) => { const L = S.cafeExt(t, o); L[0] = { d: 0.05, draw: (c) => { E.sky(c, '#5f8fd8', '#f0b8a8', '#ffc98a', -600, 760); E.sun(c, 520, 260, 60, t); E.rays(c, 520, 260, 1500, 16, '#fff0c8', 0.08, t); U.clouds(c, t, 80, 2, '#f0d8e0'); } }; return L; };
+  S.schoolAM = (t, o = {}) => { const L = S.entrance(t, o); L[0] = { d: 0.05, draw: (c) => { E.sky(c, '#5f8fd8', '#f0b8a8', '#ffc98a', -600, 760, -2000, 6000); E.sun(c, 1500, 260, 60, t); E.rays(c, 1500, 260, 1700, 16, '#fff0c8', 0.08, t); U.clouds(c, t, 120, 9, '#f0d8e0'); } }; return L; };
   // sunset entrance: less blown
   S.entranceSet = (t, o = {}) => { const L = S.entrance(t, o); L[0] = { d: 0.05, draw: (c) => { E.sky(c, '#5a3a6e', '#d07a72', '#ffb46a', -600, 760, -2000, 6000); E.sun(c, 1500, 560, 52, t); E.rays(c, 1500, 560, 1800, 18, '#ffcf8a', 0.12, t); U.clouds(c, t, 120, 9, '#e08a8a'); } }; return L; };
+})();
+
+// ---------------- V3 perspective sets ----------------
+(function () {
+  const E = globalThis.E; const S = E.SET, U = S._;
+  // CAFÉ interior in perspective: counter receding on the left, big window wall on the right
+  S.cafeP = (t, o = {}) => [{ d: o.d || 0.45, draw: (c) => {
+    const am = o.morning !== false;
+    E.room(c, t, { back: o.back || [880, 300, 1280, 600], backC: '#5b3a3e', wallL: '#5b3a3e', wallR: '#4e343a', floor: '#3a2228', floorFar: '#5a3a3a', ceil: '#3a262e', tiles: 'rgba(240,220,200,0.06)',
+      right: { type: 'windows', n: 6, r: 0.75, v0: 0.12, v1: 0.72, hi: am ? '#ffe2a8' : '#ffd08a', lo: am ? '#f0a070' : '#d8743a', light: am ? '#fff0c8' : '#ffd08a', shaftA: 0.2, shaftLen: 600 }, lamps: 4,
+      backDraw: (x, x0, y0, x1, y1) => { x.fillStyle = '#2a1826'; x.fillRect(x0 + 40, y0 + 40, x1 - x0 - 80, 110); x.fillStyle = '#efe6dc'; x.font = '700 30px Caveat'; x.textAlign = 'center'; x.fillText('Espresso 2.5 · Latte 3.5 · Mocha 4', (x0 + x1) / 2, y0 + 105); } });
+    // counter along the left, receding
+    c.fillStyle = '#6b4038'; c.beginPath(); c.moveTo(-400, 760); c.lineTo(880, 520); c.lineTo(880, 560); c.lineTo(-400, 900); c.closePath(); c.fill();
+    c.fillStyle = '#3a2228'; c.beginPath(); c.moveTo(-400, 900); c.lineTo(880, 560); c.lineTo(880, 600); c.lineTo(-400, 1400); c.closePath(); c.fill();
+    c.fillStyle = '#c9c0c8'; c.beginPath(); c.roundRect(560, 470, 120, 70, 10); c.fill(); E.glow(c, 620, 500, 80, '#ffffff', 0.08);
+    for (let i = 0; i < 3; i++) { c.fillStyle = '#efe6dc'; c.fillRect(300 + i * 40, 600 - i * 12, 26, 30); }
+  } }];
+  // BEDROOM in perspective: window on the back wall, bed along the left
+  S.bedroomP = (t, o = {}) => [{ d: o.d || 0.4, draw: (c) => {
+    const m = !!o.morning;
+    E.room(c, t, { back: [700, 260, 1300, 640], backC: m ? '#6a4a5a' : '#262a52', wallL: m ? '#5e4252' : '#22264a', wallR: m ? '#5e4252' : '#22264a', floor: m ? '#4a3040' : '#141530', floorFar: m ? '#5a3a4a' : '#1e2042', ceil: m ? '#4a3040' : '#181a38',
+      backDraw: (x, x0, y0, x1, y1) => { const wx = x0 + 180, wy = y0 + 60, ww = 260, wh = 220;
+        if (m) { E.vgrad(x, wx, wy, ww, wh, [[0, '#5f8fd8'], [0.6, '#f0b8a8'], [1, '#ffc98a']]); E.sun(x, wx + 190, wy + 170, 26, t); } else { E.vgrad(x, wx, wy, ww, wh, [[0, '#1c2550'], [1, '#3a3a7a']]); x.fillStyle = '#f2f0e6'; x.beginPath(); x.arc(wx + 180, wy + 60, 24, 0, Math.PI * 2); x.fill(); E.glow(x, wx + 180, wy + 60, 110, '#cfd8ff', 0.35); }
+        x.strokeStyle = m ? '#3a2430' : '#121633'; x.lineWidth = 12; x.strokeRect(wx, wy, ww, wh); x.beginPath(); x.moveTo(wx + ww / 2, wy); x.lineTo(wx + ww / 2, wy + wh); x.stroke();
+        x.fillStyle = m ? '#8a5cff' : '#5a3cc0'; x.fillRect(x0 + 40, y0 + 90, 100, 130); },
+      right: { type: 'boards', n: 6 } });
+    const light = m ? '#ffd89a' : '#9fb6ff';
+    c.save(); c.globalCompositeOperation = 'lighter'; c.fillStyle = E.rgba(light, m ? 0.16 : 0.12); c.beginPath(); c.moveTo(880, 540); c.lineTo(1140, 540); c.lineTo(900, 1100); c.lineTo(300, 1100); c.closePath(); c.fill(); c.restore();
+  } }];
+  // a bed seen 3/4 (in front of bedroomP), returns mattress top y
+  E.bedP = (c, x, y, w, m) => { c.fillStyle = '#2a1e36'; c.fillRect(x, y, w, 120); c.fillStyle = m ? '#e8d8e8' : '#9a9ac8'; c.beginPath(); c.roundRect(x - 20, y - 30, 220, 60, 26); c.fill(); return y; };
+  // LIBRARY in perspective: shelves on both walls
+  S.libraryP = (t, o = {}) => [{ d: o.d || 0.45, draw: (c) => {
+    E.room(c, t, { back: [820, 300, 1220, 620], backC: '#4a3036', wallL: '#3a242a', wallR: '#3a242a', floor: '#3a2228', floorFar: '#4a3030', ceil: '#2e1c24', lamps: 3,
+      backDraw: (x, x0, y0, x1, y1) => U.win(x, x0 + 100, y0 + 50, 200, 150, { cols: 2, rows: 2 }) });
+    const shelf = (side) => { for (let k = 0; k < 9; k++) { const z = Math.pow(0.8, k); const xN = side < 0 ? 820 - 1100 * z : 1220 + 1100 * z, w = 120 * z + 10; const top = 300 - 400 * z, bot = 620 + 700 * z; c.fillStyle = '#4a2c2c'; c.fillRect(side < 0 ? xN - w : xN, top, w, bot - top); for (let j = 0; j < 5; j++) { const yy = top + (bot - top) * (j + 0.2) / 5; const r = E.rng(k * 9 + j + (side > 0 ? 50 : 0)); for (let i = 0; i < 4; i++) { c.fillStyle = ['#c98aa0', '#3d6a8a', '#e8a070', '#6b7fd6', '#d0a040'][Math.floor(r() * 5)]; c.fillRect((side < 0 ? xN - w : xN) + i * w / 4 + 2, yy, w / 4 - 3, (bot - top) / 7); } } } };
+    shelf(-1); shelf(1);
+  } }];
+  // STREET in one-point perspective (sidewalk receding), morning
+  S.streetP = (t, o = {}) => [
+    { d: 0.05, draw: (c) => { E.sky(c, '#5f8fd8', '#f0b8a8', '#ffc98a', -600, 520, -2000, 6000); E.sun(c, 1250, 330, 46, t); E.rays(c, 1250, 330, 1500, 14, '#fff0c8', 0.1, t); } },
+    { d: 0.4, draw: (c) => {
+      const vx = 1150, vy = 470;
+      // road + sidewalk
+      c.fillStyle = '#4a3a44'; c.beginPath(); c.moveTo(vx - 20, vy); c.lineTo(vx + 20, vy); c.lineTo(2600, 1400); c.lineTo(900, 1400); c.closePath(); c.fill();
+      c.fillStyle = '#6d4648'; c.beginPath(); c.moveTo(vx - 20, vy); c.lineTo(-800, 1400); c.lineTo(900, 1400); c.closePath(); c.fill();
+      // building façades receding on the left
+      for (let k = 0; k < 9; k++) { const z0 = Math.pow(0.78, k), z1 = Math.pow(0.78, k + 1); const x0 = vx - 1900 * z0, x1 = vx - 1900 * z1; const t0 = vy - 700 * z0, t1 = vy - 700 * z1, b0 = vy + 750 * z0, b1 = vy + 750 * z1;
+        c.fillStyle = k % 2 ? '#4a2c3c' : '#5a3846'; c.beginPath(); c.moveTo(x0, t0); c.lineTo(x1, t1); c.lineTo(x1, b1); c.lineTo(x0, b0); c.closePath(); c.fill();
+        const wy0 = 0.35, wy1 = 0.7; const ax = x0 + (x1 - x0) * 0.2, bx = x0 + (x1 - x0) * 0.8; const yt = (x, a) => { const z = (x - vx) / (-1900); return vy + (a < 0 ? -700 : 750) * z; };
+        const top = (x) => yt(x, -1) + (yt(x, 1) - yt(x, -1)) * wy0, bot = (x) => yt(x, -1) + (yt(x, 1) - yt(x, -1)) * wy1;
+        const g = c.createLinearGradient(0, top(ax), 0, bot(ax)); g.addColorStop(0, '#ffe2a8'); g.addColorStop(1, '#e09060'); c.fillStyle = g; c.beginPath(); c.moveTo(ax, top(ax)); c.lineTo(bx, top(bx)); c.lineTo(bx, bot(bx)); c.lineTo(ax, bot(ax)); c.closePath(); c.fill(); }
+      // far skyline + trees on the right
+      U.skyline(c, vy + 10, '#8a7a9a', 41, vx, 2600);
+      for (let k = 0; k < 7; k++) { const z = Math.pow(0.75, k); U.tree(c, vx + 1300 * z, vy + 420 * z, 1.6 * z + 0.15, '#3a2a3a'); }
+    } }];
+  // courtyard building angled (3/4) for Noah's reverse
+  S.yardAngled = (t, o = {}) => { const L = S.yard(t, Object.assign({ tree: false }, o)); L[1] = { d: 0.25, draw: (c) => { const m = E.yardMood(o.mood || 'warm');
+      for (let k = 0; k < 10; k++) { const z0 = Math.pow(0.8, k), z1 = Math.pow(0.8, k + 1); const x0 = 2300 - 2200 * (1 - z0), x1 = 2300 - 2200 * (1 - z1); const vy = 560; const t0 = vy - 520 * z0, t1 = vy - 520 * z1, b0 = vy + 200 * z0, b1 = vy + 200 * z1;
+        c.fillStyle = k % 2 ? '#4e3240' : '#55384a'; c.beginPath(); c.moveTo(x0, t0); c.lineTo(x1, t1); c.lineTo(x1, b1); c.lineTo(x0, b0); c.closePath(); c.fill();
+        if (k % 2 === 0) { const wx0 = x0 + (x1 - x0) * 0.2, wx1 = x0 + (x1 - x0) * 0.8; const f = (x, a) => { const z = 1 - (2300 - x) / 2200; return vy + a * z; }; const g = c.createLinearGradient(0, f(wx0, -400), 0, f(wx0, -150)); g.addColorStop(0, '#ffc87a'); g.addColorStop(1, '#c8643a'); c.globalAlpha = m.win; c.fillStyle = g; c.beginPath(); c.moveTo(wx0, f(wx0, -400)); c.lineTo(wx1, f(wx1, -400)); c.lineTo(wx1, f(wx1, -150)); c.lineTo(wx0, f(wx0, -150)); c.closePath(); c.fill(); c.globalAlpha = 1; } }
+      U.treeLine(c, 760, '#2e202c', 12, -1600, 1200, 0.7); } };
+    L[1].d = 0.2; return L; };
 })();
