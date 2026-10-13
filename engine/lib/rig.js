@@ -166,7 +166,11 @@ function drawFigure(o, pose, mono) {
   if (out.top) {
     const id = uid('cl');
     body += mono ? S.path(torsoD, mono) : `<clipPath id="${id}"><path d="${torsoD}"/></clipPath>` + S.path(torsoD, out.top) +
-      S.g({ 'clip-path': `url(#${id})` }, S.rect(o.litSide > 0 ? -tw - 2 : tw * .25, shY - 10, tw * .8, torso + 20, out.topS, { opacity: .55 }));
+      S.g({ 'clip-path': `url(#${id})` },
+        // cel pass (bible: soft gradient multiply shadow + additive highlight, both clipped to the shape)
+        S.rect(-tw - 2, shY - 10, tw * 2 + 4, torso + 20, `url(#${o.litSide > 0 ? 'shadeL' : 'shadeR'})`),
+        S.rect(-tw - 2, shY - 10, tw * 2 + 4, torso + 20, `url(#${o.litSide > 0 ? 'hiR' : 'hiL'})`),
+        S.rect(-tw - 2, -18, tw * 2 + 4, 26, 'url(#ao)'));
     if (!mono && out.pocket) body += S.path(`M${-14},${-30} L${14},${-30} L${17},${-6} L${-17},${-6}Z`, out.topS, { opacity: .7 });
     if (!mono && out.strings) body += front ? S.line(-7, shY + 4, -8, shY + 34, PAL.string, 3) + S.line(7, shY + 4, 8, shY + 30, PAL.string, 3) : S.line(6, shY + 4, 7, shY + 34, PAL.string, 3) + S.line(15, shY + 4, 16, shY + 30, PAL.string, 3);
     if (!mono && out.buttons) [0, 1, 2].forEach(i => body += S.circle(10, shY + 18 + i * 18, 2.6, '#e9e1d6'));
@@ -224,7 +228,10 @@ function character(o) {
   const rim = drawFigure(fo, pose, rimCol);
   const tf = `translate(${o.x},${o.y}) rotate(${o.rot || 0}) scale(${f * sc},${sc})`;
   const rimG = (dx, dy) => S.g({ transform: `translate(${dx.toFixed(2)},${dy.toFixed(2)})`, opacity: light.op ?? 1 }, rim.svg);
-  const svg = S.g({ transform: tf, opacity: o.opacity }, light.none ? '' : light.both ? rimG(rimW, -rimW * .4) + rimG(-rimW, -rimW * .4) : rimG(lx, ly), main.svg);
+    // rim bleed (bible: blurred copy of the rim under the hard edge so the light wraps into the air)
+  const bleed = (dx, dy) => S.g({ transform: `translate(${(dx * 1.3).toFixed(2)},${(dy * 1.3).toFixed(2)})`, opacity: (light.op ?? 1) * .5, filter: 'url(#rimBleed)' }, rim.svg);
+  const rims = light.none ? '' : light.both ? bleed(rimW, -rimW * .4) + bleed(-rimW, -rimW * .4) + rimG(rimW, -rimW * .4) + rimG(-rimW, -rimW * .4) : bleed(lx, ly) + rimG(lx, ly);
+  const svg = S.g({ transform: tf, opacity: o.opacity }, rims, main.svg);
   const w = p => { const r = rad(o.rot || 0), px = p[0] * f * sc, py = p[1] * sc; return [o.x + px * Math.cos(r) - py * Math.sin(r), o.y + px * Math.sin(r) + py * Math.cos(r)]; };
   return { svg, handF: w(main.j.handF), handB: w(main.j.handB), head: w(main.j.head), headR: RIG.R * sc, hip: w(main.j.hip) };
 }

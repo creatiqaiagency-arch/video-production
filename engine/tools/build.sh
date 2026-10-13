@@ -2,7 +2,7 @@
 # Build a full version: timeline, stills, contact sheets, video, audio mix, final mux.
 # usage: tools/build.sh V1 [res]
 set -euo pipefail
-V=${1:?version}; RES=${2:-1920x1080}
+V=${1:?version}; RES=${2:-1920x1080}; CRF=${3:-24}
 cd "$(dirname "$0")/.."
 PROD=../production/learn-10x
 OUT=$PROD/renders/$V
@@ -21,7 +21,7 @@ assert 300<=T<=380, 'runtime out of range'
 assert len(set(l['spk'] for l in t['lines']))>3, 'speakers missing'
 PY
 python3 tools/sheet.py $OUT/stills $OUT/contact_sheet.jpg 4 28 > /dev/null
-node render.js --shots $SHOTS --vo $VO --video $OUT/video_noaudio.mp4 --res $RES --workers 4 --crf 24
+node render.js --shots $SHOTS --vo $VO --video $OUT/video_noaudio.mp4 --res $RES --workers 4 --crf $CRF
 python3 tools/mix.py $OUT/timeline.json $VO $PROD $OUT/mix.wav
 ffmpeg -y -v error -i $OUT/video_noaudio.mp4 -i $OUT/mix.wav -c:v copy -af loudnorm=I=-16:TP=-1.5:LRA=11 -ar 48000 -c:a aac -b:a 192k -shortest -movflags +faststart $OUT/learn10x_$V.mp4
 rm -f $OUT/video_noaudio.mp4
