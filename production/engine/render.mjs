@@ -19,6 +19,7 @@ async function openPage(browser) {
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
   page.on('console', m => { if (m.type() === 'error') console.error('[page]', m.text()); });
   page.on('pageerror', e => console.error('[pageerror]', e.message));
+  if (args.res) await page.addInitScript((r) => { window.RENDER_SCALE = r; }, +args.res);
   await page.goto('file://' + path.join(here, 'index.html'));
   await page.waitForFunction(() => window.ENGINE_FILES_LOADED);
   const shots = await page.evaluate(([a, b, c]) => window.boot(a, b, c), [tl, env, shotFiles]);

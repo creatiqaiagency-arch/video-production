@@ -22,7 +22,7 @@
   const lutCache = {};
   const toneLUT = (exp, knee) => { const k = exp + '_' + knee; if (lutCache[k]) return lutCache[k]; const L = new Uint8ClampedArray(256); const kv = knee / 255;
     for (let i = 0; i < 256; i++) { let v = (i / 255) * exp; if (v > kv) v = kv + (1 - kv) * (1 - Math.exp(-(v - kv) / (1 - kv))); L[i] = Math.round(v * 255); } return (lutCache[k] = L); };
-  E.tone = (ctx, exp = 1, knee = 200) => { const img = ctx.getImageData(0, E.LB, E.W, E.H - 2 * E.LB); const d = img.data, L = toneLUT(exp, knee); for (let i = 0; i < d.length; i += 4) { d[i] = L[d[i]]; d[i + 1] = L[d[i + 1]]; d[i + 2] = L[d[i + 2]]; } ctx.putImageData(img, 0, E.LB); };
+  E.tone = (ctx, exp = 1, knee = 200) => { const S = E.S; const img = ctx.getImageData(0, E.LB * S, E.W * S, (E.H - 2 * E.LB) * S); const d = img.data, L = toneLUT(exp, knee); for (let i = 0; i < d.length; i += 4) { d[i] = L[d[i]]; d[i + 1] = L[d[i + 1]]; d[i + 2] = L[d[i + 2]]; } ctx.putImageData(img, 0, E.LB * S); };
   E.post = (ctx, t, o = {}) => {
     const bloom = o.bloom === undefined ? 0.24 : o.bloom;
     if (bloom > 0) {

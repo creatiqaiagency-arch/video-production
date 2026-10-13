@@ -1,7 +1,7 @@
 // Core maths, easing, colour, timeline lookup and the 2.5D layer camera.
 (function () {
   const E = (globalThis.E = globalThis.E || {});
-  E.W = 1920; E.H = 1080; E.LB = 62; E.FPS = 24;
+  E.W = 1920; E.H = 1080; E.S = globalThis.RENDER_SCALE || 1; E.LB = 62; E.FPS = 24;
 
   // ---------- maths ----------
   E.clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -68,7 +68,7 @@
 
   // ---------- offscreen pool ----------
   const pool = [];
-  E.getCanvas = (w = E.W, h = E.H) => { let c = pool.find((p) => !p.busy && p.c.width === w && p.c.height === h); if (!c) { const cv = document.createElement('canvas'); cv.width = w; cv.height = h; c = { c: cv, busy: false }; pool.push(c); } c.busy = true; const ctx = c.c.getContext('2d'); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.filter = 'none'; ctx.clearRect(0, 0, w, h); return c; };
+  E.getCanvas = (w = E.W, h = E.H) => { const sc = w === E.W && h === E.H ? E.S : 1; let c = pool.find((p) => !p.busy && p.lw === w && p.lh === h); if (!c) { const cv = document.createElement('canvas'); cv.width = w * sc; cv.height = h * sc; c = { c: cv, busy: false, lw: w, lh: h }; pool.push(c); } c.busy = true; const ctx = c.c.getContext('2d'); if (sc !== 1) ctx._S = sc; ctx.setTransform(sc, 0, 0, sc, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.filter = 'none'; ctx.clearRect(0, 0, w, h); return c; };
   E.release = (c) => { c.busy = false; };
 
   // ---------- 2.5D camera + layers ----------
@@ -95,7 +95,7 @@
         const off = E.getCanvas(); const o = off.c.getContext('2d');
         o.save(); E.applyCam(o, cam, L.d); L.draw(o); o.restore();
         ctx.save(); ctx.globalAlpha = alpha; if (L.op) ctx.globalCompositeOperation = L.op;
-        ctx.filter = `blur(${Math.min(blur, 40).toFixed(1)}px)`; ctx.drawImage(off.c, 0, 0); ctx.restore();
+        ctx.filter = `blur(${Math.min(blur, 40).toFixed(1)}px)`; ctx.drawImage(off.c, 0, 0, E.W, E.H); ctx.restore();
         E.release(off);
       }
     }

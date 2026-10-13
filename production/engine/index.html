@@ -8,6 +8,14 @@ canvas{display:block}
 </style></head>
 <body>
 <canvas id="c" width="1920" height="1080"></canvas>
+<script>
+  // Native high-resolution rendering: the world stays 1920×1080 logical px, pixels are RENDER_SCALE× denser.
+  // Canvas shadow/blur sizes ignore the transform, so scale them on scaled contexts (ctx._S).
+  (function () { const S = window.RENDER_SCALE || 1; if (S === 1) return; const P = CanvasRenderingContext2D.prototype;
+    for (const k of ['shadowBlur', 'shadowOffsetX', 'shadowOffsetY']) { const d = Object.getOwnPropertyDescriptor(P, k); Object.defineProperty(P, k, { get() { return d.get.call(this) / (this._S || 1); }, set(v) { d.set.call(this, v * (this._S || 1)); } }); }
+    const fd = Object.getOwnPropertyDescriptor(P, 'filter'); Object.defineProperty(P, 'filter', { get() { return fd.get.call(this); }, set(v) { if (this._S && typeof v === 'string') v = v.replace(/blur\(([\d.]+)px\)/g, (m, a) => `blur(${(+a * this._S).toFixed(2)}px)`); fd.set.call(this, v); } });
+    const cv = document.getElementById('c'); cv.width = 1920 * S; cv.height = 1080 * S; })();
+</script>
 <script src="core.js"></script>
 <script src="post.js"></script>
 <script src="character.js"></script>
@@ -25,14 +33,14 @@ canvas{display:block}
     await document.fonts.load('900 40px Nunito'); await document.fonts.load('700 40px Caveat'); await document.fonts.load('600 40px Nunito');
     return E.SHOTS.map(s => ({ id: s.id, t0: +s.t0.toFixed(3), t1: +s.t1.toFixed(3), dur: +(s.t1 - s.t0).toFixed(3), type: s.type || '', desc: s.desc || '', beat: !!(s.beat || (E.BEATS && E.BEATS.has(s.id))), hold: !!(s.hold || (E.HOLDS && E.HOLDS.has(s.id))) }));
   };
-  const cv = document.getElementById('c'); const ctx = cv.getContext('2d');
+  const cv = document.getElementById('c'); const ctx = cv.getContext('2d'); ctx._S = E.S; const S = E.S;
   window.renderFrame = (t) => {
-    ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha = 1; ctx.globalCompositeOperation='source-over'; ctx.filter='none';
+    ctx.setTransform(S,0,0,S,0,0); ctx.globalAlpha = 1; ctx.globalCompositeOperation='source-over'; ctx.filter='none';
     ctx.fillStyle = '#000'; ctx.fillRect(0,0,1920,1080);
     const s = E.findShot(t);
     const lt = t - s.t0;
     ctx.save(); s.draw(ctx, lt, t, s); ctx.restore();
-    ctx.setTransform(1,0,0,1,0,0); ctx.filter='none'; ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
+    ctx.setTransform(S,0,0,S,0,0); ctx.filter='none'; ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
     E.post(ctx, t, Object.assign({}, s.post ? (typeof s.post === 'function' ? s.post(lt, t) : s.post) : {}));
     if (window.DEBUG_LABEL) { ctx.fillStyle='rgba(0,0,0,.6)'; ctx.fillRect(0,1018,1920,62); ctx.fillStyle='#ffe28a'; ctx.font='600 30px Nunito'; ctx.fillText(`${s.id}  t=${t.toFixed(2)}  shot ${lt.toFixed(2)}/${(s.t1-s.t0).toFixed(2)}`, 20, 1060); }
   };
