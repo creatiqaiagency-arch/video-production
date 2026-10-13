@@ -294,3 +294,76 @@ addBeat({ id: 'B40', lines: [], min: 3.8, shots: [
   { id: 'S109', type: 'END', desc: 'Title on black: WHAT IF YOU COULD LEARN ANYTHING 10x FASTER?', w: 1, music: { name: 'stop', at: 0 }, sfx: [[.2, 'piano_clean_chord', .7]],
     draw: c => { const k = atE(c, .2, .9, 'out'); return scene(c, { bgc: '#000', mid: '', overlay: titleText([{ t: 'WHAT IF YOU COULD LEARN', size: 60, y: 480 }, { t: 'ANYTHING 10x FASTER?', size: 96, y: 590, fill: PAL.gold }], { op: k * (1 - at(c, 3.2, 3.8)) }), vignette: 0, burn: 0 }); } },
 ] });
+
+// ---------- 3D tournament hall (true perspective camera; see lib/p3d.js) ----------
+// Course table centred at the origin, 10 m x 5 m; bleachers on three sides; floodlight rigs overhead.
+const T3 = { x: k => lerp(-5, 5, (k - 300) / 1360), z: k => lerp(.4, 4.6, (k - 360) / 380) };
+function arena3D(c, camO, o = {}) {
+  const C = P3.cam({ ...camO, fog: { color: '#1b1631', d0: 6, d1: 60, max: .72 } });
+  const sc = P3.scene(), T = c.T, flood = '#e6ecff';
+  // floor + faint tile grid (always furthest)
+  P3.poly(sc, C, [[-60, 0, -40], [60, 0, -40], [60, 0, 70], [-60, 0, 70]], '#17132a', { z: 1e6, n: [0, 1, 0], twoSided: true });
+  for (let x = -30; x <= 30; x += 2) P3.line(sc, C, [x, .002, -20], [x, .002, 40], '#2a2546', 1.4, { z: 9e5 });
+  for (let z = -20; z <= 40; z += 2) P3.line(sc, C, [-30, .002, z], [30, .002, z], '#2a2546', 1.4, { z: 9e5 });
+  // pools of light under each rig
+  for (const [lx, lz] of [[-8, 2.5], [0, 2.5], [8, 2.5]]) for (const [rr, op] of [[6, .05], [4, .05], [2.4, .05]]) P3.poly(sc, C, Array.from({ length: 28 }, (_, i) => [lx + rr * Math.cos(i / 28 * TAU), .001, lz + rr * Math.sin(i / 28 * TAU)]), flood, { z: 8e5, n: [0, 1, 0], twoSided: true, raw: true, attr: { opacity: op, style: 'mix-blend-mode:screen' } });
+  // back wall, banner, scoreboard
+  P3.poly(sc, C, [[-34, 0, 34], [34, 0, 34], [34, 20, 34], [-34, 20, 34]], '#120f22', { n: [0, 0, -1], z: 7e5 });
+  const quadAff = (p0, p1, p3, w, h, inner) => { const a = P3.proj(C, p0), b = P3.proj(C, p1), d = P3.proj(C, p3); if (!a || !b || !d) return ''; return S.g({ transform: `matrix(${((b[0] - a[0]) / w).toFixed(4)},${((b[1] - a[1]) / w).toFixed(4)},${((d[0] - a[0]) / h).toFixed(4)},${((d[1] - a[1]) / h).toFixed(4)},${a[0].toFixed(1)},${a[1].toFixed(1)})` }, inner); };
+  sc.items.push({ z: 6.9e5, svg: quadAff([-8, 15, 33.9], [8, 15, 33.9], [-8, 12.6, 33.9], 800, 120, S.rect(0, 0, 800, 120, '#2a1f4a') + S.text(400, 88, 'ROBOTICS CUP', { 'font-family': 'Lilita One', 'font-size': 76, fill: PAL.gold, 'text-anchor': 'middle', 'letter-spacing': 6 })) });
+  sc.items.push({ z: 6.9e5, svg: quadAff([12, 13, 33.9], [19, 13, 33.9], [12, 9.8, 33.9], 340, 160, S.rect(0, 0, 340, 160, '#0a0810', { rx: 10, stroke: '#3a3350', 'stroke-width': 6 }) + S.text(170, 58, o.round || 'ROUND 1', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 36, fill: PAL.gold, 'text-anchor': 'middle' }) + S.text(170, 136, o.clock || '1:00', { 'font-family': 'Oswald', 'font-weight': 600, 'font-size': 70, fill: PAL.red, 'text-anchor': 'middle' })) });
+  // bleachers: stepped tiers on three sides with billboard crowd
+  const r = rng(77), shirts = ['#5a4a7a', '#7a4a5a', '#4a6a7a', '#6a6a4a', '#3a3a5a', '#8a5a3a'];
+  const tier = (side) => {
+    for (let row = 0; row < 7; row++) {
+      const y0 = row * .75, d0 = 14 + row * 1.1;
+      let a, b;
+      if (side === 'back') { a = [-22, y0, 24 + row * 1.1]; b = [22, y0 + .75, 25.1 + row * 1.1]; }
+      else { const sx = side === 'left' ? -1 : 1; a = [sx * d0, y0, -6]; b = [sx * (d0 + 1.1), y0 + .75, 20]; if (sx < 0) { const t = a[0]; a[0] = b[0]; b[0] = t; } }
+      P3.box(sc, C, [Math.min(a[0], b[0]), a[1], Math.min(a[2], b[2])], [Math.max(a[0], b[0]), b[1], Math.max(a[2], b[2])], mixc('#2a2442', '#1c1730', row / 7), { top: '#3a3358', bias: 1.5 });
+      // spectators sit on the step, facing the course
+      const n = side === 'back' ? 40 : 24;
+      for (let i = 0; i < n; i++) {
+        if (r() < .15) continue;
+        const u = (i + .5 + (row % 2) * .3) / n;
+        const p = side === 'back' ? [lerp(-21, 21, u), b[1], (a[2] + b[2]) / 2] : [(a[0] + b[0]) / 2, b[1], lerp(-5, 19, u)];
+        const shirt = mixc(shirts[Math.floor(r() * 6)], '#221c34', .35 + row * .06), cheer = o.cheer || 0, ph = r() * 9;
+        const isNoah = side === 'back' && row === 2 && i === 26;
+        if (isNoah) { P3.sprite(sc, C, p, (x, y, px) => ch({ who: 'noah', x, y, h: 1.5 * px, f: -1, pose: P.crossArms(), expr: 'unimpressed', t: T, light: LT.floodR, still: true }), { bias: -.4 }); continue; }
+        P3.sprite(sc, C, p, (x, y, px) => { const bob = Math.sin(T * 9 + ph) * .06 * cheer * px; return S.rect(x - .2 * px, y - .62 * px + bob, .4 * px, .55 * px, shirt, { rx: .1 * px }) + S.circle(x, y - .82 * px + bob, .2 * px, '#0b0810') + S.path(`M${x - .15 * px},${y - .95 * px + bob} a${.2 * px},${.2 * px} 0 0 1 ${.3 * px},0`, 'none', { stroke: flood, 'stroke-width': Math.max(1, .03 * px), opacity: .35 }); }, { bias: -.4 });
+      }
+    }
+  };
+  tier('back'); tier('left'); tier('right');
+  // floodlight rigs + volumetric cones
+  for (const lx of [-8, 0, 8]) {
+    const top = [lx, 15, 2.5];
+    P3.box(sc, C, [lx - 1.4, 14.8, 2], [lx + 1.4, 15.4, 3], '#16121f', { bias: -100 });
+    P3.sprite(sc, C, [lx, 14.75, 2.5], (x, y, px) => glow(x, y, 3.2 * px, flood, .5) + glow(x, y, 1.2 * px, '#ffffff', .9), { z: -1 });
+    const cone = [[lx - 1.2, 14.8, 2.5], [lx + 1.2, 14.8, 2.5], [lx + 5.5, 0, 2.5], [lx - 5.5, 0, 2.5]].map(p => P3.proj(C, p));
+    if (cone.every(Boolean)) { const g = linGrad([[0, flood, .2], [1, flood, 0]], 0, 0, 0, 1); sc.items.push({ z: -2, svg: `<defs>${g.def}</defs>` + S.poly(cone, g.url, { style: 'mix-blend-mode:screen' }) }); }
+  }
+  // course table: legs + slab + rim highlight
+  P3.box(sc, C, [-5.2, 0, -.2], [5.2, .72, 5.2], '#1d2338', { top: '#24304a' });
+  P3.line(sc, C, [-5.2, .721, -.2], [5.2, .721, -.2], '#9fb2ff', .025, { world: true, z: P3.view(C, [0, .7, -.2])[2] - .5 });
+  // route (dotted), barriers, robot
+  const route = (o.route || ROUTE_OK).map(([x, y]) => [T3.x(x), .725, T3.z(y)]);
+  for (let i = 1; i < route.length; i++) for (let k = 0; k < 1; k += .12) { const a = route[i - 1], b = route[i]; P3.line(sc, C, [lerp(a[0], b[0], k), .725, lerp(a[2], b[2], k)], [lerp(a[0], b[0], k + .06), .725, lerp(a[2], b[2], k + .06)], '#ffd27a', .05, { world: true, z: P3.view(C, [0, .7, 2.5])[2] - .1 }); }
+  for (const [bx, bz] of [[1040, 560], [1300, 470]]) P3.box(sc, C, [T3.x(bx) - .25, .72, T3.z(bz) - .1], [T3.x(bx) + .25, 1.05, T3.z(bz) + .1], PAL.metal, { top: PAL.metalL });
+  const [rx, rz, ang] = pathAt(o.route || ROUTE_OK, o.robotK ?? 0);
+  const R0 = [T3.x(rx), .72, T3.z(rz)], ca = Math.cos(rad(ang)), sa = Math.sin(rad(ang));
+  const rp = (dx, dz) => [R0[0] + dx * ca - dz * sa, 0, R0[2] + dx * sa + dz * ca];
+  // robot as an oriented box (top + 4 sides) so it turns in 3D along the route
+  const corners = [rp(-.22, -.16), rp(.22, -.16), rp(.22, .16), rp(-.22, .16)];
+  const ys = [.74, .92];
+  const rz0 = P3.view(C, [R0[0], .8, R0[2]])[2] - .2;
+  P3.poly(sc, C, corners.map(p => [p[0], ys[1], p[2]]).reverse(), '#c9cdd8', { z: rz0 - .01, n: [0, 1, 0], twoSided: true });
+  for (let i = 0; i < 4; i++) { const a = corners[i], b = corners[(i + 1) % 4]; const n = norm3([(a[2] - b[2]), 0, (b[0] - a[0])]); P3.poly(sc, C, [[a[0], ys[0], a[2]], [b[0], ys[0], b[2]], [b[0], ys[1], b[2]], [a[0], ys[1], a[2]]], '#8a8fa0', { z: rz0, n: [-n[0], 0, -n[2]], twoSided: true }); }
+  P3.sprite(sc, C, [R0[0], .95, R0[2]], (x, y, px) => glow(x, y, .5 * px, o.led || '#ffb24a', .7) + S.circle(x, y, .05 * px, '#fff'), { z: rz0 - .05 });
+  // Eli at the team station (front-left of the table), controller in hand
+  if (o.eli !== false) P3.sprite(sc, C, [-6.4, 0, .6], (x, y, px) => ch({ who: 'eli', x, y, h: 1.72 * px, f: 1, pose: o.eliPose || P.stand(), expr: o.eliExpr || 'focused', t: T, light: LT.floodL, noDyn: true }));
+  if (o.focus === undefined) return P3.render(sc);
+  // depth of field: split at the focus distance; the far group goes to a blurred layer
+  const fz = o.focus, far = sc.items.filter(i => i.z > fz && i.z < 5e5 || i.z >= 5e5), near = sc.items.filter(i => !far.includes(i));
+  return { far: P3.render({ items: far }), near: P3.render({ items: near }) };
+}
