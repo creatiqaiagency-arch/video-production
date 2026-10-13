@@ -49,18 +49,42 @@
     clutch:    { front: 'in', aB: [0.8, 2.0], aF: [0.8, 2.0], lB: [0.08, 0], lF: [-0.08, 0] },     // hands to chest
     bag:       { front: 'in', aB: [0.6, 1.5], aF: [1.0, 1.0], lB: [0.04, 0], lF: [-0.04, 0] },
   };
-  E.blendPose = (a, b, t) => { const o = {}; for (const k of ['aB', 'aF', 'lB', 'lF']) o[k] = [E.lerp(a[k][0], b[k][0], t), E.lerp(a[k][1], b[k][1], t)]; o.front = t < 0.5 ? a.front : b.front; return o; };
+  E.blendPose = (a, b, t) => { const o = {}; for (const k of ['aB', 'aF', 'lB', 'lF']) o[k] = [E.lerp(a[k][0], b[k][0], t), E.lerp(a[k][1], b[k][1], t)]; o.front = t < 0.5 ? a.front : b.front; o.lean = E.lerp(a.lean || 0, b.lean || 0, t); return o; };
   E.POSE.cheerFists = { aB: [2.75, 0.25], aF: [2.8, 0.2], lB: [0.1, 0], lF: [-0.1, 0] };
   E.POSE.neck = { front: 'in', aB: [0.12, 0.15], aF: [2.0, 2.3], lB: [0.04, 0], lF: [-0.04, 0] };   // hand behind neck (shy)
   E.POSE.palms = { front: 'in', aB: [0.5, 1.2], aF: [0.5, 1.2], lB: [0.04, 0], lF: [-0.04, 0] };    // looking at hands
   E.POSE.behind = { aB: [-0.35, -0.6], aF: [-0.3, -0.6], lB: [0.04, 0], lF: [-0.04, 0] };          // hands behind back
   E.POSE.push = { front: 'in', aB: [1.2, 0.35], aF: [1.25, 0.3], lB: [0.25, 0.15], lF: [-0.2, 0.05] }; // pushing doors
-  E.walkPose = (ph, amp = 1) => { const s = Math.sin(ph * Math.PI * 2) * amp; return { aB: [-s * 0.45, 0.35], aF: [s * 0.45, 0.35], lB: [s * 0.45, Math.max(0, -s) * 0.6 + 0.05], lF: [-s * 0.45, Math.max(0, s) * 0.6 + 0.05] }; };
+  // Walk cycle (V3): proper contact → down → passing → up. Knees bend backwards, the swing leg lifts its
+  // foot at passing, arms counter-swing and lag the legs (overlapping action), elbows bend more on the forward
+  // swing, slight forward lean. Auto-ground turns the leg spread into the natural down/up body bob.
+  E.walkCycle = (ph, amp = 1) => {
+    const A = 0.4 * amp, w = Math.PI * 2, s = Math.sin(ph * w), c = Math.cos(ph * w);
+    const sa = Math.sin((ph - 0.06) * w);
+    const kB = -(0.08 + 0.95 * Math.pow(Math.max(0, c), 1.6)) * amp, kF = -(0.08 + 0.95 * Math.pow(Math.max(0, -c), 1.6)) * amp;
+    return { walk: false, lean: 0.05 * amp,
+      aB: [-sa * 0.5 * amp, 0.28 + 0.3 * Math.max(0, -sa) * amp], aF: [sa * 0.5 * amp, 0.28 + 0.3 * Math.max(0, sa) * amp],
+      lB: [A * s, kB], lF: [-A * s, kF] };
+  };
+  // walkPose keeps its old signature; E.char replaces the phase with one driven by the distance the
+  // character actually travels (no foot sliding), or a steady cadence when walking in place.
+  E.walkPose = (ph, amp = 1) => Object.assign(E.walkCycle(ph, amp), { walk: true, ph, amp });
+  const WALK = new Map();
+  E.walkPhase = (c, pose) => {
+    const cos = c.costume; const key = (c.seed || 0) + '|' + (typeof cos === 'string' ? cos : cos ? (cos.topC || '') + (cos.hair || '') : '') + '|' + (c.f > 0 ? 1 : 0);
+    const t = c.t || 0, prev = WALK.get(key); let ph;
+    const cyc = 0.62 * c.h * (pose.amp || 1);
+    if (prev && t > prev.t && t - prev.t < 0.2) {
+      const dt = t - prev.t, d = Math.hypot(c.x - prev.x, (c.y - prev.y) * 0.8);
+      ph = prev.ph + (d / dt > 0.06 * c.h ? d / cyc : dt * 0.95);
+    } else ph = pose.ph || 0;
+    WALK.set(key, { t, x: c.x, y: c.y, ph }); return ph;
+  };
   E.poseAt = (t, ks) => { // ks: [[t, 'poseName'|poseObj], ...] eased transitions of 0.35s
     let cur = ks[0][1];
     for (let i = 1; i < ks.length; i++) {
       if (t >= ks[i][0]) cur = ks[i][1];
-      else { const prev = typeof ks[i - 1][1] === 'string' ? E.POSE[ks[i - 1][1]] : ks[i - 1][1]; const nx = typeof ks[i][1] === 'string' ? E.POSE[ks[i][1]] : ks[i][1]; const dt = ks[i][2] || 0.35; if (t > ks[i][0] - dt) return E.blendPose(prev, nx, E.ease.io((t - (ks[i][0] - dt)) / dt)); return prev; }
+      else { const prev = typeof ks[i - 1][1] === 'string' ? E.POSE[ks[i - 1][1]] : ks[i - 1][1]; const nx = typeof ks[i][1] === 'string' ? E.POSE[ks[i][1]] : ks[i][1]; const dt = ks[i][2] || 0.35; if (t > ks[i][0] - dt) { const p = (t - (ks[i][0] - dt)) / dt; const o = E.blendPose(prev, nx, E.ease.io(p)); const pa = E.ease.anim(E.clamp((p - 0.12) / 0.88)); for (const k of ['aB', 'aF']) o[k] = [E.lerp(prev[k][0], nx[k][0], pa), E.lerp(prev[k][1], nx[k][1], pa)]; return o; } return prev; }
     }
     return typeof cur === 'string' ? E.POSE[cur] : cur;
   };
@@ -69,7 +93,8 @@
   // c: {x,y,h, f (facing -1..1), pose, expr, talk, blink, look:[x,y], tilt, costume, rim:{dx,dy,color,a}, alpha, bob}
   E.char = (ctx, c) => {
     const cos = typeof c.costume === 'string' ? E.COSTUME[c.costume] : c.costume || E.COSTUME.kid;
-    const pose = c.pose ? (typeof c.pose === 'string' ? E.POSE[c.pose] : c.pose) : E.POSE.stand;
+    let pose = c.pose ? (typeof c.pose === 'string' ? E.POSE[c.pose] : c.pose) : E.POSE.stand;
+    if (pose.walk) pose = E.walkCycle(E.walkPhase(c, pose), pose.amp);
     const h = c.h, f = c.f === undefined ? 0.6 : c.f;
     const fd = Math.abs(f) > 0.35 ? Math.sign(f) : 0;
     const R = 0.14 * h, lw = 0.062 * h;
@@ -81,7 +106,7 @@
     const neckY = headY + R * 0.9;
     const shY = neckY + 0.04 * h - breath * 0.4;
     const sway = life * Math.sin(tt * 0.9 + sd * 2.1) * 0.045;
-    const lean = c.lean || 0;
+    const lean = (c.lean || 0) + (pose.lean || 0);
     const headX = lean * h * 0.1 + f * R * 0.08;
     const shSpread = 0.065 * h * (1 - Math.abs(f) * 0.75);
     const hipSpread = 0.04 * h * (1 - Math.abs(f) * 0.7);

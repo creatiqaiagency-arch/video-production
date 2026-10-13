@@ -13,6 +13,8 @@
     out: (t) => 1 - Math.pow(1 - t, 3),
     io: (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
     sine: (t) => -(Math.cos(Math.PI * t) - 1) / 2,
+    // animation-principles ease: tiny anticipation dip, then a fast move that overshoots ~6 % and settles
+    anim: (t) => (t < 0.14 ? -0.05 * Math.sin((t / 0.14) * Math.PI) : (() => { const u = (t - 0.14) / 0.86, c1 = 1.1, c3 = c1 + 1; return 1 + c3 * Math.pow(u - 1, 3) + c1 * Math.pow(u - 1, 2); })()),
     back: (t) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); },
     expo: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
   };
