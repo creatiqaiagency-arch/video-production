@@ -204,6 +204,54 @@ function drawFigure(o, pose, mono) {
   return { svg: s, j: { handF: rot(fArm.hand), handB: rot(bArm.hand), head: rot([0, headY]), hip: [0, hipY] } };
 }
 
+
+// ---- secondary dynamics (bible: follow-through & overlap, drag, squash & stretch, arcs) ----
+// Per-character springs carried frame to frame. State resets on a cut or a time jump, so stills stay exact.
+const DYN = { T: null, shot: null, idx: {}, st: {}, dt: 1 / 24 };
+function dynFrame(T, shot) {
+  const cont = DYN.T !== null && shot === DYN.shot && Math.abs(T - DYN.T - DYN.dt) < DYN.dt * .5;
+  if (!cont) DYN.st = {};
+  DYN.T = T; DYN.shot = shot; DYN.idx = {}; DYN.live = cont;
+}
+function spring(st, k, x, f, z) {
+  let y = st[k], v = st[k + 'v'] || 0;
+  if (y === undefined || Math.abs(x - y) > 120) { st[k] = x; st[k + 'v'] = 0; return x; }
+  const w = TAU * f, h = DYN.dt / 2;
+  for (let i = 0; i < 2; i++) { v += (w * w * (x - y) - 2 * z * w * v) * h; y += v * h; }
+  st[k] = y; st[k + 'v'] = v; return y;
+}
+function dynamics(o, pose, h) {
+  const who = o.who || 'x'; 
+  const key = who + '|' + (DYN.idx[who] = (DYN.idx[who] || 0) + 1);
+  const X = o.x ?? 0, Y = o.y ?? 0;
+  let st = DYN.st[key];
+  // a jump of more than half a body in one frame is a teleport or a different character: start fresh
+  if (st && (Math.abs(X - st.x) > h * .5 || Math.abs(Y - st.y) > h * .5)) st = null;
+  const fresh = !st;
+  if (!st) st = DYN.st[key] = {};
+  const out = { pose, sx: 1, sy: 1, headLag: 0 };
+  if (o.still || o.noDyn) return out;
+  // drag: lean into horizontal travel
+  const vx = fresh ? 0 : (X - st.x) / DYN.dt * (o.f || 1);
+  st.x = X;
+  const dragLean = clamp(vx / h * 2.2, -5, 5);
+  const p = { ...pose };
+  // follow-through / overlap on arms (legs stay planted)
+  for (const a of ['fa', 'ba']) if (p[a]) p[a] = [spring(st, a + '0', p[a][0], 4.5, .42), spring(st, a + '1', p[a][1], 4.0, .4)];
+  const leanT = (p.lean || 0) + dragLean;
+  p.lean = spring(st, 'lean', leanT, 3.2, .5);
+  out.headLag = clamp(spring(st, 'head', p.lean, 2.4, .45) - p.lean, -9, 9);
+  // squash & stretch on vertical travel (pivot at the feet, area preserved)
+  const vy = fresh ? 0 : (Y - st.y) / DYN.dt;
+  const pvy = st.vy || 0; st.y = Y; st.vy = vy;
+  const land = pvy > 0 && vy < pvy * .4 ? clamp((pvy - vy) / h * .018, 0, .16) : 0;
+  st.sq = Math.max((st.sq || 0) * .62, land);
+  const sy = (1 + clamp(Math.abs(vy) / h * .028, 0, .1)) * (1 - st.sq);
+  out.sy = sy; out.sx = 1 / Math.sqrt(sy);
+  out.pose = p;
+  return out;
+}
+
 // public: character(o)
 // o: {who, x, y (ground or seat), h (height px), f (1 right/-1 left), pose, expr, turn, t, talk, light:{dx,dy,color}, rot, opacity}
 function character(o) {
@@ -220,19 +268,21 @@ function character(o) {
   if (o.nod === undefined) o.nod = tk > .05 ? -Math.abs(noise1(t * 5 + sd)) * 4 * tk : 0;
   const litSide = Math.sign(light.dx * f) || 1;
   const fo = { ...o, blink, litSide, face: { expr: o.expr, turn: o.turn ?? (o.front ? 0 : undefined), lookX: o.lookX, lookY: o.lookY, hideMouth: o.hideMouth, back: o.back } };
+  const dy = dynamics(o, pose, h);
+  pose = dy.pose; o.headTilt += dy.headLag;
   let main = drawFigure(fo, pose, null);
   if (o.headAt) { const hp = main.j.head; o = { ...o, x: o.headAt[0] - hp[0] * f * sc, y: o.headAt[1] - hp[1] * sc }; }
   const rimW = Math.min(16, Math.max(o.rimW ?? 6.5, h * .011)) / sc / (o.camZ || 1);
   const lx = light.dx * f * rimW, ly = light.dy * rimW;
   const rimCol = light.color || PAL.rim;
   const rim = drawFigure(fo, pose, rimCol);
-  const tf = `translate(${o.x},${o.y}) rotate(${o.rot || 0}) scale(${f * sc},${sc})`;
+  const tf = `translate(${o.x},${o.y}) rotate(${o.rot || 0}) scale(${(f * sc * dy.sx).toFixed(4)},${(sc * dy.sy).toFixed(4)})`;
   const rimG = (dx, dy) => S.g({ transform: `translate(${dx.toFixed(2)},${dy.toFixed(2)})`, opacity: light.op ?? 1 }, rim.svg);
     // rim bleed (bible: blurred copy of the rim under the hard edge so the light wraps into the air)
   const bleed = (dx, dy) => S.g({ transform: `translate(${(dx * 1.3).toFixed(2)},${(dy * 1.3).toFixed(2)})`, opacity: (light.op ?? 1) * .5, filter: 'url(#rimBleed)' }, rim.svg);
   const rims = light.none ? '' : light.both ? bleed(rimW, -rimW * .4) + bleed(-rimW, -rimW * .4) + rimG(rimW, -rimW * .4) + rimG(-rimW, -rimW * .4) : bleed(lx, ly) + rimG(lx, ly);
   const svg = S.g({ transform: tf, opacity: o.opacity }, rims, main.svg);
-  const w = p => { const r = rad(o.rot || 0), px = p[0] * f * sc, py = p[1] * sc; return [o.x + px * Math.cos(r) - py * Math.sin(r), o.y + px * Math.sin(r) + py * Math.cos(r)]; };
+  const w = p => { const r = rad(o.rot || 0), px = p[0] * f * sc * dy.sx, py = p[1] * sc * dy.sy; return [o.x + px * Math.cos(r) - py * Math.sin(r), o.y + px * Math.sin(r) + py * Math.cos(r)]; };
   return { svg, handF: w(main.j.handF), handB: w(main.j.handB), head: w(main.j.head), headR: RIG.R * sc, hip: w(main.j.hip) };
 }
 const ch = o => character(o).svg;

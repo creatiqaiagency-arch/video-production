@@ -65,6 +65,8 @@ async function main() {
       const p = w === 0 ? page : (await openPage(browser)).page;
       const seg = `${args.video}.seg${w}.mp4`; segs[w] = seg;
       const ff = spawn('ffmpeg', ['-y', '-v', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', String(args.crf || 18), '-pix_fmt', 'yuv420p', seg], { stdio: ['pipe', 'inherit', 'inherit'] });
+      await p.evaluate(fps => { DYN.dt = 1 / fps; }, FPS);
+      for (let f = Math.max(0, f0 - 24); f < f0; f++) await p.evaluate(T => window.renderAt(T), from + f / FPS); // warm up the springs across chunk seams
       for (let f = f0; f < f1; f++) {
         const T = from + f / FPS;
         await p.evaluate(T => window.renderAt(T), T);

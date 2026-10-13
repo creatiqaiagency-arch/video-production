@@ -25,6 +25,7 @@ window.ready = (async () => {
 })();
 window.renderAt = (T) => {
   resetUid();
+  dynFrame(T, findShot(window.TL, T).id);
   const spec = frameSpec(window.TL, T);
   document.getElementById('stage').innerHTML = composeFrame(spec, T);
   return true;
