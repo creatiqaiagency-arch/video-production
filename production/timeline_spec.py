@@ -66,7 +66,7 @@ BLOCKS = [
   # ---------------- ACT II ----------------
   dict(name='B10', vo=[('N10', 0.6), ('F01', 0.3)], shots=[
       ('s032', 'g_matchCut', 'N10.1'),
-      ('s033', 'g_wide', 'N10.3'),
+      ('s033', 'g_wide3d', 'N10.3'),
       ('s034', 'g_serveOTS', 'N10.4'),
       ('s035', 'g_overhead', 'N10$+0.2'),
       ('s036', 'g_samStunned', 'F01$+0.3'),
