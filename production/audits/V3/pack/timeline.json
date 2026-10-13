@@ -1,0 +1,1887 @@
+{
+ "lines": {
+  "s01_vo1": {
+   "start": 1.0,
+   "end": 9.922,
+   "dur": 8.922,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "What if you could hear what EVERYONE was thinking? Every secret. Every lie. Even what your crush ACTUALLY thinks about you.",
+   "file": "audio/vo/s01_vo1.wav",
+   "segs": [
+    [
+     1.0,
+     2.083
+    ],
+    [
+     2.292,
+     2.875
+    ],
+    [
+     3.083,
+     3.667
+    ],
+    [
+     4.125,
+     4.917
+    ],
+    [
+     5.292,
+     5.875
+    ],
+    [
+     6.542,
+     7.542
+    ],
+    [
+     7.792,
+     8.417
+    ],
+    [
+     8.75,
+     9.417
+    ]
+   ]
+  },
+  "s01_vo2": {
+   "start": 10.282,
+   "end": 14.991,
+   "dur": 4.709,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "Well... one morning, Noah woke up with exactly that power.",
+   "file": "audio/vo/s01_vo2.wav",
+   "segs": [
+    [
+     10.324,
+     10.49
+    ],
+    [
+     11.407,
+     11.907
+    ],
+    [
+     12.115,
+     12.74
+    ],
+    [
+     12.99,
+     14.282
+    ]
+   ]
+  },
+  "s01_barista_say": {
+   "start": 17.791,
+   "end": 19.58,
+   "dur": 1.789,
+   "speaker": "barista",
+   "kind": "spoken",
+   "text": "Here you go! Have a great day!",
+   "file": "audio/vo/s01_barista_say.wav",
+   "segs": [
+    [
+     17.833,
+     18.416
+    ],
+    [
+     18.624,
+     19.583
+    ]
+   ]
+  },
+  "s01_barista_th1": {
+   "start": 19.78,
+   "end": 22.69,
+   "dur": 2.91,
+   "speaker": "barista",
+   "kind": "thought",
+   "text": "Please don't spill it. Please don't spill it.",
+   "file": "audio/vo/s01_barista_th1.wav",
+   "segs": [
+    [
+     19.988,
+     20.905
+    ],
+    [
+     21.322,
+     21.947
+    ],
+    [
+     22.155,
+     22.697
+    ]
+   ]
+  },
+  "s01_noah1": {
+   "start": 23.22,
+   "end": 24.091,
+   "dur": 0.871,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "WHAT THE\u2014",
+   "file": "audio/vo/s01_noah1.wav",
+   "segs": [
+    [
+     23.22,
+     23.47
+    ],
+    [
+     23.678,
+     24.095
+    ]
+   ]
+  },
+  "s01_barista_th2": {
+   "start": 26.341,
+   "end": 28.101,
+   "dur": 1.76,
+   "speaker": "barista",
+   "kind": "thought",
+   "text": "I'm getting fired.",
+   "file": "audio/vo/s01_barista_th2.wav",
+   "segs": [
+    [
+     26.383,
+     27.466
+    ],
+    [
+     27.924,
+     28.133
+    ]
+   ]
+  },
+  "s02_vo1": {
+   "start": 32.801,
+   "end": 44.672,
+   "dur": 11.871,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "At first, he thought he was losing his mind. But when he walked outside... he realized he could hear EVERY single person around him.",
+   "file": "audio/vo/s02_vo1.wav",
+   "segs": [
+    [
+     32.801,
+     33.384
+    ],
+    [
+     33.718,
+     34.884
+    ],
+    [
+     37.759,
+     38.801
+    ],
+    [
+     40.343,
+     40.884
+    ],
+    [
+     41.259,
+     41.801
+    ],
+    [
+     42.134,
+     44.676
+    ]
+   ]
+  },
+  "s02_biz_say": {
+   "start": 44.972,
+   "end": 47.211,
+   "dur": 2.239,
+   "speaker": "businessman",
+   "kind": "spoken",
+   "text": "Yes, boss. Almost at the office.",
+   "file": "audio/vo/s02_biz_say.wav",
+   "segs": [
+    [
+     45.014,
+     46.972
+    ]
+   ]
+  },
+  "s02_biz_th": {
+   "start": 47.461,
+   "end": 50.155,
+   "dur": 2.694,
+   "speaker": "businessman",
+   "kind": "thought",
+   "text": "I'm still twenty minutes away.",
+   "file": "audio/vo/s02_biz_th.wav",
+   "segs": [
+    [
+     47.503,
+     50.169
+    ]
+   ]
+  },
+  "s02_woman_th": {
+   "start": 50.635,
+   "end": 52.083,
+   "dur": 1.448,
+   "speaker": "woman",
+   "kind": "thought",
+   "text": "Did I leave the oven on?",
+   "file": "audio/vo/s02_woman_th.wav",
+   "segs": [
+    [
+     50.635,
+     52.093
+    ]
+   ]
+  },
+  "s02_man_th": {
+   "start": 52.643,
+   "end": 54.85,
+   "dur": 2.207,
+   "speaker": "man",
+   "kind": "thought",
+   "text": "Why is that kid staring at me?",
+   "file": "audio/vo/s02_man_th.wav",
+   "segs": [
+    [
+     52.685,
+     54.851
+    ]
+   ]
+  },
+  "s02_noah1": {
+   "start": 55.35,
+   "end": 58.922,
+   "dur": 3.572,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "Oh my god. This is actually real.",
+   "file": "audio/vo/s02_noah1.wav",
+   "segs": [
+    [
+     55.392,
+     56.35
+    ],
+    [
+     57.558,
+     58.683
+    ]
+   ]
+  },
+  "s03_vo1": {
+   "start": 59.622,
+   "end": 67.001,
+   "dur": 7.379,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "And once Noah figured out how it worked, he realized something even crazier. He could use it to get basically ANYTHING he wanted.",
+   "file": "audio/vo/s03_vo1.wav",
+   "segs": [
+    [
+     59.664,
+     61.33
+    ],
+    [
+     61.83,
+     63.414
+    ],
+    [
+     64.039,
+     65.497
+    ],
+    [
+     65.747,
+     66.164
+    ],
+    [
+     66.414,
+     66.789
+    ]
+   ]
+  },
+  "s03_teacher1": {
+   "start": 67.401,
+   "end": 69.881,
+   "dur": 2.48,
+   "speaker": "teacher",
+   "kind": "spoken",
+   "text": "Noah. What's the answer to question seven?",
+   "file": "audio/vo/s03_teacher1.wav",
+   "segs": [
+    [
+     67.443,
+     67.776
+    ],
+    [
+     68.151,
+     69.901
+    ]
+   ]
+  },
+  "s03_noah1": {
+   "start": 70.121,
+   "end": 70.953,
+   "dur": 0.832,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "Uh...",
+   "file": "audio/vo/s03_noah1.wav",
+   "segs": [
+    [
+     70.163,
+     70.954
+    ]
+   ]
+  },
+  "s03_teacher_th": {
+   "start": 71.203,
+   "end": 74.003,
+   "dur": 2.801,
+   "speaker": "teacher",
+   "kind": "thought",
+   "text": "Please don't say C again. It's B.",
+   "file": "audio/vo/s03_teacher_th.wav",
+   "segs": [
+    [
+     71.37,
+     72.87
+    ],
+    [
+     73.245,
+     73.786
+    ]
+   ]
+  },
+  "s03_noah2": {
+   "start": 74.603,
+   "end": 75.779,
+   "dur": 1.175,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "B!",
+   "file": "audio/vo/s03_noah2.wav",
+   "segs": [
+    [
+     74.728,
+     75.061
+    ]
+   ]
+  },
+  "s03_teacher2": {
+   "start": 76.059,
+   "end": 78.078,
+   "dur": 2.019,
+   "speaker": "teacher",
+   "kind": "spoken",
+   "text": "...Correct.",
+   "file": "audio/vo/s03_teacher2.wav",
+   "segs": [
+    [
+     76.142,
+     76.392
+    ]
+   ]
+  },
+  "s03_vo2": {
+   "start": 78.678,
+   "end": 80.874,
+   "dur": 2.197,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "Suddenly, school wasn't so difficult anymore.",
+   "file": "audio/vo/s03_vo2.wav",
+   "segs": [
+    [
+     78.72,
+     80.886
+    ]
+   ]
+  },
+  "s04_vo1": {
+   "start": 83.214,
+   "end": 94.57,
+   "dur": 11.356,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "But there was one person Noah wanted to read more than anyone. Maya. The girl he'd been too scared to talk to for almost a year.",
+   "file": "audio/vo/s04_vo1.wav",
+   "segs": [
+    [
+     83.256,
+     84.422
+    ],
+    [
+     84.756,
+     85.714
+    ],
+    [
+     86.089,
+     86.881
+    ],
+    [
+     89.339,
+     89.797
+    ],
+    [
+     91.006,
+     92.839
+    ],
+    [
+     93.214,
+     93.756
+    ],
+    [
+     93.964,
+     94.339
+    ]
+   ]
+  },
+  "s04_maya_th1": {
+   "start": 97.17,
+   "end": 101.296,
+   "dur": 4.126,
+   "speaker": "maya",
+   "kind": "thought",
+   "text": "Wait... Noah actually looks kinda cute today.",
+   "file": "audio/vo/s04_maya_th1.wav",
+   "segs": [
+    [
+     97.17,
+     97.212
+    ],
+    [
+     97.503,
+     97.837
+    ],
+    [
+     98.337,
+     101.128
+    ]
+   ]
+  },
+  "s04_noah1": {
+   "start": 101.576,
+   "end": 103.068,
+   "dur": 1.493,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "No way.",
+   "file": "audio/vo/s04_noah1.wav",
+   "segs": [
+    [
+     102.409,
+     103.076
+    ]
+   ]
+  },
+  "s04_maya_th2": {
+   "start": 103.568,
+   "end": 105.806,
+   "dur": 2.238,
+   "speaker": "maya",
+   "kind": "thought",
+   "text": "Why is he smiling like that?",
+   "file": "audio/vo/s04_maya_th2.wav",
+   "segs": [
+    [
+     103.693,
+     105.818
+    ]
+   ]
+  },
+  "s04_noah2": {
+   "start": 106.006,
+   "end": 106.605,
+   "dur": 0.599,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "Oh.",
+   "file": "audio/vo/s04_noah2.wav",
+   "segs": [
+    [
+     106.048,
+     106.631
+    ]
+   ]
+  },
+  "s05_vo1": {
+   "start": 107.805,
+   "end": 117.149,
+   "dur": 9.343,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "For the first few hours, Noah thought he'd become the luckiest person alive. Until he walked into the school cafeteria.",
+   "file": "audio/vo/s05_vo1.wav",
+   "segs": [
+    [
+     107.888,
+     108.93
+    ],
+    [
+     109.222,
+     111.388
+    ],
+    [
+     114.555,
+     115.097
+    ],
+    [
+     115.43,
+     116.93
+    ]
+   ]
+  },
+  "s05_noah1": {
+   "start": 119.829,
+   "end": 121.919,
+   "dur": 2.09,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "Wait. Wait, hold on\u2014",
+   "file": "audio/vo/s05_noah1.wav",
+   "segs": [
+    [
+     119.871,
+     120.287
+    ],
+    [
+     121.162,
+     121.954
+    ]
+   ]
+  },
+  "s06_vo1": {
+   "start": 122.959,
+   "end": 132.763,
+   "dur": 9.805,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "You see, hearing one person's thoughts was amazing. Hearing TWO HUNDRED people's thoughts at once? Not so much.",
+   "file": "audio/vo/s06_vo1.wav",
+   "segs": [
+    [
+     122.959,
+     124.751
+    ],
+    [
+     125.001,
+     125.542
+    ],
+    [
+     127.251,
+     127.626
+    ],
+    [
+     127.876,
+     128.917
+    ],
+    [
+     129.126,
+     130.417
+    ],
+    [
+     132.042,
+     132.792
+    ]
+   ]
+  },
+  "s06_c1": {
+   "start": 133.003,
+   "end": 134.218,
+   "dur": 1.215,
+   "speaker": "crowd_a",
+   "kind": "thought",
+   "text": "I'm starving.",
+   "file": "audio/vo/s06_c1.wav",
+   "segs": [
+    [
+     133.045,
+     134.045
+    ]
+   ]
+  },
+  "s06_c2": {
+   "start": 133.703,
+   "end": 135.637,
+   "dur": 1.934,
+   "speaker": "crowd_b",
+   "kind": "thought",
+   "text": "Why did she leave me on read?",
+   "file": "audio/vo/s06_c2.wav",
+   "segs": [
+    [
+     133.745,
+     135.661
+    ]
+   ]
+  },
+  "s06_c3": {
+   "start": 134.453,
+   "end": 135.794,
+   "dur": 1.341,
+   "speaker": "crowd_c",
+   "kind": "thought",
+   "text": "I hate Mondays.",
+   "file": "audio/vo/s06_c3.wav",
+   "segs": [
+    [
+     134.495,
+     135.578
+    ]
+   ]
+  },
+  "s06_c4": {
+   "start": 135.053,
+   "end": 136.814,
+   "dur": 1.76,
+   "speaker": "crowd_d",
+   "kind": "thought",
+   "text": "Did I fail chemistry?",
+   "file": "audio/vo/s06_c4.wav",
+   "segs": [
+    [
+     135.178,
+     136.845
+    ]
+   ]
+  },
+  "s06_c5": {
+   "start": 135.853,
+   "end": 137.726,
+   "dur": 1.873,
+   "speaker": "crowd_e",
+   "kind": "thought",
+   "text": "Does anyone even like me?",
+   "file": "audio/vo/s06_c5.wav",
+   "segs": [
+    [
+     135.895,
+     137.728
+    ]
+   ]
+  },
+  "s06_c6": {
+   "start": 136.353,
+   "end": 138.069,
+   "dur": 1.715,
+   "speaker": "crowd_f",
+   "kind": "thought",
+   "text": "Is my hair weird today?",
+   "file": "audio/vo/s06_c6.wav",
+   "segs": [
+    [
+     136.353,
+     138.103
+    ]
+   ]
+  },
+  "s06_c7": {
+   "start": 136.753,
+   "end": 139.59,
+   "dur": 2.836,
+   "speaker": "crowd_g",
+   "kind": "thought",
+   "text": "Two more periods. Just two more.",
+   "file": "audio/vo/s06_c7.wav",
+   "segs": [
+    [
+     136.836,
+     137.878
+    ],
+    [
+     138.211,
+     139.211
+    ]
+   ]
+  },
+  "s06_c8": {
+   "start": 137.103,
+   "end": 138.986,
+   "dur": 1.883,
+   "speaker": "crowd_h",
+   "kind": "thought",
+   "text": "I should have studied.",
+   "file": "audio/vo/s06_c8.wav",
+   "segs": [
+    [
+     137.145,
+     138.728
+    ]
+   ]
+  },
+  "s06_vo2": {
+   "start": 140.19,
+   "end": 145.505,
+   "dur": 5.315,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "Everyone was thinking something different. And Noah couldn't turn ANY of it off.",
+   "file": "audio/vo/s06_vo2.wav",
+   "segs": [
+    [
+     140.232,
+     141.732
+    ],
+    [
+     142.357,
+     142.857
+    ],
+    [
+     143.107,
+     143.857
+    ],
+    [
+     144.148,
+     144.482
+    ],
+    [
+     144.732,
+     145.273
+    ]
+   ]
+  },
+  "s07_vo1": {
+   "start": 148.605,
+   "end": 160.493,
+   "dur": 11.888,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "He tried covering his ears. Nothing. He tried headphones. Still nothing. He even locked himself in an empty bathroom.",
+   "file": "audio/vo/s07_vo1.wav",
+   "segs": [
+    [
+     148.647,
+     149.938
+    ],
+    [
+     151.772,
+     152.022
+    ],
+    [
+     153.688,
+     154.48
+    ],
+    [
+     156.105,
+     156.48
+    ],
+    [
+     158.105,
+     160.147
+    ]
+   ]
+  },
+  "s07_noah1": {
+   "start": 161.593,
+   "end": 163.258,
+   "dur": 1.665,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "ARE YOU KIDDING ME?",
+   "file": "audio/vo/s07_noah1.wav",
+   "segs": [
+    [
+     161.593,
+     163.051
+    ]
+   ]
+  },
+  "s08_vo1": {
+   "start": 164.298,
+   "end": 173.242,
+   "dur": 8.944,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "But the worst thing Noah heard that day wasn't from a stranger. It came from Leo. His best friend since they were kids.",
+   "file": "audio/vo/s08_vo1.wav",
+   "segs": [
+    [
+     164.34,
+     166.215
+    ],
+    [
+     166.506,
+     167.423
+    ],
+    [
+     169.59,
+     170.381
+    ],
+    [
+     171.256,
+     172.673
+    ],
+    [
+     172.881,
+     173.256
+    ]
+   ]
+  },
+  "s08_leo_say1": {
+   "start": 173.742,
+   "end": 175.387,
+   "dur": 1.645,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "Yo, you coming over Friday?",
+   "file": "audio/vo/s08_leo_say1.wav",
+   "segs": [
+    [
+     173.825,
+     175.409
+    ]
+   ]
+  },
+  "s08_leo_th1": {
+   "start": 175.667,
+   "end": 177.299,
+   "dur": 1.632,
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "I can't keep doing this.",
+   "file": "audio/vo/s08_leo_th1.wav",
+   "segs": [
+    [
+     175.667,
+     177.334
+    ]
+   ]
+  },
+  "s08_noah1": {
+   "start": 177.699,
+   "end": 178.801,
+   "dur": 1.102,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "...Doing what?",
+   "file": "audio/vo/s08_noah1.wav",
+   "segs": [
+    [
+     177.699,
+     178.449
+    ]
+   ]
+  },
+  "s08_leo_say2": {
+   "start": 179.051,
+   "end": 180.205,
+   "dur": 1.154,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "What?",
+   "file": "audio/vo/s08_leo_say2.wav",
+   "segs": [
+    [
+     179.093,
+     179.468
+    ]
+   ]
+  },
+  "s08_leo_th2": {
+   "start": 180.525,
+   "end": 183.117,
+   "dur": 2.592,
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "I have to tell him. He's gonna hate me.",
+   "file": "audio/vo/s08_leo_th2.wav",
+   "segs": [
+    [
+     180.567,
+     181.358
+    ],
+    [
+     181.942,
+     182.942
+    ]
+   ]
+  },
+  "s09_vo1": {
+   "start": 185.717,
+   "end": 197.604,
+   "dur": 11.887,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "Noah couldn't stop thinking about what he'd heard. Was Leo planning to ditch him? Had he been lying this whole time? And the more Noah listened... the worse it got.",
+   "file": "audio/vo/s09_vo1.wav",
+   "segs": [
+    [
+     185.717,
+     188.009
+    ],
+    [
+     189.675,
+     190.925
+    ],
+    [
+     191.425,
+     193.217
+    ],
+    [
+     194.634,
+     195.884
+    ],
+    [
+     196.759,
+     197.384
+    ],
+    [
+     197.592,
+     197.634
+    ]
+   ]
+  },
+  "s09_leo_th1": {
+   "start": 197.924,
+   "end": 200.001,
+   "dur": 2.077,
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "I wish he'd stop asking.",
+   "file": "audio/vo/s09_leo_th1.wav",
+   "segs": [
+    [
+     197.966,
+     199.757
+    ]
+   ]
+  },
+  "s09_leo_th2": {
+   "start": 200.721,
+   "end": 203.907,
+   "dur": 3.186,
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "Friday. I have to do it Friday.",
+   "file": "audio/vo/s09_leo_th2.wav",
+   "segs": [
+    [
+     200.846,
+     201.263
+    ],
+    [
+     202.013,
+     203.929
+    ]
+   ]
+  },
+  "s09_vo2": {
+   "start": 204.307,
+   "end": 209.337,
+   "dur": 5.03,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "By the end of the day, Noah was convinced his best friend was hiding something terrible.",
+   "file": "audio/vo/s09_vo2.wav",
+   "segs": [
+    [
+     204.349,
+     205.182
+    ],
+    [
+     205.557,
+     207.432
+    ],
+    [
+     207.64,
+     208.015
+    ],
+    [
+     208.349,
+     209.015
+    ]
+   ]
+  },
+  "s10_maya_say1": {
+   "start": 210.377,
+   "end": 212.753,
+   "dur": 2.376,
+   "speaker": "maya",
+   "kind": "spoken",
+   "text": "Hey, Noah. You okay?",
+   "file": "audio/vo/s10_maya_say1.wav",
+   "segs": [
+    [
+     210.502,
+     211.002
+    ],
+    [
+     211.377,
+     211.96
+    ],
+    [
+     212.71,
+     212.794
+    ]
+   ]
+  },
+  "s10_maya_th1": {
+   "start": 213.003,
+   "end": 214.997,
+   "dur": 1.994,
+   "speaker": "maya",
+   "kind": "thought",
+   "text": "He seems really upset.",
+   "file": "audio/vo/s10_maya_th1.wav",
+   "segs": [
+    [
+     213.17,
+     214.795
+    ]
+   ]
+  },
+  "s10_noah1": {
+   "start": 215.237,
+   "end": 216.086,
+   "dur": 0.848,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "I'm fine.",
+   "file": "audio/vo/s10_noah1.wav",
+   "segs": [
+    [
+     215.279,
+     216.112
+    ]
+   ]
+  },
+  "s10_maya_th2": {
+   "start": 216.326,
+   "end": 219.716,
+   "dur": 3.39,
+   "speaker": "maya",
+   "kind": "thought",
+   "text": "I want to help, but I don't know what to say.",
+   "file": "audio/vo/s10_maya_th2.wav",
+   "segs": [
+    [
+     216.493,
+     217.784
+    ],
+    [
+     218.284,
+     219.534
+    ]
+   ]
+  },
+  "s10_noah2": {
+   "start": 219.866,
+   "end": 221.857,
+   "dur": 1.991,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "Then don't say ANYTHING!",
+   "file": "audio/vo/s10_noah2.wav",
+   "segs": [
+    [
+     219.908,
+     221.616
+    ]
+   ]
+  },
+  "s10_maya_say2": {
+   "start": 222.257,
+   "end": 223.171,
+   "dur": 0.914,
+   "speaker": "maya",
+   "kind": "spoken",
+   "text": "...What?",
+   "file": "audio/vo/s10_maya_say2.wav",
+   "segs": [
+    [
+     222.257,
+     223.174
+    ]
+   ]
+  },
+  "s10_vo1": {
+   "start": 224.771,
+   "end": 234.514,
+   "dur": 9.743,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "And that's when Noah realized something. Just because he could HEAR a thought... didn't mean he understood it.",
+   "file": "audio/vo/s10_vo1.wav",
+   "segs": [
+    [
+     224.813,
+     225.354
+    ],
+    [
+     225.563,
+     226.729
+    ],
+    [
+     228.979,
+     229.979
+    ],
+    [
+     230.229,
+     230.521
+    ],
+    [
+     230.979,
+     231.271
+    ],
+    [
+     232.688,
+     233.313
+    ],
+    [
+     233.646,
+     234.229
+    ]
+   ]
+  },
+  "s11_vo1": {
+   "start": 235.514,
+   "end": 243.146,
+   "dur": 7.631,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "But there was still one question he couldn't get out of his head. What was Leo planning to tell him on Friday?",
+   "file": "audio/vo/s11_vo1.wav",
+   "segs": [
+    [
+     235.514,
+     237.847
+    ],
+    [
+     239.306,
+     241.681
+    ]
+   ]
+  },
+  "s11_leo_th": {
+   "start": 243.986,
+   "end": 246.834,
+   "dur": 2.848,
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "Tomorrow's going to change everything.",
+   "file": "audio/vo/s11_leo_th.wav",
+   "segs": [
+    [
+     243.986,
+     245.528
+    ],
+    [
+     246.111,
+     246.861
+    ]
+   ]
+  },
+  "s12_vo1": {
+   "start": 251.034,
+   "end": 257.433,
+   "dur": 6.399,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "Friday finally came. And Noah wasn't going to wait around for Leo to tell him.",
+   "file": "audio/vo/s12_vo1.wav",
+   "segs": [
+    [
+     251.117,
+     252.326
+    ],
+    [
+     254.242,
+     254.701
+    ],
+    [
+     254.992,
+     257.159
+    ]
+   ]
+  },
+  "s12_noah1": {
+   "start": 258.033,
+   "end": 260.454,
+   "dur": 2.421,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "So. What were you gonna tell me?",
+   "file": "audio/vo/s12_noah1.wav",
+   "segs": [
+    [
+     258.075,
+     258.575
+    ],
+    [
+     259.283,
+     260.491
+    ]
+   ]
+  },
+  "s12_leo1": {
+   "start": 260.694,
+   "end": 261.53,
+   "dur": 0.836,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "What?",
+   "file": "audio/vo/s12_leo1.wav",
+   "segs": [
+    [
+     260.986,
+     261.569
+    ]
+   ]
+  },
+  "s12_noah2": {
+   "start": 261.77,
+   "end": 263.281,
+   "dur": 1.511,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "Don't act like you don't know.",
+   "file": "audio/vo/s12_noah2.wav",
+   "segs": [
+    [
+     261.77,
+     263.312
+    ]
+   ]
+  },
+  "s12_leo_th": {
+   "start": 263.561,
+   "end": 265.612,
+   "dur": 2.05,
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "Oh no. Not like this.",
+   "file": "audio/vo/s12_leo_th.wav",
+   "segs": [
+    [
+     263.603,
+     264.103
+    ],
+    [
+     264.686,
+     265.644
+    ]
+   ]
+  },
+  "s13_noah1": {
+   "start": 266.312,
+   "end": 269.649,
+   "dur": 3.338,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "You've been hiding something from me all week.",
+   "file": "audio/vo/s13_noah1.wav",
+   "segs": [
+    [
+     266.312,
+     268.145
+    ],
+    [
+     268.395,
+     268.77
+    ],
+    [
+     269.02,
+     269.687
+    ]
+   ]
+  },
+  "s13_leo1": {
+   "start": 269.889,
+   "end": 272.533,
+   "dur": 2.644,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "Noah, just let me explain.",
+   "file": "audio/vo/s13_leo1.wav",
+   "segs": [
+    [
+     269.931,
+     270.347
+    ],
+    [
+     270.722,
+     270.931
+    ],
+    [
+     271.222,
+     272.097
+    ]
+   ]
+  },
+  "s13_leo_th": {
+   "start": 272.773,
+   "end": 274.994,
+   "dur": 2.221,
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "He's gonna think I'm abandoning him.",
+   "file": "audio/vo/s13_leo_th.wav",
+   "segs": [
+    [
+     272.815,
+     275.023
+    ]
+   ]
+  },
+  "s13_noah2": {
+   "start": 275.274,
+   "end": 277.391,
+   "dur": 2.117,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "So you ARE abandoning me?",
+   "file": "audio/vo/s13_noah2.wav",
+   "segs": [
+    [
+     275.316,
+     277.399
+    ]
+   ]
+  },
+  "s13_leo2": {
+   "start": 277.591,
+   "end": 278.434,
+   "dur": 0.844,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "How did you\u2014",
+   "file": "audio/vo/s13_leo2.wav",
+   "segs": [
+    [
+     277.633,
+     278.466
+    ]
+   ]
+  },
+  "s13_noah3": {
+   "start": 278.534,
+   "end": 280.788,
+   "dur": 2.253,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "I KNOW what you're thinking, Leo!",
+   "file": "audio/vo/s13_noah3.wav",
+   "segs": [
+    [
+     278.576,
+     280.826
+    ]
+   ]
+  },
+  "s14_leo1": {
+   "start": 284.688,
+   "end": 288.086,
+   "dur": 3.399,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "I got accepted into a school overseas.",
+   "file": "audio/vo/s14_leo1.wav",
+   "segs": [
+    [
+     284.73,
+     285.605
+    ],
+    [
+     285.98,
+     286.855
+    ],
+    [
+     287.188,
+     288.105
+    ]
+   ]
+  },
+  "s14_noah1": {
+   "start": 288.566,
+   "end": 289.14,
+   "dur": 0.573,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "...What?",
+   "file": "audio/vo/s14_noah1.wav",
+   "segs": [
+    [
+     288.566,
+     289.149
+    ]
+   ]
+  },
+  "s14_leo2": {
+   "start": 290.94,
+   "end": 294.12,
+   "dur": 3.181,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "Full scholarship. My mom's already sorting everything out.",
+   "file": "audio/vo/s14_leo2.wav",
+   "segs": [
+    [
+     291.065,
+     291.773
+    ],
+    [
+     292.273,
+     293.94
+    ]
+   ]
+  },
+  "s14_noah2": {
+   "start": 294.6,
+   "end": 296.962,
+   "dur": 2.362,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "And you were just gonna leave without telling me?",
+   "file": "audio/vo/s14_noah2.wav",
+   "segs": [
+    [
+     294.642,
+     296.975
+    ]
+   ]
+  },
+  "s14_leo3": {
+   "start": 297.212,
+   "end": 300.711,
+   "dur": 3.499,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "No! I was trying to figure out HOW to tell you.",
+   "file": "audio/vo/s14_leo3.wav",
+   "segs": [
+    [
+     297.254,
+     297.712
+    ],
+    [
+     298.045,
+     299.212
+    ],
+    [
+     299.462,
+     300.754
+    ]
+   ]
+  },
+  "s14_leo_th": {
+   "start": 301.031,
+   "end": 303.098,
+   "dur": 2.067,
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "Please just be happy for me.",
+   "file": "audio/vo/s14_leo_th.wav",
+   "segs": [
+    [
+     301.073,
+     303.114
+    ]
+   ]
+  },
+  "s15_noah1": {
+   "start": 304.138,
+   "end": 306.256,
+   "dur": 2.118,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "You said you couldn't keep doing this.",
+   "file": "audio/vo/s15_noah1.wav",
+   "segs": [
+    [
+     304.18,
+     306.263
+    ]
+   ]
+  },
+  "s15_leo1": {
+   "start": 306.576,
+   "end": 312.317,
+   "dur": 5.741,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "Yeah. Pretending everything was normal... while I knew I was leaving.",
+   "file": "audio/vo/s15_leo1.wav",
+   "segs": [
+    [
+     306.618,
+     307.076
+    ],
+    [
+     307.743,
+     309.243
+    ],
+    [
+     309.951,
+     311.326
+    ]
+   ]
+  },
+  "s15_noah2": {
+   "start": 312.717,
+   "end": 314.134,
+   "dur": 1.418,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "And you thought I'd hate you?",
+   "file": "audio/vo/s15_noah2.wav",
+   "segs": [
+    [
+     312.759,
+     314.175
+    ]
+   ]
+  },
+  "s15_leo2": {
+   "start": 314.454,
+   "end": 318.116,
+   "dur": 3.662,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "I was scared you'd think I chose a new life over being your friend.",
+   "file": "audio/vo/s15_leo2.wav",
+   "segs": [
+    [
+     314.496,
+     318.121
+    ]
+   ]
+  },
+  "s15_leo3": {
+   "start": 320.916,
+   "end": 323.486,
+   "dur": 2.57,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "I wanted you to be the first person I told.",
+   "file": "audio/vo/s15_leo3.wav",
+   "segs": [
+    [
+     320.999,
+     323.499
+    ]
+   ]
+  },
+  "s16_vo1": {
+   "start": 327.086,
+   "end": 346.53,
+   "dur": 19.444,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "And suddenly... Noah understood. All day, he'd been hearing people's thoughts. But he'd been treating every passing fear, every unfinished sentence, and every private worry... like it was the whole truth. He could hear what people were thinking. He still didn't know what they meant.",
+   "file": "audio/vo/s16_vo1.wav",
+   "segs": [
+    [
+     327.128,
+     327.753
+    ],
+    [
+     328.836,
+     329.253
+    ],
+    [
+     329.461,
+     329.961
+    ],
+    [
+     331.544,
+     333.544
+    ],
+    [
+     334.044,
+     335.961
+    ],
+    [
+     336.378,
+     337.794
+    ],
+    [
+     338.086,
+     339.378
+    ],
+    [
+     339.961,
+     340.961
+    ],
+    [
+     342.461,
+     344.086
+    ],
+    [
+     344.961,
+     346.544
+    ]
+   ]
+  },
+  "s17_noah1": {
+   "start": 348.33,
+   "end": 351.877,
+   "dur": 3.547,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "Dude. You're actually getting a FULL scholarship?",
+   "file": "audio/vo/s17_noah1.wav",
+   "segs": [
+    [
+     348.33,
+     348.705
+    ],
+    [
+     349.788,
+     350.622
+    ],
+    [
+     350.872,
+     351.913
+    ]
+   ]
+  },
+  "s17_leo1": {
+   "start": 352.117,
+   "end": 352.743,
+   "dur": 0.626,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "Yeah.",
+   "file": "audio/vo/s17_leo1.wav",
+   "segs": [
+    [
+     352.117,
+     352.784
+    ]
+   ]
+  },
+  "s17_noah2": {
+   "start": 352.983,
+   "end": 356.128,
+   "dur": 3.145,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "That's insane! Why didn't you just tell me?",
+   "file": "audio/vo/s17_noah2.wav",
+   "segs": [
+    [
+     353.025,
+     354.025
+    ],
+    [
+     354.65,
+     356.15
+    ]
+   ]
+  },
+  "s17_leo2": {
+   "start": 356.378,
+   "end": 359.133,
+   "dur": 2.755,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "I was TRYING to.",
+   "file": "audio/vo/s17_leo2.wav",
+   "segs": [
+    [
+     356.586,
+     356.836
+    ],
+    [
+     357.253,
+     359.17
+    ]
+   ]
+  },
+  "s17_noah3": {
+   "start": 359.633,
+   "end": 360.786,
+   "dur": 1.152,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "...I'm happy for you, man.",
+   "file": "audio/vo/s17_noah3.wav",
+   "segs": [
+    [
+     359.633,
+     360.8
+    ]
+   ]
+  },
+  "s17_leo_th": {
+   "start": 361.026,
+   "end": 362.024,
+   "dur": 0.999,
+   "speaker": "leo",
+   "kind": "thought",
+   "text": "Thank god.",
+   "file": "audio/vo/s17_leo_th.wav",
+   "segs": [
+    [
+     361.109,
+     361.818
+    ]
+   ]
+  },
+  "s17_laugh_noah": {
+   "start": 362.264,
+   "end": 367.082,
+   "dur": 4.818,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "Ha! Haha...",
+   "file": "audio/vo/s17_laugh_noah.wav",
+   "segs": [
+    [
+     362.306,
+     362.889
+    ],
+    [
+     363.597,
+     363.722
+    ],
+    [
+     364.722,
+     365.097
+    ],
+    [
+     366.472,
+     366.806
+    ]
+   ]
+  },
+  "s17_laugh_leo": {
+   "start": 362.414,
+   "end": 364.407,
+   "dur": 1.993,
+   "speaker": "leo",
+   "kind": "spoken",
+   "text": "Ha...",
+   "file": "audio/vo/s17_laugh_leo.wav",
+   "segs": [
+    [
+     362.456,
+     362.997
+    ],
+    [
+     363.331,
+     363.497
+    ],
+    [
+     363.747,
+     364.414
+    ]
+   ]
+  },
+  "s18_vo1": {
+   "start": 370.522,
+   "end": 373.976,
+   "dur": 3.454,
+   "speaker": "narrator",
+   "kind": "vo",
+   "text": "Of course, Noah still had one person he was too scared to ask about.",
+   "file": "audio/vo/s18_vo1.wav",
+   "segs": [
+    [
+     370.522,
+     373.564
+    ]
+   ]
+  },
+  "s18_maya1": {
+   "start": 376.376,
+   "end": 379.148,
+   "dur": 2.772,
+   "speaker": "maya",
+   "kind": "spoken",
+   "text": "Hey. You want to walk home together?",
+   "file": "audio/vo/s18_maya1.wav",
+   "segs": [
+    [
+     376.418,
+     376.793
+    ],
+    [
+     377.459,
+     378.751
+    ]
+   ]
+  },
+  "s18_maya_th": {
+   "start": 379.388,
+   "end": 380.571,
+   "dur": 1.183,
+   "speaker": "maya",
+   "kind": "thought",
+   "text": "Please say yes.",
+   "file": "audio/vo/s18_maya_th.wav",
+   "segs": [
+    [
+     379.471,
+     380.388
+    ]
+   ]
+  },
+  "s18_noah1": {
+   "start": 381.071,
+   "end": 382.898,
+   "dur": 1.828,
+   "speaker": "noah",
+   "kind": "spoken",
+   "text": "Yeah. I'd like that.",
+   "file": "audio/vo/s18_noah1.wav",
+   "segs": [
+    [
+     381.113,
+     381.446
+    ],
+    [
+     382.279,
+     382.904
+    ]
+   ]
+  }
+ },
+ "marks": {
+  "S01": 0.0,
+  "cafe_open": 0.0,
+  "enter": 15.291,
+  "counter": 17.491,
+  "slip": 22.69,
+  "freeze": 24.091,
+  "crash": 25.291,
+  "TITLE": 28.801,
+  "S02": 32.601,
+  "S03": 59.522,
+  "b_travel": 74.003,
+  "montage": 78.478,
+  "bell": 80.874,
+  "S04": 82.974,
+  "push": 94.57,
+  "S05": 107.605,
+  "doors": 117.149,
+  "S06": 122.719,
+  "peak": 145.505,
+  "cut_silence": 147.605,
+  "S07": 148.405,
+  "bathroom": 160.493,
+  "S08": 164.058,
+  "after_hate": 183.117,
+  "S09": 185.617,
+  "S10": 210.137,
+  "hold_hurt": 223.171,
+  "S11": 235.114,
+  "days": 235.114,
+  "gate": 243.146,
+  "tick": 246.834,
+  "S12": 249.034,
+  "courtyard_wide": 249.034,
+  "S13": 266.112,
+  "silence": 280.788,
+  "S14": 284.288,
+  "letter": 290.14,
+  "S15": 303.898,
+  "memory": 318.116,
+  "music_in": 323.486,
+  "S16": 326.886,
+  "S17": 348.13,
+  "hug": 367.082,
+  "S18": 370.282,
+  "sorry": 374.176,
+  "walk_off": 382.898,
+  "END": 387.398,
+  "FIN": 391.998
+ },
+ "total": 391.998
+}
