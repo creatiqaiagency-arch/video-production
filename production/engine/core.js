@@ -117,7 +117,7 @@
   E.retime = (shots, total) => {
     const n = shots.length; if (n < 2) return;
     const OFF = []; for (let o = -0.7; o <= 0.7001; o += 0.05) OFF.push(+o.toFixed(2));
-    const lim = (s) => (s.beat || (E.BEATS && E.BEATS.has(s.id)) ? [1.0, 2.5] : s.hold || (E.HOLDS && E.HOLDS.has(s.id)) ? [3, 7] : [3, 5]);
+    const lim = (s) => (s.beat || (E.BEATS && E.BEATS.has(s.id)) ? [0.8, 3.2] : s.hold || (E.HOLDS && E.HOLDS.has(s.id)) ? [3, 7] : [3, 5]);
     const soft = (s) => !(s.beat || (E.BEATS && E.BEATS.has(s.id)));
     const segs = []; for (const l of Object.values((E.TL && E.TL.lines) || {})) for (const g of (l.segs && l.segs.length ? l.segs : [[l.start, l.end]])) segs.push(g);
     const inPhrase = (t) => { for (const [a, b] of segs) if (t > a + 0.1 && t < b - 0.1) return true; return false; };
@@ -125,11 +125,11 @@
     const keeps = shots.map((s) => (s.keep || []).map(mk).filter((x) => x !== undefined));
     const cost = (i, t0, t1) => { const s = shots[i], d = t1 - t0, [a, b] = lim(s); if (d < 0.5) return 1e6;
       let c = d < a ? (a - d) ** 2 * 40 : d > b ? (d - b) ** 2 * 20 : 0;
-      if (soft(s) && d >= a && d < 3.3) c += (3.3 - d) * 1.5;
+      
       for (const m of keeps[i]) { if (m < t0 + 0.3) c += 400 * (t0 + 0.3 - m); if (m > t1 - 0.6) c += 400 * (m - t1 + 0.6); }
       return c; };
     const base = shots.map((s) => s.t0);
-    const cutPen = base.map((b, i) => OFF.map((o) => (i > 0 && inPhrase(b + o) ? (inPhrase(b) ? 2 : 6) : 0)));
+    const cutPen = base.map((b, i) => OFF.map((o) => (i > 0 && inPhrase(b + o) ? (inPhrase(b) ? 0 : 1.5) : 0)));
     let prev = OFF.map((o) => (o === 0 ? 0 : 1e9)); // cut 0 fixed
     const back = [];
     for (let i = 1; i < n; i++) {

@@ -154,7 +154,7 @@
       if (rim) return;
       // shading: lit on the key side, falling off to ~60 % on the far side
       const ld = keySide;
-      x.save(); x.clip(); const sg = x.createLinearGradient(sx + ld * w1, 0, sx - ld * w1, 0); sg.addColorStop(0, 'rgba(10,4,16,0)'); sg.addColorStop(0.45, 'rgba(10,4,16,0.12)'); sg.addColorStop(1, 'rgba(10,4,16,0.45)'); x.fillStyle = sg; x.fillRect(sx - w1 * 1.6, top - 0.05 * h, w1 * 3.2, bot - top + 0.1 * h); x.restore();
+      x.save(); x.clip(); const sg = x.createLinearGradient(sx + ld * w1, 0, sx - ld * w1, 0); /* cel shading: flat key-side highlight band + hard-edged far-side shadow shape */ sg.addColorStop(0, 'rgba(255,236,214,0.16)'); sg.addColorStop(0.16, 'rgba(255,236,214,0.16)'); sg.addColorStop(0.2, 'rgba(10,4,16,0)'); sg.addColorStop(0.54, 'rgba(10,4,16,0.06)'); sg.addColorStop(0.58, 'rgba(10,4,16,0.42)'); sg.addColorStop(1, 'rgba(10,4,16,0.5)'); x.fillStyle = sg; x.fillRect(sx - w1 * 1.6, top - 0.05 * h, w1 * 3.2, bot - top + 0.1 * h); x.restore();
       if (cs.top === 'hoodie') { // hood lump + strings
         const hb = fd ? -fd : 0;
         x.fillStyle = cs.topS; x.beginPath(); x.ellipse(sx + hb * w1 * 0.55, top + 0.01 * h, w1 * 0.85, 0.035 * h, 0, Math.PI, 0); x.fill();
