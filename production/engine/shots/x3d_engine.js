@@ -38,8 +38,8 @@
     const W = 3, H = 3.2, Z1 = 34, L = [0.18, 0.5, 0.85]; const Ln = Math.hypot(...L); const LK = L.map((v) => v / Ln); // key: from the far window, high
     // enclosure (always behind everything inside)
     P3.poly(ctx, c, [[-W, H, -6], [W, H, -6], [W, H, Z1], [-W, H, Z1]], '#33232c');
-    P3.poly(ctx, c, [[-W, 0, -6], [-W, H, -6], [-W, H, Z1], [-W, 0, Z1]], P3.cel('#5d3d44', [1, 0, 0], LK));
-    P3.poly(ctx, c, [[W, 0, -6], [W, 0, Z1], [W, H, Z1], [W, H, -6]], P3.cel('#5d3d44', [-1, 0, 0], LK));
+    P3.poly(ctx, c, [[-W, 0, -6], [-W, H, -6], [-W, H, Z1], [-W, 0, Z1]], P3.cel(o.wall || '#5d3d44', [1, 0, 0], LK));
+    P3.poly(ctx, c, [[W, 0, -6], [W, 0, Z1], [W, H, Z1], [W, H, -6]], P3.cel(o.wall || '#5d3d44', [-1, 0, 0], LK));
     P3.poly(ctx, c, [[-W, 0, Z1], [W, 0, Z1], [W, H, Z1], [-W, H, Z1]], '#4a3038');
     // end window: orange gradient pane + mullions
     const wt = P3.pt(c, [0, 2.95, Z1]), wb = P3.pt(c, [0, 0.85, Z1]);
@@ -47,7 +47,7 @@
     for (const x of [-0.5, 0.5]) P3.line(ctx, c, [x, 0.85, Z1 - 0.02], [x, 2.95, Z1 - 0.02], '#2b1a26', 5);
     P3.line(ctx, c, [-1.5, 1.9, Z1 - 0.02], [1.5, 1.9, Z1 - 0.02], '#2b1a26', 5);
     // floor + tiles
-    P3.poly(ctx, c, [[-W, 0, -6], [W, 0, -6], [W, 0, Z1], [-W, 0, Z1]], '#4a3036');
+    P3.poly(ctx, c, [[-W, 0, -6], [W, 0, -6], [W, 0, Z1], [-W, 0, Z1]], o.floor || '#4a3036');
     for (let z = -6; z <= Z1; z += 1) P3.line(ctx, c, [-W, 0.002, z], [W, 0.002, z], 'rgba(20,8,16,0.28)', 1.5);
     for (let x = -W; x <= W; x += 1) P3.line(ctx, c, [x, 0.002, -6], [x, 0.002, Z1], 'rgba(20,8,16,0.28)', 1.5);
     // light from the window: floor pool + volumetric beam (additive)
