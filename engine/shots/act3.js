@@ -115,8 +115,8 @@ addBeat({ id: 'B26', minShot: 3.5, lines: ['L048', { id: 'L049', gap: .3 }, { id
 
 // ---------- ACT IV: tournament ----------
 addBeat({ id: 'B27', lines: ['L051'], pre: .5, post: .3, music: { name: 'tension_competition', vol: .3, at: 0, fade: 1 }, sfx: [[0, 'crowd_cheer', .3]], shots: [
-  { id: 'S070', type: 'EST', tin: 'whip', desc: 'Tournament hall wide: ROBOTICS CUP banner, floodlights and haze, crowd in the bleachers, course table with metal barriers.', w: 1,
-    draw: c => { const r = arena(c, { cheer: .3 }); return scene(c, { back: r.back, bb: 1, mid: arenaTable(c) + PR.robot(560, 700, { s: .7 }), cam: CAM.move([960, 520, 1.15], [960, 560, 1.0])(c.p) }); } },
+  { id: 'S070', type: 'EST-3D', min: 3.2, tin: 'whip', desc: 'Tournament hall wide: ROBOTICS CUP banner, floodlights and haze, crowd in the bleachers, course table with metal barriers.', w: 1,
+    draw: c => sc3(c, P3.camKeys(c.p, [[0, { yaw: -48, pitch: 40, dist: 30, target: [0, 1, 6], fov: 46, roll: -3 }], [1, { yaw: 22, pitch: 9, dist: 12.5, target: [-1.2, 1.3, 2.6], fov: 38 }, 'inOut']]), { robotK: 0, cheer: .3, focus: lerp(40, 15, atE(c, c.d * .3, c.d)) }, { bb: lerp(0, 5, atE(c, c.d * .35, c.d)) }) },
   { id: 'S071', type: 'MS', desc: 'Eli alone at the team station; the name card reads TEAM: ELI & NOAH (Noah is still officially registered). Telephoto: Noah, arms crossed, in the crowd under a pale beam.', w: 1.2,
     draw: c => {
       const r = arena(c, { noahBeam: c.t >= c.d * .6 });
@@ -133,16 +133,16 @@ function topRun(c, route, k, o = {}) {
 addBeat({ id: 'B28', lines: ['L052', { id: 'L053', gap: .3 }, { id: 'L054', gap: .3 }], pre: .2, post: .6, minShot: 1.6, shots: [
   { id: 'S072', type: 'LOW', w: .6, desc: 'Low tracking shot beside the robot racing along the table: table seams and blurred foreground posts whip past, speed lines behind it.', w: 1, sfx: [[0, 'motor_whir', .7]],
     draw: c => {
-      const r = arena(c, { cheer: .4 }); const x = lerp(-1200, 3000, c.p);
-      let seams = ''; for (let i = -10; i < 30; i++) seams += S.line(i * 160, 770, i * 160 - 60, 1100, '#3a4a6a', 4);
-      const speed = [0, 1, 2, 3].map(i => S.line(x - 260 - i * 30, 700 + i * 22, x - 260 - i * 30 - 160 - 60 * hash(i), 700 + i * 22, '#e6ecff', 4, { opacity: .5 })).join('');
-      const posts = [0, 1, 2, 3, 4, 5].map(i => S.rect(i * 700 - 200, 500, 70, 900, '#0b0810')).join('');
-      return scene(c, { back: r.back, bb: 10, mid: S.rect(-600, 760, 3200, 400, '#24304a') + seams + speed + PR.robot(x, 820 + noise1(c.t * 30) * 2, { s: 1.6, wheelRot: c.t * 720 }) + ghosts(dt => PR.robot(x + dt * 900, 820, { s: 1.6 }), 3, .03, .25), fg: posts, fp: 1.6, fb: 14, cam: { x: x + 100, y: 640, z: 1.0 } });
+      const k = lerp(.1, .38, c.p), RR = ROUTE_OK.map(([x, y]) => [M3.x(x), M3.z(y)]), [rx, rz] = pathAt(RR, k);
+      const cam = { yaw: lerp(-28, 18, E.inOut(c.p)), pitch: 7, dist: 1.9, target: [rx, .86, rz], fov: 52, roll: lerp(-4, 2, c.p) };
+      const C = P3.cam(cam), q = P3.proj(C, [rx, .86, rz]);
+      const speed = q ? [0, 1, 2, 3].map(i => S.line(q[0] - 220 - i * 26, q[1] - 40 + i * 26, q[0] - 420 - i * 26 - 120 * hash(i), q[1] - 40 + i * 26, '#e6ecff', 4, { opacity: .45 })).join('') : '';
+      return sc3(c, cam, { robotK: k, cheer: .4, focus: 10 }, { bb: 9, overlay: speed });
     } },
   { id: 'S072b', type: 'TOP', w: .5, tin: 'whip', desc: 'Whip to overhead: the robot zips through the course corners at speed, motion-blurred.', sfx: [[0, 'whoosh', .4]],
     draw: c => scene(c, { mid: S.rect(-200, -200, 2400, 1500, '#120e20') + ghosts(dt => PR.robotTop(...pathAt(ROUTE_OK, ((c.t + dt) * .35) % 1).slice(0, 2), pathAt(ROUTE_OK, ((c.t + dt) * .35) % 1)[2], 1), 4, .03, .3) + courseTop({ route: ROUTE_OK, routeOp: .2 }) + PR.robotTop(...pathAt(ROUTE_OK, (c.t * .35) % 1), 1), cam: { x: 960, y: 540, z: 1.25, r: lerp(-6, 0, c.p) } }) },
   { id: 'S073', type: 'TOP', on: 'L053', desc: 'Overhead course: the robot weaves around the barriers along the dotted route and finishes — ROUND 1 ✓, then ROUND 2 ✓.', w: 1, sfx: [[0, 'timer_beep', .6], [1.6, 'crowd_cheer', .5]],
-    draw: c => scene(c, { mid: S.rect(-200, -200, 2400, 1500, '#120e20') + topRun(c, ROUTE_OK, ((c.t / (c.d * .48)) % 1)), cam: CAM.push(960, 540, .98, 1.05)(c.p), overlay: label(960, 120, c.t < c.d * .5 ? 'ROUND 1' : 'ROUND 2', { size: 54, k: 1, fill: PAL.gold }) + (c.t > c.d * .45 ? tick(1700, 120, 1.4) : '') + (c.t > c.d * .93 ? tick(1780, 120, 1.4) : '') }) },
+    draw: c => sc3(c, { yaw: lerp(-12, 14, c.p), pitch: 66, dist: 12.5, target: [0, .7, 2.8], fov: 44 }, { robotK: (c.t / (c.d * .48)) % 1, cheer: .5, routeOp: .35, eli: true }, { overlay: label(960, 120, c.t < c.d * .5 ? 'ROUND 1' : 'ROUND 2', { size: 54, k: 1, fill: PAL.gold }) + (c.t > c.d * .45 ? tick(1700, 120, 1.4) : '') + (c.t > c.d * .93 ? tick(1780, 120, 1.4) : '') }) },
   { id: 'S074', type: 'MS', on: 'L054', desc: 'Announcer with headset mic, arm thrown out to the side (face clear): "And Eli\'s team advances to the final!" Crowd cheers.', w: 1, sfx: [[.2, 'crowd_cheer', .8]],
     draw: c => { const r = arena(c, { cheer: 1 }); return scene(c, { back: r.back, bb: 8, mid: A(c, { who: 'announcer', x: 900, y: 1160, h: 760, f: 1, pose: { ...P.stand(), ba: [135, 10], fa: [55, 120] }, expr: 'happy', light: LT.floodL }), cam: CAM.drift(960, 600, 1, .03, 30)(c.p) }); } },
 ] });
@@ -152,7 +152,7 @@ addBeat({ id: 'B29', lines: ['L055', { id: 'L056', gap: .3 }], pre: .3, post: .2
   { id: 'S076', type: 'POV', on: 'L056', dur: 1.6, desc: 'Robot POV rushing toward a shiny METAL barrier; the orange main-sensor LED flickers.', sfx: [[.4, 'sensor_warning', .8]],
     draw: c => { const r = arena(c); const z = lerp(1, 2.2, E.in(c.p)); const fl = Math.floor(c.t * 14) % 2; return scene(c, { back: r.back, bb: 10, mid: S.rect(-600, 760, 3200, 400, '#24304a') + PR.barrier(960, 790, 300, 200, { glint: true }), cam: { x: 960, y: 640, z }, overlay: S.g({ opacity: fl ? 1 : .2 }, glow(220, 900, 160, PAL.glow, .8), S.circle(220, 900, 26, PAL.glow)) + label(960, 200, 'METAL BARRIER', { size: 40, k: appear(c.t, .3), fill: '#c6c8d6' }) + finalTimer(c) }); } },
   { id: 'S077', type: 'TOP', w: .8, desc: 'Overhead: the robot suddenly veers the wrong way and bumps the barrier; red wrong-route line; clock running.', sfx: [[.6, 'robot_bump', .9], [.8, 'crowd_gasp', .7]],
-    draw: c => scene(c, { mid: S.rect(-200, -200, 2400, 1500, '#120e20') + topRun(c, ROUTE_FAIL, atE(c, 0, .7, 'lin'), { hiBar: 1, hiK: at(c, .6, .9), ledMain: Math.floor(c.t * 14) % 2 ? 'off' : 'on', bad: c.t > .5 ? [[900, 700], [1080, 650]] : null }), cam: { x: 960, y: 560, z: 1.0 + .15 * at(c, .6, 1) }, shake: c.t > .6 && c.t < .9 ? 8 : 0, overlay: finalTimer(c) }) },
+    draw: c => sc3(c, { yaw: lerp(28, 36, c.p), pitch: 52, dist: lerp(9, 6.8, atE(c, .55, 1)), target: [M3.x(1080), .8, M3.z(640)], fov: 44 }, { robotRoute: ROUTE_FAIL, robotK: atE(c, 0, .7, 'lin'), round: 'FINAL', clock: fmtClock(finalSecs(c.T)), hiBar: 1, hiK: at(c, .6, .9), ledMain: Math.floor(c.t * 14) % 2 ? 'off' : 'on', bad: c.t > .5 ? [[900, 700], [1080, 650]] : null }, { shake: c.t > .6 && c.t < .9 ? 8 : 0, overlay: finalTimer(c) }) },
 ] });
 addBeat({ id: 'B30', minShot: 1.5, lines: ['L057', { id: 'L058', gap: .3 }], pre: .1, post: .2, shots: [
   { id: 'S078', type: 'CU', desc: 'Eli panics, hands on his head: "No, no, no. WHAT?!"', w: 1, sfx: [[0, 'heartbeat_muffled', .5]],
@@ -224,7 +224,13 @@ addBeat({ id: 'B35', lines: ['L068'], pre: .2, post: .4, minShot: 1.2, shots: [
       return scene(c, { back: e.back, bb: 0, mid: S.pl(bad.slice(0, kk), PAL.red, 6) + S.pl(good.slice(0, kk), '#6fd0ff', 6) + S.rect(860, 300, 200, 520, '#8a8c9c', { opacity: .15 }), overlay: label(360, 330, 'MAIN SENSOR (near metal)', { size: 40, anchor: 'start', k: 1, fill: '#ff9a9a' }) + label(360, 640, 'BACKUP SENSOR · LEFT', { size: 40, anchor: 'start', k: 1, fill: '#9fdcff' }) + label(960, 870, 'METAL', { size: 34, k: 1, fill: '#c6c8d6' }), cam: CAM.push(960, 560, 1, 1.05)(c.p) });
     } },
   { id: 'S094', type: 'TOP', desc: 'Overhead: the robot races the rest of the route toward the finish; clock 0:03 → 0:02.', w: 1, sfx: [[0, 'clock_tick_fast', .7]],
-    draw: c => scene(c, { mid: S.rect(-200, -200, 2400, 1500, '#120e20') + topRun(c, ROUTE_RECOVER, lerp(.45, .82, atE(c, 0, c.d, 'inOut')), { ledBackup: true }), cam: CAM.drift(960, 560, 1.0, .04, 30)(c.p), overlay: finalTimer(c) }) },
+    draw: c => {
+      const k = lerp(.45, .82, atE(c, 0, c.d, 'inOut')), RR = ROUTE_RECOVER.map(([x, y]) => [M3.x(x), M3.z(y)]);
+      // chase cam: heading averaged over a window so corners swing the camera instead of snapping it
+      let hx = 0, hz = 0; for (let d = -.08; d <= .08; d += .02) { const a = rad(pathAt(RR, clamp(k + d))[2]); hx += Math.cos(a); hz += Math.sin(a); }
+      const [rx, rz] = pathAt(RR, k), yaw = Math.atan2(-hx, hz) * 180 / Math.PI;
+      return sc3(c, { yaw, pitch: 24, dist: 2.8, target: [rx, .85, rz], fov: 50 }, { robotRoute: ROUTE_RECOVER, robotK: k, route: ROUTE_OK, routeOp: .3, trail: ROUTE_RECOVER.slice(0, 2), ledBackup: true, round: 'FINAL', clock: fmtClock(finalSecs(c.T)), cheer: .6, focus: 10 }, { bb: 8, overlay: finalTimer(c) });
+    } },
   { id: 'S094b', type: 'ECU', dur: .9, tin: 'flash', desc: 'Extreme close-up of the red timer hitting 0:01. The music cuts out.', music: { name: 'stop', at: 0 }, sfx: [[0, 'clock_tick_fast', .8]],
     draw: c => { const r = arena(c); return scene(c, { back: r.back, bb: 16, mid: PR.timer(960, 560, fmtClock(finalSecs(c.T)), { w: 900, h: 360, size: 260 }) + glow(960, 560, 600, PAL.red, .3), cam: CAM.push(960, 560, 1, 1.1)(c.p), shake: 3 }); } },
   { id: 'S095', type: 'ECU', tin: 'flash', w: 1.6, min: 2.6, desc: 'Slow-motion close-up: the robot creeps toward the checkered line in silence but for a heartbeat; its front wheel touches the first checker exactly on the horn — flash, crowd, and the triumph theme.', music: { name: 'triumph_resolve', vol: .45, fade: .1, at: 1.2 }, sfx: [[0, 'heartbeat_muffled', .8], [1.2, 'finish_horn', .9], [1.3, 'crowd_cheer', .9]],
@@ -297,7 +303,7 @@ addBeat({ id: 'B40', lines: [], min: 3.8, shots: [
 
 // ---------- 3D tournament hall (true perspective camera; see lib/p3d.js) ----------
 // Course table centred at the origin, 10 m x 5 m; bleachers on three sides; floodlight rigs overhead.
-const T3 = { x: k => lerp(-5, 5, (k - 300) / 1360), z: k => lerp(.4, 4.6, (k - 360) / 380) };
+const M3 = { x: x => (x - 960) / 1400 * 10.4, z: y => (940 - y) / 800 * 6 - .2 }; // 2D overhead course px -> metres
 function arena3D(c, camO, o = {}) {
   const C = P3.cam({ ...camO, fog: { color: '#1b1631', d0: 6, d1: 60, max: .72 } });
   const sc = P3.scene(), T = c.T, flood = '#e6ecff';
@@ -343,27 +349,52 @@ function arena3D(c, camO, o = {}) {
     const cone = [[lx - 1.2, 14.8, 2.5], [lx + 1.2, 14.8, 2.5], [lx + 5.5, 0, 2.5], [lx - 5.5, 0, 2.5]].map(p => P3.proj(C, p));
     if (cone.every(Boolean)) { const g = linGrad([[0, flood, .2], [1, flood, 0]], 0, 0, 0, 1); sc.items.push({ z: -2, svg: `<defs>${g.def}</defs>` + S.poly(cone, g.url, { style: 'mix-blend-mode:screen' }) }); }
   }
-  // course table: legs + slab + rim highlight
-  P3.box(sc, C, [-5.2, 0, -.2], [5.2, .72, 5.2], '#1d2338', { top: '#24304a' });
-  P3.line(sc, C, [-5.2, .721, -.2], [5.2, .721, -.2], '#9fb2ff', .025, { world: true, z: P3.view(C, [0, .7, -.2])[2] - .5 });
-  // route (dotted), barriers, robot
-  const route = (o.route || ROUTE_OK).map(([x, y]) => [T3.x(x), .725, T3.z(y)]);
-  for (let i = 1; i < route.length; i++) for (let k = 0; k < 1; k += .12) { const a = route[i - 1], b = route[i]; P3.line(sc, C, [lerp(a[0], b[0], k), .725, lerp(a[2], b[2], k)], [lerp(a[0], b[0], k + .06), .725, lerp(a[2], b[2], k + .06)], '#ffd27a', .05, { world: true, z: P3.view(C, [0, .7, 2.5])[2] - .1 }); }
-  for (const [bx, bz] of [[1040, 560], [1300, 470]]) P3.box(sc, C, [T3.x(bx) - .25, .72, T3.z(bz) - .1], [T3.x(bx) + .25, 1.05, T3.z(bz) + .1], PAL.metal, { top: PAL.metalL });
-  const [rx, rz, ang] = pathAt(o.route || ROUTE_OK, o.robotK ?? 0);
-  const R0 = [T3.x(rx), .72, T3.z(rz)], ca = Math.cos(rad(ang)), sa = Math.sin(rad(ang));
+  // course table: same layout as the 2D overhead (courseTop) so cuts between them match
+  const tZ = P3.view(C, [0, .36, 2.8])[2];  // table sorts as one unit; everything on it stacks just in front
+  const onZ = p => tZ - .5 + P3.view(C, p)[2] * 1e-3;
+  P3.box(sc, C, [-5.4, 0, -.4], [5.4, .72, 6.0], '#1d2338', { top: '#24304a' });
+  P3.line(sc, C, [-5.4, .721, -.4], [5.4, .721, -.4], '#9fb2ff', .025, { world: true, z: tZ - .04 });
+  
+  const onTop = (pts, fill, op = 1, extra = {}) => P3.poly(sc, C, pts.map(([x, z]) => [x, .7215, z]), fill, { z: tZ - .02, n: [0, 1, 0], twoSided: true, raw: true, attr: { opacity: op, ...extra } });
+  for (let i = 0; i <= 14; i++) P3.line(sc, C, [M3.x(260 + i * 100), .7212, -.2], [M3.x(260 + i * 100), .7212, 5.8], '#2e3a58', .012, { world: true, z: tZ - .01 });
+  for (let i = 0; i <= 8; i++) P3.line(sc, C, [-5.25, .7212, M3.z(140 + i * 100)], [5.25, .7212, M3.z(140 + i * 100)], '#2e3a58', .012, { world: true, z: tZ - .01 });
+  onTop([[M3.x(300), M3.z(470)], [M3.x(420), M3.z(470)], [M3.x(420), M3.z(610)], [M3.x(300), M3.z(610)]], '#2fa24d', .45);
+  for (let i = 0; i < 4; i++) for (let j = 0; j < 8; j++) onTop([[M3.x(1540 + i * 20), M3.z(460 + j * 20)], [M3.x(1560 + i * 20), M3.z(460 + j * 20)], [M3.x(1560 + i * 20), M3.z(480 + j * 20)], [M3.x(1540 + i * 20), M3.z(480 + j * 20)]], (i + j) % 2 ? '#111' : '#f4f4f4', .95);
+  const dash = (route, col, w, op) => { const R = route.map(([x, y]) => [M3.x(x), M3.z(y)]); for (let i = 1; i < R.length; i++) { const [ax, az] = R[i - 1], [bx, bz] = R[i], L = Math.hypot(bx - ax, bz - az); for (let d = 0; d < L; d += .26) { const k0 = d / L, k1 = Math.min(1, (d + .15) / L); P3.line(sc, C, [lerp(ax, bx, k0), .7225, lerp(az, bz, k0)], [lerp(ax, bx, k1), .7225, lerp(az, bz, k1)], col, w, { world: true, raw: true, z: tZ - .03, attr: { opacity: op } }); } } };
+  if (o.route !== false) dash(o.route || ROUTE_OK, '#ffffff', .05, o.routeOp ?? .55);
+  if (o.bad) dash(o.bad, PAL.red, .06, .9);
+  if (o.trail) dash(o.trail, '#6fd0ff', .07, .9);
+  const bars = [[760, 300, 40, 260], [1100, 520, 40, 300], [1300, 180, 40, 190]];
+  bars.forEach(([x, y, w, h], i) => {
+    P3.box(sc, C, [M3.x(x), .72, M3.z(y + h)], [M3.x(x + w), 1.1, M3.z(y)], '#8a8c9c', { top: '#c6c8d6', bias: onZ([M3.x(x), .9, M3.z(y + h / 2)]) - P3.view(C, [M3.x(x + w / 2), .91, M3.z(y + h / 2)])[2] });
+    if (o.hiBar === i) P3.sprite(sc, C, [M3.x(x + w / 2), .9, M3.z(y + h / 2)], (sx, sy, px) => glow(sx, sy, 1.6 * px, PAL.red, .4 * (o.hiK ?? 1)), { z: tZ - .45 });
+  });
+  // robot: oriented box following the route (heading from the 3D path)
+  const RR = (o.robotRoute || ROUTE_OK).map(([x, y]) => [M3.x(x), M3.z(y)]);
+  const [rx, rz, ang] = pathAt(RR, o.robotK ?? 0);
+  const R0 = [rx, .72, rz], ca = Math.cos(rad(ang)), sa = Math.sin(rad(ang));
   const rp = (dx, dz) => [R0[0] + dx * ca - dz * sa, 0, R0[2] + dx * sa + dz * ca];
-  // robot as an oriented box (top + 4 sides) so it turns in 3D along the route
-  const corners = [rp(-.22, -.16), rp(.22, -.16), rp(.22, .16), rp(-.22, .16)];
-  const ys = [.74, .92];
-  const rz0 = P3.view(C, [R0[0], .8, R0[2]])[2] - .2;
-  P3.poly(sc, C, corners.map(p => [p[0], ys[1], p[2]]).reverse(), '#c9cdd8', { z: rz0 - .01, n: [0, 1, 0], twoSided: true });
-  for (let i = 0; i < 4; i++) { const a = corners[i], b = corners[(i + 1) % 4]; const n = norm3([(a[2] - b[2]), 0, (b[0] - a[0])]); P3.poly(sc, C, [[a[0], ys[0], a[2]], [b[0], ys[0], b[2]], [b[0], ys[1], b[2]], [a[0], ys[1], a[2]]], '#8a8fa0', { z: rz0, n: [-n[0], 0, -n[2]], twoSided: true }); }
-  P3.sprite(sc, C, [R0[0], .95, R0[2]], (x, y, px) => glow(x, y, .5 * px, o.led || '#ffb24a', .7) + S.circle(x, y, .05 * px, '#fff'), { z: rz0 - .05 });
+  const corners = [rp(-.24, -.17), rp(.24, -.17), rp(.24, .17), rp(-.24, .17)];
+  const rz0 = onZ([R0[0], .8, R0[2]]) - .002;
+  const ys = [.76, .95];
+  // wheels (dark blocks at the four corners)
+  for (const [dx, dz] of [[-.16, -.2], [.16, -.2], [-.16, .2], [.16, .2]]) { const w0 = rp(dx - .07, dz - .03), w1 = rp(dx + .07, dz + .03); P3.box(sc, C, [Math.min(w0[0], w1[0]), .72, Math.min(w0[2], w1[2])], [Math.max(w0[0], w1[0]), .84, Math.max(w0[2], w1[2])], '#141018', { bias: (() => { const wz = P3.view(C, [(w0[0] + w1[0]) / 2, .78, (w0[2] + w1[2]) / 2])[2], cz = P3.view(C, [R0[0], .78, R0[2]])[2]; return rz0 + (wz > cz ? .001 : -.004) - wz; })() }); }
+  for (let i = 0; i < 4; i++) { const a = corners[i], b = corners[(i + 1) % 4]; const n = norm3([(b[2] - a[2]), 0, -(b[0] - a[0])]); P3.poly(sc, C, [[a[0], ys[0], a[2]], [b[0], ys[0], b[2]], [b[0], ys[1], b[2]], [a[0], ys[1], a[2]]], '#8a8fa0', { z: rz0, n }); }
+  P3.poly(sc, C, corners.map(p => [p[0], ys[1], p[2]]), '#c9cdd8', { z: rz0 - .001, n: [0, 1, 0], twoSided: true });
+  const led = (dx, col) => P3.sprite(sc, C, [...rp(dx, 0)].map((v, i) => i === 1 ? 1.0 : v), (x, y, px) => glow(x, y, .3 * px, col, .75) + S.circle(x, y, .035 * px, '#fff'), { z: rz0 - .05 });
+  if (o.ledMain !== 'off') led(.12, '#ffb24a');
+  if (o.ledBackup) led(-.14, '#4aa3ff');
   // Eli at the team station (front-left of the table), controller in hand
   if (o.eli !== false) P3.sprite(sc, C, [-6.4, 0, .6], (x, y, px) => ch({ who: 'eli', x, y, h: 1.72 * px, f: 1, pose: o.eliPose || P.stand(), expr: o.eliExpr || 'focused', t: T, light: LT.floodL, noDyn: true }));
   if (o.focus === undefined) return P3.render(sc);
   // depth of field: split at the focus distance; the far group goes to a blurred layer
   const fz = o.focus, far = sc.items.filter(i => i.z > fz && i.z < 5e5 || i.z >= 5e5), near = sc.items.filter(i => !far.includes(i));
   return { far: P3.render({ items: far }), near: P3.render({ items: near }) };
+}
+
+// 3D shot wrapper: optional depth-of-field split (o.focus) into a blurred far layer
+function sc3(c, cam, o = {}, so = {}) {
+  const a = arena3D(c, cam, o);
+  if (typeof a === 'string') return scene(c, { mid: a, bgc: '#0e0b1a', bloom: .6, ...so });
+  return scene(c, { back: a.far, bp: 1, bb: so.bb ?? 6, mid: a.near, bgc: '#0e0b1a', bloom: .6, ...so });
 }
