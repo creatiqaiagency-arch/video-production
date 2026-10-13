@@ -134,10 +134,10 @@ function fFuture(amount = 1, blur = 0) {
   const a = Math.round(amount * 20) / 20;
   const id = 'fut' + String(a).replace('.', '_') + '_' + blur;
   const L = [0.299, 0.587, 0.114];
-  const rows = [0, 1, 2].map(i => { const tgt = [0.07, 0.17, 0.42][i]; return [0, 1, 2].map(j => (i === j ? 1 : 0) * (1 - a) + a * L[j] * tgt * 1.45); });
-  const off = [0.008, 0.022, 0.06].map(v => v * a);
+  const rows = [0, 1, 2].map(i => { const tgt = [0.1, 0.22, 0.52][i]; return [0, 1, 2].map(j => (i === j ? 1 : 0) * (1 - a) + a * L[j] * tgt * 1.55); });
+  const off = [0.03, 0.06, 0.15].map(v => v * a);
   const mat = rows.map((r, i) => `${r.map(v => v.toFixed(3)).join(' ')} 0 ${off[i].toFixed(3)}`).join(' ') + ' 0 0 0 1 0';
-  const gam = (1 + .6 * a).toFixed(2);
+  const gam = (1 + .15 * a).toFixed(2);
   def(id, `<filter id="${id}" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="${mat}"/><feComponentTransfer><feFuncR type="gamma" exponent="${gam}"/><feFuncG type="gamma" exponent="${gam}"/><feFuncB type="gamma" exponent="${gam}" amplitude="1.05"/></feComponentTransfer>${blur ? `<feGaussianBlur stdDeviation="${blur}"/>` : ''}</filter>`);
   return url(id);
 }

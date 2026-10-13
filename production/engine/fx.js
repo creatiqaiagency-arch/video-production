@@ -7,7 +7,7 @@ function futureWrap(inner, amt = 1, o = {}) {
   let s = `<g filter="${fFuture(amt)}">${inner}</g>`;
   if (amt > .3) s += `<g class="go">${inner}</g>`;  // ghosts lifted out of the grade so they are always the brightest thing
   if (amt > .05) {
-    s += rect(0, 0, W, H, rgrad([[0, '#000814', 0], [.55, '#000814', .15 * amt], [1, '#000814', .7 * amt]], .5, .5, .72));
+    s += rect(0, 0, W, H, rgrad([[0, '#000814', 0], [.72, '#000814', .05 * amt], [1, '#000814', .5 * amt]], .5, .5, .72));
     // scanline shimmer
     const sl = Math.floor(((o.t || 0) * 140) % H);
     s += rect(0, sl, W, 3, '#bfe6ff', { opacity: .12 * amt }) + rect(0, (sl + 377) % H, W, 2, '#bfe6ff', { opacity: .08 * amt });
@@ -22,7 +22,7 @@ function futureWrap(inner, amt = 1, o = {}) {
 function ringFx(x, y, p, rMax = 900, c = '#8fd3ff') {
   if (p <= 0 || p >= 1) return '';
   const r = 20 + ease.out(p) * rMax, a = 1 - p;
-  return circ(x, y, r, 'none', { stroke: c, 'stroke-width': 6 + 18 * a, opacity: a, filter: fGlow(8, '#2f7bff', 1) }) + circ(x, y, r * .7, 'none', { stroke: '#fff', 'stroke-width': 2, opacity: a * .6 });
+  return circ(x, y, r + 6 + 12 * a, 'none', { stroke: '#0a1a3a', 'stroke-width': 4, opacity: a * .7 }) + circ(x, y, r, 'none', { stroke: c, 'stroke-width': 6 + 18 * a, opacity: a, filter: fGlow(8, '#2f7bff', 1) }) + circ(x, y, r * .7, 'none', { stroke: '#fff', 'stroke-width': 2, opacity: a * .6 });
 }
 function flash(p, c = '#dff2ff') { return p > 0 ? rect(0, 0, W, H, c, { opacity: clamp(p) }) : ''; }
 // glass-shard break transition: shards fly out showing what's underneath (p 0..1). content = the image to break.

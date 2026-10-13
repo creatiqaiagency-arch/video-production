@@ -111,12 +111,13 @@ function pingball(x, y, r, ghost = false) { return ghost ? circ(x, y, r, '#bfe6f
 // ---------- vehicles ----------
 // side-view delivery truck facing LEFT; (x,y) = front-bottom of the bumper at road level, s = scale (1 = ~640px long)
 function truckSide(x, y, s = 1, o = {}) {
-  const gh = o.ghost, body = gh ? '#bfe6ff' : '#d9d4cc', dark = gh ? '#6fb4ff' : '#1b151d', cab = gh ? '#9ad6ff' : '#b5323a';
+  const gh = o.ghost, body = gh ? '#bfe6ff' : '#a39cab', dark = gh ? '#6fb4ff' : '#1b151d', cab = gh ? '#9ad6ff' : '#b5323a';
   const P = (px, py) => [x + px * s, y + py * s];
   let q = '';
   // light cone ahead (to the left)
   if (o.lights !== false && !gh) q += poly([P(10, -70), P(10, -40), P(-900, 40), P(-900, -170)], lgrad([[0, '#fff2c4', .5], [1, '#fff2c4', 0]], 1, 0, 0, 0), { style: SCREEN });
   q += rect(...P(180, -330), 460 * s, 290 * s, body, { rx: 6 * s });
+  if (!gh) q += rect(...P(180, -330), 460 * s, 290 * s, lgrad([[0, '#ffffff', .12], [.5, '#000000', 0], [1, '#000000', .3]], 0, 0, 0, 1), { rx: 6 * s }) + rect(...P(180, -330), 460 * s, 10 * s, '#ffb35c', { opacity: .35 });
   q += rect(...P(180, -110), 460 * s, 18 * s, gh ? '#7fc8ff' : '#b5323a');
   if (!gh) q += text(...P(410, -205), 'DELIVERY', { 'font-size': 38 * s, 'font-weight': 800, fill: '#8b2a30', 'text-anchor': 'middle', 'letter-spacing': 3 * s });
   q += path(`M${P(20, -40).join(' ')} L${P(30, -190).join(' ')} Q${P(40, -250).join(' ')} ${P(110, -255).join(' ')} L${P(185, -255).join(' ')} L${P(185, -40).join(' ')} Z`, cab);

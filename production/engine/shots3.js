@@ -95,7 +95,7 @@ Object.assign(SHOTS_REG, {
     const run = seg(lt, .35, d, ease.in2);
     const lx = IXP.leo + run * 110, ly = lerp(IXP.walk, IXP.gutter, seg(lt, .6, d));
     const pose = lt < .35 ? mixPose(POSES.stand, POSES.crouch, seg(lt, 0, .3)) : runPose((lt * 2.4) % 1);
-    let w = presentTruck(gt) + boyFig(gt, IXP.boy, IXP.road, { pose: 'stand', expr: 'happy', fc: -1 }) + football(1080, IXP.road - 10, 14, 0) + zs([IXP.walk, adult(gt, 'nora', IXP.nora, IXP.walk, { pose: 'armsCross', expr: 'neutral' })], [ly, adult(gt, 'leo', lx, ly, { pose, expr: 'determined' })]);
+    let w = presentTruck(gt) + boyFig(gt, IXP.boy, IXP.road, { pose: 'reach', expr: 'neutral', mouth: 'o', fc: 1 }) + football(IXP.boy + 110 + lt * 12, IXP.road - 12, 14, lt * 60) + zs([IXP.walk, adult(gt, 'nora', IXP.nora, IXP.walk, { pose: 'armsCross', expr: 'neutral' })], [ly, adult(gt, 'leo', lx, ly, { pose, expr: 'determined' })]);
     return ixWorld(cam, gt, w, { bgBlur: 3 }) + headlightWash(gt) + hud(gt);
   },
   // ---------- FUTURE B ----------
@@ -200,7 +200,7 @@ Object.assign(SHOTS_REG, {
   // s091: upright over-the-shoulder from behind Leo (blurred). The boy is a step into the lane, the guard is waving at traffic further down.
   p_breath(lt, d, gt) {
     const cam = camMove(lt, d, { x: 1150, y: 760, z: 1.55 }, { x: 1160, y: 760, z: 1.62 });
-    let w = presentTruck(gt) + football(1060, IXP.road - 8, 14, 30) + boyFig(gt, IXP.boy, IXP.road, { pose: 'stand', fc: -1 }) + adult(gt, 'nora', IXP.nora, IXP.walk, { pose: 'armsCross', expr: 'worried', lookX: 1 }) + guardFig(gt, { fc: 1, pose: 'wave', sign: false, lookX: 1 });
+    let w = presentTruck(gt) + football(IXP.boy + 125, IXP.road - 12, 14, 30) + boyFig(gt, IXP.boy, IXP.road, { pose: 'reach', fc: 1 }) + adult(gt, 'nora', IXP.nora, IXP.walk, { pose: 'armsCross', expr: 'worried', lookX: 1 }) + guardFig(gt, { fc: 1, pose: 'wave', sign: false, lookX: 1 });
     let s = ixWorld(cam, gt, w);
     s += layer(C0, figHead(380, 820, 420, { who: 'leo', fc: 0, expr: 'none', rim: { dx: 10, dy: -10, c: '#eaf2ff' } }), { blur: 9 });
     return s + headlightWash(gt) + rect(0, 0, W, H, '#2f7bff', { opacity: .05, style: SCREEN }) + hud(gt);

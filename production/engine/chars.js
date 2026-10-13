@@ -186,6 +186,9 @@ function fig(o) {
     const top = [lerp(hip[0], neck[0], .96), lerp(hip[1], neck[1], .96)], bot = [lerp(hip[0], neck[0], -.06), lerp(hip[1], neck[1], -.06)];
     const nx = -tu[1], ny = tu[0], wS = s * (k.vest ? .36 : (o.child ? .32 : .46)), wHp = s * (k.vest ? .3 : .3);
     parts.push(poly([[top[0] + nx * wS, top[1] + ny * wS], [top[0] - nx * wS, top[1] - ny * wS], [bot[0] - nx * wHp, bot[1] - ny * wHp], [bot[0] + nx * wHp, bot[1] + ny * wHp]], clothC, { stroke: clothC, 'stroke-width': f1(s * .14), 'stroke-linejoin': 'round' }));
+    if (!ghost) { const sg = fc === 0 ? 1 : -fs, A = (p, w, f) => [p[0] + sg * nx * w * f, p[1] + sg * ny * w * f];
+      parts.push(poly([A(top, wS, 1.08), A(top, wS, .2), A(bot, wHp, .05), A(bot, wHp, 1.08)], mix(shadeC, '#000000', .2), { opacity: .55 }));
+      parts.push(line(...A(top, wS, -.92), ...A(bot, wHp, -.92), mix(clothC, '#ffffff', .35), s * .045, { opacity: .5 })); }
     if (!ghost && !k.vest) parts.push(line(bot[0] + nx * wHp * .9, bot[1] + ny * wHp * .9, bot[0] - nx * wHp * .9, bot[1] - ny * wHp * .9, shadeC, s * .07));
     if (k.vest && !ghost) { for (const q of [.3, .55]) { const a = [lerp(hip[0], neck[0], q), lerp(hip[1], neck[1], q)]; parts.push(line(a[0] - s * .24, a[1], a[0] + s * .24, a[1], '#e6edf2', s * .07, { 'stroke-linecap': 'butt' })); } }
     if (k.strings && !ghost) { for (const d of [-.07, .07]) parts.push(line(neck[0] + fs * s * (.12 + d), neck[1] + s * .1, neck[0] + fs * s * (.14 + d), neck[1] + s * .62, FACE, s * .035)); }

@@ -37,7 +37,7 @@ function futureBHit(lt, d, gt) {
   w += boyFig(gt, 1200, IXP.walk, { ghost: true, op: .65, pose: 'stand', expr: 'shocked', fc: -1 });
   for (let i = 0; i < 4; i++) w += line(tx + 300 + i * 40, IXP.lane - 10 - i * 34, tx + 700 + i * 60, IXP.lane - 10 - i * 34, '#cfe8ff', 4, { opacity: (.35 * (1 - rec * .5)).toFixed(2) });
   for (let i = 0; i < 5; i++) w += circ(tx + 160 + i * 40, IXP.lane + 10 - rnd(i + 3) * 20, 14 + i * 7, '#9a90a8', { opacity: .22 });
-  w += adult(gt, 'leo', 1075, IXP.lane + 10, { fc: 1, pose: mixPose(runPose(.3, .5), { tor: -20, head: -15, ab: [150, 70], af: [135, 80], lb: [-15, 10], lf: [25, 20] }, rec), expr: 'scared', ghost: true, op: .8 });
+  w += adult(gt, 'leo', 1075, IXP.lane + 10, { fc: 1, pose: mixPose(runPose(.3, .5), { tor: -22, head: -28, ab: [95, 125], af: [80, 130], lb: [-20, 35], lf: [35, 45], drop: .3 }, rec), expr: 'scared', ghost: true, op: .8 });
   return futureWrap(ixWorld(cam, gt, w), 1, { t: gt });
 }
 
