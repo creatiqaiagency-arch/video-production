@@ -42,23 +42,34 @@ function futureBHit(lt, d, gt) {
 }
 
 Object.assign(SHOTS_REG, {
-  // s001: fully lit road-level wide; Leo pushing off the curb, the boy already in the road, truck approaching
+  // s001: knee-level tracking shot — the football bounces off the curb into the lane (squash & stretch), the boy's legs sprint in after it
   co_wide(lt, d, gt) {
-    const cam = camMove(lt, d, { x: 1000, y: 580, z: 1.05 }, { x: 1040, y: 580, z: 1.12 });
-    const e = envRoadFront(cam, gt);
-    const gy = kf(lt, [[0, 520], [d, 610]], ease.in2), tr = rfTruck(gy);
-    return e.bg + layer(cam, truckFront(tr.x, gy, tr.s) + rfPeople(gt, { boyRoad: true, leoPose: 'pushOff' })) + label(120, 175, '8:17 PM', seg(lt, .1, .6), 36);
+    const bx = lerp(1330, 1215, seg(lt, 0, 1.4, ease.out)), gy = lerp(IXP.walk, IXP.road, seg(lt, 0, .9, ease.inOut));
+    const h = hop(lt, .42, 70, 5, .55), rot = -lt * 420;
+    const kx = lerp(1500, 1180, seg(lt, .15, d, ease.out)), ky = lerp(IXP.walk + 4, IXP.road + 14, seg(lt, .45, d, ease.inOut)), run = seg(lt, .15, d * .85);
+    const boyPose = run < 1 ? { ...runPose((lt * 2.6) % 1, 1.1), tor: 30 } : 'scoop';
+    const cam = { x: lerp(1330, 1230, seg(lt, 0, d, ease.sine)), y: lerp(890, 790, seg(lt, 0, d, ease.inOut)), z: 2.7, r: lerp(-3, -1, seg(lt, 0, d)) };
+    let w = shadowAt(bx, gy, 14 * (1 - h.y / 120)) + football(bx, gy - 14 - h.y, 14, rot, { sq: h.sq }) + boyFig(gt, kx, ky, { pose: boyPose, expr: 'happy', fc: -1 });
+    return ixWorld(cam, gt, w, { bgBlur: 4, clock: '8:17' }) + headlightWash(gt, .3) + label(120, 175, '8:17 PM', seg(lt, .1, .6), 36);
   },
-  // s002: true low over-the-shoulder; Leo's blurred head/shoulder fills the left third, truck on the right third
+  // s002: wide master — the geography in one frame: Leo & Nora on the curb, the boy scooping his ball in the near lane, the guard, and headlights sweeping in from the right
   co_truckFront(lt, d, gt) {
-    const [sx, sy] = shake(lt, 2 + lt * 4);
-    const cam = { x: 820 + sx, y: 600 + sy, z: kf(lt, [[0, 1.25], [d, 1.4]]) };
-    const e = envRoadFront(cam, gt, { midBlur: 2 });
-    const gy = kf(lt, [[0, 640], [d, 760]], ease.in2), tr = rfTruck(gy);
-    let s = e.bg + layer(cam, truckFront(tr.x - 120, gy, tr.s * 1.2) + fig({ x: 1510, y: 868, s: 22, child: true, fc: -1, who: 'boy', pose: 'stand', expr: 'none', t: gt }) + football(1460, 864, 8, 0));
-    s += layer(C0, figHead(330, 720, 380, { who: 'leo', fc: 0, expr: 'none', t: gt, rim: { dx: 10, dy: -8, c: '#eaf2ff' } }), { blur: 7 });
-    s += rect(0, 0, W, H, '#fff2c4', { opacity: (.04 + lt / d * .18).toFixed(3), style: SCREEN });
-    return s;
+    const cam = camMove(lt, d, { x: 1150, y: 690, z: 1.0 }, { x: 1150, y: 700, z: 1.08 });
+    const tx = lerp(2300, 1720, seg(lt, 0, d, ease.in2));
+    const turn = seg(lt, .35, .6, ease.settle), crouch = seg(lt, d - .55, d, ease.inOut);
+    let w = truckSide(tx, IXP.lane + 20, .8);
+    w += football(IXP.boy + 70, IXP.road - 12, 14, 0) + boyFig(gt, IXP.boy, IXP.road, { pose: 'scoop', expr: 'happy', fc: 1 });
+    w += guardFig(gt, { fc: -1, pose: 'hold', sign: false, lookX: -1 });
+    w += adult(gt, 'nora', IXP.nora, IXP.walk, { pose: 'armsCross', expr: 'neutral', lookX: -.6 });
+    w += adult(gt, 'leo', IXP.leo, IXP.walk, { fc: 1, pose: mixPose(POSES.stand, POSES.crouch, crouch * .7), expr: turn > .5 ? 'shocked' : 'neutral', lookX: turn > .5 ? 1 : -.5 });
+    return ixWorld(cam, gt, w, { clock: '8:17' }) + headlightWash(gt, .5 + lt / d) + label(120, 175, '8:17 PM', 1, 36);
+  },
+  // s002b: low Dutch-angle push on the grille — the driver isn't braking
+  co_grille(lt, d, gt) {
+    const [sx, sy] = shake(lt, 4 + lt * 6);
+    let s = rect(0, 0, W, H, '#0d0a18') + layer({ x: 960 + sx, y: 640 + sy, z: 1.0 + lt * .3, r: 0 }, truckFront(960, 1080, 1.55)) + streaks(960, 300, 900, 30, Math.PI, '#fff2c4', .15);
+    s += rect(0, 0, W, H, '#fff6dc', { opacity: (.02 + lt / d * .12).toFixed(2), style: SCREEN });
+    return dutch(s, -9);
   },
   // s003: extreme close-up eyes, crash zoom, headlight glints, blue ring, short flash pulse
   co_eyes(lt, d, gt) {
@@ -75,24 +86,21 @@ Object.assign(SHOTS_REG, {
   },
   // s004: FUTURE — the exact composition reused in the climax (s082)
   co_future(lt, d, gt) { return futureBHit(lt, d, gt) + flashPulse(lt, 0, .12, .7); },
-  // s005: the future shatters back to the present: same angle as s001 a few seconds earlier
+  // s005: the future shatters back to the present — the same wide master as s002, a few seconds earlier
   co_rewind(lt, d, gt) {
-    const cam = { x: 1000, y: 580, z: 1.05 + lt * .01 };
-    const e = envRoadFront(cam, gt);
-    const gy = kf(lt, [[0, 505], [d, 520]], ease.lin), tr = rfTruck(gy);
-    const present = e.bg + layer(cam, truckFront(tr.x, gy, tr.s) + rfPeople(gt, { boyRoad: true, leoPose: 'stand' })) + label(120, 175, '8:17 PM', 1, 36);
+    const present = SHOTS_REG.co_truckFront(Math.min(lt * .4, 1.2), 1.5, gt);
     if (lt > .7) return present;
     const frozen = futureBHit(2.9, 3, gt);
     return present + shards(frozen, seg(lt, 0, .7, ease.lin)) + flashPulse(lt, 0, .12, .7);
   },
   // s006: Leo close-up at the crossing; blue fading from his eyes; headlights sweep twice
   co_leoFace(lt, d, gt) {
-    const cam = camMove(lt, d, { x: 960, y: 540, z: 1 }, { x: 960, y: 520, z: 1.15 });
+    const cam = camMove(lt, d, { x: 1100, y: 500, z: 1 }, { x: 1180, y: 470, z: 1.18 });
     let s = nightBokehBg(C0, gt, 9, { x: 1400 });
-    s += layer(cam, figHead(1000, 470, 300, { who: 'leo', fc: -1, expr: lt < d * .5 ? 'scared' : 'determined', lookX: -.6, t: gt, rim: { dx: 10, dy: -6, c: '#ffd29a' } }));
+    s += layer(cam, figHead(1240, 440, 360, { who: 'leo', fc: -1, expr: lt < d * .5 ? 'scared' : 'determined', lookX: -.6, t: gt, rim: { dx: 10, dy: -6, c: '#ffd29a' } }));
     for (const k of [0, 1]) { const sw = kf(lt, [[k * d * .5, -500], [k * d * .5 + d * .45, 2400]], ease.lin); s += rect(sw - 300, 0, 600, H, lgrad([[0, '#fff2c4', 0], [.5, '#fff2c4', .16], [1, '#fff2c4', 0]], 0, 0, 1, 0), { style: SCREEN }); }
     const eg = 1 - seg(lt, 0, 1.6);
-    if (eg > 0) for (const ex of [-1, 1]) s += layer(cam, glow(1000 - 150 * .34 + ex * 150 * .27 * .82, 455, 70, '#2f7bff', .9 * eg));
+    if (eg > 0) for (const ex of [-1, 1]) s += layer(cam, glow(1240 - 180 * .34 + ex * 180 * .27 * .82, 425, 80, '#2f7bff', .9 * eg));
     return s;
   },
   // s007: title over close headlight bokeh (a different plate from the street)
@@ -368,7 +376,8 @@ Object.assign(SHOTS_REG, {
     let hEnd = null; fig({ x: 1585, y: 860, s: 70, fc: 1, who: 'leo', pose: prone, still: true, joints: j => { hEnd = j.armF[2]; } });
     let w = shelf(1420, 430) + books(1450, 430, 0) + shadowAt(lx + 40, 860, 90);
     for (let k = 3; k >= 1 && lt < .9; k--) w += fig({ x: lx - k * 26, y: 860, s: 70, fc: 1, who: 'leo', pose, expr: 'none', rim: null, op: .08, still: true });
-    w += fig({ x: lx, y: 860, s: 70, fc: 1, who: 'leo', pose, expr: 'determined', t: gt, still: true });
+    const land = lt > .5 ? Math.max(0, 1 - (lt - .5) / .18) : 0;
+    w += fig({ x: lx, y: 860, s: 70, fc: 1, who: 'leo', pose, expr: 'determined', t: gt, still: true, sq: lt < .5 ? -.1 * Math.sin(air * Math.PI) : .22 * land });
     const fp = ease.in2(seg(lt, 0, .85));
     const potX = lerp(1775, hEnd[0] + 14, fp), potY = lerp(640, hEnd[1] + 8, fp), rot = lerp(70, 8, fp);
     w += plantPot(potX, potY, .9, rot);

@@ -113,8 +113,8 @@ Object.assign(SHOTS_REG, {
   g_noraCheer(lt, d, gt) {
     const cam = camMove(lt, d, { x: 960, y: 560, z: 1 }, { x: 960, y: 540, z: 1.08 });
     const e = envGym({ x: 700, y: 420, z: 2.0 }, gt, { bgBlur: 9 });
-    const up = seg(lt, 0, .35, ease.outBack);
-    return e.bg + layer(cam, figHead(960, 520 - up * 40, 300, { who: 'nora', fc: 0, expr: 'happy', mouth: 'grin', t: gt, pose: mixPose(POSES.stand, POSES.armsUp, up), rim: { dx: 0, dy: -10, c: '#ffd29a' } }));
+    const dip = Math.sin(seg(lt, 0, .15) * Math.PI) * 30, j = hop(Math.max(0, lt - .15), .45, 90, 2, .3), up = seg(lt, .1, .35, ease.outBack);
+    return e.bg + layer(cam, `<g transform="translate(960 ${f1(900)}) scale(${(1 + j.sq * .5).toFixed(3)} ${(1 - j.sq * .6).toFixed(3)}) translate(-960 -900)">` + figHead(960, 600 + dip - j.y, 220, { who: 'nora', fc: 0, expr: 'happy', mouth: 'grin', lookX: .7, t: gt, pose: mixPose(POSES.stand, POSES.armsUp, up), rim: { dx: 0, dy: -10, c: '#ffd29a' } }) + '</g>');
   },
   // ---------------- ARCADE ----------------
   a_pov(lt, d, gt) {
@@ -177,7 +177,7 @@ Object.assign(SHOTS_REG, {
     const cam = camMove(lt, d, { x: 960, y: 600, z: 1.15 }, { x: 960, y: 600, z: 1.22 });
     const e = envGym(cam, gt);
     const up = seg(lt, .15, .6, ease.outBack);
-    let w = shadowAt(560, 900, 66) + fig({ x: 560, y: 900 - Math.sin(up * Math.PI) * 30, s: 66, fc: 0, who: 'leo', pose: mixPose(POSES.stand, { tor: 0, head: -10, ab: [150, 10], af: [150, 10], lb: [8, 0], lf: [-8, 0] }, up), expr: 'happy', mouth: 'grin', t: gt });
+    let w = shadowAt(560, 900, 66) + fig({ x: 560, y: 900 - Math.sin(up * Math.PI) * 50, sq: up < .1 ? .12 * up * 10 : (up > .9 ? .18 * (1 - up) * 10 : -.08), s: 66, fc: 0, who: 'leo', pose: mixPose(POSES.stand, { tor: 0, head: -10, ab: [150, 10], af: [150, 10], lb: [8, 0], lf: [-8, 0] }, up), expr: 'happy', mouth: 'grin', t: gt });
     [[1150, 'grey'], [1350, 'teal'], [1550, 'mauve']].forEach(([x, who], i) => { w += shadowAt(x, 900, 66) + fig({ x, y: 900, s: 66, fc: -1, who, pose: 'stand', expr: 'shocked', t: gt, seed: i * 3 }); });
     for (let i = 0; i < 4; i++) w += dodgeball(800 + i * 120, 880 - Math.abs(Math.sin(lt * 4 + i)) * 30 * (1 - seg(lt, 0, 2)), 22);
     return e.bg + e.light + layer(cam, w);

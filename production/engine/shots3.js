@@ -54,9 +54,9 @@ Object.assign(SHOTS_REG, {
   },
   ix_ballRoll(lt, d, gt) {
     const cam = { x: 1150, y: 860, z: 2.6 };
-    const bx = 1180 - lt * 60, by = kf(lt, [[0, 950], [.3, 925], [.6, 945], [.9, 880], [1.3, 830], [d, 800, ease.out]]) - 10;
-    const boyX = 1330 - lt * 60, boyY = lerp(IXP.walk, IXP.road + 20, seg(lt, .6, d));
-    let w = football(bx, by, 14, -bx * 1.6) + boyFig(gt, boyX, boyY, { expr: 'happy' });
+    const h = hop(lt, .45, 60, 5, .55), gy = lerp(IXP.walk, IXP.road, seg(lt, .2, 1.2, ease.inOut));
+    const bx = 1200 - lt * 90, boyX = 1420 - lt * 160, boyY = lerp(IXP.walk, IXP.road + 16, seg(lt, .5, d, ease.inOut));
+    let w = shadowAt(bx, gy, 14) + football(bx, gy - 14 - h.y, 14, -bx * 4, { sq: h.sq }) + boyFig(gt, boyX, boyY, { expr: 'happy', pose: { ...runPose((lt * 2.4) % 1, 1), tor: 26 } });
     return ixWorld(cam, gt, w, { bgBlur: 5 });
   },
   ix_eyeRing(lt, d, gt) {
@@ -157,8 +157,9 @@ Object.assign(SHOTS_REG, {
   p_no(lt, d, gt) {
     const cam = { x: 960, y: 540, z: 1 + ease.outExpo(clamp(lt / .25)) * .2 };
     let s = nightBokehBg(C0, gt, 41, { x: 1200 });
-    s += layer(cam, figHead(960, 520, 420, { who: 'leo', fc: 0, expr: 'scared', mouth: 'shout', talk: Math.max(talkOf('leo', gt), lt < .9 ? .8 : 0), t: gt, pose: { tor: -8, head: -10 }, rim: { dx: 0, dy: -10, c: '#ffd29a' } }));
-    return s + headlightWash(gt, .7) + hud(gt);
+    s += layer(cam, figHead(680, 560, 460, { who: 'leo', fc: 1, expr: 'scared', mouth: 'shout', talk: Math.max(talkOf('leo', gt), lt < .9 ? .8 : 0), t: gt, pose: { tor: -8, head: -10 }, rim: { dx: -10, dy: -10, c: '#ffd29a' } }));
+    s += rect(0, 0, W, H, lgrad([[0, '#2f7bff', 0], [1, '#2f7bff', .22]], 0, 0, 1, 0), { style: SCREEN });
+    return dutch(s + headlightWash(gt, .7), 8) + hud(gt);
   },
   // s088: three large panels A/B/C, each a frozen impact frame, big labels, red X stamps in turn
   triptych(lt, d, gt) {
@@ -193,7 +194,7 @@ Object.assign(SHOTS_REG, {
   p_decide(lt, d, gt) {
     const cam = camMove(lt, d, { x: 960, y: 540, z: 1.05 }, { x: 960, y: 540, z: 1.18 });
     let s = nightBokehBg(C0, gt, 61, { x: 1100 });
-    s += layer(cam, figHead(960, 520, 420, { who: 'leo', fc: 0, expr: lt < d * .55 ? 'closed' : 'determined', t: gt, rim: { dx: 0, dy: -10, c: '#ffd29a' } }));
+    s += layer(cam, figHead(640, 440, 440, { who: 'leo', fc: 1, expr: lt < d * .55 ? 'closed' : 'determined', lookX: 1, t: gt, rim: { dx: 12, dy: -6, c: '#eaf2ff' } }));
     return s + headlightWash(gt, .6) + hud(gt);
   },
   // ---------- the real solution ----------
@@ -359,9 +360,8 @@ Object.assign(SHOTS_REG, {
 Object.assign(SHOTS_REG, {
   // s082b: the real Leo gasps — he just saw himself get hit
   p_gasp(lt, d, gt) {
-    const cam = { x: 960, y: 540, z: 1.0 + ease.outExpo(clamp(lt / .2)) * .1 };
     let s = nightBokehBg(C0, gt, 37, { x: 1250 });
-    s += layer(cam, figHead(820, 520, 380, { who: 'leo', fc: 1, expr: 'scared', mouth: 'o', blink: false, still: true, t: gt, pose: { tor: -10 * seg(lt, 0, .3), head: -12 * seg(lt, 0, .3) }, rim: { dx: -10, dy: -10, c: '#ffd29a' } }));
-    return s + headlightWash(gt, .7) + hud(gt);
+    s += layer({ x: 960, y: 540, z: 1 + ease.outExpo(clamp(lt / .12)) * .25 }, figHead(960, 700, 1500, { who: 'leo', fc: 0, expr: 'scared', blink: false, still: true, t: gt, rim: { dx: 0, dy: -12, c: '#ffd29a' } })) + rect(0, 0, W, 330, '#000') + rect(0, 760, W, 330, '#000');
+    return s + headlightWash(gt, .5) + hud(gt);
   },
 });

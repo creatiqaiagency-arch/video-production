@@ -13,6 +13,8 @@ const ease = {
   in: t => t * t * t,
   in2: t => t * t,
   outExpo: t => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+  // ease-in-out that overshoots ~8% and settles — follow-through on every pose change
+  settle: t => { const a = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; return a + .12 * Math.sin(Math.PI * Math.min(1, Math.max(0, (t - .55) / .45))); },
   outBack: t => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); },
 };
 // progress of t through [a,b] with easing

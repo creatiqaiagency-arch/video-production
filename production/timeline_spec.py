@@ -9,9 +9,10 @@ SFX entries: (sfx_name, anchor, gain_db).  Music entries live in MUSIC (start an
 BLOCKS = [
   # ---------------- COLD OPEN (= the Future-B moment from the climax) ----------------
   dict(name='B01', vo=[('N01', 1.1)], shots=[
-      ('s001', 'co_wide', 'N01+1.3'),
-      ('s002', 'co_truckFront', 'N01$+0.2'),
-      ('s003', 'co_eyes', '+1.4')],
+      ('s001', 'co_wide', 'N01+0.5'),
+      ('s002', 'co_truckFront', '+1.5'),
+      ('s002b', 'co_grille', '+0.8'),
+      ('s003', 'co_eyes', 'N01$+0.25')],
       sfx=[('amb_city_night', 0, -14), ('sfx_truck_approach', 0.6, -6), ('sfx_heartbeat', 's002', -3), ('sfx_power', 's003+0.4', -2)]),
   dict(name='B02', vo=[('N02', 1.3)], shots=[
       ('s004', 'co_future', 'N02.1+0.3'),

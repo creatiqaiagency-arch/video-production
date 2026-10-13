@@ -100,6 +100,7 @@ function glass(x, y, s = 1, o = {}) {
 }
 function coin(x, y, r, spin = 0, ghost = false) { const rx = Math.max(1.5, r * Math.abs(Math.cos(spin))); return ghost ? ell(x, y, rx, r, '#9ad6ff', { opacity: .8, filter: fGhost(3), class: 'gh' }) : ell(x, y, rx, r, '#e9b949') + ell(x - rx * .15, y - r * .15, rx * .6, r * .6, '#f6d77c', { opacity: .7 }); }
 function football(x, y, r, rot = 0, o = {}) {
+  if (o.sq) { const q = o.sq; return `<g transform="translate(${f1(x)} ${f1(y + r)}) scale(${(1 + q * .8).toFixed(3)} ${(1 - q).toFixed(3)}) translate(${f1(-x)} ${f1(-y - r)})">${football(x, y, r, rot, { ...o, sq: 0 })}</g>`; }
   const c1 = o.ghost ? '#c9ecff' : '#f1ece3', c2 = o.ghost ? '#4f9be8' : '#15121a';
   let s = circ(x, y, r, c1);
   for (let i = 0; i < 5; i++) { const a = (rot + i * 72) * R; s += poly([0, 1, 2, 3, 4].map(k => [x + Math.cos(a) * r * .62 + Math.cos(k * 72 * R + a) * r * .2, y + Math.sin(a) * r * .62 + Math.sin(k * 72 * R + a) * r * .2]), c2); }

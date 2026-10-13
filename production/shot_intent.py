@@ -1,6 +1,6 @@
 # What each shot is SUPPOSED to show (used by the auditors to compare intent vs. result)
 INTENT = {
- 's001': 'Fully lit road-level wide at 8:17 PM, looking toward the oncoming truck. At the right curb (nearest to furthest): Nora, Leo pushing off the curb, the boy already in the road with his ball, the crossing guard. Truck approaching.',
+ 's001': 'Knee-level tracking: the football bounces off the curb into the near lane and the boy sprints in after it — he is chasing his ball.',
  's002': "Low over-the-shoulder: Leo's blurred head/shoulder fills the left third; truck headlights grow on the right; the boy in the road.",
  's003': "Extreme close-up of Leo's eyes, crash zoom, headlight glints, blue ring passes across pupils, short white flash.",
  's004': 'FUTURE (Future B, same composition as s082): side view - ghost Leo in the lane after pushing the ghost boy to the sidewalk; truck strikes; freeze just before impact. Nora and guard on the curb.',

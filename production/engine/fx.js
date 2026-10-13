@@ -24,6 +24,18 @@ function ringFx(x, y, p, rMax = 900, c = '#8fd3ff') {
   const r = 20 + ease.out(p) * rMax, a = 1 - p;
   return circ(x, y, r + 6 + 12 * a, 'none', { stroke: '#0a1a3a', 'stroke-width': 4, opacity: a * .7 }) + circ(x, y, r, 'none', { stroke: c, 'stroke-width': 6 + 18 * a, opacity: a, filter: fGlow(8, '#2f7bff', 1) }) + circ(x, y, r * .7, 'none', { stroke: '#fff', 'stroke-width': 2, opacity: a * .6 });
 }
+// Dutch angle: rotate the whole frame about its centre, over-scaled so no corners show
+function dutch(svg, deg) { if (!deg) return svg; const k = 1 + Math.abs(deg) * .021; return `<g transform="translate(960 540) rotate(${f1(deg)}) scale(${k.toFixed(3)}) translate(-960 -540)">${svg}</g>`; }
+// bouncing-ball physics: decaying parabolic hops. Returns height above ground, squash (+ on contact, − stretched in flight) and whether it is resting.
+function hop(t, p0 = .5, h0 = 60, n = 5, keep = .6) {
+  let t0 = 0, p = p0, h = h0;
+  for (let k = 0; k < n; k++) {
+    if (t < t0 + p) { const u = (t - t0) / p, y = 4 * h * u * (1 - u), edge = Math.min(u, 1 - u) * p;
+      const sq = edge < .035 ? .35 * (h / h0) * (1 - edge / .035) : -.18 * (h / h0) * Math.abs(1 - 2 * u); return { y, sq, rest: false }; }
+    t0 += p; p *= Math.sqrt(keep); h *= keep;
+  }
+  return { y: 0, sq: 0, rest: true };
+}
 function flash(p, c = '#dff2ff') { return p > 0 ? rect(0, 0, W, H, c, { opacity: clamp(p) }) : ''; }
 // glass-shard break transition: shards fly out showing what's underneath (p 0..1). content = the image to break.
 function shards(content, p, seed = 7) {

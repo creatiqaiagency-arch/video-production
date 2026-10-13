@@ -22,6 +22,7 @@ const POSES = {
   relaxed: { tor: -2, head: 2, ab: [10, 12], af: [-8, 10], lb: [5, 2], lf: [-4, 0] },
   sit: { tor: -4, head: 0, ab: [30, 50], af: [35, 55], lb: [88, 88], lf: [86, 86], drop: 1.25 },
   sitEat: { tor: 6, head: 6, ab: [30, 50], af: [40, 95], lb: [88, 88], lf: [86, 86], drop: 1.25 },
+  scoop: { tor: 48, head: 12, ab: [45, 10], af: [58, 8], lb: [24, 34], lf: [-14, 30], drop: .2 },
   reach: { tor: 12, head: 6, ab: [20, 20], af: [85, 5], lb: [10, 4], lf: [-12, 6] },
   catchLow: { tor: 35, head: 20, ab: [30, 20], af: [60, 0], lb: [55, 70], lf: [-10, 40], drop: .4 },
   point: { tor: 4, head: 2, ab: [8, 10], af: [92, 0], lb: [6, 0], lf: [-6, 0] },
@@ -64,7 +65,7 @@ function mixPose(a, b, t) {
 }
 const P = n => (typeof n === 'string' ? POSES[n] : n);
 // pose keyframes: poseAt(t, [[t0,'stand'],[t1,'reach'] ...])
-function poseAt(t, keys, e = ease.inOut) {
+function poseAt(t, keys, e = ease.settle) {
   if (t <= keys[0][0]) return P(keys[0][1]);
   for (let i = 1; i < keys.length; i++) if (t <= keys[i][0]) return mixPose(P(keys[i - 1][1]), P(keys[i][1]), (keys[i][2] || e)(clamp((t - keys[i - 1][0]) / (keys[i][0] - keys[i - 1][0]))));
   return P(keys[keys.length - 1][1]);
@@ -72,11 +73,11 @@ function poseAt(t, keys, e = ease.inOut) {
 // cycles
 function walkPose(ph, amt = 1) {
   const s = Math.sin(ph * 2 * Math.PI), c = Math.cos(ph * 2 * Math.PI);
-  return { tor: 4 * amt, head: 1, ab: [-24 * s * amt + 6, 18], af: [24 * s * amt - 6, 18], lb: [26 * s * amt, Math.max(0, -c) * 40 * amt + 4], lf: [-26 * s * amt, Math.max(0, c) * 40 * amt + 4], bob: Math.abs(c) * .06 * amt };
+  return { tor: 4 * amt, head: 1, ab: [-24 * s * amt + 6, 18], af: [24 * s * amt - 6, 18], lb: [26 * s * amt, Math.max(0, -c) * 40 * amt + 4], lf: [-26 * s * amt, Math.max(0, c) * 40 * amt + 4], bob: Math.abs(c) * .06 * amt, sq: (Math.abs(c) - .5) * .04 * amt };
 }
 function runPose(ph, amt = 1) {
   const s = Math.sin(ph * 2 * Math.PI), c = Math.cos(ph * 2 * Math.PI);
-  return { tor: 18 * amt, head: 4, ab: [-55 * s * amt + 15, 80], af: [55 * s * amt + 15, 80], lb: [45 * s * amt + 10, (1 - s) * 50 * amt + 10], lf: [-45 * s * amt + 10, (1 + s) * 50 * amt + 10], bob: Math.abs(c) * .15 * amt, drop: .15 };
+  return { tor: 18 * amt, head: 4, ab: [-55 * s * amt + 15, 80], af: [55 * s * amt + 15, 80], lb: [45 * s * amt + 10, (1 - s) * 50 * amt + 10], lf: [-45 * s * amt + 10, (1 + s) * 50 * amt + 10], bob: Math.abs(c) * .15 * amt, drop: .15, sq: (Math.abs(c) - .5) * .13 * amt };
 }
 
 function blinkAt(t, seed = 0) { const per = 2.6 + rnd(seed) * 2.2; const ph = (t + rnd(seed + 3) * per) % per; return ph < 0.09; }
@@ -215,7 +216,10 @@ function fig(o) {
   else if (o.blur) filt = fBlur(o.blur);
   const op = ghost ? (o.op ?? .6) : (o.op ?? 1);
   if (o.joints) o.joints({ hip, neck, head, headR, armF, armB, legF, legB });
-  return `<g${ghost ? ' class="gh"' : ''}${filt ? ` filter="${filt}"` : ''}${op !== 1 ? ` opacity="${op}"` : ''}>${parts.join('')}</g>`;
+  // squash & stretch about the feet (volume-preserving): + squashes, − stretches
+  const sq = (o.sq || 0) + (pz.sq || 0);
+  const body = sq ? `<g transform="translate(${f1(o.x)} ${f1(o.y)}) scale(${(1 + sq * .75).toFixed(3)} ${(1 - sq).toFixed(3)}) translate(${f1(-o.x)} ${f1(-o.y)})">${parts.join('')}</g>` : parts.join('');
+  return `<g${ghost ? ' class="gh"' : ''}${filt ? ` filter="${filt}"` : ''}${op !== 1 ? ` opacity="${op}"` : ''}>${body}</g>`;
 }
 // ground shadow under a figure
 const shadowAt = (x, y, s, op = .35) => ell(x, y + s * .04, s * .9, s * .14, '#000', { opacity: op });
