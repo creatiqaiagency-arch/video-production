@@ -6,7 +6,7 @@ const path = require('path');
 const args = Object.fromEntries(process.argv.slice(2).reduce((a, v, i, arr) => (v.startsWith('--') ? a.concat([[v.slice(2), arr[i + 1]]]) : a), []));
 (async () => {
   const browser = await chromium.launch({ args: ['--disable-gpu', '--force-color-profile=srgb', '--disable-lcd-text'] });
-  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: +(args.scale || 1) });
   page.on('pageerror', e => { console.error('PAGEERR', e.message); });
   page.on('console', m => { if (m.type() === 'error') console.error('CONSOLE', m.text()); });
   await page.goto('file://' + path.resolve(__dirname, '../engine/index.html'));
