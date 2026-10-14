@@ -7,6 +7,7 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((a, v, i, arr) => (
 (async () => {
   const browser = await chromium.launch({ args: ['--disable-gpu', '--force-color-profile=srgb', '--disable-lcd-text'] });
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: +(args.scale || 1) });
+  page.setDefaultTimeout(300000);
   page.on('pageerror', e => { console.error('PAGEERR', e.message); });
   page.on('console', m => { if (m.type() === 'error') console.error('CONSOLE', m.text()); });
   await page.goto('file://' + path.resolve(__dirname, '../engine/index.html'));
@@ -25,7 +26,7 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((a, v, i, arr) => (
   const t0 = Date.now();
   for (let f = start; f < end; f++) {
     await page.evaluate(t => renderFrame(t), f / 24);
-    const buf = await page.screenshot({ type: 'jpeg', quality: 93 });
+    let buf; for (let k = 0; ; k++) { try { buf = await page.screenshot({ type: 'jpeg', quality: 93, timeout: 300000 }); break; } catch (e) { if (k >= 3) throw e; console.error('retry frame', f, e.message); } }
     if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once('drain', r));
     if ((f - start) % 240 === 0) console.error(`[${args.out}] frame ${f}/${end} ${((Date.now() - t0) / Math.max(1, f - start)).toFixed(0)}ms/f`);
   }
