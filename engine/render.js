@@ -9,11 +9,17 @@ const fs = require('fs'), path = require('path'), { spawn } = require('child_pro
 
 const args = {}; process.argv.slice(2).forEach((a, i, arr) => { if (a.startsWith('--')) args[a.slice(2)] = arr[i + 1] && !arr[i + 1].startsWith('--') ? arr[i + 1] : true; });
 const FPS = +(args.fps || 24);
-const [RW, RH] = (args.res || '1920x1080').split('x').map(Number);
+const [OW, OH] = (args.res || '1920x1080').split('x').map(Number);
+// Chromium cannot reliably rasterise our filter-heavy SVG above ~1080p (every other frame comes out half-painted),
+// so larger outputs are rendered as TILE x TILE quadrants at <=1920 wide and stitched by ffmpeg.
+const W = 1920, H = 1080; // world units of every frame (lib/core.js)
+const TILE = OW > 1920 ? Math.ceil(OW / 1920) : 1;
+const [RW, RH] = [OW / TILE, OH / TILE];
 const shotsFile = args.shots || 'shots/learn10x.js';
 const vo = args.vo ? JSON.parse(fs.readFileSync(args.vo, 'utf8')) : { dur: {}, spk: {}, env: {} };
 const EXE = process.env.CHROMIUM || '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';
 
+const LAUNCH_ARGS = ['--disable-gpu', '--force-color-profile=srgb', '--disable-lcd-text'];
 async function openPage(browser) {
   const page = await browser.newPage({ viewport: { width: RW, height: RH }, deviceScaleFactor: 1 });
   page.on('pageerror', e => console.error('PAGE ERROR', e.message));
@@ -30,7 +36,7 @@ async function openPage(browser) {
 }
 
 async function main() {
-  const browser = await chromium.launch({ executablePath: EXE, args: ['--disable-gpu', '--force-color-profile=srgb', '--disable-lcd-text'] });
+  const browser = await chromium.launch({ executablePath: EXE, args: LAUNCH_ARGS });
   const { page, total } = await openPage(browser);
   console.error(`timeline total ${total.toFixed(2)}s`);
   if (!Object.keys(vo.dur || {}).length) throw new Error('VO durations missing: refusing to build a placeholder-timed video (pass --vo vo_data.json)');
@@ -62,20 +68,35 @@ async function main() {
     await Promise.all(Array.from({ length: nWorkers }, async (_, w) => {
       const f0 = w * per, f1 = Math.min(nFrames, f0 + per);
       if (f0 >= f1) return;
-      const p = w === 0 ? page : (await openPage(browser)).page;
+      // one browser per worker: each gets its own raster/compositor process, so 4K frames finish painting in parallel
+      const br = w === 0 ? browser : await chromium.launch({ executablePath: EXE, args: LAUNCH_ARGS });
+      const p = w === 0 ? page : (await openPage(br)).page;
       const seg = `${args.video}.seg${w}.mp4`; segs[w] = seg;
-      const ff = spawn('ffmpeg', ['-y', '-v', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', String(args.crf || 18), '-pix_fmt', 'yuv420p', seg], { stdio: ['pipe', 'inherit', 'inherit'] });
+      const nT = TILE * TILE, fds = Array.from({ length: nT }, (_, i) => i === 0 ? 0 : i + 2);
+      const inArgs = fds.flatMap(fd => ['-thread_queue_size', '64', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', fd === 0 ? '-' : `pipe:${fd}`]);
+      const rows = Array.from({ length: TILE }, (_, r) => Array.from({ length: TILE }, (_, c) => `[${r * TILE + c}:v]`).join('') + (TILE > 1 ? `hstack=inputs=${TILE}[r${r}]` : 'null[r0]'));
+      const graph = rows.join(';') + ';' + Array.from({ length: TILE }, (_, r) => `[r${r}]`).join('') + (TILE > 1 ? `vstack=inputs=${TILE}[out]` : 'null[out]');
+      const ff = spawn('ffmpeg', ['-y', '-v', 'error', ...inArgs, '-filter_complex', graph, '-map', '[out]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', String(args.crf || 18), '-pix_fmt', 'yuv420p', seg], { stdio: ['pipe', 'inherit', 'inherit', ...fds.slice(1).map(() => 'pipe')] });
+      const pipes = fds.map(fd => ff.stdio[fd]);
+      const tiles = [];
+      for (let r = 0; r < TILE; r++) for (let c = 0; c < TILE; c++) tiles.push(`${c * W / TILE} ${r * H / TILE} ${W / TILE} ${H / TILE}`);
       await p.evaluate(fps => { DYN.dt = 1 / fps; }, FPS);
       for (let f = Math.max(0, f0 - 24); f < f0; f++) await p.evaluate(T => window.renderAt(T), from + f / FPS); // warm up the springs across chunk seams
       for (let f = f0; f < f1; f++) {
         const T = from + f / FPS;
         await p.evaluate(T => window.renderAt(T), T);
-        const buf = await p.screenshot({ type: 'jpeg', quality: 92 });
-        if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once('drain', r));
+        for (let i = 0; i < nT; i++) {
+          if (TILE > 1) await p.evaluate(vb => window.setTile(vb), tiles[i]);
+          const buf = await p.screenshot({ type: 'jpeg', quality: 92, timeout: 180000 });
+          pipes[i].write(buf);
+        }
+        // backpressure without deadlock: ffmpeg reads the tile inputs in turn, so only wait once a pipe has a big backlog
+        for (const pp of pipes) if (pp.writableLength > 32e6) await new Promise(r => pp.once('drain', r));
         if (w === 0 && f % 48 === 0) console.error(`w0 frame ${f}/${f1} ${((Date.now() - t0) / 1000).toFixed(0)}s`);
       }
-      ff.stdin.end();
+      pipes.forEach(pp => pp.end());
       await new Promise(r => ff.on('close', r));
+      if (br !== browser) await br.close();
     }));
     const list = `${args.video}.txt`;
     fs.writeFileSync(list, segs.filter(Boolean).map(s => `file '${path.resolve(s)}'`).join('\n'));

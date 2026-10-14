@@ -31,4 +31,6 @@ window.renderAt = (T) => {
   document.getElementById('stage').innerHTML = composeFrame(spec, T);
   return true;
 };
+// 4K tiling: show one quadrant of the current frame at 2x (vector, so it is true 4K detail)
+window.setTile = (vb) => { const svg = document.querySelector('#stage svg'); svg.setAttribute('viewBox', vb); return true; };
 </script></body></html>
